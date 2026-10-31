@@ -1,6 +1,6 @@
 # BackForge — Assess. Correct. Rebuild.
 
-**Live:** https://ayaan40000.github.io/Reserved-2/ (enable Pages once: Settings → Pages → Deploy from branch `main`, folder `/ (root)`)
+**Live:** https://ayaan40000.github.io/BackForge/
 
 An assessment-led, resistance-band-first back-strength planner in a single self-contained `index.html`. No build step, no backend, no account — all data lives in the browser's localStorage and can be exported (JSON/CSV) or wiped from the Progress tab.
 

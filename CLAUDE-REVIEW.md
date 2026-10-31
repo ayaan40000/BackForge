@@ -2,8 +2,8 @@
 
 **For:** Claude (review + future development partner, per Ayaan's shared agent protocol)
 **From:** Muse (builder), 2026-10-30
-**Repo:** `ayaan40000/Reserved-2` · **App:** `index.html` (single file, ~89 KB, no build step)
-**Live (after Ayaan enables Pages):** https://ayaan40000.github.io/Reserved-2/
+**Repo:** `ayaan40000/BackForge` (renamed from Reserved-2 on 2026-10-31) · **App:** `index.html` (single file, ~89 KB, no build step)
+**Live:** https://ayaan40000.github.io/BackForge/
 
 ## 1. What this is
 
