@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>BackForge — Assess. Correct. Rebuild.</title>
+<meta name="theme-color" content="#0B0D10">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 viewBox=%270 0 100 100%27%3E%3Crect width=%27100%27 height=%27100%27 rx=%2720%27 fill=%27%23C8F04B%27/%3E%3Ctext x=%2750%27 y=%2768%27 font-size=%2758%27 font-family=%27Arial%27 font-weight=%27bold%27 text-anchor=%27middle%27 fill=%27%23141A05%27%3EB%3C/text%3E%3C/svg%3E">
+<meta name="description" content="Assessment-led, resistance-band-first back strength planner. Screens muscle imbalance, anterior pelvic tilt, glute weakness and hip rotation, then builds your plan.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0B0D10; --bg2:#0F1216; --surface:#151920; --surface2:#1B2029; --line:#262C37;
+  --ink:#F2F4F1; --muted:#9AA5B1; --faint:#828D9B;
+  --volt:#C8F04B; --volt-ink:#141A05; --coral:#FF6B4A; --sky:#5CC8FF; --violet:#B79CFF; --gold:#FFC24B;
+  --good:#4ADE80; --warn:#FFC24B; --bad:#FF6B6B;
+  --r:18px; --r-sm:12px;
+  --font:'Inter',system-ui,-apple-system,'Segoe UI',sans-serif;
+  --disp:'Space Grotesk','Inter',system-ui,sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:var(--font);font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:96px}
+a{color:var(--sky)}
+button{font-family:var(--font);cursor:pointer}
+:focus-visible{outline:2px solid var(--volt);outline-offset:2px;border-radius:6px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 18px}
+
+/* ---------- header ---------- */
+header.site{position:sticky;top:0;z-index:60;background:rgba(11,13,16,.88);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.hd{display:flex;align-items:center;gap:14px;height:60px}
+.logo{display:flex;align-items:center;gap:10px;font-family:var(--disp);font-weight:700;font-size:20px;letter-spacing:.2px;color:var(--ink);text-decoration:none}
+.logo .mark{width:32px;height:32px;border-radius:9px;background:var(--volt);color:var(--volt-ink);display:grid;place-items:center;font-size:17px;font-weight:700}
+.logo em{font-style:normal;color:var(--volt)}
+.hd .sp{flex:1}
+.streakpill{display:flex;align-items:center;gap:7px;background:var(--surface2);border:1px solid var(--line);border-radius:99px;padding:6px 12px;font-size:13px;font-weight:600}
+.streakpill b{color:var(--gold)}
+nav.tabs{display:none;gap:4px}
+nav.tabs button{background:none;border:0;color:var(--muted);font-weight:600;font-size:14px;padding:8px 13px;border-radius:99px}
+nav.tabs button[aria-selected="true"]{background:var(--surface2);color:var(--ink)}
+@media(min-width:820px){nav.tabs{display:flex}}
+
+/* ---------- bottom nav (mobile) ---------- */
+nav.bottom{position:fixed;left:0;right:0;bottom:0;z-index:60;background:rgba(15,18,22,.94);backdrop-filter:blur(14px);border-top:1px solid var(--line);display:flex;justify-content:space-around;padding:8px 4px calc(8px + env(safe-area-inset-bottom))}
+nav.bottom button{background:none;border:0;color:var(--faint);font-size:11px;font-weight:600;display:flex;flex-direction:column;align-items:center;gap:3px;padding:4px 10px;border-radius:10px}
+nav.bottom button .ic{font-size:19px;line-height:1}
+nav.bottom button[aria-selected="true"]{color:var(--volt)}
+@media(min-width:820px){nav.bottom{display:none}body{padding-bottom:40px}}
+
+/* ---------- hero ---------- */
+.hero{padding:34px 0 8px}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--volt)}
+.hero h1{font-family:var(--disp);font-size:clamp(30px,5.4vw,50px);line-height:1.06;font-weight:700;margin:10px 0 12px;max-width:16ch}
+.hero h1 .hl{color:var(--volt)}
+.hero p.lede{color:var(--muted);max-width:62ch;font-size:16px}
+.hero-cta{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+
+/* ---------- buttons ---------- */
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:99px;border:1px solid var(--line);background:var(--surface2);color:var(--ink);font-weight:700;font-size:14px;padding:11px 20px;text-decoration:none;transition:transform .08s ease,background .15s}
+.btn:hover{background:#232936}
+.btn:active{transform:scale(.97)}
+.btn.primary{background:var(--volt);border-color:var(--volt);color:var(--volt-ink)}
+.btn.primary:hover{background:#D6F76B}
+.btn.coral{background:var(--coral);border-color:var(--coral);color:#1D0B06}
+.btn.ghost{background:transparent}
+.btn.sm{padding:10px 16px;font-size:13px;min-height:44px}
+.btn.block{width:100%;justify-content:center}
+.btn[disabled]{opacity:.45;cursor:not-allowed}
+
+/* ---------- layout / cards ---------- */
+main{padding-bottom:20px}
+.view{display:none}
+.view.active{display:block;animation:fade .25s ease}
+@keyframes fade{from{opacity:0;transform:translateY(4px)}to{opacity:1;transform:none}}
+.grid{display:grid;gap:14px}
+@media(min-width:720px){.grid.c2{grid-template-columns:1fr 1fr}.grid.c3{grid-template-columns:repeat(3,1fr)}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:18px}
+.card h3{font-family:var(--disp);font-size:17px;margin-bottom:6px}
+.card p{color:var(--muted);font-size:14px}
+.sec-t{font-family:var(--disp);font-size:21px;margin:28px 0 6px}
+.sec-sub{color:var(--muted);font-size:14px;margin-bottom:14px;max-width:66ch}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:99px;background:var(--surface2);border:1px solid var(--line);color:var(--muted)}
+.tag.volt{background:rgba(200,240,75,.13);color:var(--volt);border-color:rgba(200,240,75,.35)}
+.tag.coral{background:rgba(255,107,74,.13);color:var(--coral);border-color:rgba(255,107,74,.35)}
+.tag.sky{background:rgba(92,200,255,.12);color:var(--sky);border-color:rgba(92,200,255,.3)}
+.meter{height:8px;border-radius:99px;background:var(--surface2);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--volt);border-radius:99px;transition:width .4s ease}
+.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
+@media(min-width:720px){.kpis{grid-template-columns:repeat(4,1fr)}}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:16px}
+.kpi .n{font-family:var(--disp);font-size:27px;font-weight:700}
+.kpi .l{color:var(--muted);font-size:12.5px;font-weight:600;text-transform:uppercase;letter-spacing:.05em;margin-top:2px}
+.kpi .d{font-size:12.5px;margin-top:5px;color:var(--faint)}
+
+/* today session */
+.session-head{display:flex;align-items:flex-start;gap:12px;flex-wrap:wrap}
+.session-head .sp{flex:1}
+.exrow{display:flex;gap:12px;align-items:center;padding:12px 0;border-top:1px solid var(--line)}
+.exrow:first-of-type{border-top:0}
+.exrow .thumb{width:46px;height:46px;border-radius:12px;background:var(--surface2);display:grid;place-items:center;font-size:21px;flex:none}
+.exrow .nm{font-weight:700;font-size:14.5px}
+.exrow .dt{color:var(--muted);font-size:13px}
+.exrow .acts{margin-left:auto;display:flex;gap:6px;flex:none}
+.iconbtn{background:var(--surface2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px 12px;font-size:12.5px;font-weight:600;min-height:44px}
+.checkin{display:grid;gap:12px}
+input[type=range]{width:100%;accent-color:var(--volt);height:28px}
+.seg{display:flex;gap:6px;flex-wrap:wrap}
+.seg button{background:var(--surface2);border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:10px 14px;font-weight:600;font-size:13px;min-height:44px}
+.seg button.on{background:var(--volt);color:var(--volt-ink);border-color:var(--volt)}
+label.fl{font-size:13px;font-weight:700;color:var(--muted);display:block;margin-bottom:5px}
+
+/* assessment */
+.testcard{margin-bottom:14px}
+.testcard .opts{display:grid;gap:8px;margin-top:12px}
+@media(min-width:640px){.testcard .opts{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}}
+.testcard .opts button{background:var(--surface2);border:1px solid var(--line);color:var(--ink);border-radius:var(--r-sm);padding:11px 12px;font-weight:600;font-size:13.5px;text-align:left}
+.testcard .opts button.on{border-color:var(--volt);background:rgba(200,240,75,.12);color:var(--volt)}
+.testcard .how{color:var(--muted);font-size:14px}
+.testcard .why{font-size:12.5px;color:var(--faint);margin-top:8px}
+.numrow{display:flex;gap:10px;margin-top:12px}
+.numrow .fld{flex:1}
+.numrow input{width:100%;background:var(--surface2);border:1px solid var(--line);color:var(--ink);border-radius:var(--r-sm);padding:11px;font-size:15px;font-weight:600}
+.flagrow{display:flex;gap:10px;align-items:flex-start;padding:13px 0;border-top:1px solid var(--line)}
+.flagrow:first-of-type{border-top:0}
+.flagrow .sev{flex:none;margin-top:2px}
+.sev{font-size:10.5px;font-weight:800;letter-spacing:.05em;padding:3px 8px;border-radius:6px;text-transform:uppercase}
+.sev.high{background:rgba(255,107,107,.15);color:var(--bad)}
+.sev.mod{background:rgba(255,194,75,.14);color:var(--warn)}
+.sev.ok{background:rgba(74,222,128,.13);color:var(--good)}
+.flagrow .ft{font-weight:700;font-size:14.5px}
+.flagrow .fd{color:var(--muted);font-size:13.5px}
+.flagrow .fx{font-size:13px;color:var(--sky)}
+
+/* library */
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.libcard{display:flex;flex-direction:column;gap:8px}
+.libcard .nm{font-family:var(--disp);font-size:16.5px}
+.libcard .meta{display:flex;gap:6px;flex-wrap:wrap}
+.libcard p{flex:1}
+.search{width:100%;background:var(--surface);border:1px solid var(--line);border-radius:99px;color:var(--ink);padding:12px 18px;font-size:14.5px;margin-bottom:12px}
+
+/* modal + player */
+.overlay{position:fixed;inset:0;background:rgba(5,6,8,.72);backdrop-filter:blur(4px);z-index:80;display:none;align-items:flex-end;justify-content:center}
+.overlay.open{display:flex}
+.sheet{background:var(--bg2);border:1px solid var(--line);border-radius:22px 22px 0 0;width:100%;max-width:680px;max-height:92vh;overflow:auto;padding:22px 20px 30px}
+@media(min-width:720px){.overlay{align-items:center}.sheet{border-radius:22px}}
+.sheet h2{font-family:var(--disp);font-size:22px;margin-bottom:4px}
+.sheet .sub{color:var(--muted);font-size:14px;margin-bottom:14px}
+.sheet ul{margin:8px 0 8px 18px;color:var(--muted);font-size:14px}
+.sheet li{margin:3px 0}
+.vidlinks{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+.timerbox{text-align:center;padding:18px 0 6px}
+.timerbox .clock{font-family:var(--disp);font-size:64px;font-weight:700;font-variant-numeric:tabular-nums}
+.playerstep{text-align:center;padding:8px 0}
+.playerstep .big{font-size:44px}
+.progressdots{display:flex;gap:5px;justify-content:center;margin:14px 0}
+.progressdots i{width:8px;height:8px;border-radius:99px;background:var(--surface2)}
+.progressdots i.done{background:var(--volt)}
+.progressdots i.now{background:var(--coral);transform:scale(1.3)}
+iframe.vid{width:100%;aspect-ratio:16/9;border:0;border-radius:14px;background:#000}
+canvas.chart{width:100%;height:170px;display:block}
+table.cmp{width:100%;border-collapse:collapse;font-size:13.5px}
+table.cmp th,table.cmp td{padding:9px 8px;border-top:1px solid var(--line);text-align:left;vertical-align:top}
+table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-spacing:.05em;border-top:0}
+.toast{position:fixed;left:50%;bottom:110px;transform:translateX(-50%) translateY(20px);background:var(--volt);color:var(--volt-ink);font-weight:700;font-size:14px;padding:11px 20px;border-radius:99px;opacity:0;pointer-events:none;transition:all .25s;z-index:99;max-width:92vw;text-align:center}
+.toast.show{opacity:1;transform:translateX(-50%)}
+@media(min-width:820px){.toast{bottom:36px}}
+.alertbox{border:1px solid rgba(255,107,107,.45);background:rgba(255,107,107,.08);border-radius:var(--r);padding:16px 18px}
+.alertbox h3{color:var(--bad)}
+.roadmap{opacity:.92}
+.roadmap .when{margin-left:auto}
+.foot{border-top:1px solid var(--line);margin-top:44px;padding:22px 0 10px;color:var(--faint);font-size:13px}
+.small{font-size:13px;color:var(--muted)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.hero.compact{padding:16px 0 0}.hero.compact .kicker,.hero.compact p.lede{display:none}.hero.compact h1{font-size:25px;margin:4px 0 6px}
+.playerfoot{position:sticky;bottom:0;background:var(--bg2);padding-top:10px}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
+.hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+</style>
+</head>
+<body>
+
+<header class="site">
+  <div class="wrap hd">
+    <a class="logo" href="#" data-nav="today"><span class="mark">B</span>Back<em>Forge</em></a>
+    <nav class="tabs" aria-label="Main">
+      <button data-nav="today" aria-selected="true">Today</button>
+      <button data-nav="assess" aria-selected="false">Assess</button>
+      <button data-nav="library" aria-selected="false">Library</button>
+      <button data-nav="progress" aria-selected="false">Progress</button>
+      <button data-nav="more" aria-selected="false">More</button>
+    </nav>
+    <div class="sp"></div>
+    <div class="streakpill" title="Day streak"><span>🔥</span><b id="streakN">0</b><span class="small">day streak</span></div>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <!-- ================= TODAY ================= -->
+  <section class="view active" id="view-today">
+    <div class="hero">
+      <div class="kicker">Resistance-band back strength</div>
+      <h1>Assess. Correct. <span class="hl">Rebuild your back.</span></h1>
+      <p class="lede">BackForge screens for the patterns that actually drive back pain — muscle imbalance, anterior pelvic tilt, glute weakness, hip rotation loss — then builds a band-first plan around <em>your</em> results. No generic workouts. No loaded spinal flexion or twisting. Ever.</p>
+      <div class="hero-cta" id="heroCta"></div>
+    </div>
+
+    <div class="kpis" id="kpis"></div>
+
+    <h2 class="sec-t">Today's session</h2>
+    <p class="sec-sub" id="todaySub"></p>
+    <div class="card" id="todayCard"></div>
+
+    <h2 class="sec-t">Daily check-in</h2>
+    <p class="sec-sub">Thirty seconds. Your answers tune today's load — the same recovery logic Fitbod and Whoop charge for, driven by pain instead of a wrist sensor.</p>
+    <div class="card checkin">
+      <div>
+        <label class="fl">Pain right now: <span id="painVal">—</span> / 10</label>
+        <input type="range" id="painRange" min="0" max="10" step="1" value="3" aria-label="Pain score 0 to 10">
+      </div>
+      <div>
+        <label class="fl">Where?</label>
+        <div class="seg" id="painWhere">
+          <button data-v="none">None</button><button data-v="back">Low back</button><button data-v="leg-r">Right leg</button><button data-v="leg-l">Left leg</button><button data-v="neck">Neck / shoulders</button>
+        </div>
+      </div>
+      <div>
+        <label class="fl">Slept</label>
+        <div class="seg" id="sleepSeg">
+          <button data-v="poor">Poorly</button><button data-v="ok">Okay</button><button data-v="great">Great</button>
+        </div>
+      </div>
+      <div id="checkinMsg" class="small"></div>
+      <button class="btn primary" id="saveCheckin">Save check-in &amp; tune today</button>
+    </div>
+
+    <h2 class="sec-t">Your week</h2>
+    <p class="sec-sub">Strength A / B / C, Zone 2 cardio, and the daily foundation — McGill Big 3 plus your corrective blocks. The micro version of any day counts as done.</p>
+    <div class="grid c3" id="weekGrid"></div>
+
+    <h2 class="sec-t">Watch: the Big 3, from the source</h2>
+    <p class="sec-sub">Dr. Aaron Horschig (Squat University) walking through Dr. Stuart McGill's Big 3 — the daily core of this program.</p>
+    <div class="card">
+      <iframe class="vid" src="https://www.youtube.com/embed/2_e4I-brfqs" title="Squat University — The McGill Big 3 for Core Stability" loading="lazy" allowfullscreen></iframe>
+      <p class="small" style="margin-top:10px">Every exercise in the Library links to demos from multiple trusted sources — Squat University, BackFitPro (McGill), E3 Rehab, Low Back Ability and more — so you can cross-check form instead of trusting one voice.</p>
+    </div>
+  </section>
+
+  <!-- ================= ASSESS ================= -->
+  <section class="view" id="view-assess">
+    <h2 class="sec-t" style="margin-top:22px">Movement assessment</h2>
+    <p class="sec-sub">13 short self-tests, no equipment beyond a mat, a chair and a wall. Do them in any order, over as many sittings as you need — answers save automatically, and scoring unlocks after the 6 core tests. This screens movement patterns — it does not diagnose. Retest every 4 weeks; your plan rebuilds itself from the results.</p>
+    <div class="alertbox" style="margin-bottom:16px">
+      <h3>Stop rules — read first</h3>
+      <p style="color:var(--muted);font-size:14px">Stop any test if pain spreads further down the leg, or you get new numbness, tingling or weakness. <b style="color:var(--ink)">Seek urgent care, do not continue</b>, for saddle/groin numbness, bladder or bowel changes, rapidly worsening leg weakness, or severe unrelenting night pain. Mild effort is fine; sharp, electric or spreading pain is not. Skipping a painful test is useful data — mark it skipped.</p>
+    </div>
+    <div class="card" style="margin-bottom:16px;position:sticky;top:70px;z-index:20">
+      <div style="display:flex;align-items:center;gap:14px;flex-wrap:wrap">
+        <div style="flex:1;min-width:200px">
+          <h3 id="assessProgT">Not started</h3>
+          <div class="meter" style="margin-top:8px"><i id="assessProg" style="width:0%"></i></div>
+        </div>
+        <button class="btn primary" id="scoreBtn">Score my assessment</button>
+        <button class="btn ghost" id="resetAssess">Reset</button>
+      </div>
+    </div>
+    <div id="testList"></div>
+    <div id="assessResults"></div>
+  </section>
+
+  <!-- ================= LIBRARY ================= -->
+  <section class="view" id="view-library">
+    <h2 class="sec-t" style="margin-top:22px">Exercise library</h2>
+    <p class="sec-sub">Band-first, spine-sparing, every move with cues, common mistakes, a regression and a progression. Tap any exercise for full detail and video demos from multiple sources.</p>
+    <input class="search" id="libSearch" type="search" placeholder="Search exercises — try 'glute', 'band', 'hip'…">
+    <div class="filters" id="libFilters"></div>
+    <div class="grid c2" id="libGrid"></div>
+  </section>
+
+  <!-- ================= PROGRESS ================= -->
+  <section class="view" id="view-progress">
+    <h2 class="sec-t" style="margin-top:22px">Progress</h2>
+    <p class="sec-sub">Progression here is gated on your pain trend and consistency — not the calendar. That is the rule serious rehab programs run on, and the one generic apps skip.</p>
+    <div class="kpis" id="progKpis"></div>
+    <div id="gateAction" style="margin-top:12px"></div>
+    <div class="grid c2" style="margin-top:14px">
+      <div class="card"><h3>Pain trend</h3><p>Daily check-in scores, last 14 entries.</p><canvas class="chart" id="painChart" width="520" height="170"></canvas></div>
+      <div class="card"><h3>Sessions per week</h3><p>Foundation days count. Micro counts.</p><canvas class="chart" id="sessChart" width="520" height="170"></canvas></div>
+    </div>
+    <h2 class="sec-t">Assessment history</h2>
+    <p class="sec-sub">Retest every 4 weeks. Progress looks like: glutes firing first, bridge holds without cramp, hip IR evening out, side-plank sides within 10%.</p>
+    <div class="card" id="assessHistory"><p>No scored assessment yet.</p></div>
+    <h2 class="sec-t">Your data is yours</h2>
+    <div class="card">
+      <p>Everything is stored on this device only (localStorage) — no account, no server, no subscription. Export anytime.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+        <button class="btn sm" id="exportJson">Export JSON</button>
+        <button class="btn sm" id="exportCsv">Export workout log CSV</button>
+        <button class="btn sm" id="wipeBtn">Erase all data</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ================= MORE ================= -->
+  <section class="view" id="view-more">
+    <h2 class="sec-t" style="margin-top:22px">Daily reminder</h2>
+    <div class="card"><h3>Train at the same time every day</h3><p>Set your reminder here — from deploy day, this replaces the chat check-in. Best results: add BackForge to your home screen (browser menu → Add to Home Screen) and allow notifications. In v1 the reminder fires while the app is installed/open on this device.</p><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center"><input type="time" id="remTime" value="19:00" style="background:var(--surface2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px;font-size:15px;min-height:44px"><button class="btn sm primary" id="remBtn">Enable reminder</button><span class="small" id="remState"></span></div></div>
+    <h2 class="sec-t">Coming next</h2>
+    <p class="sec-sub">The roadmap is built into the design, not bolted on. These modules plug into the same daily check-in and plan engine.</p>
+    <div class="grid c2" id="roadmapGrid"></div>
+
+    <h2 class="sec-t">References</h2>
+    <p class="sec-sub">The program is assembled from published, checkable sources — not influencer opinion.</p>
+    <div class="card" id="refCard"></div>
+
+    <h2 class="sec-t">Safety &amp; scope</h2>
+    <div class="card">
+      <p>BackForge is a self-guided exercise planner. It screens movement patterns and builds general back-strength programs; it does not diagnose, treat, or replace a physiotherapist. Program guardrails baked into every generated plan: no loaded spinal flexion, no loaded twisting, never both knees to chest at once, no press-ups for extension-intolerant backs, and a modify-don't-stop rule — every exercise ships with a regression. If your symptoms worsen or red flags appear, stop and see a clinician.</p>
+    </div>
+  </section>
+
+  <footer class="foot">
+    BackForge · Assess. Correct. Rebuild. · Bands first, spine spared, micro counts. · Data stays on your device.
+  </footer>
+</main>
+
+<nav class="bottom" aria-label="Main">
+  <button data-nav="today" aria-selected="true"><span class="ic">🏠</span>Today</button>
+  <button data-nav="assess" aria-selected="false"><span class="ic">🧭</span>Assess</button>
+  <button data-nav="library" aria-selected="false"><span class="ic">📚</span>Library</button>
+  <button data-nav="progress" aria-selected="false"><span class="ic">📈</span>Progress</button>
+  <button data-nav="more" aria-selected="false"><span class="ic">✦</span>More</button>
+</nav>
+
+<div class="overlay" id="overlay"><div class="sheet" id="sheet" role="dialog" aria-modal="true"></div></div>
+<div class="toast" id="toast"></div>
+
+<script>
+/* ============================================================
+   BackForge — single-file app. All state in localStorage.
+   Plan rules encode Ayaan's L4-L5 precautions:
+   no loaded spinal flexion/twisting, never both knees to chest,
+   no press-ups when extension-intolerant, modify-don't-stop.
+   ============================================================ */
+const $=s=>document.querySelector(s), $$=s=>[...document.querySelectorAll(s)];
+const YT=q=>'https://www.youtube.com/results?search_query='+encodeURIComponent(q);
+
+/* ---------------- Exercise library ---------------- */
+/* band: loop = loop band, long = long band, none = bodyweight, gym = optional gym swap */
+const EX=[
+{id:'curlup',n:'McGill Curl-Up',ic:'🧎',cat:'Core',band:'none',dose:'3 × 8 · 8-sec holds',targets:['core-endurance'],cues:['Hands under the small of your back — keep the natural curve','Lift head, neck and shoulders as one unit, barely off the floor','Breathe out slowly through pursed lips on the lift'],mistakes:['Curling the neck to the chest','Flattening the low back into the floor'],reg:'Fewer reps, 5-sec holds',prog:'Pyramid sets 6/4/2 with 10-sec holds',vid:[['Squat University','McGill curl up Squat University'],['BackFitPro','McGill curl up BackFitPro']]},
+{id:'birddog',n:'Bird-Dog',ic:'🐦',cat:'Core',band:'none',dose:'3 × 8 / side · 8-sec holds',targets:['core-endurance','glute-weak'],cues:['Opposite arm and leg, reach long — not high','Pelvis stays level: imagine a glass of water on your low back','Sweep the floor with your hand to reset each rep'],mistakes:['Arching the low back to lift the leg higher','Pelvis rotating open'],reg:'Leg only, or arm only',prog:'Band around the feet for resistance',vid:[['Squat University','bird dog Squat University McGill'],['E3 Rehab','bird dog exercise E3 Rehab']]},
+{id:'sideplank',n:'Side Plank (from knees)',ic:'📐',cat:'Core',band:'none',dose:'3 × 20–30 sec / side',targets:['core-endurance','lateral-gap'],cues:['Elbow under shoulder, hips stacked','Lift hips until the body is one straight line','Breathe steadily — no breath-holding'],mistakes:['Hips rolling forward','Holding to shaking failure — stop at form loss'],reg:'Shorter holds, more sets (10-sec exposures)',prog:'Full side plank from feet (Week 4+)',vid:[['Squat University','McGill side plank Squat University'],['BackFitPro','side bridge McGill BackFitPro']]},
+{id:'pullapart',n:'Band Pull-Apart',ic:'↔️',cat:'Bands',band:'long',dose:'3 × 15',targets:['upper-crossed','posture'],cues:['Arms straight, band to chest, shoulder blades pinch together','Ribs down — no low-back arch','Slow return, 2 seconds'],mistakes:['Shrugging to the ears','Bouncing the reps'],reg:'Lighter band, half range',prog:'Slow eccentrics, 4-sec return',vid:[['Squat University','band pull apart Squat University'],['E3 Rehab','band pull apart posture E3 Rehab']]},
+{id:'facepull',n:'Banded Face Pull',ic:'🎯',cat:'Bands',band:'long',dose:'3 × 15',targets:['upper-crossed','posture'],cues:['Pull to forehead height, knuckles back, elbows high','Rotate the forearms out at the end — thumbs behind you','Neck stays long, chin slightly tucked'],mistakes:['Pulling to the chest (that is a row)','Arching the back to finish'],reg:'Lighter band, seated',prog:'Add a 2-sec pause at full rotation',vid:[['Squat University','face pull external rotation Squat University'],['Christina Nicci','face pull posture correction']]},
+{id:'clamshell',n:'Banded Clamshell',ic:'🦪',cat:'Glutes',band:'loop',dose:'2 × 15 / side',targets:['glute-weak'],cues:['Feel it deep in the buttock — that is glute med working','Pelvis does not roll back as the knee opens','Feet stay glued together'],mistakes:['Rolling the pelvis to fake range','Feeling it at the front of the hip (TFL taking over) — reduce range'],reg:'No band',prog:'Add a side-plank clamshell',vid:[['E3 Rehab','clamshell glute med E3 Rehab'],['Squat University','clamshell exercise form']]},
+{id:'glutebridge',n:'Banded Glute Bridge',ic:'🌉',cat:'Glutes',band:'loop',dose:'2 × 20 · 2-sec top hold',targets:['glute-weak','apt'],cues:['Push knees out into the band the whole rep','Ribs down, squeeze glutes to lift — never arch to finish','Heels drive, toes light'],mistakes:['Low back arching at the top','Hamstrings cramping (feet too far away — walk them in)'],reg:'No band, fewer reps',prog:'Single-leg glute bridge 3 × 12 / side',vid:[['Squat University','glute bridge form Squat University'],['Low Back Ability','glute bridge low back ability']]},
+{id:'sidesteps',n:'Banded Side Steps',ic:'🦀',cat:'Glutes',band:'loop',dose:'2 × 12 / side',targets:['glute-weak'],cues:['Soft knees, hips back slightly, toes forward','Stay the same height — no bouncing','Band stays tight every step'],mistakes:['Knees caving inward','Standing tall between steps'],reg:'Band above knees, smaller steps',prog:'Band at ankles, lower stance',vid:[['E3 Rehab','lateral band walk E3 Rehab'],['Squat University','band side steps glute med']]},
+{id:'pallof',n:'Pallof Press',ic:'🧭',cat:'Core',band:'long',dose:'3 × 10 / side',targets:['core-endurance','apt'],cues:['Band at chest height, stand side-on, feet shoulder width','Press straight out and resist the rotation — ribs down','Exhale on the press'],mistakes:['Letting the band twist the torso (that is the load winning)','Holding your breath'],reg:'Lighter band, kneeling',prog:'Half-kneeling Pallof, then split stance',vid:[['Squat University','Pallof press Squat University'],['E3 Rehab','Pallof press anti rotation E3 Rehab']]},
+{id:'deadbug',n:'Dead Bug (band-assisted)',ic:'🪲',cat:'Core',band:'long',dose:'3 × 8 / side',targets:['apt','core-endurance'],cues:['Low back stays heavy on the floor — that is the whole exercise','Extend one leg slowly while the band holds your arms','Exhale fully before you move'],mistakes:['Low back arching off the floor as the leg drops','Rushing — 3 seconds out, 3 back'],reg:'Arms only, knees bent (toe taps)',prog:'Longer levers, slower tempo',vid:[['E3 Rehab','dead bug exercise E3 Rehab'],['Squat University','dead bug core stability']]},
+{id:'hipir9090',n:'90/90 Hip Switch',ic:'🔄',cat:'Hips',band:'none',dose:'2 × 8 slow switches',targets:['hip-ir'],cues:['Both knees at 90°, rotate like windshield wipers','Go slow into the stiff side — that side is the point','Sit taller as range opens'],mistakes:['Forcing end range with pain','Leaning away to fake the rotation'],reg:'Hands behind you for support, smaller range',prog:'No hands, add a lift-off on the trailing leg',vid:[['Squat University','90/90 hip switch Squat University'],['E3 Rehab','hip internal rotation mobility E3 Rehab']]},
+{id:'proneir',n:'Prone Hip IR Rocks',ic:'🦵',cat:'Hips',band:'none',dose:'2 × 10 / side',targets:['hip-ir'],cues:['Face down, knee bent 90°, let the foot drop outward slowly','Pelvis stays glued to the floor','Compare sides — note which one barely moves'],mistakes:['Pelvis lifting off the floor to cheat range','Dropping the foot fast'],reg:'Smaller range, pillow under hips',prog:'Add a light ankle band resistance',vid:[['E3 Rehab','prone hip internal rotation'],['Squat University','hip internal rotation test fix']]},
+{id:'adductorsqueeze',n:'Side-Lying Adductor Squeeze',ic:'🧦',cat:'Hips',band:'none',dose:'2 × 10 / side · 5-sec squeeze',targets:['hip-ir'],cues:['Pillow between the knees, squeeze at 70% effort','Pairs with the 90/90 work — it teaches the inward rotators','Breathe out on the squeeze'],mistakes:['Max-effort squeezing (cramp risk)','Holding breath'],reg:'3-sec squeezes',prog:'Longer holds, 8 sec',vid:[['E3 Rehab','adductor squeeze exercise'],['Squat University','adductor strength hip']]},
+{id:'hipflexorstretch',n:'Half-Kneeling Hip Flexor Stretch',ic:'🧘',cat:'Mobility',band:'none',dose:'2 × 45 sec / side',targets:['apt','hip-flexor'],cues:['Tuck the tailbone first — squeeze the glute of the back leg','Shift forward only after the tuck; no low-back arch','This is the direct counter to anterior pelvic tilt'],mistakes:['Arching the low back and calling it a stretch','Knee pain — pad it'],reg:'Standing version holding a chair',prog:'Add the long band overhead reach',vid:[['Squat University','hip flexor stretch anterior pelvic tilt Squat University'],['E3 Rehab','half kneeling hip flexor stretch E3 Rehab']]},
+{id:'chintuck',n:'Chin Tuck',ic:'🗣️',cat:'Posture',band:'none',dose:'3 × 10 · 5-sec holds',targets:['upper-crossed'],cues:['Glide the chin straight back — make a double chin','Eyes stay level','Tall through the crown of the head'],mistakes:['Tilting the head down instead of gliding back','Full backward head rolls (never)'],reg:'Against a wall for feedback',prog:'Seated with band resistance behind the head',vid:[['E3 Rehab','chin tuck forward head E3 Rehab'],['Bob & Brad','chin tuck forward head posture']]},
+{id:'wallangel',n:'Wall Angel',ic:'👼',cat:'Posture',band:'none',dose:'2 × 10',targets:['upper-crossed'],cues:['Head, upper back and tailbone on the wall','Slide arms up only as far as contact holds','Ribs down — no arching off the wall'],mistakes:['Low back leaving the wall','Shrugging to reach higher'],reg:'Smaller range, floor angel on your back',prog:'Banded wall angel',vid:[['Squat University','wall angel posture Squat University'],['E3 Rehab','wall angel exercise']]},
+{id:'row',n:'Banded Row',ic:'🚣',cat:'Bands',band:'long',dose:'3 × 12',targets:['upper-crossed','posture'],cues:['Hinge slightly, spine neutral, pull to the lower ribs','Shoulder blades glide together — chest tall','Ribs down at the finish'],mistakes:['Rounding the low back to pull harder','Yanking with the arms only'],reg:'Seated row, lighter band',prog:'One-arm banded row 3 × 12 / side',vid:[['Squat University','band row form Squat University'],['Christina Nicci','banded row posture']]},
+{id:'hiphinge',n:'Dowel Hip Hinge',ic:'🚪',cat:'Pattern',band:'none',dose:'3 × 8 slow',targets:['hinge'],cues:['Dowel touches head, mid-back and tailbone — all three, always','Push the hips back like closing a door with your backside','Stop where contact breaks — that is your current range'],mistakes:['Rounding to reach lower (the dowel tells you)','Bending the knees into a squat'],reg:'Shorter range, wall-tap hinge',prog:'Banded pull-through 3 × 15',vid:[['Squat University','hip hinge dowel Squat University'],['E3 Rehab','hip hinge tutorial E3 Rehab']]},
+{id:'pullthrough',n:'Banded Pull-Through',ic:'🏋️',cat:'Glutes',band:'long',dose:'3 × 15',targets:['glute-weak','hinge'],cues:['Hinge pattern, glutes snap you upright','Ribs down at the top — squeeze, do not arch','Band anchored low behind you'],mistakes:['Squatting it instead of hinging','Low back finishing the rep'],reg:'Dowel hinge practice',prog:'Heavier band; gym swap: cable pull-through / KB deadlift 12–16 kg',vid:[['Squat University','cable pull through glutes Squat University'],['Low Back Ability','pull through low back']]},
+{id:'singlebridge',n:'Single-Leg Glute Bridge',ic:'🦩',cat:'Glutes',band:'none',dose:'3 × 12 / side',targets:['glute-weak'],cues:['Pelvis stays level — no drop on the free side','Extra set on your weaker side, always','Hamstring cramp = feet closer in'],mistakes:['Pelvis rotating open','Arching to fake height'],reg:'Two-leg bridge with a march',prog:'Foot elevated single-leg bridge',vid:[['E3 Rehab','single leg glute bridge E3 Rehab'],['Squat University','single leg glute bridge test']]},
+{id:'qlreach',n:'QL Side Reach / Side Bend (gentle)',ic:'🌙',cat:'Mobility',band:'none',dose:'2 × 8 / side, gentle',targets:['lateral-gap'],cues:['Small range, smooth breathing — this is mobility, not loading','From Low Back Ability: gentle come-out-of-round work','Stop if it refers pain down the leg'],mistakes:['Loading this move with weight (never in this program)','Forcing range'],reg:'Seated version',prog:'Standing with wall support',vid:[['Low Back Ability','QL quadratus lumborum low back ability'],['Squat University','quadratus lumborum stretch']]},
+{id:'kneechest',n:'Single Knee-to-Chest',ic:'🤲',cat:'Mobility',band:'none',dose:'8 reps alternating · 20-sec holds',targets:['sciatica'],cues:['ONE knee at a time — never both together','Gentle pull, mild stretch only','Other foot stays planted'],mistakes:['Pulling both knees to the chest (banned in this program)','Yanking to end range'],reg:'Smaller pull, shorter holds',prog:'Add a slow ankle pump during the hold',vid:[['Bob & Brad','single knee to chest stretch Bob and Brad'],['E3 Rehab','sciatica stretches E3 Rehab']]},
+{id:'figure4',n:'Figure-4 Stretch',ic:'4️⃣',cat:'Mobility',band:'none',dose:'30 sec / side',targets:['sciatica','hip-ir'],cues:['Ankle on opposite knee, gentle lean-in','Feel it in the buttock, not the knee','Breathe and let it soften'],mistakes:['Forcing the knee down','Rounding hard to reach'],reg:'Seated figure-4 in a chair',prog:'Pigeon progression on the floor',vid:[['E3 Rehab','figure 4 stretch piriformis E3 Rehab'],['Bob & Brad','figure 4 stretch sciatica']]},
+{id:'catcamel',n:'Cat-Camel',ic:'🐈',cat:'Mobility',band:'none',dose:'5–6 slow cycles before Big 3',targets:['core-endurance'],cues:['Motion, not stretch — move through a comfortable arc','McGill: this reduces stiffness before stability work','Breathe with the movement'],mistakes:['Pushing end range hard','Rushing it'],reg:'Seated version',prog:'Add segmental control — move one vertebra at a time',vid:[['BackFitPro','cat camel McGill BackFitPro'],['Squat University','cat camel exercise']]},
+{id:'wallsquat',n:'Stability-Ball Wall Squat',ic:'⚽',cat:'Pattern',band:'none',dose:'3 × 12',targets:['hinge','glute-weak'],cues:['Ball supports the back — squat only as deep as symptoms allow','Knees track over toes, heels down','Wall support is a feature while the pattern rebuilds'],mistakes:['Knees caving in','Deep squats through symptoms'],reg:'Shallower range, chair squat',prog:'Banded goblet squat to a box',vid:[['E3 Rehab','wall squat exercise E3 Rehab'],['Squat University','squat form knees track']]},
+{id:'march9090',n:'90/90 March (banded hip control)',ic:'🥁',cat:'Hips',band:'loop',dose:'2 × 8 / side',targets:['hip-ir','glute-weak'],cues:['From Christina Nicci: control before load','Band above knees, march tall, pelvis level','Slow — 3 seconds per step'],mistakes:['Trunk leaning to lift the leg','Speed over control'],reg:'No band, seated march',prog:'Standing banded march with a pause',vid:[['Christina Nicci','90/90 march hip control'],['Squat University','banded march hip stability']]}
+];
+const EXBY={}; EX.forEach(e=>EXBY[e.id]=e);
+
+/* ---------------- Assessment tests ---------------- */
+/* kind: opts (choice) | sides (choice per side) | nums (seconds per side) */
+const TESTS=[
+{id:'dirbend',n:'Direction screen A — repeated forward bends',dom:'Direction preference',how:'Stand and slowly bend forward as if touching your toes, return to standing. 10 slow reps. How do your symptoms behave across the reps?',why:'From your initiation assessment: direction preference decides which positions your plan emphasizes — and which it bans.',kind:'opts',opts:[['better','Better — flexion relieves'],['same','No change'],['worse','Worse — flexion provokes'],['skip','Skipped — painful']]},
+{id:'dirext',n:'Direction screen B — standing extension',dom:'Direction preference',how:'Stand, hands on the small of your back, gently arch backward. 5 slow reps, small range only. How do your symptoms respond?',why:'Extension worsening symptoms = extension-intolerant pattern: press-ups and prone lying come OUT of the plan. This reversed your own program once — it matters.',kind:'opts',opts:[['better','Better — extension relieves'],['same','No change'],['worse','Worse — extension provokes'],['skip','Skipped — painful']]},
+{id:'firing',n:'Prone hip extension — firing order',dom:'Glute function',how:'Face down, forehead on hands. Put one hand on the glute and one on the hamstring of the working leg. Slowly lift the straight leg ~6 inches. Which muscle fires FIRST? Repeat per side.',why:'Glute-first is the healthy order. Hamstring or low back firing first = glute inhibition — the back does the glutes\u2019 job and complains about it.',kind:'sides',opts:[['glute','Glute first'],['ham','Hamstring first'],['back','Low back first'],['skip','Skipped']]},
+{id:'slbridge',n:'Single-leg glute bridge hold',dom:'Glute function',how:'On your back, one foot flat, other leg straight. Lift the hips to a straight line and hold 10 seconds, 3 reps per side. How does each side hold up?',why:'Hamstring cramping or a dropping pelvis = the glute is not carrying its load on that side.',kind:'sides',opts:[['clean','Clean hold, pelvis level'],['cramp','Hamstring cramps'],['drop','Pelvis drops / rotates'],['skip','Skipped']]},
+{id:'clamfeel',n:'Clamshell — where do you feel it?',dom:'Glute function',how:'Side-lying, knees bent, feet together. Open the top knee 10 slow reps without the pelvis rolling back. Where is the work?',why:'Deep in the buttock = glute med. Front/side of the hip = TFL compensating — a classic imbalance signature.',kind:'sides',opts:[['glute','Deep in the buttock'],['tfl','Front / side of hip'],['skip','Skipped']]},
+{id:'thomas',n:'Thomas test — hip flexor length',dom:'Hip flexors & tilt',how:'Sit on the edge of a sturdy table or bed. Hug one knee to your chest and lie back, letting the other leg hang. What does the hanging leg do? Repeat per side.',why:'A thigh that cannot rest flat = tight hip flexors (iliopsoas) — the front anchor of anterior pelvic tilt.',kind:'sides',opts:[['flat','Thigh rests flat, knee bent'],['lifted','Thigh lifts off the surface'],['lifted-ext','Thigh lifts AND knee straightens'],['skip','Skipped']]},
+{id:'pelvis',n:'Pelvic tilt — mirror check',dom:'Hip flexors & tilt',how:'Stand side-on to a mirror in your normal stance, wearing something with a waistband. Where does the waistband point, and how deep is your low-back arch?',why:'Anterior pelvic tilt (lower-crossed pattern): tight hip flexors + tight low back in front, weak glutes + weak deep core behind. The plan attacks all four corners.',kind:'opts',opts:[['neutral','Waistband level, gentle arch'],['apt','Waistband tips down in front, deep arch, belly out'],['posterior','Tucked under, flat low back'],['unsure','Can\u2019t tell']]},
+{id:'slr',n:'Straight-leg raise — active vs passive',dom:'Hamstring: control vs length',how:'On your back: (1) actively lift one straight leg as high as you can. (2) Then use a towel around the foot and gently pull it higher. Compare the two heights — and note what you feel.',why:'Passive much higher than active = a control deficit, not short hamstrings. The fix is strength, not aggressive stretching — protective hamstrings should not be yanked on.',kind:'opts',opts:[['gap','Passive goes much higher (control gap)'],['equal','Both equally limited, firm stretch'],['nerve','Sharp / electric tug behind the knee'],['skip','Skipped — painful']]},
+{id:'hipir',n:'Prone hip internal rotation',dom:'Hip rotation',how:'Face down, one knee bent 90° with the shin vertical. Let the foot drop OUTWARD slowly — that measures internal rotation. Estimate each side honestly.',why:'A common finding in one-sided back pain: one hip rotates far less than the other, often on the symptomatic side. A stiff hip makes the lumbar spine rotate instead.',kind:'sides',opts:[['full','Foot drops a lot (~45°+)'],['mid','Moderate drop (~25–40°)'],['low','Barely drops (<25°)'],['skip','Skipped']]},
+{id:'switch9090',n:'90/90 hip switch',dom:'Hip rotation',how:'Sit with both knees bent at 90°, feet wide. Slowly rotate both knees side to side like windshield wipers, 8 switches. How does it move?',why:'Catches rotation limits the prone test misses, and shows which side guards.',kind:'opts',opts:[['smooth','Smooth both ways'],['r-stuck','Stiff turning right-in'],['l-stuck','Stiff turning left-in'],['both','Stiff both ways'],['skip','Skipped']]},
+{id:'sideplanksec',n:'Side plank endurance (from knees)',dom:'Core endurance',how:'Side plank from the knees, elbow under shoulder. Time each side until form breaks (hips drop or roll). Enter seconds.',why:'McGill\u2019s endurance ratios: left and right side-bridge times should sit within ~10% of each other. A gap is a lateral stability deficit — and QL territory.',kind:'nums'},
+{id:'posturewall',n:'Wall posture test',dom:'Posture — upper crossed',how:'Stand with your back to a wall, heels a few inches out. What touches without forcing: tailbone, mid-back, and the back of your head?',why:'Head not touching = forward-head posture; shoulders rolling forward off the wall = rounded shoulders. Together: upper-crossed syndrome — chin tucks, rows and face pulls are its direct counter.',kind:'opts',opts:[['all','All three touch, easy'],['nohead','Head won\u2019t touch without strain'],['shoulders','Shoulders roll forward off the wall'],['both','Head won\u2019t touch AND shoulders roll'],['skip','Skipped']]},
+{id:'guard',n:'Weight-shift guarding check',dom:'Movement habits',how:'Bend forward slowly and do a shallow knee bend, like you normally would. Notice honestly: do you shift your weight to one side to avoid loading the other?',why:'Many people with one-sided pain unconsciously shift away from the sore side when bending. Guarding protects short-term and overloads the other side long-term — the plan adds extra work to the avoided side.',kind:'opts',opts:[['none','No — weight feels even'],['left','I shift LEFT (avoiding the right)'],['right','I shift RIGHT (avoiding the left)'],['unsure','Can\u2019t tell']]}
+];
+
+/* ---------------- Roadmap + references ---------------- */
+const ROADMAP=[
+{t:'Macro & protein counting',d:'Photo-first meal logging with a protein floor for tissue repair (glutes rebuild on protein, not wishes). Daily target auto-set from bodyweight; Muse reads the log and flags low-protein days at the evening check-in.',w:'Phase 2',tag:'Nutrition'},
+{t:'Health sync — via Muse',d:'Google Fit and Samsung Health both land in Health Connect on your phone, which Muse already reads: steps, Zone 2 heart rate, sleep and weight sync into Today\u2019s recovery score and the Progress charts. No new app permissions — Muse is the bridge.',w:'Phase 2',tag:'Sync'},
+{t:'AI form check',d:'Phone-camera rep counting and form flags for the Big 3 and hinge pattern — pelvis rotation on bird-dog, arch on hip thrust — using the same modify-don\u2019t-stop rules.',w:'Phase 3',tag:'Vision'},
+{t:'Coach & physio share',d:'One-tap read-only link of your assessment history, pain trend and session log — exactly the sheet a physiotherapist wants, generated from your data.',w:'Phase 3',tag:'Share'},
+{t:'Community streaks',d:'Hevy-style accountability without the noise: streaks and session shares with people you choose. Optional, off by default.',w:'Phase 4',tag:'Social'},
+{t:'Band-level progression engine',d:'Band resistance is your barbell: the engine tracks band level per exercise like Strong tracks plates, and only promotes you when pain trend + completion gates pass.',w:'In this build',tag:'Core'}];
+const REFS=[
+['McGill, S. — Back Mechanic & Ultimate Back Fitness and Performance','The Big 3, 10-second endurance exposures, descending pyramids, spine-sparing hinge mechanics. backfitpro.com'],
+['Squat University (Dr. Aaron Horschig, PT) — The McGill Big 3 for Core Stability','squatuniversity.com — the embedded video above and library demos throughout.'],
+['Janda, V. — Lower & Upper Crossed Syndromes','The imbalance framework behind the tilt and posture screens: tight hip flexors/erectors vs inhibited glutes/deep core; tight pecs/upper traps vs weak deep neck flexors/scapular stabilizers.'],
+['Christina Nicci — Reset → Control → Integrate','Corrective sequencing folded into the plan: 90/90 march, banded hip control before load.'],
+['Low Back Ability (ATG-style)','Back-extension progressions and QL work — included in gentle, unloaded form only; loaded spinal flexion (Jefferson curl) deliberately excluded for disc precautions.'],
+['E3 Rehab','Evidence-based demo library used across the exercise library for cross-checking form.']];
+
+/* ---------------- State ---------------- */
+const KEY='backforge_v1';
+let S=load();
+function load(){const base={v:1,answers:{},results:null,assessHistory:[],log:[],checkins:[],bandLevel:{},swaps:{},player:null,reminder:null};try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1)return Object.assign(base,s)}catch(e){}return base}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
+function todayStr(d){d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
+function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
+</script>
+
+<script>
+/* ---------------- Assessment engine ---------------- */
+function scoreAssessment(){
+  const A=S.answers, F=[];
+  const add=(sev,t,d,fix)=>F.push({sev,t,d,fix});
+  // Direction
+  const bend=(A.dirbend==='skip'?null:A.dirbend), ext=(A.dirext==='skip'?null:A.dirext);
+  if(ext==='worse'&&bend!=='worse') add('high','Extension-intolerant pattern','Standing extension provokes symptoms while flexion does not. Press-ups and prone lying are OUT; hip thrusts and deadlifts must finish with glutes, never a low-back arch.','Plan removes: press-ups, prone lying. Adds: ribs-down bracing cues everywhere.');
+  else if(bend==='worse'&&ext!=='worse') add('high','Flexion-intolerant pattern','Forward bending provokes symptoms. Loaded spinal flexion is banned (it already is here) and hinge range stays above your cutoff.','Plan caps hinge range; McGill curl-up stays modified with hands under the back.');
+  else if(bend==='worse'&&ext==='worse') add('high','Both directions provoke','Both flexion and extension worsen symptoms — keep everything in the neutral middle and raise this with your physio before progressing load.','Neutral-spine only; micro versions until retest.');
+  else if(bend&&ext) add('ok','Direction-neutral (for now)','Neither direction clearly provokes. Proceed with the balanced program and retest in 4 weeks.','Standard plan.');
+  // Glutes
+  let gluteHits=0; const weakSides=new Set();
+  ['L','R'].forEach(sd=>{
+    const f=A['firing_'+sd], b=A['slbridge_'+sd], c=A['clamfeel_'+sd];
+    let hits=0;
+    if(f==='ham'||f==='back')hits++;
+    if(b==='cramp'||b==='drop')hits++;
+    if(c==='tfl')hits++;
+    if(hits>=2){gluteHits++;weakSides.add(sd)}
+  });
+  if(gluteHits) add('high','Glute inhibition'+(weakSides.size?' — worse on the '+([...weakSides].map(s=>s==='L'?'left':'right').join(' & '))+' side':''),'Two or more glute tests show compensation: hamstrings or low back firing first, cramping, or TFL taking over. Your back is doing your glutes\u2019 job.','Daily band activation block; extra set on the weaker side; hamstring loading stays gentle until firing cleans up.');
+  else if((A.firing_L||A.slbridge_L)&&(A.firing_R||A.slbridge_R)) add('ok','Glutes are firing','Firing order and bridge holds look clean. Progress loading as programmed.','Standard progression.');
+  // Hip flexors / APT
+  const thL=A.thomas_L, thR=A.thomas_R;
+  if(thL==='lifted'||thL==='lifted-ext'||thR==='lifted'||thR==='lifted-ext'||A.pelvis==='apt')
+    add('high','Anterior pelvic tilt pattern (lower-crossed)','Tight hip flexors pull the pelvis forward while inhibited glutes and deep core fail to hold it level — a deep low-back arch and a spine that absorbs what the hips should.','Daily: hip flexor stretch + dead bug + glute bridge. Desk rule: stand every 30–40 min.');
+  else if(A.pelvis&&A.pelvis!=='unsure') add('ok','Pelvic position looks neutral','No clear tilt pattern on self-check.','Maintenance mobility only.');
+  // Hamstrings
+  if(A.slr==='gap') add('mod','Hamstring control gap — not shortness','Passive range far exceeds active range. These hamstrings are firing protectively; aggressive stretching would make it worse. Strength and safety signals fix this.','No aggressive hamstring stretching anywhere in your plan.');
+  if(A.slr==='nerve') add('high','Nerve tension sign on leg raise','A sharp/electric tug is nerve, not muscle. Do not stretch into it; nerve work stays at a mild tug that fades within 10 seconds.','Flossing intensity capped; flag to physio if it persists.');
+  if(A.slr==='equal') add('ok','Hamstrings genuinely short-ish','Active and passive match with a firm stretch — gentle sustained stretching is reasonable.','Standard mobility dose.');
+  // Hip IR
+  const irL=(A.hipir_L==='skip'?null:A.hipir_L), irR=(A.hipir_R==='skip'?null:A.hipir_R);
+  const irScore=v=>({'full':3,'mid':2,'low':1}[v]||0);
+  if((irL&&irR)||((irL||irR)&&(irScore(irL)===1||irScore(irR)===1))){
+    if((!irL||!irR)&&(irScore(irL)===1||irScore(irR)===1)) add('mod','Hip internal rotation limited on the tested side','The tested hip barely rotates inward. Complete the other side at the next sitting to check symmetry.','Prone IR rocks + 90/90 switches daily.');
+    else
+    if(irScore(irR)>0&&irScore(irR)<irScore(irL)) add('high','Right hip internal rotation deficit','The right hip barely rotates inward compared with the left — the same side as right-sided symptoms. A stiff hip forces the lumbar spine to rotate in its place during gait.','Daily IR block, right side first and doubled: prone IR rocks, 90/90 switches, adductor squeeze. Physio should assess the right hip capsule.');
+    else if(irScore(irL)>0&&irScore(irL)<irScore(irR)) add('high','Left hip internal rotation deficit','The left hip rotates inward less than the right. A stiff hip forces the lumbar spine to rotate in its place.','Daily IR block, left side first and doubled.');
+    else if(irScore(irL)===1||irScore(irR)===1) add('mod','Hip internal rotation limited both sides','Both hips are short on inward rotation. Daily mobility dose, no forcing.','90/90 switches daily.');
+    else add('ok','Hip rotation balanced','IR looks symmetric. Maintain with 90/90 work twice a week.','Maintenance dose.');
+  }
+  if(A.switch9090==='r-stuck'||A.switch9090==='l-stuck'||A.switch9090==='both') add('mod','90/90 switch confirms rotation stiffness','The seated switch agrees with the prone test — rotation work stays daily until the retest.','See hip IR block.');
+  // Side plank endurance
+  const spL=parseFloat(A.sideplanksec_L), spR=parseFloat(A.sideplanksec_R);
+  if(!isNaN(spL)&&!isNaN(spR)&&spL>0&&spR>0){
+    const ratio=Math.abs(spL-spR)/Math.max(spL,spR);
+    if(ratio>0.10) add('mod','Lateral endurance gap ('+Math.round(spL)+'s vs '+Math.round(spR)+'s)','Side-bridge sides differ by more than McGill\u2019s ~10% guide. The weaker side gets an extra set until they converge.','Extra side-plank set on the weaker side.');
+    else add('ok','Lateral endurance balanced','Sides within 10% of each other.','Standard Big 3 dosing.');
+    if(Math.min(spL,spR)<20) add('mod','Core endurance is low overall','Both sides under 20 seconds from the knees. Endurance — not max strength — is the first rebuild target.','Big 3 in 10-second exposures, more sets, never to form failure.');
+  }
+  // Posture
+  if(A.posturewall==='nohead'||A.posturewall==='both') add('mod','Forward-head posture','The head cannot reach the wall without strain — deep neck flexors are asleep and the neck extensors are overworking.','Chin tucks daily; monitor top at eye level.');
+  if(A.posturewall==='shoulders'||A.posturewall==='both') add('mod','Rounded shoulders (upper-crossed)','Tight chest, weak scapular stabilizers. Rows, face pulls and pull-aparts are the counter — all band work, already in your plan.','Upper-body band block 3×/week.');
+  // Guarding
+  if(A.guard==='left') add('mod','Guarding: you shift LEFT when bending','You offload the right side — protective today, overloading the left side over time. The plan adds right-side single-leg work so the right side relearns trust.','Extra right-side bridge set; conscious even loading on hinges.');
+  if(A.guard==='right') add('mod','Guarding: you shift RIGHT when bending','You offload the left side. The plan adds left-side single-leg work to rebalance.','Extra left-side bridge set.');
+  return F;
+}
+
+/* ---------------- Plan generator ---------------- */
+function flagSet(){return new Set((S.results||[]).map(f=>f.t))}
+function has(txt){return [...flagSet()].some(t=>t.includes(txt))}
+function buildFoundation(){
+  const blocks=[];
+  const extBad=has('Extension-intolerant');
+  const inbed=[{t:'Single knee-to-chest',d:'8 reps alternating, 20-sec holds — never both knees together',skip:false},
+    {t:'Figure-4 stretch',d:'30 sec / side',skip:false},
+    {t:'Prone hip IR rocks',d:'1 × 10 / side',skip:false}];
+  if(!extBad) inbed.unshift({t:'Prone lying',d:'60–90 sec, hips relaxed — skip if it provokes symptoms',skip:false});
+  else inbed.unshift({t:'Prone lying',d:'REMOVED — extension-intolerant pattern',skip:true});
+  blocks.push({name:'In bed, before standing',mins:5,items:inbed});
+  const posture=[{t:'Chin tuck',d:'1 × 10 · 5-sec holds',skip:false},{t:'Doorway chest stretch',d:'1 × 30 sec',skip:false},{t:'Wall angel',d:'1 × 10',skip:false}];
+  blocks.push({name:'Posture reset',mins:3,items:posture});
+  const act=[{t:'Band pull-apart',d:'1 × 15',skip:false},{t:'Glute bridge',d:'1 × 20',skip:false},{t:'Banded clamshell',d:'1 × 15 / side'+(has('Glute inhibition')?' — weaker side twice':''),skip:false}];
+  blocks.push({name:'Band activation',mins:3,items:act});
+  if(has('internal rotation deficit')||has('rotation stiffness')){
+    const side=has('Right hip internal')?'right first':(has('Left hip internal')?'left first':'both sides');
+    blocks.push({name:'Hip internal rotation',mins:3,items:[{t:'90/90 hip switch',d:'1 × 8 slow, '+side,skip:false},{t:'Side-lying adductor squeeze',d:'1 × 10 / side · 5-sec squeeze',skip:false},{t:'Prone hip IR rocks',d:'1 × 10 / side',skip:false}]});
+  }
+  if(has('Anterior pelvic tilt')){
+    blocks.push({name:'Tilt correction',mins:3,items:[{t:'Half-kneeling hip flexor stretch',d:'45 sec / side — tailbone tucked, glute squeezed',skip:false},{t:'Dead bug (band-assisted)',d:'1 × 8 / side, back heavy on the floor',skip:false}]});
+  }
+  blocks.push({name:'McGill Big 3 — one round',mins:5,items:[{t:'Modified curl-up',d:'1 × 8 · hands under back',skip:false},{t:'Bird-dog',d:'1 × 8 / side · 8-sec holds',skip:false},{t:'Side plank from knees',d:'20 sec / side'+(has('Lateral endurance gap')?' — weaker side twice':''),skip:false}]});
+  return blocks;
+}
+const STRENGTH={
+ A:{name:'Strength A — Lower body + pull',ex:[['glutebridge','3 × 20'],['wallsquat','3 × 12'],['row','3 × 12'],['singlebridge','3 × 12 / side'],['pallof','3 × 10 / side']]},
+ B:{name:'Strength B — Hinge + scapular',ex:[['hiphinge','3 × 8 dowel'],['pullthrough','3 × 15'],['facepull','3 × 15'],['pullapart','3 × 15'],['sideplank','3 × 30 sec / side']]},
+ C:{name:'Strength C — Volume + posture',ex:[['sidesteps','3 × 12 / side'],['clamshell','3 × 15 / side'],['deadbug','3 × 8 / side'],['chintuck','3 × 10'],['march9090','2 × 8 / side']]}
+};
+const WEEK=[['Mon','A'],['Tue','cardio'],['Wed','B'],['Thu','cardio'],['Fri','C'],['Sat','cardio'],['Sun','rest']];
+function weekPlan(){return WEEK.map(([d,k])=>({day:d,kind:k,label:k==='cardio'?'Zone 2 cardio':k==='rest'?'Rest — foundation only':'Strength '+k}))}
+function todayKind(){const dow=(new Date().getDay()+6)%7;return WEEK[dow][1]}
+function flareActive(){const c=S.checkins[S.checkins.length-1];return c&&c.date===todayStr()&&c.pain>=7}
+function recoveryTune(){const c=S.checkins[S.checkins.length-1];if(!c||c.date!==todayStr())return null;let load='Full session',note='Check-in looks steady. Full session as planned.';
+  if(c.pain>=7){load='Flare day';note='Pain 7+. Today is the relief protocol only — gentle mobility, no strength work. This is the plan working, not a day off.'}
+  else if(c.pain>=5){load='Micro + foundation';note='Pain 5–6. Foundation plus the micro version of today\u2019s session. Modify, don\u2019t stop.'}
+  else if(c.sleep==='poor'){load='Full, minus top set';note='Poor sleep drops tissue tolerance. Keep the session, drop the hardest set.'}
+  return{load,note}}
+</script>
+
+<script>
+/* ---------------- Navigation ---------------- */
+function go(v){$$('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+v));$$('nav [data-nav]').forEach(b=>{b.setAttribute('aria-selected',b.dataset.nav===v?'true':'false');if(b.dataset.nav===v)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});window.scrollTo({top:0});if(v==='progress')renderProgress()}
+$$('[data-nav]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();go(b.dataset.nav)}));
+
+/* ---------------- Streak / KPIs ---------------- */
+function streak(){const days=new Set(S.log.map(l=>l.date));let n=0,d=new Date();if(!days.has(todayStr(d)))d.setDate(d.getDate()-1);while(days.has(todayStr(d))){n++;d.setDate(d.getDate()-1)}return n}
+function sessionsThisWeek(){const now=new Date(),mon=new Date(now);mon.setDate(now.getDate()-((now.getDay()+6)%7));mon.setHours(0,0,0,0);return S.log.filter(l=>new Date(l.date)>=mon).length}
+function renderTop(){
+  $('#streakN').textContent=streak();
+  const lastPain=S.checkins.length?S.checkins[S.checkins.length-1].pain:'—';
+  const flags=S.results?S.results.filter(f=>f.sev!=='ok').length:0;
+  $('#kpis').innerHTML=
+   kpi(streak(),'day streak','Micro counts. Always.')+
+   kpi(sessionsThisWeek(),'sessions this week','of 7 planned days')+
+   kpi(lastPain,'latest pain score','/ 10 · gates progression')+
+   kpi(S.results?flags:'—','active findings',S.results?'from your assessment':'take the assessment');
+  $('#heroCta').innerHTML=S.results
+    ?'<button class="btn primary" onclick="go(\'today\');document.getElementById(\'todayCard\').scrollIntoView({behavior:\'smooth\'})">Start today\u2019s session →</button><button class="btn" onclick="go(\'assess\')">Review my assessment</button>'
+    :'<button class="btn primary" onclick="go(\'assess\')">Take the 15-minute assessment →</button><button class="btn" onclick="go(\'library\')">Browse the library</button>';
+}
+function kpi(n,l,d){return '<div class="kpi"><div class="n">'+n+'</div><div class="l">'+l+'</div><div class="d">'+d+'</div></div>'}
+
+/* ---------------- Today ---------------- */
+function sessionExercises(){
+  const k=todayKind(), tune=recoveryTune();
+  if(flareActive()) return{title:'Flare protocol — Back & Hip Relief',items:[['kneechest','8 alternating'],['figure4','30 sec / side'],['catcamel','6 cycles'],['qlreach','2 × 8 / side gentle']],kind:'flare'};
+  if(k==='rest') return{title:'Rest day — daily foundation',items:null,kind:'rest'};
+  if(k==='cardio') return{title:'Zone 2 cardio',items:null,kind:'cardio',note:'Elliptical 25–30 min at 120–135 bpm, or treadmill 30–35 min at 3.5–4.2 mph, 2–4% incline. Plus the daily foundation below.'};
+  const micro=tune&&(tune.load.includes('Micro'));
+  const s=STRENGTH[k];
+  let items=micro?s.ex.slice(0,2).map(([id])=>[id,'1 set only']):s.ex.slice();
+  items=items.map(([id,d])=>{const sw=S.swaps[id];return(sw&&sw.date===todayStr()&&EXBY[sw.to])?[sw.to,d+' · swapped in']:[id,d]});
+  return{title:s.name+(micro?' — MICRO version':''),items:items,kind:'strength'};
+}
+function renderToday(){
+  const s=sessionExercises(), tune=recoveryTune(), F=buildFoundation();
+  const returning=!!S.results||S.log.length>0, hero=document.querySelector('#view-today .hero');
+  if(returning&&hero){hero.classList.add('compact');const sec=$('#view-today'),kp=$('#kpis'),h2=sec.querySelectorAll('.sec-t')[0];if(h2&&kp&&kp.nextElementSibling!==h2){sec.insertBefore(h2,kp);sec.insertBefore($('#todaySub'),kp);sec.insertBefore($('#todayCard'),kp)}}
+  $('#todaySub').textContent=new Date().toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})+' · '+(S.results?'Plan built from your assessment findings.':'Generic starter plan — take the assessment to personalize it.')+(tune?' Load today: '+tune.load+'.':'');
+  const FICON={'In bed, before standing':'\U0001F319','Posture reset':'\U0001F9CD','Band activation':'\U0001F4AA','Hip internal rotation':'\U0001F504','Tilt correction':'\U0001F3AF','McGill Big 3 — one round':'\U0001F6E1\uFE0F'};
+  let h='<div class="session-head"><div class="sp"><h3>'+s.title+'</h3>'+(s.note?'<p>'+s.note+'</p>':'<p>Every session starts with the foundation. Micro counts as done.</p>')+'</div><span class="tag '+(s.kind==='flare'?'coral':'volt')+'">'+(s.kind==='flare'?'Flare':'Today')+'</span><button class="btn primary sm" onclick="startPlayer()">▶ Start</button>'+(S.player&&S.player.date===todayStr()?'<button class="btn sm" onclick="resumePlayer()">Resume · step '+(S.player.idx+1)+'</button>':'')+'</div>';
+  if(s.items){h+=s.items.map(([id,dose])=>{const e=EXBY[id];return exRow(e,dose)}).join('')}
+  h+='<hr class="hr"><h3 style="margin-bottom:4px">Daily foundation</h3>'+F.map(b=>'<p style="margin-top:10px"><b style="color:var(--ink)">'+b.name+'</b> <span class="small">· ~'+b.mins+' min</span></p>'+b.items.filter(i=>!i.skip).map(i=>'<div class="exrow"><div class="thumb">'+(FICON[b.name]||'·')+'</div><div><div class="nm" style="font-size:14px">'+i.t+'</div><div class="dt">'+i.d+'</div></div></div>').join('')+(b.items.some(i=>i.skip)?'<p class="small" style="color:var(--coral)">'+b.items.filter(i=>i.skip).map(i=>i.t+' — '+i.d).join('')+'</p>':'')).join('');
+  const doneToday=S.log.some(l=>l.date===todayStr());
+  h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px"><button class="btn primary" onclick="startPlayer()">▶ Start guided session</button><button class="btn" onclick="quickLog()">'+(doneToday?'Log another ✓':'Mark micro done ✓')+'</button></div>';
+  $('#todayCard').innerHTML=h;
+  $('#weekGrid').innerHTML=weekPlan().map(w=>{const isT=w.day===['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][(new Date().getDay()+6)%7];return '<div class="card" style="'+(isT?'border-color:var(--volt)':'')+'"><div style="display:flex;justify-content:space-between;align-items:center"><h3>'+w.day+'</h3>'+(isT?'<span class="tag volt">Today</span>':'')+'</div><p>'+w.label+'</p><p class="small" style="margin-top:6px">'+(w.kind==='cardio'?'Elliptical or treadmill, conversational pace.':w.kind==='rest'?'Morning blocks + Big 3 only.':'Foundation first, then the session. Micro version always available.')+'</p></div>'}).join('');
+}
+function exRow(e,dose){return '<div class="exrow"><div class="thumb">'+e.ic+'</div><div><div class="nm">'+e.n+'</div><div class="dt">'+dose+' · '+(e.band==='none'?'Bodyweight':(e.band==='loop'?'Loop band':'Long band')+' L'+(S.bandLevel[e.id]||1))+'</div></div><div class="acts"><button class="iconbtn" onclick="openEx(\''+e.id+'\')">Details</button><button class="iconbtn" onclick="swapEx(\''+e.id+'\')">Swap</button></div></div>'}
+function swapEx(id){const e=EXBY[id];const alt=EX.find(x=>x.id!==id&&x.cat===e.cat&&x.targets.some(t=>e.targets.includes(t)))||EX.find(x=>x.id!==id&&x.cat===e.cat);if(!alt)return toast('No swap available');S.swaps[id]={to:alt.id,date:todayStr()};save();toast('Swapped: '+e.n+' → '+alt.n+' (modify, don\u2019t stop)');renderToday()}
+function quickLog(){S.log.push({date:todayStr(),kind:'micro',title:'Micro session',pain:null});save();renderTop();renderToday();toast('Logged. Micro counts — streak kept.')}
+
+/* ---------------- Check-in ---------------- */
+let ciWhere=null,ciSleep=null,ciPainTouched=false;
+function segWire(id,fn){$('#'+id).addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;[...e.currentTarget.children].forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b?'true':'false')});fn(b.dataset.v)})}
+function segSet(id,v){[...$('#'+id).children].forEach(x=>{const on=x.dataset.v===v;x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false')})}
+segWire('painWhere',v=>ciWhere=v);segWire('sleepSeg',v=>ciSleep=v);
+$('#painRange').addEventListener('input',e=>{$('#painVal').textContent=e.target.value;ciPainTouched=true});
+$('#saveCheckin').addEventListener('click',()=>{if(!ciPainTouched||!ciWhere||!ciSleep){toast('Set pain, where it is, and sleep first — those answers tune today');return}const pain=+$('#painRange').value;S.checkins=S.checkins.filter(c=>c.date!==todayStr());S.checkins.push({date:todayStr(),pain,where:ciWhere,sleep:ciSleep});save();const t=recoveryTune();$('#checkinMsg').textContent=t?t.note:'';renderTop();renderToday();toast('Check-in saved — today\u2019s load tuned')});
+
+/* ---------------- Assessment UI ---------------- */
+function renderTests(){
+  $('#testList').innerHTML=TESTS.map(t=>{
+    let body='';
+    if(t.kind==='opts') body='<div class="opts">'+t.opts.map(([v,l])=>'<button data-t="'+t.id+'" data-v="'+v+'" class="'+(S.answers[t.id]===v?'on':'')+'">'+l+'</button>').join('')+'</div>';
+    if(t.kind==='sides') body=['L','R'].map(sd=>'<label class="fl" style="margin-top:10px">'+(sd==='L'?'Left side':'Right side')+'</label><div class="opts">'+t.opts.map(([v,l])=>'<button data-t="'+t.id+'_'+sd+'" data-v="'+v+'" class="'+(S.answers[t.id+'_'+sd]===v?'on':'')+'">'+l+'</button>').join('')+'</div>').join('');
+    if(t.kind==='nums') body='<div class="numrow"><div class="fld"><label class="fl">Left — seconds</label><input type="number" min="0" max="600" data-num="'+t.id+'_L" value="'+(S.answers[t.id+'_L']??'')+'"></div><div class="fld"><label class="fl">Right — seconds</label><input type="number" min="0" max="600" data-num="'+t.id+'_R" value="'+(S.answers[t.id+'_R']??'')+'"></div></div>';
+    return '<div class="card testcard"><div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap"><h3 style="flex:1;min-width:200px">'+t.n+'</h3><span class="tag sky">'+t.dom+'</span></div><p class="how">'+t.how+'</p>'+body+'<p class="why">Why it matters: '+t.why+'</p></div>';
+  }).join('');
+  $$('#testList button.on').forEach(b=>b.setAttribute('aria-pressed','true'));
+  if(!window._tlWired){window._tlWired=true;$('#testList').addEventListener('click',e=>{const b=e.target.closest('button[data-t]');if(!b)return;S.answers[b.dataset.t]=b.dataset.v;save();b.parentElement.querySelectorAll('button').forEach(x=>{x.classList.toggle('on',x===b);x.setAttribute('aria-pressed',x===b?'true':'false')});updateAssessProg()});
+  $('#testList').addEventListener('input',e=>{const i=e.target.closest('input[data-num]');if(!i)return;S.answers[i.dataset.num]=i.value;save();updateAssessProg()});}
+  updateAssessProg();
+}
+function answeredCount(){let n=0;TESTS.forEach(t=>{if(t.kind==='opts'&&S.answers[t.id])n++;if(t.kind==='sides'&&S.answers[t.id+'_L']&&S.answers[t.id+'_R'])n++;if(t.kind==='nums'&&(S.answers[t.id+'_L']||S.answers[t.id+'_R']))n++});return n}
+function updateAssessProg(){const n=answeredCount();$('#assessProg').style.width=Math.round(n/TESTS.length*100)+'%';$('#assessProgT').textContent=n===0?'Not started':n<TESTS.length?n+' of '+TESTS.length+' tests answered':''+TESTS.length+' of '+TESTS.length+' — ready to score'}
+$('#scoreBtn').addEventListener('click',()=>{
+  if(answeredCount()<6){toast('Answer at least 6 tests to score — partial pictures mislead');return}
+  S.results=scoreAssessment();S.assessHistory.push({date:todayStr(),flags:S.results.map(f=>f.t)});save();renderResults();renderTop();renderToday();toast('Assessment scored — your plan has been rebuilt');
+  document.getElementById('assessResults').scrollIntoView({behavior:'smooth'});
+});
+$('#resetAssess').addEventListener('click',()=>{S.answers={};S.results=null;save();renderTests();renderResults();renderTop();renderToday();toast('Assessment reset')});
+function renderResults(){
+  const el=$('#assessResults');
+  if(!S.results){el.innerHTML='';return}
+  const actionable=S.results.filter(f=>f.sev!=='ok'),ok=S.results.filter(f=>f.sev==='ok');
+  el.innerHTML='<h2 class="sec-t">Your findings</h2><p class="sec-sub">'+actionable.length+' pattern'+(actionable.length===1?'':'s')+' to work on. Your Today plan, foundation blocks and progression gates have already been rebuilt around them.</p><div class="card">'+
+   actionable.map(f=>'<div class="flagrow"><span class="sev '+f.sev+'">'+(f.sev==='high'?'Priority':'Watch')+'</span><div><div class="ft">'+f.t+'</div><div class="fd">'+f.d+'</div><div class="fx">In your plan: '+f.fix+'</div></div></div>').join('')+
+   ok.map(f=>'<div class="flagrow"><span class="sev ok">Clear</span><div><div class="ft">'+f.t+'</div><div class="fd">'+f.d+'</div></div></div>').join('')+
+   '</div><p class="small" style="margin-top:10px">Retest in 4 weeks — same tests, same order. Bring this screen to any physio visit; it is the sheet they would build anyway.</p>';
+}
+
+/* ---------------- Library ---------------- */
+let libCat='All';
+function renderLib(){
+  const cats=['All',...new Set(EX.map(e=>e.cat))];
+  $('#libFilters').innerHTML=cats.map(c=>'<button class="iconbtn" style="'+(libCat===c?'border-color:var(--volt);color:var(--volt)':'')+'" onclick="libCat=\''+c+'\';renderLib()">'+c+'</button>').join('');
+  const q=($('#libSearch').value||'').toLowerCase();
+  const list=EX.filter(e=>(libCat==='All'||e.cat===libCat)&&(e.n.toLowerCase().includes(q)||e.targets.join(' ').includes(q)||e.cat.toLowerCase().includes(q)));
+  $('#libGrid').innerHTML=list.map(e=>'<div class="card libcard"><div style="display:flex;gap:10px;align-items:center"><span style="font-size:24px">'+e.ic+'</span><span class="nm">'+e.n+'</span></div><div class="meta"><span class="tag">'+e.cat+'</span><span class="tag">'+(e.band==='none'?'Bodyweight':e.band==='loop'?'Loop band':'Long band')+'</span><span class="tag sky">'+e.dose+'</span></div><p>'+e.cues[0]+'</p><button class="btn sm" onclick="openEx(\''+e.id+'\')">Cues, mistakes &amp; videos</button></div>').join('')||'<p class="small">No matches — try another word.</p>';
+}
+$('#libSearch').addEventListener('input',renderLib);
+
+/* ---------------- Exercise modal ---------------- */
+let SHEETMODE='plain',lastFocus=null;
+function openSheet(html){if(!$('#overlay').classList.contains('open'))lastFocus=document.activeElement;const lbl=SHEETMODE==='player'?'Save & exit — resume anytime':(SHEETMODE==='exback'?'\u2190 Back to workout':'Close');const act=SHEETMODE==='exback'?'backToPlayer()':'closeSheet()';$('#sheet').innerHTML=html+'<button class="btn block" style="margin-top:18px" onclick="'+act+'">'+lbl+'</button>';$('#overlay').classList.add('open');const f=$('#sheet').querySelector('button');if(f)f.focus()}
+function closeSheet(){$('#overlay').classList.remove('open');stopTimer();SHEETMODE='plain';if(lastFocus&&lastFocus.focus)lastFocus.focus()}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&$('#overlay').classList.contains('open'))closeSheet()});
+$('#overlay').addEventListener('click',e=>{if(e.target.id==='overlay')closeSheet()});
+function bandStep(id,d){S.bandLevel[id]=Math.max(1,(S.bandLevel[id]||1)+d);save();openEx(id);renderToday()}
+function openEx(id){const e=EXBY[id];if(PL)SHEETMODE='exback';openSheet('<h2>'+e.ic+' '+e.n+'</h2><div class="sub">'+e.cat+' · '+e.dose+' · '+(e.band==='none'?'Bodyweight':e.band==='loop'?'Loop band':'Long band')+'</div><h3>Coaching cues</h3><ul>'+e.cues.map(c=>'<li>'+c+'</li>').join('')+'</ul><h3>Common mistakes</h3><ul>'+e.mistakes.map(c=>'<li>'+c+'</li>').join('')+'</ul><p class="small"><b style="color:var(--good)">Regression:</b> '+e.reg+'<br><b style="color:var(--volt)">Progression:</b> '+e.prog+'</p>'+(e.band!=='none'?'<div style="display:flex;align-items:center;gap:10px;margin:14px 0;flex-wrap:wrap"><b>Band level '+(S.bandLevel[e.id]||1)+'</b><button class="iconbtn" onclick="bandStep(\''+e.id+'\',-1)">−</button><button class="iconbtn" onclick="bandStep(\''+e.id+'\',1)">+</button><span class="small">Band level is your barbell plate. Promotions unlock from the Progress gate.</span></div>':'')+'<h3 style="margin-top:14px">Form videos — multiple sources</h3><div class="vidlinks">'+e.vid.map(([ch,q])=>'<a class="btn sm" target="_blank" rel="noopener" href="'+YT(q)+'">▶ '+ch+'</a>').join('')+'<a class="btn sm ghost" target="_blank" rel="noopener" href="'+YT(e.n+' proper form')+'">All sources</a></div><p class="small">Cross-check at least two sources before your first set. If a demo contradicts the safety rules above, the rules win.</p>')}
+
+/* ---------------- Guided player + timers ---------------- */
+let PL=null,timerInt=null,timerEnd=0,wakeLock=null;
+function stopTimer(){if(timerInt){clearInterval(timerInt);timerInt=null}}
+function fmt(s){return Math.floor(s/60)+':'+String(s%60).padStart(2,'0')}
+function beep(){try{const ctx=new(window.AudioContext||window.webkitAudioContext)();[0,0.22].forEach(t=>{const o=ctx.createOscillator(),g=ctx.createGain();o.frequency.value=880;g.gain.setValueAtTime(0.18,ctx.currentTime+t);g.gain.exponentialRampToValueAtTime(0.001,ctx.currentTime+t+0.18);o.connect(g);g.connect(ctx.destination);o.start(ctx.currentTime+t);o.stop(ctx.currentTime+t+0.2)})}catch(e){}}
+function startTimer(sec){stopTimer();timerEnd=Date.now()+sec*1000;drawTimer();timerInt=setInterval(()=>{drawTimer();if(Date.now()>=timerEnd){stopTimer();beep();if(navigator.vibrate)navigator.vibrate(200);toast('Time — nice work')}},250)}
+function drawTimer(){const el=$('#clock');if(el)el.textContent=fmt(Math.max(0,Math.ceil((timerEnd-Date.now())/1000)))}
+function parseDose(d){let sets=1;const sm=d.match(/(\d+)\s*×/);if(sm)sets=Math.min(3,+sm[1]);let hold=null;const hm=d.match(/(\d+)[–-](\d+)\s*sec/)||d.match(/(\d+)\s*sec/);if(hm)hold=+(hm[2]||hm[1]);if(hold!==null&&hold<8)hold=null;return{sets:sets,perSide:/\/ side/.test(d),hold:hold}}
+function expandSteps(raw){
+  const out=[];
+  raw.forEach(it=>{
+    if(it.found===null&&!/×|sec/.test(it.d)){out.push({n:it.n,d:it.d,found:it.found,hold:null,setLabel:''});return}
+    const p=parseDose(it.d);
+    for(let s=1;s<=p.sets;s++){
+      if(p.perSide){['Left side','Right side'].forEach(sd=>out.push({n:it.n,d:it.d,found:it.found,hold:p.hold,setLabel:'Set '+s+' of '+p.sets+' · '+sd}))}
+      else out.push({n:it.n,d:it.d,found:it.found,hold:p.hold,setLabel:p.sets>1?'Set '+s+' of '+p.sets:''});
+    }
+  });
+  return out;
+}
+function startPlayer(){
+  const s=sessionExercises();let raw=[];
+  if(s.kind==='flare'){
+    const seen=new Set();
+    s.items.forEach(([id,dose])=>{if(!seen.has(id)){seen.add(id);raw.push({n:EXBY[id].n,d:dose,found:id})}});
+  }else{
+    buildFoundation().forEach(b=>b.items.filter(i=>!i.skip).forEach(i=>raw.push({n:i.t,d:i.d,found:null})));
+    if(s.items)s.items.forEach(([id,dose])=>raw.push({n:EXBY[id].n,d:dose,found:id}));
+    if(s.kind==='cardio')raw.push({n:'Zone 2 cardio',d:'25–30 min · 120–135 bpm',found:null});
+  }
+  if(!raw.length)raw.push({n:'Foundation complete',d:'Rest day',found:null});
+  PL={items:expandSteps(raw),idx:0,rest:0};
+  S.player={date:todayStr(),idx:0,items:PL.items};save();
+  if(navigator.wakeLock)navigator.wakeLock.request('screen').then(w=>wakeLock=w).catch(()=>{});
+  showStep();
+}
+function resumePlayer(){if(!S.player||S.player.date!==todayStr())return startPlayer();PL={items:S.player.items,idx:Math.min(S.player.idx,S.player.items.length-1),rest:0};showStep()}
+function backToPlayer(){SHEETMODE='player';showStep()}
+function showStep(){
+  SHEETMODE='player';
+  const it=PL.items[PL.idx],total=PL.items.length;
+  S.player={date:todayStr(),idx:PL.idx,items:PL.items};save();
+  openSheet('<div class="playerstep"><div class="big">'+(it.found?EXBY[it.found].ic:'•')+'</div><h2>'+it.n+'</h2><div class="sub">Step '+(PL.idx+1)+' of '+total+' · '+it.d+(it.setLabel?' · <b style="color:var(--volt)">'+it.setLabel+'</b>':'')+'</div>'+
+  '<div class="progressdots">'+PL.items.map((_,i)=>'<i class="'+(i<PL.idx?'done':i===PL.idx?'now':'')+'"></i>').join('')+'</div>'+
+  '<div class="timerbox"><div class="clock" id="clock">'+(it.hold?fmt(it.hold):'0:00')+'</div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">'+
+  (it.hold?'<button class="btn sm primary" onclick="startTimer('+it.hold+')">Start hold · '+it.hold+'s</button>':'')+
+  '<button class="btn sm" onclick="startTimer(20)">20s</button><button class="btn sm" onclick="startTimer(30)">30s</button><button class="btn sm" onclick="startTimer(60)">Rest 60s</button><button class="btn sm" onclick="startTimer(90)">Rest 90s</button></div></div>'+
+  (it.found?'<button class="btn sm ghost" onclick="openEx(\''+it.found+'\')">Form cues &amp; video</button>':'')+
+  '<div class="playerfoot" style="display:flex;gap:8px"><button class="btn" style="flex:1" onclick="prevStep()" '+(PL.idx===0?'disabled':'')+'>← Back</button>'+(PL.idx<total-1?'<button class="btn primary" style="flex:2" onclick="nextStep()">Done — next →</button>':'<button class="btn primary" style="flex:2" onclick="showFinish()">Finish session ✓</button>')+'</div>'+
+  '<p class="small" style="margin-top:12px">Stop rule: pain spreading down the leg, or a nerve tug lingering 10+ seconds, ends the exercise — not the session. Modify, don\u2019t stop.</p></div>');
+  if(PL.rest){startTimer(PL.rest);PL.rest=0}
+}
+function nextStep(){stopTimer();const prev=PL.items[PL.idx];PL.idx++;PL.rest=(PL.items[PL.idx]&&PL.items[PL.idx].n!==prev.n)?60:0;showStep()}
+function prevStep(){stopTimer();PL.idx--;PL.rest=0;showStep()}
+function showFinish(){
+  SHEETMODE='plain';
+  openSheet('<div class="playerstep"><div class="big">✓</div><h2>Session complete</h2><div class="sub">How is the pain now? This feeds your progression gate.</div><div class="seg" style="justify-content:center;margin:14px 0">'+[0,1,2,3,4,5,6,7,8,9,10].map(n=>'<button onclick="logFinish('+n+')">'+n+'</button>').join('')+'</div><button class="btn ghost" onclick="logFinish(null)">Skip pain score</button></div>');
+}
+function logFinish(p){stopTimer();S.player=null;PL=null;closeSheet();S.log.push({date:todayStr(),kind:'full',title:sessionExercises().title,pain:p});save();renderTop();renderToday();toast('Session logged. That is how backs rebuild.')}
+function finishPlayer(){showFinish()}
+
+/* ---------------- Progress ---------------- */
+function drawChart(id,data,color,labels,fixedMax){
+  const cv=document.getElementById(id);if(!cv)return;const dpr=window.devicePixelRatio||1;
+  const W=cv.clientWidth||520,H=170;
+  if(cv.width!==Math.round(W*dpr)){cv.width=W*dpr;cv.height=H*dpr}
+  const ctx=cv.getContext('2d');ctx.setTransform(dpr,0,0,dpr,0,0);ctx.clearRect(0,0,W,H);
+  ctx.strokeStyle='#262C37';ctx.lineWidth=1;[0.25,0.5,0.75].forEach(f=>{ctx.beginPath();ctx.moveTo(34,H*f);ctx.lineTo(W-8,H*f);ctx.stroke()});
+  if(fixedMax){ctx.fillStyle='#828D9B';ctx.font='11px Inter';ctx.fillText('10',8,16);ctx.fillText('0',12,H-14)}
+  if(!data.length){ctx.fillStyle='#828D9B';ctx.font='13px Inter';ctx.fillText('No data yet — it starts with today\u2019s check-in.',40,H/2);return}
+  const max=fixedMax||Math.max(...data,1)*1.15,pad=34,bw=(W-pad-14)/data.length;
+  if(id==='painChart'){ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.beginPath();data.forEach((v,i)=>{const x=pad+i*bw+bw/2,y=H-16-(v/max)*(H-36);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();ctx.fillStyle=color;data.forEach((v,i)=>{const x=pad+i*bw+bw/2,y=H-16-(v/max)*(H-36);ctx.beginPath();ctx.arc(x,y,3.5,0,7);ctx.fill()});}
+  else{ctx.fillStyle=color;data.forEach((v,i)=>{const hh=(v/max)*(H-36);ctx.fillRect(pad+i*bw+3,H-16-hh,bw-6,hh)})}
+  ctx.fillStyle='#828D9B';ctx.font='11px Inter';(labels||[]).forEach((l,i)=>ctx.fillText(l,pad+i*bw+2,H-2));
+}
+function renderProgress(){
+  const weeks=sessionWeeks(),wl=weekLabels();
+  $('#progKpis').innerHTML=kpi(S.log.length,'total sessions logged','foundation days included')+kpi(streak(),'current streak','days')+kpi(S.assessHistory.length,'assessments scored','retest every 4 weeks')+kpi(gateStatus(),'progression gate','rolling 14-day rule');
+  const ga=$('#gateAction');
+  if(gateStatus().startsWith('READY')) ga.innerHTML='<div class="card" style="border-color:var(--volt)"><h3>Gate open — band levels can go up</h3><p>Your pain trend and consistency over the last 14 days earned a promotion. Raise every band exercise by one level, or adjust single exercises from their Library page.</p><button class="btn primary sm" style="margin-top:10px" onclick="promoteBands()">Promote all band levels +1</button></div>';
+  else ga.innerHTML='<div class="card"><p><b>Progression gate:</b> opens when your 14-day average pain is 3 or under AND you have 8+ logged sessions in the last 14 days. No calendar guilt — the trend decides.</p></div>';
+  drawChart('painChart',S.checkins.slice(-14).map(c=>c.pain),'#FF6B4A',S.checkins.slice(-14).map(c=>c.date.slice(5)),10);
+  drawChart('sessChart',weeks,'#C8F04B',wl,7);
+  const el=$('#assessHistory');
+  if(!S.assessHistory.length){el.innerHTML='<p>No scored assessment yet.</p>';return}
+  el.innerHTML='<table class="cmp"><tr><th>Date</th><th>Findings</th></tr>'+S.assessHistory.slice().reverse().map(hx=>'<tr><td>'+hx.date+'</td><td>'+hx.flags.join(' · ')+'</td></tr>').join('')+'</table>';
+}
+function promoteBands(){EX.filter(e=>e.band!=='none').forEach(e=>S.bandLevel[e.id]=(S.bandLevel[e.id]||1)+1);save();renderProgress();renderToday();toast('Band levels promoted — earned, not given')}
+function sessionWeeks(){const out=[0,0,0,0];const now=new Date();S.log.forEach(l=>{const diff=Math.floor((now-new Date(l.date+'T12:00:00'))/864e5);const w=Math.floor(diff/7);if(w<4)out[3-w]++});return out}
+function weekLabels(){const out=[];const now=new Date();const mon=new Date(now);mon.setDate(now.getDate()-((now.getDay()+6)%7));for(let i=3;i>=0;i--){const d=new Date(mon);d.setDate(mon.getDate()-i*7);out.push((d.getMonth()+1)+'/'+d.getDate())}return out}
+function gateStatus(){const since=new Date();since.setDate(since.getDate()-14);const ck=S.checkins.filter(c=>new Date(c.date+'T12:00:00')>=since);const sess=S.log.filter(l=>new Date(l.date+'T12:00:00')>=since).length;if(ck.length<5)return 'Warming up';const avg=ck.reduce((a,c)=>a+c.pain,0)/ck.length;return(avg<=3&&sess>=8)?'READY — level up':'Hold — pain or consistency'}
+/* ---------------- More view ---------------- */
+$('#roadmapGrid').innerHTML=ROADMAP.map(r=>'<div class="card roadmap"><div style="display:flex;gap:8px;align-items:center"><span class="tag volt">'+r.tag+'</span><span class="tag" style="margin-left:auto">'+r.w+'</span></div><h3 style="margin-top:10px">'+r.t+'</h3><p>'+r.d+'</p></div>').join('');
+$('#refCard').innerHTML=REFS.map(([t,d])=>'<div class="flagrow"><div><div class="ft" style="font-size:14.5px">'+t+'</div><div class="fd">'+d+'</div></div></div>').join('');
+
+/* ---------------- Export / wipe ---------------- */
+function dl(name,content,type){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([content],{type}));a.download=name;a.click()}
+$('#exportJson').addEventListener('click',()=>dl('backforge-export.json',JSON.stringify(S,null,2),'application/json'));
+$('#exportCsv').addEventListener('click',()=>dl('backforge-log.csv','date,kind,title,pain\n'+S.log.map(l=>[l.date,l.kind,'"'+(l.title||'')+'"',l.pain??''].join(',')).join('\n'),'text/csv'));
+$('#wipeBtn').addEventListener('click',()=>{if(confirm('Erase all BackForge data on this device?')){localStorage.removeItem(KEY);location.reload()}});
+
+/* ---------------- Init ---------------- */
+$('#painVal').textContent=$('#painRange').value;
+(function(){const c=S.checkins[S.checkins.length-1];if(c&&c.date===todayStr()){$('#painRange').value=c.pain;$('#painVal').textContent=c.pain;ciPainTouched=true;ciWhere=c.where;ciSleep=c.sleep;segSet('painWhere',c.where);segSet('sleepSeg',c.sleep);$('#checkinMsg').textContent='Today\u2019s check-in is saved — saving again updates it.'}})();
+(function(){ /* installable manifest, generated inline */
+  try{const m={name:'BackForge',short_name:'BackForge',display:'standalone',start_url:'.',background_color:'#0B0D10',theme_color:'#0B0D10',icons:[{src:document.querySelector('link[rel=icon]').href,sizes:'any',type:'image/svg+xml'}]};const l=document.createElement('link');l.rel='manifest';l.href=URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/json'}));document.head.appendChild(l)}catch(e){}
+  const rt=$('#remTime'),rb=$('#remBtn'),rs=$('#remState');
+  if(S.reminder&&S.reminder.on){rt.value=S.reminder.time;rb.textContent='Reminder on ✓';rs.textContent='Daily at '+S.reminder.time+' — fires while the app is installed/open on this device.'}
+  rb.addEventListener('click',async()=>{let p='granted';if('Notification' in window)p=await Notification.requestPermission();S.reminder={on:true,time:rt.value};save();rb.textContent='Reminder on ✓';rs.textContent=p==='granted'?'Daily at '+rt.value+' — notifications allowed.':'Daily at '+rt.value+' — set, but notifications are blocked in browser settings.';toast('Reminder set for '+rt.value)});
+  setInterval(()=>{if(!S.reminder||!S.reminder.on)return;const n=new Date(),hh=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');if(hh===S.reminder.time&&S.reminder.lastFired!==todayStr()){S.reminder.lastFired=todayStr();save();if('Notification' in window&&Notification.permission==='granted')new Notification('BackForge — time to train',{body:'Today\u2019s session is ready. The micro version counts.'});toast('BackForge reminder — time to train')}},30000);
+})();
+renderTests();renderResults();renderTop();renderToday();renderLib();
+</script>
+</body>
+</html>
