@@ -1,0 +1,1332 @@
+[
+  {
+    "id": "curlup",
+    "name": "McGill Curl-Up",
+    "category": "core",
+    "targets": [
+      "core-stability",
+      "core-endurance"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "3 × 8 · 8-sec holds",
+    "level": 1,
+    "cues": [
+      "Hands under the small of your back — keep the natural curve",
+      "Lift head, neck and shoulders as one unit, barely off the floor",
+      "Breathe out slowly through pursed lips on the lift"
+    ],
+    "mistakes": [
+      "Curling the neck to the chest",
+      "Flattening the low back into the floor"
+    ],
+    "regression": "Fewer reps, 5-sec holds",
+    "progression": "Pyramid sets 6/4/2 with 10-sec holds",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "birddog",
+    "name": "Bird-Dog",
+    "category": "core",
+    "targets": [
+      "core-stability",
+      "core-endurance",
+      "glute-max",
+      "glute-weak"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "3 × 8 / side · 8-sec holds",
+    "level": 1,
+    "cues": [
+      "Opposite arm and leg, reach long — not high",
+      "Pelvis stays level: imagine a glass of water on your low back",
+      "Sweep the floor with your hand to reset each rep"
+    ],
+    "mistakes": [
+      "Arching the low back to lift the leg higher",
+      "Pelvis rotating open"
+    ],
+    "regression": "Leg only, or arm only",
+    "progression": "Band around the feet for resistance",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "sideplank",
+    "name": "Side Plank (from knees)",
+    "category": "core",
+    "targets": [
+      "core-stability",
+      "core-endurance",
+      "lateral-endurance",
+      "lateral-gap",
+      "ql"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "3 × 20–30 sec / side",
+    "level": 1,
+    "cues": [
+      "Elbow under shoulder, hips stacked",
+      "Lift hips until the body is one straight line",
+      "Breathe steadily — no breath-holding"
+    ],
+    "mistakes": [
+      "Hips rolling forward",
+      "Holding to shaking failure — stop at form loss"
+    ],
+    "regression": "Shorter holds, more sets (10-sec exposures)",
+    "progression": "Full side plank from feet (Week 4+)",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "pullapart",
+    "name": "Band Pull-Apart",
+    "category": "strength",
+    "targets": [
+      "forward-head",
+      "upper-crossed",
+      "posture"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "dose": "3 × 15",
+    "level": 1,
+    "cues": [
+      "Arms straight, band to chest, shoulder blades pinch together",
+      "Ribs down — no low-back arch",
+      "Slow return, 2 seconds"
+    ],
+    "mistakes": [
+      "Shrugging to the ears",
+      "Bouncing the reps"
+    ],
+    "regression": "Lighter band, half range",
+    "progression": "Slow eccentrics, 4-sec return",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "facepull",
+    "name": "Banded Face Pull",
+    "category": "strength",
+    "targets": [
+      "forward-head",
+      "upper-crossed",
+      "posture"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "dose": "3 × 15",
+    "level": 1,
+    "cues": [
+      "Pull to forehead height, knuckles back, elbows high",
+      "Rotate the forearms out at the end — thumbs behind you",
+      "Neck stays long, chin slightly tucked"
+    ],
+    "mistakes": [
+      "Pulling to the chest (that is a row)",
+      "Arching the back to finish"
+    ],
+    "regression": "Lighter band, seated",
+    "progression": "Add a 2-sec pause at full rotation",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "clamshell",
+    "name": "Banded Clamshell",
+    "category": "glute",
+    "targets": [
+      "glute-med",
+      "glute-weak"
+    ],
+    "equipment": [
+      "mini-band"
+    ],
+    "dose": "2 × 15 / side",
+    "level": 1,
+    "cues": [
+      "Feel it deep in the buttock — that is glute med working",
+      "Pelvis does not roll back as the knee opens",
+      "Feet stay glued together"
+    ],
+    "mistakes": [
+      "Rolling the pelvis to fake range",
+      "Feeling it at the front of the hip (TFL taking over) — reduce range"
+    ],
+    "regression": "No band",
+    "progression": "Add a side-plank clamshell",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "glutebridge",
+    "name": "Banded Glute Bridge",
+    "category": "glute",
+    "targets": [
+      "glute-max",
+      "glute-med",
+      "glute-weak",
+      "apt"
+    ],
+    "equipment": [
+      "mini-band"
+    ],
+    "dose": "2 × 20 · 2-sec top hold",
+    "level": 1,
+    "cues": [
+      "Push knees out into the band the whole rep",
+      "Ribs down, squeeze glutes to lift — never arch to finish",
+      "Heels drive, toes light"
+    ],
+    "mistakes": [
+      "Low back arching at the top",
+      "Hamstrings cramping (feet too far away — walk them in)"
+    ],
+    "regression": "No band, fewer reps",
+    "progression": "Single-leg glute bridge 3 × 12 / side",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "sidesteps",
+    "name": "Banded Side Steps",
+    "category": "glute",
+    "targets": [
+      "glute-med",
+      "glute-weak"
+    ],
+    "equipment": [
+      "mini-band"
+    ],
+    "dose": "2 × 12 / side",
+    "level": 1,
+    "cues": [
+      "Soft knees, hips back slightly, toes forward",
+      "Stay the same height — no bouncing",
+      "Band stays tight every step"
+    ],
+    "mistakes": [
+      "Knees caving inward",
+      "Standing tall between steps"
+    ],
+    "regression": "Band above knees, smaller steps",
+    "progression": "Band at ankles, lower stance",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "pallof",
+    "name": "Pallof Press",
+    "category": "core",
+    "targets": [
+      "core-stability",
+      "core-endurance",
+      "apt"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "dose": "3 × 10 / side",
+    "level": 2,
+    "cues": [
+      "Band at chest height, stand side-on, feet shoulder width",
+      "Press straight out and resist the rotation — ribs down",
+      "Exhale on the press"
+    ],
+    "mistakes": [
+      "Letting the band twist the torso (that is the load winning)",
+      "Holding your breath"
+    ],
+    "regression": "Lighter band, kneeling",
+    "progression": "Half-kneeling Pallof, then split stance",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "deadbug",
+    "name": "Dead Bug (band-assisted)",
+    "category": "core",
+    "targets": [
+      "core-stability",
+      "core-endurance",
+      "apt"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "dose": "3 × 8 / side",
+    "level": 1,
+    "cues": [
+      "Low back stays heavy on the floor — that is the whole exercise",
+      "Extend one leg slowly while the band holds your arms",
+      "Exhale fully before you move"
+    ],
+    "mistakes": [
+      "Low back arching off the floor as the leg drops",
+      "Rushing — 3 seconds out, 3 back"
+    ],
+    "regression": "Arms only, knees bent (toe taps)",
+    "progression": "Longer levers, slower tempo",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "hipir9090",
+    "name": "90/90 Hip Switch",
+    "category": "hip",
+    "targets": [
+      "hip-ir"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 8 slow switches",
+    "level": 1,
+    "cues": [
+      "Both knees at 90°, rotate like windshield wipers",
+      "Go slow into the stiff side — that side is the point",
+      "Sit taller as range opens"
+    ],
+    "mistakes": [
+      "Forcing end range with pain",
+      "Leaning away to fake the rotation"
+    ],
+    "regression": "Hands behind you for support, smaller range",
+    "progression": "No hands, add a lift-off on the trailing leg",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "proneir",
+    "name": "Prone Hip IR Rocks",
+    "category": "hip",
+    "targets": [
+      "hip-ir"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 10 / side",
+    "level": 1,
+    "cues": [
+      "Face down, knee bent 90°, let the foot drop outward slowly",
+      "Pelvis stays glued to the floor",
+      "Compare sides — note which one barely moves"
+    ],
+    "mistakes": [
+      "Pelvis lifting off the floor to cheat range",
+      "Dropping the foot fast"
+    ],
+    "regression": "Smaller range, pillow under hips",
+    "progression": "Add a light ankle band resistance",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "adductorsqueeze",
+    "name": "Side-Lying Adductor Squeeze",
+    "category": "hip",
+    "targets": [
+      "hip-ir"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 10 / side · 5-sec squeeze",
+    "level": 1,
+    "cues": [
+      "Pillow between the knees, squeeze at 70% effort",
+      "Pairs with the 90/90 work — it teaches the inward rotators",
+      "Breathe out on the squeeze"
+    ],
+    "mistakes": [
+      "Max-effort squeezing (cramp risk)",
+      "Holding breath"
+    ],
+    "regression": "3-sec squeezes",
+    "progression": "Longer holds, 8 sec",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "hipflexorstretch",
+    "name": "Half-Kneeling Hip Flexor Stretch",
+    "category": "mobility",
+    "targets": [
+      "apt",
+      "hip-flexor"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 45 sec / side",
+    "level": 1,
+    "cues": [
+      "Tuck the tailbone first — squeeze the glute of the back leg",
+      "Shift forward only after the tuck; no low-back arch",
+      "This is the direct counter to anterior pelvic tilt"
+    ],
+    "mistakes": [
+      "Arching the low back and calling it a stretch",
+      "Knee pain — pad it"
+    ],
+    "regression": "Standing version holding a chair",
+    "progression": "Add the long band overhead reach",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "chintuck",
+    "name": "Chin Tuck",
+    "category": "mobility",
+    "targets": [
+      "forward-head",
+      "upper-crossed"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "3 × 10 · 5-sec holds",
+    "level": 1,
+    "cues": [
+      "Glide the chin straight back — make a double chin",
+      "Eyes stay level",
+      "Tall through the crown of the head"
+    ],
+    "mistakes": [
+      "Tilting the head down instead of gliding back",
+      "Full backward head rolls (never)"
+    ],
+    "regression": "Against a wall for feedback",
+    "progression": "Seated with band resistance behind the head",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "wallangel",
+    "name": "Wall Angel",
+    "category": "mobility",
+    "targets": [
+      "forward-head",
+      "upper-crossed",
+      "posture"
+    ],
+    "equipment": [
+      "wall"
+    ],
+    "dose": "2 × 10",
+    "level": 1,
+    "cues": [
+      "Head, upper back and tailbone on the wall",
+      "Slide arms up only as far as contact holds",
+      "Ribs down — no arching off the wall"
+    ],
+    "mistakes": [
+      "Low back leaving the wall",
+      "Shrugging to reach higher"
+    ],
+    "regression": "Smaller range, floor angel on your back",
+    "progression": "Banded wall angel",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "row",
+    "name": "Banded Row",
+    "category": "strength",
+    "targets": [
+      "forward-head",
+      "upper-crossed",
+      "posture"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "dose": "3 × 12",
+    "level": 1,
+    "cues": [
+      "Hinge slightly, spine neutral, pull to the lower ribs",
+      "Shoulder blades glide together — chest tall",
+      "Ribs down at the finish"
+    ],
+    "mistakes": [
+      "Rounding the low back to pull harder",
+      "Yanking with the arms only"
+    ],
+    "regression": "Seated row, lighter band",
+    "progression": "One-arm banded row 3 × 12 / side",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "hiphinge",
+    "name": "Dowel Hip Hinge",
+    "category": "mobility",
+    "targets": [
+      "hinge",
+      "glute-max"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "3 × 8 slow",
+    "level": 1,
+    "cues": [
+      "Dowel (or broom handle) touches head, mid-back and tailbone — all three, always",
+      "Push the hips back like closing a door with your backside",
+      "Stop where contact breaks — that is your current range"
+    ],
+    "mistakes": [
+      "Rounding to reach lower (the dowel tells you)",
+      "Bending the knees into a squat"
+    ],
+    "regression": "Shorter range, wall-tap hinge",
+    "progression": "Banded pull-through 3 × 15",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "pullthrough",
+    "name": "Banded Pull-Through",
+    "category": "strength",
+    "targets": [
+      "glute-max",
+      "glute-weak",
+      "hinge"
+    ],
+    "equipment": [
+      "band"
+    ],
+    "dose": "3 × 15",
+    "level": 2,
+    "cues": [
+      "Hinge pattern, glutes snap you upright",
+      "Ribs down at the top — squeeze, do not arch",
+      "Band anchored low behind you"
+    ],
+    "mistakes": [
+      "Squatting it instead of hinging",
+      "Low back finishing the rep"
+    ],
+    "regression": "Dowel hinge practice",
+    "progression": "Heavier band; gym swap: cable pull-through / light kettlebell deadlift 12–16 kg",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "singlebridge",
+    "name": "Single-Leg Glute Bridge",
+    "category": "glute",
+    "targets": [
+      "glute-max",
+      "glute-weak",
+      "hamstring-control"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "3 × 12 / side",
+    "level": 2,
+    "cues": [
+      "Pelvis stays level — no drop on the free side",
+      "Extra set on your weaker side, always",
+      "Hamstring cramp = feet closer in"
+    ],
+    "mistakes": [
+      "Pelvis rotating open",
+      "Arching to fake height"
+    ],
+    "regression": "Two-leg bridge with a march",
+    "progression": "Foot elevated single-leg bridge",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "qlreach",
+    "name": "QL Side Reach / Side Bend (gentle)",
+    "category": "mobility",
+    "targets": [
+      "ql",
+      "lateral-endurance",
+      "lateral-gap"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 8 / side, gentle",
+    "level": 1,
+    "cues": [
+      "Small range, smooth breathing — this is mobility, not loading",
+      "Gentle side-bend work for the quadratus lumborum",
+      "Stop if it refers pain down the leg"
+    ],
+    "mistakes": [
+      "Loading this move with weight (never in this program)",
+      "Forcing range"
+    ],
+    "regression": "Seated version",
+    "progression": "Standing with wall support",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "kneechest",
+    "name": "Single Knee-to-Chest",
+    "category": "relief",
+    "targets": [
+      "sciatica-relief",
+      "sciatica"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "8 reps alternating · 20-sec holds",
+    "level": 1,
+    "cues": [
+      "ONE knee at a time — never both together",
+      "Gentle pull, mild stretch only",
+      "Other foot stays planted"
+    ],
+    "mistakes": [
+      "Pulling both limbs in together at the same time",
+      "Yanking to end range"
+    ],
+    "regression": "Smaller pull, shorter holds",
+    "progression": "Add a slow ankle pump during the hold",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "figure4",
+    "name": "Figure-4 Stretch",
+    "category": "cooldown",
+    "targets": [
+      "sciatica-relief",
+      "sciatica",
+      "hip-ir"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "30 sec / side",
+    "level": 1,
+    "cues": [
+      "Ankle on opposite knee, gentle lean-in",
+      "Feel it in the buttock, not the knee",
+      "Breathe and let it soften"
+    ],
+    "mistakes": [
+      "Forcing the knee down",
+      "Rounding hard to reach"
+    ],
+    "regression": "Seated figure-4 in a chair",
+    "progression": "Pigeon progression on the floor",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "catcamel",
+    "name": "Cat-Camel",
+    "category": "warmup",
+    "targets": [
+      "core-stability",
+      "core-endurance"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "5–6 slow cycles before Big 3",
+    "level": 1,
+    "cues": [
+      "Motion, not stretch — move through a comfortable arc",
+      "McGill: this reduces stiffness before stability work",
+      "Breathe with the movement"
+    ],
+    "mistakes": [
+      "Pushing end range hard",
+      "Rushing it"
+    ],
+    "regression": "Seated version",
+    "progression": "Add segmental control — move one vertebra at a time",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "wallsquat",
+    "name": "Stability-Ball Wall Squat",
+    "category": "strength",
+    "targets": [
+      "hinge",
+      "glute-max",
+      "glute-weak"
+    ],
+    "equipment": [
+      "wall"
+    ],
+    "dose": "3 × 12",
+    "level": 2,
+    "cues": [
+      "Ball or wall supports the back — squat only as deep as symptoms allow",
+      "Knees track over toes, heels down",
+      "Wall support is a feature while the pattern rebuilds"
+    ],
+    "mistakes": [
+      "Knees caving in",
+      "Deep squats through symptoms"
+    ],
+    "regression": "Shallower range, chair squat",
+    "progression": "Banded goblet squat to a box",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "march9090",
+    "name": "90/90 March (banded hip control)",
+    "category": "hip",
+    "targets": [
+      "hip-ir",
+      "glute-med",
+      "glute-weak"
+    ],
+    "equipment": [
+      "mini-band"
+    ],
+    "dose": "2 × 8 / side",
+    "level": 2,
+    "cues": [
+      "Control before load",
+      "Band above knees, march tall, pelvis level",
+      "Slow — 3 seconds per step"
+    ],
+    "mistakes": [
+      "Trunk leaning to lift the leg",
+      "Speed over control"
+    ],
+    "regression": "No band, seated march",
+    "progression": "Standing banded march with a pause",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "breathing360",
+    "name": "360° Breathing & Brace",
+    "category": "warmup",
+    "targets": [
+      "core-stability",
+      "core-endurance",
+      "apt"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 6 breaths",
+    "level": 1,
+    "cues": [
+      "Hands on lower ribs — breathe into front, sides and back",
+      "Long slow exhale, ribs drop down and in",
+      "Finish each exhale with a gentle brace, like bracing for a cough"
+    ],
+    "mistakes": [
+      "Chest-only breathing, shoulders rising",
+      "Hard breath-holding or bearing down"
+    ],
+    "regression": "Supine with knees bent, fewer breaths",
+    "progression": "Standing brace, then brace while marching in place",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "doorwaychest",
+    "name": "Doorway Chest Stretch",
+    "category": "mobility",
+    "targets": [
+      "forward-head",
+      "upper-crossed",
+      "posture"
+    ],
+    "equipment": [
+      "wall"
+    ],
+    "dose": "2 × 30 sec / side",
+    "level": 1,
+    "cues": [
+      "Forearm on the door frame, elbow at shoulder height",
+      "Step through gently until the front of the chest opens",
+      "Chin lightly tucked, ribs down — no low-back arch"
+    ],
+    "mistakes": [
+      "Forcing the shoulder deep into the stretch",
+      "Arching the back to feel more stretch"
+    ],
+    "regression": "Elbow lower, smaller step through",
+    "progression": "Both arms on a corner, 45 sec holds",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "wallslide",
+    "name": "Scapular Wall Slide",
+    "category": "mobility",
+    "targets": [
+      "forward-head",
+      "upper-crossed",
+      "posture",
+      "thoracic-mobility"
+    ],
+    "equipment": [
+      "wall"
+    ],
+    "dose": "2 × 10",
+    "level": 1,
+    "cues": [
+      "Forearms on the wall, slide up in a narrow V",
+      "Keep ribs down and neck long as you slide",
+      "Slide only as high as the forearms stay on the wall"
+    ],
+    "mistakes": [
+      "Shrugging to the ears",
+      "Low back arching off neutral"
+    ],
+    "regression": "Smaller slide, seated",
+    "progression": "Add a mini-band around the wrists",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "openbook",
+    "name": "Thoracic Open Book",
+    "category": "mobility",
+    "targets": [
+      "thoracic-mobility",
+      "forward-head",
+      "posture"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 8 / side",
+    "level": 1,
+    "cues": [
+      "Side-lying, knees stacked and held still — pelvis does not roll",
+      "Rotate only through the upper back, follow your hand with your eyes",
+      "Exhale as you open; lumbar spine stays quiet"
+    ],
+    "mistakes": [
+      "Letting the knees and pelvis roll with you (that turns it into lumbar twisting)",
+      "Forcing end range"
+    ],
+    "regression": "Smaller range, pillow under the head",
+    "progression": "Add a 5-sec hold at end range",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "deepneckflexor",
+    "name": "Supine Deep Neck Flexor Hold",
+    "category": "strength",
+    "targets": [
+      "forward-head",
+      "upper-crossed"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "3 × 10 sec",
+    "level": 1,
+    "cues": [
+      "Start with a small chin tuck, then lift the head barely off the floor",
+      "Keep the tuck the whole hold — head heavy, effort light",
+      "Breathe normally; stop before the front-of-neck muscles take over"
+    ],
+    "mistakes": [
+      "Lifting high with the big front neck muscles",
+      "Losing the chin tuck"
+    ],
+    "regression": "Chin tuck holds without the lift",
+    "progression": "Longer holds, up to 20 sec",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "seatedhipir",
+    "name": "Seated Hip Internal Rotation (banded)",
+    "category": "hip",
+    "targets": [
+      "hip-ir"
+    ],
+    "equipment": [
+      "mini-band",
+      "chair"
+    ],
+    "dose": "2 × 12 / side",
+    "level": 1,
+    "cues": [
+      "Sit tall on a chair, knee bent 90°, mini-band around the ankles or foot anchored",
+      "Rotate the shin outward so the hip turns inward — thigh stays still",
+      "Prioritise the stiff (right) side: do it first and add an extra set"
+    ],
+    "mistakes": [
+      "Thigh swinging or trunk leaning to fake the rotation",
+      "Fast, bouncy reps"
+    ],
+    "regression": "No band, smaller range, hands on chair",
+    "progression": "Slower tempo with a 3-sec end-range hold",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "standinghipir",
+    "name": "Standing Hip Internal Rotation Drill",
+    "category": "hip",
+    "targets": [
+      "hip-ir",
+      "glute-med"
+    ],
+    "equipment": [
+      "band",
+      "chair"
+    ],
+    "dose": "2 × 10 / side",
+    "level": 2,
+    "cues": [
+      "Stand side-on holding a chair, band anchored low pulling the ankle outward",
+      "Turn the whole leg inward from the hip — toes, knee and thigh rotate together",
+      "Pelvis faces forward the whole rep"
+    ],
+    "mistakes": [
+      "Rotating the pelvis and trunk instead of the hip",
+      "Letting the knee cave in"
+    ],
+    "regression": "No band, hand on chair, smaller range",
+    "progression": "No chair support, slower tempo",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "ir9090liftoff",
+    "name": "90/90 Internal Rotation Lift-Off",
+    "category": "hip",
+    "targets": [
+      "hip-ir"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 6 / side · 3-sec holds",
+    "level": 3,
+    "cues": [
+      "From the 90/90 position, in the trailing-leg (internal rotation) side",
+      "Lift the ankle off the floor using only the hip — no trunk lean",
+      "Tiny range is fine; this is end-range strength, not mobility"
+    ],
+    "mistakes": [
+      "Leaning the trunk away to lift the foot",
+      "Cramps or sharp hip pinch — stop and reduce range"
+    ],
+    "regression": "90/90 switches only, no lift-off",
+    "progression": "Add a light ankle weight or band resistance",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "pelvictilt",
+    "name": "Supine Pelvic Tilt Drill",
+    "category": "core",
+    "targets": [
+      "apt",
+      "core-stability"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 10 · 3-sec holds",
+    "level": 1,
+    "cues": [
+      "On your back, knees bent — gently roll the pelvis so the waistband tips up",
+      "Use deep abdominals and glutes, small pain-free range only",
+      "This teaches the posterior tilt the hip-flexor stretch needs"
+    ],
+    "mistakes": [
+      "Big, forceful tilting into end range",
+      "Holding your breath"
+    ],
+    "regression": "Smaller range, hands under pelvis for feedback",
+    "progression": "Progress to dead bug toe taps keeping the tilt",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "rectusstretch",
+    "name": "Standing Rectus Femoris Stretch",
+    "category": "mobility",
+    "targets": [
+      "apt",
+      "hip-flexor"
+    ],
+    "equipment": [
+      "chair",
+      "towel"
+    ],
+    "dose": "2 × 30 sec / side",
+    "level": 1,
+    "cues": [
+      "Hold a chair, bend one knee and hold the ankle (or a towel loop) behind you",
+      "Tuck the tailbone and squeeze that glute first, then ease the knee back",
+      "Thighs stay side by side — no low-back arch"
+    ],
+    "mistakes": [
+      "Arching the back to pull the foot higher",
+      "Pulling the ankle hard into the buttock"
+    ],
+    "regression": "Towel loop, smaller range",
+    "progression": "Half-kneeling version with a pad under the knee",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "sidelieabduction",
+    "name": "Side-Lying Hip Abduction",
+    "category": "glute",
+    "targets": [
+      "glute-med",
+      "glute-weak"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 12 / side",
+    "level": 1,
+    "cues": [
+      "Side-lying, top leg straight and slightly behind the body line",
+      "Lift from the deep buttock, toes pointing slightly down",
+      "Keep the pelvis stacked — no rolling back"
+    ],
+    "mistakes": [
+      "Rolling the pelvis back and using the front of the hip",
+      "Lifting the leg high with a trunk lean"
+    ],
+    "regression": "Bent-knee version, smaller range",
+    "progression": "Add a mini-band above the knees",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "kickback",
+    "name": "Banded Standing Glute Kickback",
+    "category": "glute",
+    "targets": [
+      "glute-max",
+      "glute-weak"
+    ],
+    "equipment": [
+      "mini-band",
+      "chair"
+    ],
+    "dose": "2 × 12 / side",
+    "level": 2,
+    "cues": [
+      "Mini-band above the ankles, hold a chair, hinge very slightly",
+      "Drive the heel back a short way by squeezing the glute",
+      "Pelvis stays square — the low back does not arch to finish"
+    ],
+    "mistakes": [
+      "Kicking high and arching the low back",
+      "Swinging the leg with momentum"
+    ],
+    "regression": "No band, smaller range",
+    "progression": "Slower tempo with a 2-sec squeeze at the back",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "pronehipext",
+    "name": "Prone Hip Extension (glute firing)",
+    "category": "glute",
+    "targets": [
+      "glute-max",
+      "glute-weak",
+      "hamstring-control"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 8 / side",
+    "level": 1,
+    "cues": [
+      "Face down, forehead on hands, gentle abdominal brace first",
+      "Lift one straight leg a few inches by squeezing the glute first",
+      "Hamstring may help — low back should stay quiet"
+    ],
+    "mistakes": [
+      "Low back firing first or arching to lift",
+      "Lifting the leg high"
+    ],
+    "regression": "Bent-knee version, smaller lift",
+    "progression": "Add a mini-band above the knees",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "suitcasecarry",
+    "name": "Suitcase Carry",
+    "category": "strength",
+    "targets": [
+      "lateral-endurance",
+      "lateral-gap",
+      "ql",
+      "core-stability"
+    ],
+    "equipment": [
+      "dumbbell"
+    ],
+    "dose": "3 × 30 sec / side",
+    "level": 2,
+    "cues": [
+      "One light dumbbell at your side, stand tall as if balancing a book on your head",
+      "Walk slowly — do not lean away from the weight",
+      "Ribs down, opposite side (QL and obliques) does the holding"
+    ],
+    "mistakes": [
+      "Leaning away from or into the weight",
+      "Shrugging the shoulder to the ear"
+    ],
+    "regression": "Lighter dumbbell, stand in place marching",
+    "progression": "Heavier dumbbell, longer walks up to 60 sec / side",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "qlstretch",
+    "name": "Seated QL Stretch",
+    "category": "cooldown",
+    "targets": [
+      "ql",
+      "lateral-endurance"
+    ],
+    "equipment": [
+      "chair"
+    ],
+    "dose": "2 × 30 sec / side",
+    "level": 1,
+    "cues": [
+      "Sit tall on a chair, one hand overhead reaching gently to the opposite side",
+      "Keep both sit-bones down and breathe into the stretched side",
+      "Gentle stretch only — this is a cool-down, not a loaded side bend"
+    ],
+    "mistakes": [
+      "Bouncing or forcing the reach",
+      "Twisting the trunk while bending"
+    ],
+    "regression": "Smaller reach, hand on thigh for support",
+    "progression": "Standing version with wall support",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "proneext",
+    "name": "Prone Back Extension Hold (unloaded)",
+    "category": "strength",
+    "targets": [
+      "back-extension"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "3 × 10 sec",
+    "level": 2,
+    "cues": [
+      "Face down, arms at your sides, lift the chest a small way using the back muscles",
+      "Range stays small and pain-free — this is endurance, not height",
+      "Glutes lightly on, neck in line with the spine"
+    ],
+    "mistakes": [
+      "Lifting as high as possible",
+      "Leg pain or pain that travels down the leg — stop"
+    ],
+    "regression": "Chest supported on a pillow, smaller lift",
+    "progression": "Longer holds, up to 20 sec, or add slow arm reaches",
+    "spinal_load": "extension",
+    "contra": [
+      "extension-intolerant"
+    ]
+  },
+  {
+    "id": "sphinx",
+    "name": "Sphinx (Prone on Elbows)",
+    "category": "relief",
+    "targets": [
+      "back-extension",
+      "sciatica-relief"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 30 sec",
+    "level": 1,
+    "cues": [
+      "Face down on forearms, elbows under shoulders, hips and legs relaxed",
+      "Only use if extension eases your symptoms — stop if leg pain increases",
+      "Breathe slowly and let the back settle"
+    ],
+    "mistakes": [
+      "Pushing into pain or forcing height",
+      "Using it on an extension-intolerant day"
+    ],
+    "regression": "Prone lying flat on a pillow instead",
+    "progression": "Progress to prone press-up only if this stays symptom-free",
+    "spinal_load": "extension",
+    "contra": [
+      "extension-intolerant"
+    ]
+  },
+  {
+    "id": "pressup",
+    "name": "Prone Press-Up",
+    "category": "relief",
+    "targets": [
+      "back-extension",
+      "sciatica-relief"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 8 slow",
+    "level": 2,
+    "cues": [
+      "Face down, hands under shoulders, press the chest up while the pelvis stays on the floor",
+      "Only use if extension clearly eases your symptoms — never push through leg pain",
+      "Move slowly, partial range is fine"
+    ],
+    "mistakes": [
+      "Forcing full elbow lockout",
+      "Continuing if pain moves further down the leg"
+    ],
+    "regression": "Sphinx position instead",
+    "progression": "Full press-ups with 2-sec holds at the top",
+    "spinal_load": "extension",
+    "contra": [
+      "extension-intolerant"
+    ]
+  },
+  {
+    "id": "nerveglide",
+    "name": "Sciatic Nerve Glide",
+    "category": "relief",
+    "targets": [
+      "sciatica-relief",
+      "sciatica",
+      "nerve-mobility"
+    ],
+    "equipment": [
+      "chair",
+      "towel"
+    ],
+    "dose": "2 × 8 / side, gentle",
+    "level": 1,
+    "cues": [
+      "Sit tall or lie on your back with a towel behind the thigh, knee bent",
+      "Gently straighten the knee a little while pointing the toes away, then bend it as you pull the toes toward you — a slow see-saw",
+      "This is a glide, not a stretch: stay well short of any sharp or electric pull"
+    ],
+    "mistakes": [
+      "Holding a hard hamstring stretch position",
+      "Pushing into electric, shooting pain"
+    ],
+    "regression": "Smaller range, seated version",
+    "progression": "Slightly larger range, still pain-free",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "hamstring9090",
+    "name": "90/90 Hamstring Lower (active control)",
+    "category": "strength",
+    "targets": [
+      "hamstring-control",
+      "sciatica-relief"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "2 × 8 / side",
+    "level": 2,
+    "cues": [
+      "On your back, hip and knee at 90°, hands behind the thigh",
+      "Slowly straighten the knee as far as control allows, then lower the whole leg a few inches",
+      "Keep the low back heavy on the floor — control, not stretch-chasing"
+    ],
+    "mistakes": [
+      "Yanking the leg straight with a towel",
+      "Low back arching off the floor"
+    ],
+    "regression": "Smaller straighten, leg lowers less",
+    "progression": "Slower 5-sec lowers",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "stepup",
+    "name": "Low Step-Up",
+    "category": "strength",
+    "targets": [
+      "glute-max",
+      "glute-weak",
+      "hinge"
+    ],
+    "equipment": [
+      "chair"
+    ],
+    "dose": "2 × 8 / side",
+    "level": 2,
+    "cues": [
+      "Use a low step or sturdy chair seat edge height you can control",
+      "Whole foot on the step, drive up through the heel using the glute",
+      "Pelvis level, knee tracks over the toes"
+    ],
+    "mistakes": [
+      "Pushing off hard with the back foot",
+      "Knee caving inward"
+    ],
+    "regression": "Lower step, hand on wall or chair for balance",
+    "progression": "Higher step, slower tempo, light dumbbell in the opposite hand",
+    "spinal_load": "none",
+    "contra": []
+  },
+  {
+    "id": "constructiverest",
+    "name": "Constructive Rest Breathing",
+    "category": "cooldown",
+    "targets": [
+      "sciatica-relief",
+      "core-stability"
+    ],
+    "equipment": [
+      "none"
+    ],
+    "dose": "3–5 min",
+    "level": 1,
+    "cues": [
+      "Lie on your back, calves resting on a chair seat, hips and knees at about 90°",
+      "Let the low back settle heavy into the floor",
+      "Slow nasal breathing — longer exhales than inhales"
+    ],
+    "mistakes": [
+      "Using it to avoid all movement on normal days (it is for cool-down and flares)",
+      "Tensing the shoulders or jaw"
+    ],
+    "regression": "Pillow under the head, 2 min",
+    "progression": "Add gentle pelvic tilts in this position",
+    "spinal_load": "none",
+    "contra": []
+  }
+]

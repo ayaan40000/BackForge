@@ -1,0 +1,753 @@
+[
+ {
+  "id": "curlup",
+  "name": "McGill Curl-Up",
+  "category": "core",
+  "targets": [
+   "core-endurance"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "3 \u00d7 8 \u00b7 8-sec holds",
+  "level": 1,
+  "cues": [
+   "Cue for McGill Curl-Up"
+  ],
+  "mistakes": [
+   "Mistake for McGill Curl-Up"
+  ],
+  "regression": "Easier McGill Curl-Up",
+  "progression": "Harder McGill Curl-Up",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "birddog",
+  "name": "Bird-Dog",
+  "category": "core",
+  "targets": [
+   "core-endurance",
+   "glute-weak"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "3 \u00d7 8 / side \u00b7 8-sec holds",
+  "level": 1,
+  "cues": [
+   "Cue for Bird-Dog"
+  ],
+  "mistakes": [
+   "Mistake for Bird-Dog"
+  ],
+  "regression": "Easier Bird-Dog",
+  "progression": "Harder Bird-Dog",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "sideplank",
+  "name": "Side Plank (from knees)",
+  "category": "core",
+  "targets": [
+   "core-endurance",
+   "lateral-gap"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "3 \u00d7 20\u201330 sec / side",
+  "level": 1,
+  "cues": [
+   "Cue for Side Plank (from knees)"
+  ],
+  "mistakes": [
+   "Mistake for Side Plank (from knees)"
+  ],
+  "regression": "Easier Side Plank (from knees)",
+  "progression": "Harder Side Plank (from knees)",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "pallof",
+  "name": "Pallof Press",
+  "category": "core",
+  "targets": [
+   "core-endurance",
+   "apt"
+  ],
+  "equipment": [
+   "band"
+  ],
+  "dose": "3 \u00d7 10 / side",
+  "level": 2,
+  "cues": [
+   "Cue for Pallof Press"
+  ],
+  "mistakes": [
+   "Mistake for Pallof Press"
+  ],
+  "regression": "Easier Pallof Press",
+  "progression": "Harder Pallof Press",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "deadbug",
+  "name": "Dead Bug (band-assisted)",
+  "category": "core",
+  "targets": [
+   "apt",
+   "core-endurance"
+  ],
+  "equipment": [
+   "band"
+  ],
+  "dose": "3 \u00d7 8 / side",
+  "level": 2,
+  "cues": [
+   "Cue for Dead Bug (band-assisted)"
+  ],
+  "mistakes": [
+   "Mistake for Dead Bug (band-assisted)"
+  ],
+  "regression": "Easier Dead Bug (band-assisted)",
+  "progression": "Harder Dead Bug (band-assisted)",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "pullapart",
+  "name": "Band Pull-Apart",
+  "category": "strength",
+  "targets": [
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "band"
+  ],
+  "dose": "3 \u00d7 15",
+  "level": 1,
+  "cues": [
+   "Cue for Band Pull-Apart"
+  ],
+  "mistakes": [
+   "Mistake for Band Pull-Apart"
+  ],
+  "regression": "Easier Band Pull-Apart",
+  "progression": "Harder Band Pull-Apart",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "facepull",
+  "name": "Banded Face Pull",
+  "category": "strength",
+  "targets": [
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "band"
+  ],
+  "dose": "3 \u00d7 15",
+  "level": 2,
+  "cues": [
+   "Cue for Banded Face Pull"
+  ],
+  "mistakes": [
+   "Mistake for Banded Face Pull"
+  ],
+  "regression": "Easier Banded Face Pull",
+  "progression": "Harder Banded Face Pull",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "row",
+  "name": "Banded Row",
+  "category": "strength",
+  "targets": [
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "band"
+  ],
+  "dose": "3 \u00d7 12",
+  "level": 1,
+  "cues": [
+   "Cue for Banded Row"
+  ],
+  "mistakes": [
+   "Mistake for Banded Row"
+  ],
+  "regression": "Easier Banded Row",
+  "progression": "Harder Banded Row",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "hiphinge",
+  "name": "Dowel Hip Hinge",
+  "category": "strength",
+  "targets": [
+   "hinge"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "3 \u00d7 8 slow",
+  "level": 1,
+  "cues": [
+   "Cue for Dowel Hip Hinge"
+  ],
+  "mistakes": [
+   "Mistake for Dowel Hip Hinge"
+  ],
+  "regression": "Easier Dowel Hip Hinge",
+  "progression": "Harder Dowel Hip Hinge",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "wallsquat",
+  "name": "Stability-Ball Wall Squat",
+  "category": "strength",
+  "targets": [
+   "hinge",
+   "glute-weak"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "3 \u00d7 12",
+  "level": 1,
+  "cues": [
+   "Cue for Stability-Ball Wall Squat"
+  ],
+  "mistakes": [
+   "Mistake for Stability-Ball Wall Squat"
+  ],
+  "regression": "Easier Stability-Ball Wall Squat",
+  "progression": "Harder Stability-Ball Wall Squat",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "pullthrough",
+  "name": "Banded Pull-Through",
+  "category": "strength",
+  "targets": [
+   "glute-weak",
+   "hinge"
+  ],
+  "equipment": [
+   "band"
+  ],
+  "dose": "3 \u00d7 15",
+  "level": 2,
+  "cues": [
+   "Cue for Banded Pull-Through"
+  ],
+  "mistakes": [
+   "Mistake for Banded Pull-Through"
+  ],
+  "regression": "Easier Banded Pull-Through",
+  "progression": "Harder Banded Pull-Through",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "clamshell",
+  "name": "Banded Clamshell",
+  "category": "glute",
+  "targets": [
+   "glute-weak"
+  ],
+  "equipment": [
+   "mini-band"
+  ],
+  "dose": "2 \u00d7 15 / side",
+  "level": 1,
+  "cues": [
+   "Cue for Banded Clamshell"
+  ],
+  "mistakes": [
+   "Mistake for Banded Clamshell"
+  ],
+  "regression": "Easier Banded Clamshell",
+  "progression": "Harder Banded Clamshell",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "glutebridge",
+  "name": "Banded Glute Bridge",
+  "category": "glute",
+  "targets": [
+   "glute-weak",
+   "apt"
+  ],
+  "equipment": [
+   "mini-band"
+  ],
+  "dose": "2 \u00d7 20 \u00b7 2-sec top hold",
+  "level": 1,
+  "cues": [
+   "Cue for Banded Glute Bridge"
+  ],
+  "mistakes": [
+   "Mistake for Banded Glute Bridge"
+  ],
+  "regression": "Easier Banded Glute Bridge",
+  "progression": "Harder Banded Glute Bridge",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "sidesteps",
+  "name": "Banded Side Steps",
+  "category": "glute",
+  "targets": [
+   "glute-weak"
+  ],
+  "equipment": [
+   "mini-band"
+  ],
+  "dose": "2 \u00d7 12 / side",
+  "level": 1,
+  "cues": [
+   "Cue for Banded Side Steps"
+  ],
+  "mistakes": [
+   "Mistake for Banded Side Steps"
+  ],
+  "regression": "Easier Banded Side Steps",
+  "progression": "Harder Banded Side Steps",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "singlebridge",
+  "name": "Single-Leg Glute Bridge",
+  "category": "glute",
+  "targets": [
+   "glute-weak"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "3 \u00d7 12 / side",
+  "level": 2,
+  "cues": [
+   "Cue for Single-Leg Glute Bridge"
+  ],
+  "mistakes": [
+   "Mistake for Single-Leg Glute Bridge"
+  ],
+  "regression": "Easier Single-Leg Glute Bridge",
+  "progression": "Harder Single-Leg Glute Bridge",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "hipir9090",
+  "name": "90/90 Hip Switch",
+  "category": "hip",
+  "targets": [
+   "hip-ir"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 \u00d7 8 slow switches",
+  "level": 1,
+  "cues": [
+   "Cue for 90/90 Hip Switch"
+  ],
+  "mistakes": [
+   "Mistake for 90/90 Hip Switch"
+  ],
+  "regression": "Easier 90/90 Hip Switch",
+  "progression": "Harder 90/90 Hip Switch",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "proneir",
+  "name": "Prone Hip IR Rocks",
+  "category": "hip",
+  "targets": [
+   "hip-ir"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 \u00d7 10 / side",
+  "level": 1,
+  "cues": [
+   "Cue for Prone Hip IR Rocks"
+  ],
+  "mistakes": [
+   "Mistake for Prone Hip IR Rocks"
+  ],
+  "regression": "Easier Prone Hip IR Rocks",
+  "progression": "Harder Prone Hip IR Rocks",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "adductorsqueeze",
+  "name": "Side-Lying Adductor Squeeze",
+  "category": "hip",
+  "targets": [
+   "hip-ir"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 \u00d7 10 / side \u00b7 5-sec squeeze",
+  "level": 1,
+  "cues": [
+   "Cue for Side-Lying Adductor Squeeze"
+  ],
+  "mistakes": [
+   "Mistake for Side-Lying Adductor Squeeze"
+  ],
+  "regression": "Easier Side-Lying Adductor Squeeze",
+  "progression": "Harder Side-Lying Adductor Squeeze",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "march9090",
+  "name": "90/90 March (banded hip control)",
+  "category": "hip",
+  "targets": [
+   "hip-ir",
+   "glute-weak"
+  ],
+  "equipment": [
+   "mini-band"
+  ],
+  "dose": "2 \u00d7 8 / side",
+  "level": 2,
+  "cues": [
+   "Cue for 90/90 March (banded hip control)"
+  ],
+  "mistakes": [
+   "Mistake for 90/90 March (banded hip control)"
+  ],
+  "regression": "Easier 90/90 March (banded hip control)",
+  "progression": "Harder 90/90 March (banded hip control)",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "hipflexorstretch",
+  "name": "Half-Kneeling Hip Flexor Stretch",
+  "category": "mobility",
+  "targets": [
+   "apt",
+   "hip-flexor"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 \u00d7 45 sec / side",
+  "level": 1,
+  "cues": [
+   "Cue for Half-Kneeling Hip Flexor Stretch"
+  ],
+  "mistakes": [
+   "Mistake for Half-Kneeling Hip Flexor Stretch"
+  ],
+  "regression": "Easier Half-Kneeling Hip Flexor Stretch",
+  "progression": "Harder Half-Kneeling Hip Flexor Stretch",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "figure4",
+  "name": "Figure-4 Stretch",
+  "category": "mobility",
+  "targets": [
+   "sciatica",
+   "hip-ir"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "30 sec / side",
+  "level": 1,
+  "cues": [
+   "Cue for Figure-4 Stretch"
+  ],
+  "mistakes": [
+   "Mistake for Figure-4 Stretch"
+  ],
+  "regression": "Easier Figure-4 Stretch",
+  "progression": "Harder Figure-4 Stretch",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "kneechest",
+  "name": "Single Knee-to-Chest",
+  "category": "mobility",
+  "targets": [
+   "sciatica"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "8 reps alternating \u00b7 20-sec holds",
+  "level": 1,
+  "cues": [
+   "Cue for Single Knee-to-Chest"
+  ],
+  "mistakes": [
+   "Mistake for Single Knee-to-Chest"
+  ],
+  "regression": "Easier Single Knee-to-Chest",
+  "progression": "Harder Single Knee-to-Chest",
+  "spinal_load": "flexion",
+  "contra": []
+ },
+ {
+  "id": "qlreach",
+  "name": "QL Side Reach / Side Bend (gentle)",
+  "category": "mobility",
+  "targets": [
+   "lateral-gap"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 \u00d7 8 / side, gentle",
+  "level": 1,
+  "cues": [
+   "Cue for QL Side Reach / Side Bend (gentle)"
+  ],
+  "mistakes": [
+   "Mistake for QL Side Reach / Side Bend (gentle)"
+  ],
+  "regression": "Easier QL Side Reach / Side Bend (gentle)",
+  "progression": "Harder QL Side Reach / Side Bend (gentle)",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "chintuck",
+  "name": "Chin Tuck",
+  "category": "mobility",
+  "targets": [
+   "upper-crossed"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "3 \u00d7 10 \u00b7 5-sec holds",
+  "level": 1,
+  "cues": [
+   "Cue for Chin Tuck"
+  ],
+  "mistakes": [
+   "Mistake for Chin Tuck"
+  ],
+  "regression": "Easier Chin Tuck",
+  "progression": "Harder Chin Tuck",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "wallangel",
+  "name": "Wall Angel",
+  "category": "mobility",
+  "targets": [
+   "upper-crossed"
+  ],
+  "equipment": [
+   "wall"
+  ],
+  "dose": "2 \u00d7 10",
+  "level": 1,
+  "cues": [
+   "Cue for Wall Angel"
+  ],
+  "mistakes": [
+   "Mistake for Wall Angel"
+  ],
+  "regression": "Easier Wall Angel",
+  "progression": "Harder Wall Angel",
+  "spinal_load": "none",
+  "contra": []
+ },
+ {
+  "id": "catcamel",
+  "name": "Cat-Camel",
+  "category": "warmup",
+  "targets": [
+   "core-endurance"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "5\u20136 slow cycles before Big 3",
+  "level": 1,
+  "cues": [
+   "Cue for Cat-Camel"
+  ],
+  "mistakes": [
+   "Mistake for Cat-Camel"
+  ],
+  "regression": "Easier Cat-Camel",
+  "progression": "Harder Cat-Camel",
+  "spinal_load": "flexion",
+  "contra": []
+ },
+ {
+  "id": "pressup",
+  "name": "Prone Press-Up (McKenzie)",
+  "category": "mobility",
+  "targets": [
+   "sciatica"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "10 reps",
+  "level": 1,
+  "cues": [
+   "Cue for Prone Press-Up (McKenzie)"
+  ],
+  "mistakes": [
+   "Mistake for Prone Press-Up (McKenzie)"
+  ],
+  "regression": "Easier Prone Press-Up (McKenzie)",
+  "progression": "Harder Prone Press-Up (McKenzie)",
+  "spinal_load": "extension",
+  "contra": [
+   "extension-intolerant"
+  ]
+ },
+ {
+  "id": "sphinx",
+  "name": "Sphinx Pose",
+  "category": "mobility",
+  "targets": [
+   "sciatica"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "60 sec hold",
+  "level": 1,
+  "cues": [
+   "Cue for Sphinx Pose"
+  ],
+  "mistakes": [
+   "Mistake for Sphinx Pose"
+  ],
+  "regression": "Easier Sphinx Pose",
+  "progression": "Harder Sphinx Pose",
+  "spinal_load": "extension",
+  "contra": []
+ },
+ {
+  "id": "jeffersoncurl",
+  "name": "Jefferson Curl",
+  "category": "strength",
+  "targets": [
+   "hinge"
+  ],
+  "equipment": [
+   "dumbbell"
+  ],
+  "dose": "3 \u00d7 8",
+  "level": 3,
+  "cues": [
+   "Cue for Jefferson Curl"
+  ],
+  "mistakes": [
+   "Mistake for Jefferson Curl"
+  ],
+  "regression": "Easier Jefferson Curl",
+  "progression": "Harder Jefferson Curl",
+  "spinal_load": "flexion",
+  "contra": []
+ },
+ {
+  "id": "russiantwist",
+  "name": "Russian Twist",
+  "category": "strength",
+  "targets": [
+   "core-endurance"
+  ],
+  "equipment": [
+   "dumbbell"
+  ],
+  "dose": "3 \u00d7 12",
+  "level": 2,
+  "cues": [
+   "Cue for Russian Twist"
+  ],
+  "mistakes": [
+   "Mistake for Russian Twist"
+  ],
+  "regression": "Easier Russian Twist",
+  "progression": "Harder Russian Twist",
+  "spinal_load": "rotation",
+  "contra": []
+ },
+ {
+  "id": "bandedcrunch",
+  "name": "Banded Crunch",
+  "category": "strength",
+  "targets": [
+   "core-endurance"
+  ],
+  "equipment": [
+   "band"
+  ],
+  "dose": "3 \u00d7 15",
+  "level": 2,
+  "cues": [
+   "Cue for Banded Crunch"
+  ],
+  "mistakes": [
+   "Mistake for Banded Crunch"
+  ],
+  "regression": "Easier Banded Crunch",
+  "progression": "Harder Banded Crunch",
+  "spinal_load": "flexion",
+  "contra": []
+ },
+ {
+  "id": "bothkneestochest",
+  "name": "Both Knees to Chest",
+  "category": "mobility",
+  "targets": [
+   "sciatica"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "30 sec hold",
+  "level": 1,
+  "cues": [
+   "Cue for Both Knees to Chest"
+  ],
+  "mistakes": [
+   "Mistake for Both Knees to Chest"
+  ],
+  "regression": "Easier Both Knees to Chest",
+  "progression": "Harder Both Knees to Chest",
+  "spinal_load": "flexion",
+  "contra": []
+ }
+]
