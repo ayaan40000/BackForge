@@ -15,6 +15,15 @@ An assessment-led, resistance-band-first back-strength planner in a single self-
 7. **Progress** — pain trend on a fixed 0–10 scale, sessions/week, assessment history, and a rolling 14-day progression gate (avg pain ≤ 3 **and** 8+ sessions) that unlocks band-level promotions.
 8. **In-app daily reminder** — set a time under *More → Daily reminder*; replaces the chat check-in from deploy day.
 
+## Live Mode (v2.0)
+
+The **Live** tab is a workout partner built for zero-decision starts:
+
+- **Three taps build the workout** — time on hand (5/10/20/35/50 min), body feel, and caveats (standing hurts, a touchy side, sore knees, no bands, quiet) produce a full session: warm-up → main work → cool-down. Flare days get the relief protocol only.
+- **Defaults that update themselves** — the builder re-derives the default session from assessment findings, per-exercise logged history, today's check-in and the weekly slot, and prints a "Why this workout?" receipt for every build.
+- **Partner player** — coach cue on every step, hold timers, auto-rests, one-tap Regress and guilt-free Skip, resume after interruption, and a celebration finish (specific praise + a real-person quote + one-tap pain score).
+- **Habit system** — week-chain dots, milestone badges, daily attributed motivational quotes (Clear, Twain, Bruce Lee, Aurelius, Lombardi, Ali…) and rotating coach notes on proven anti-procrastination mechanics (2-minute rule, never-miss-twice, temptation bundling, identity votes). Micro counts, always.
+
 ## Safety invariants (do not break — see CLAUDE-REVIEW.md)
 
 - No loaded spinal flexion, no loaded twisting, never both knees to chest at once.
@@ -22,12 +31,10 @@ An assessment-led, resistance-band-first back-strength planner in a single self-
 - Modify-don't-stop: every exercise ships a regression; swaps apply to today's session.
 - Red-flag stop rules lead the assessment; the app screens patterns, it does not diagnose.
 
-## Roadmap (designed in, under *More*)
+## Roadmap
 
-- **Phase 2:** Macro & protein counting (photo-first log, protein floor); health sync via Muse (Google Fit / Samsung Health → Health Connect → recovery score + charts).
-- **Phase 3:** AI form check (phone camera); physio/coach read-only share link.
-- **Phase 4:** Opt-in community streaks.
+Full roadmap to v5.0: **[docs/ROADMAP.md](docs/ROADMAP.md)** — v2.0 Live Mode (shipped) → v2.5 Coach's memory → v3.0 Connected body (Health Connect) → v3.5 Eyes on form → v4.0 Clinic edition → v4.5 Circles → v5.0 Platform. The *More* tab carries the summary cards. Version history: [CHANGELOG.md](CHANGELOG.md).
 
 ## Tech
 
-Single file, vanilla HTML/CSS/JS (~89 KB). State key `backforge_v1` in localStorage. Fonts: Space Grotesk + Inter (graceful system-font fallback offline). Installable: theme color, icon, runtime-generated web manifest.
+Single file, vanilla HTML/CSS/JS (~119 KB). State key `backforge_v1` in localStorage (v2.0 adds `livePrefs`, `exLog`, `livePlayer` — old saves upgrade in place). Fonts: Space Grotesk + Inter (graceful system-font fallback offline). Installable: theme color, icon, runtime-generated web manifest.

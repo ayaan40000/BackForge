@@ -178,6 +178,39 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
 .playerfoot{position:sticky;bottom:0;background:var(--bg2);padding-top:10px}
 @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 .hr{border:0;border-top:1px solid var(--line);margin:18px 0}
+
+/* ---------- Live mode (v2.0) ---------- */
+.quotecard{background:linear-gradient(135deg,rgba(200,240,75,.13),rgba(92,200,255,.07));border:1px solid rgba(200,240,75,.35)}
+.quotecard .q{font-family:var(--disp);font-size:19px;line-height:1.4;font-weight:600}
+.quotecard .who{color:var(--volt);font-weight:700;font-size:13px;margin-top:8px;letter-spacing:.04em;text-transform:uppercase}
+.bigtime{display:flex;gap:8px;flex-wrap:wrap}
+.bigtime button{flex:1;min-width:86px;background:var(--surface2);border:1px solid var(--line);color:var(--ink);border-radius:14px;padding:14px 8px;font-weight:700;font-size:16px;min-height:58px}
+.bigtime button small{display:block;font-weight:600;font-size:11.5px;color:var(--faint);margin-top:2px}
+.bigtime button.on{background:var(--volt);color:var(--volt-ink);border-color:var(--volt)}
+.bigtime button.on small{color:rgba(20,26,5,.65)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chips button{background:var(--surface2);border:1px solid var(--line);color:var(--muted);border-radius:99px;padding:10px 14px;font-weight:600;font-size:13px;min-height:44px}
+.chips button.on{background:rgba(92,200,255,.16);color:var(--sky);border-color:rgba(92,200,255,.45)}
+.weekdots{display:flex;gap:8px;margin-top:10px}
+.weekdots .wd{flex:1;text-align:center}
+.weekdots .wd i{display:block;width:34px;height:34px;margin:0 auto;border-radius:99px;background:var(--surface2);border:1px solid var(--line);font-style:normal;line-height:34px;font-size:14px;color:var(--faint)}
+.weekdots .wd.done i{background:var(--volt);color:var(--volt-ink);border-color:var(--volt);font-weight:800}
+.weekdots .wd.today i{border-color:var(--coral);color:var(--ink)}
+.weekdots .wd span{font-size:11px;color:var(--faint);font-weight:600}
+.badges{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.badge{border:1px solid var(--line);background:var(--surface2);border-radius:99px;padding:7px 12px;font-size:12.5px;font-weight:700;color:var(--faint)}
+.badge.earned{border-color:rgba(255,194,75,.5);color:var(--gold);background:rgba(255,194,75,.09)}
+.sectag{font-size:10.5px;font-weight:800;letter-spacing:.07em;text-transform:uppercase;padding:3px 9px;border-radius:6px;background:rgba(92,200,255,.14);color:var(--sky)}
+.sectag.warm{background:rgba(255,194,75,.15);color:var(--warn)}
+.sectag.cool{background:rgba(183,156,255,.15);color:var(--violet)}
+.reason{font-size:13.5px;color:var(--muted);padding:7px 0;border-top:1px solid var(--line)}
+.reason:first-of-type{border-top:0}
+.reason b{color:var(--sky)}
+.startbar{position:sticky;bottom:86px;z-index:30;margin-top:14px}
+@media(min-width:820px){.startbar{bottom:16px}}
+.celebrate{text-align:center;padding:10px 0}
+.celebrate .big{font-size:52px}
+
 </style>
 </head>
 <body>
@@ -187,6 +220,7 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
     <a class="logo" href="#" data-nav="today"><span class="mark">B</span>Back<em>Forge</em></a>
     <nav class="tabs" aria-label="Main">
       <button data-nav="today" aria-selected="true">Today</button>
+      <button data-nav="live" aria-selected="false">Live</button>
       <button data-nav="assess" aria-selected="false">Assess</button>
       <button data-nav="library" aria-selected="false">Library</button>
       <button data-nav="progress" aria-selected="false">Progress</button>
@@ -247,6 +281,51 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
       <iframe class="vid" src="https://www.youtube.com/embed/2_e4I-brfqs" title="Squat University — The McGill Big 3 for Core Stability" loading="lazy" allowfullscreen></iframe>
       <p class="small" style="margin-top:10px">Every exercise in the Library links to demos from multiple trusted sources — Squat University, BackFitPro (McGill), E3 Rehab, Low Back Ability and more — so you can cross-check form instead of trusting one voice.</p>
     </div>
+  </section>
+
+  <!-- ================= LIVE ================= -->
+  <section class="view" id="view-live">
+    <h2 class="sec-t" style="margin-top:22px">Live workout partner</h2>
+    <p class="sec-sub">No planning. No deciding. Three taps, and your workout is built — warm-up, main work, cool-down — from today's plan, your assessment findings and what you actually did last. Then it coaches you through it, set by set.</p>
+
+    <div class="card quotecard" id="liveQuote"></div>
+
+    <h2 class="sec-t">Your habit</h2>
+    <div class="card" id="liveHabit"></div>
+
+    <h2 class="sec-t">Set up in ten seconds</h2>
+    <div class="card">
+      <label class="fl">How much time do you actually have?</label>
+      <div class="bigtime" id="liveTime">
+        <button data-v="5">5 min<small>no-excuses</small></button>
+        <button data-v="10">10 min<small>micro+</small></button>
+        <button data-v="20">20 min<small>focused</small></button>
+        <button data-v="35">35 min<small>full</small></button>
+        <button data-v="50">50 min<small>complete</small></button>
+      </div>
+      <label class="fl" style="margin-top:16px">How does the body feel?</label>
+      <div class="seg" id="liveEnergy">
+        <button data-v="great">Great</button><button data-v="ok">Okay</button><button data-v="low">Low energy</button><button data-v="flare">Pain flare</button>
+      </div>
+      <label class="fl" style="margin-top:16px">Anything the workout should work around? (tap all that apply)</label>
+      <div class="chips" id="liveCaveats">
+        <button data-v="standing">Standing hurts</button>
+        <button data-v="right">Right side is touchy</button>
+        <button data-v="left">Left side is touchy</button>
+        <button data-v="knees">Knees are sore</button>
+        <button data-v="noband">No bands handy</button>
+        <button data-v="quiet">Need it quiet / low-key</button>
+      </div>
+      <div class="startbar"><button class="btn primary block" style="font-size:16px;padding:16px" onclick="startLive()">▶ Build it &amp; start — no more decisions</button></div>
+      <p class="small" style="margin-top:10px">The micro version always counts. Starting is the whole game — the plan shrinks to fit the day, never the other way round.</p>
+    </div>
+
+    <h2 class="sec-t">Your default workout, right now</h2>
+    <p class="sec-sub">Built automatically from your assessment, your check-in and your logged history. It changes as you change — this is what the button above will run.</p>
+    <div class="card" id="livePlan"></div>
+
+    <h2 class="sec-t">Coach notes — beating the “I’ll do it later” brain</h2>
+    <div class="card" id="liveCoach"></div>
   </section>
 
   <!-- ================= ASSESS ================= -->
@@ -323,12 +402,13 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
   </section>
 
   <footer class="foot">
-    BackForge · Assess. Correct. Rebuild. · Bands first, spine spared, micro counts. · Data stays on your device.
+    BackForge · Assess. Correct. Rebuild. · Bands first, spine spared, micro counts. · v2.0 · Data stays on your device.
   </footer>
 </main>
 
 <nav class="bottom" aria-label="Main">
   <button data-nav="today" aria-selected="true"><span class="ic">🏠</span>Today</button>
+  <button data-nav="live" aria-selected="false"><span class="ic">▶️</span>Live</button>
   <button data-nav="assess" aria-selected="false"><span class="ic">🧭</span>Assess</button>
   <button data-nav="library" aria-selected="false"><span class="ic">📚</span>Library</button>
   <button data-nav="progress" aria-selected="false"><span class="ic">📈</span>Progress</button>
@@ -400,12 +480,14 @@ const TESTS=[
 
 /* ---------------- Roadmap + references ---------------- */
 const ROADMAP=[
-{t:'Macro & protein counting',d:'Photo-first meal logging with a protein floor for tissue repair (glutes rebuild on protein, not wishes). Daily target auto-set from bodyweight; Muse reads the log and flags low-protein days at the evening check-in.',w:'Phase 2',tag:'Nutrition'},
-{t:'Health sync — via Muse',d:'Google Fit and Samsung Health both land in Health Connect on your phone, which Muse already reads: steps, Zone 2 heart rate, sleep and weight sync into Today\u2019s recovery score and the Progress charts. No new app permissions — Muse is the bridge.',w:'Phase 2',tag:'Sync'},
-{t:'AI form check',d:'Phone-camera rep counting and form flags for the Big 3 and hinge pattern — pelvis rotation on bird-dog, arch on hip thrust — using the same modify-don\u2019t-stop rules.',w:'Phase 3',tag:'Vision'},
-{t:'Coach & physio share',d:'One-tap read-only link of your assessment history, pain trend and session log — exactly the sheet a physiotherapist wants, generated from your data.',w:'Phase 3',tag:'Share'},
-{t:'Community streaks',d:'Hevy-style accountability without the noise: streaks and session shares with people you choose. Optional, off by default.',w:'Phase 4',tag:'Social'},
-{t:'Band-level progression engine',d:'Band resistance is your barbell: the engine tracks band level per exercise like Strong tracks plates, and only promotes you when pain trend + completion gates pass.',w:'In this build',tag:'Core'}];
+{t:'Live Mode — workout partner',d:'Three taps (time, energy, caveats) build a complete session — warm-up, main work, cool-down — and the partner player coaches it set by set with timers, regressions and skip-without-guilt. Defaults re-derive from your logged history and assessment after every session.',w:'v2.0',tag:'Live'},
+{t:'Motivation & habit engine',d:'Daily real-person quotes, Seinfeld-chain week dots, milestone badges, celebration debriefs with specific praise, and rotating coach notes built on proven behavior science — the 2-minute rule, never-miss-twice, temptation bundling, identity votes.',w:'v2.0',tag:'Habits'},
+{t:'Macro & protein counting',d:'Photo-first meal logging with a protein floor for tissue repair. Daily target auto-set from bodyweight; low-protein days flagged at the evening check-in.',w:'v2.5',tag:'Nutrition'},
+{t:'Health sync — via Muse',d:'Google Fit and Samsung Health both land in Health Connect, which Muse already reads: steps, Zone 2 heart rate, sleep and weight feed the recovery score and Progress charts.',w:'v3.0',tag:'Sync'},
+{t:'AI form check',d:'Phone-camera rep counting and form flags for the Big 3 and hinge pattern — pelvis rotation on bird-dog, arch on bridge — using the same modify-don\u2019t-stop rules.',w:'v3.5',tag:'Vision'},
+{t:'Coach & physio share',d:'One-tap read-only link of assessment history, pain trend and session log — exactly the sheet a physiotherapist wants.',w:'v4.0',tag:'Share'},
+{t:'Community streaks',d:'Hevy-style accountability without the noise: streaks and session shares with people you choose. Optional, off by default.',w:'v4.5',tag:'Social'},
+{t:'Band-level progression engine',d:'Band resistance is your barbell: the engine tracks band level per exercise like Strong tracks plates, and only promotes when pain trend + completion gates pass.',w:'In this build',tag:'Core'}];
 const REFS=[
 ['McGill, S. — Back Mechanic & Ultimate Back Fitness and Performance','The Big 3, 10-second endurance exposures, descending pyramids, spine-sparing hinge mechanics. backfitpro.com'],
 ['Squat University (Dr. Aaron Horschig, PT) — The McGill Big 3 for Core Stability','squatuniversity.com — the embedded video above and library demos throughout.'],
@@ -417,7 +499,7 @@ const REFS=[
 /* ---------------- State ---------------- */
 const KEY='backforge_v1';
 let S=load();
-function load(){const base={v:1,answers:{},results:null,assessHistory:[],log:[],checkins:[],bandLevel:{},swaps:{},player:null,reminder:null};try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1)return Object.assign(base,s)}catch(e){}return base}
+function load(){const base={v:1,answers:{},results:null,assessHistory:[],log:[],checkins:[],bandLevel:{},swaps:{},player:null,reminder:null,livePrefs:null,exLog:[],livePlayer:null};try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1)return Object.assign(base,s)}catch(e){}return base}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function todayStr(d){d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
@@ -528,7 +610,7 @@ function recoveryTune(){const c=S.checkins[S.checkins.length-1];if(!c||c.date!==
 
 <script>
 /* ---------------- Navigation ---------------- */
-function go(v){$$('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+v));$$('nav [data-nav]').forEach(b=>{b.setAttribute('aria-selected',b.dataset.nav===v?'true':'false');if(b.dataset.nav===v)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});window.scrollTo({top:0});if(v==='progress')renderProgress()}
+function go(v){$$('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'+v));$$('nav [data-nav]').forEach(b=>{b.setAttribute('aria-selected',b.dataset.nav===v?'true':'false');if(b.dataset.nav===v)b.setAttribute('aria-current','page');else b.removeAttribute('aria-current')});window.scrollTo({top:0});if(v==='progress')renderProgress();if(v==='live')renderLive()}
 $$('[data-nav]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();go(b.dataset.nav)}));
 
 /* ---------------- Streak / KPIs ---------------- */
@@ -571,6 +653,7 @@ function renderToday(){
   if(s.items){h+=s.items.map(([id,dose])=>{const e=EXBY[id];return exRow(e,dose)}).join('')}
   h+='<hr class="hr"><h3 style="margin-bottom:4px">Daily foundation</h3>'+F.map(b=>'<p style="margin-top:10px"><b style="color:var(--ink)">'+b.name+'</b> <span class="small">· ~'+b.mins+' min</span></p>'+b.items.filter(i=>!i.skip).map(i=>'<div class="exrow"><div class="thumb">'+(FICON[b.name]||'·')+'</div><div><div class="nm" style="font-size:14px">'+i.t+'</div><div class="dt">'+i.d+'</div></div></div>').join('')+(b.items.some(i=>i.skip)?'<p class="small" style="color:var(--coral)">'+b.items.filter(i=>i.skip).map(i=>i.t+' — '+i.d).join('')+'</p>':'')).join('');
   const doneToday=S.log.some(l=>l.date===todayStr());
+  if(doneToday)h+='<p class="small" style="margin-top:14px;color:var(--gold);font-weight:600">✓ Today is already in the bank. Anything more is bonus — the chain is safe.</p>';
   h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px"><button class="btn primary" onclick="startPlayer()">▶ Start guided session</button><button class="btn" onclick="quickLog()">'+(doneToday?'Log another ✓':'Mark micro done ✓')+'</button></div>';
   $('#todayCard').innerHTML=h;
   $('#weekGrid').innerHTML=weekPlan().map(w=>{const isT=w.day===['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][(new Date().getDay()+6)%7];return '<div class="card" style="'+(isT?'border-color:var(--volt)':'')+'"><div style="display:flex;justify-content:space-between;align-items:center"><h3>'+w.day+'</h3>'+(isT?'<span class="tag volt">Today</span>':'')+'</div><p>'+w.label+'</p><p class="small" style="margin-top:6px">'+(w.kind==='cardio'?'Elliptical or treadmill, conversational pace.':w.kind==='rest'?'Morning blocks + Big 3 only.':'Foundation first, then the session. Micro version always available.')+'</p></div>'}).join('');
@@ -697,7 +780,7 @@ function showFinish(){
   SHEETMODE='plain';
   openSheet('<div class="playerstep"><div class="big">✓</div><h2>Session complete</h2><div class="sub">How is the pain now? This feeds your progression gate.</div><div class="seg" style="justify-content:center;margin:14px 0">'+[0,1,2,3,4,5,6,7,8,9,10].map(n=>'<button onclick="logFinish('+n+')">'+n+'</button>').join('')+'</div><button class="btn ghost" onclick="logFinish(null)">Skip pain score</button></div>');
 }
-function logFinish(p){stopTimer();S.player=null;PL=null;closeSheet();S.log.push({date:todayStr(),kind:'full',title:sessionExercises().title,pain:p});save();renderTop();renderToday();toast('Session logged. That is how backs rebuild.')}
+function logFinish(p){stopTimer();S.player=null;PL=null;closeSheet();S.log.push({date:todayStr(),kind:'full',title:sessionExercises().title,pain:p});if(!S.exLog)S.exLog=[];(sessionExercises().items||[]).forEach(([id])=>S.exLog.push({date:todayStr(),id}));save();renderTop();renderToday();toast('Session logged. That is how backs rebuild.')}
 function finishPlayer(){showFinish()}
 
 /* ---------------- Progress ---------------- */
@@ -752,5 +835,305 @@ $('#painVal').textContent=$('#painRange').value;
 })();
 renderTests();renderResults();renderTop();renderToday();renderLib();
 </script>
+<script>
+/* ============================================================
+   BackForge v2.0 — LIVE MODE
+   A live workout partner: three taps (time, energy, caveats)
+   build a complete session — warm-up, main work, cool-down —
+   from today's plan, the assessment findings and the logged
+   history. Defaults re-derive themselves after every logged
+   session and every new assessment. Safety rules unchanged:
+   no loaded flexion/twisting, never both knees to chest,
+   flare days run the relief protocol only.
+   ============================================================ */
+
+/* ---------- Real people, real words ---------- */
+const QUOTES=[
+["You do not rise to the level of your goals. You fall to the level of your systems.","James Clear, Atomic Habits"],
+["We are what we repeatedly do. Excellence, then, is not an act, but a habit.","Will Durant, summarizing Aristotle"],
+["The secret of getting ahead is getting started.","Mark Twain"],
+["Motivation is what gets you started. Habit is what keeps you going.","Jim Ryun, Olympic runner"],
+["Take care of your body. It's the only place you have to live.","Jim Rohn"],
+["I fear not the man who has practiced 10,000 kicks once, but I fear the man who has practiced one kick 10,000 times.","Bruce Lee"],
+["It's not whether you get knocked down, it's whether you get up.","Vince Lombardi"],
+["It does not matter how slowly you go as long as you do not stop.","Confucius"],
+["A journey of a thousand miles begins with a single step.","Lao Tzu"],
+["The impediment to action advances action. What stands in the way becomes the way.","Marcus Aurelius"],
+["We suffer more often in imagination than in reality.","Seneca"],
+["Either you run the day or the day runs you.","Jim Rohn"],
+["Discipline equals freedom.","Jocko Willink"],
+["He who has a why to live can bear almost any how.","Friedrich Nietzsche"],
+["Whether you think you can or you think you can't, you're right.","Henry Ford"],
+["Don't count the days, make the days count.","Muhammad Ali"],
+["Strength does not come from winning. Your struggles develop your strengths.","Arnold Schwarzenegger"],
+["A year from now you may wish you had started today.","Karen Lamb"]
+];
+/* ---------- Proven anti-procrastination mechanics, in plain words ---------- */
+const TIPS=[
+["The 2-minute rule","If starting feels impossible, shrink the start, not the goal. A 5-minute session is not a failed 35-minute session — it is the habit, kept. (James Clear's rule, and why the micro version always counts here.)"],
+["Don't break the chain","Jerry Seinfeld's method: mark the day, then protect the chain. One missed day is an accident; the rule is simply never miss twice."],
+["Make it obvious, make it easy","Bands by the mat, mat where you can see it, app on the home screen. Motivation follows environment more than willpower — set the room up so starting is the path of least resistance."],
+["Implementation intentions","I will train at 7 PM in the living room beats I will train today in study after study. Your reminder time is that sentence — set it once, then just obey the past you."],
+["Temptation bundling","Pair the session with something you only get during it — a podcast, a playlist, a show. The workout becomes the delivery vehicle for a treat, not a tax."],
+["Think of future you","Research on future-self continuity (Hal Hershfield) shows people who feel connected to their future self act for it. Future you, standing without pain, is built by today's smallest session."],
+["Self-compassion beats shame","Studies from Kristin Neff's research group: people who respond to a missed day with kindness, not guilt, return faster. A missed day is data, not a verdict. The plan already adjusted — just press start."],
+["Identity, not outcome","Every session is a vote for the kind of person you are: someone who trains his back back to strength. Votes compound. Cast today's."]
+];
+const PRAISE=[
+"That is how backs rebuild — one honest session at a time.",
+"You just cast a vote for the strongest version of yourself.",
+"The chain holds. Future you says thanks.",
+"Nobody claps for rehab work. It still counts double.",
+"Started is the hardest rep. You did all of them.",
+"Consistency is the whole program. Today, you were the program.",
+"Your glutes filed a thank-you note. Your spine co-signed.",
+"Show up like this on the low-motivation days and the good days take care of themselves."
+];
+function dayIdx(){const n=new Date();return Math.floor((n-new Date(n.getFullYear(),0,0))/864e5)}
+function dayQuote(){return QUOTES[dayIdx()%QUOTES.length]}
+function dayTip(){return TIPS[dayIdx()%TIPS.length]}
+function dayPraise(){return PRAISE[dayIdx()%PRAISE.length]}
+
+/* ---------- History / adaptation ---------- */
+function lastDoneMap(){const m={};(S.exLog||[]).forEach(x=>{if(!m[x.id]||x.date>m[x.id])m[x.id]=x.date});return m}
+function daysAgo(ds){if(!ds)return null;return Math.round((new Date(todayStr()+'T12:00:00')-new Date(ds+'T12:00:00'))/864e5)}
+function derivedEnergy(){
+  const c=S.checkins[S.checkins.length-1];
+  if(c&&c.date===todayStr()){if(c.pain>=7)return'flare';if(c.pain>=5||c.sleep==='poor')return'low';return'ok'}
+  return'ok';
+}
+function livePrefs(){
+  const p=Object.assign({mins:20,energy:null,caveats:[],touched:null},S.livePrefs||{});
+  if(!p.energy||p.touched!==todayStr())p.energy=derivedEnergy();
+  return p;
+}
+
+/* ---------- Workout builder ---------- */
+function estMins(d){const p=parseDose(d);const per=p.hold?(p.hold+20):45;return p.sets*(p.perSide?2:1)*per/60+0.4}
+const LIVE_WARM=['catcamel','kneechest','figure4','chintuck','hipflexorstretch'];
+const LIVE_COOL=['hipflexorstretch','figure4','qlreach','kneechest','chintuck'];
+function correctivePool(){
+  const out=[];
+  const push=ids=>ids.forEach(id=>{if(!out.includes(id))out.push(id)});
+  if(has('internal rotation deficit')||has('rotation stiffness')||has('internal rotation limited'))push(['proneir','hipir9090','adductorsqueeze']);
+  if(has('Anterior pelvic tilt'))push(['hipflexorstretch','deadbug']);
+  if(has('Glute inhibition'))push(['clamshell','sidesteps']);
+  if(has('Lateral endurance gap'))push(['sideplank','qlreach']);
+  if(has('Forward-head')||has('Rounded shoulders'))push(['facepull','pullapart','wallangel','chintuck']);
+  if(has('Guarding'))push(['singlebridge']);
+  if(!out.length)push(['clamshell','hipir9090']);
+  return out;
+}
+function applyCaveats(items,caveats,energy){
+  const notes=[];let out=items.slice();
+  const drop=(ids,why)=>{const before=out.length;out=out.filter(it=>!ids.includes(it.id));if(out.length<before)notes.push(why)};
+  if(caveats.includes('standing'))drop(['sidesteps','march9090','wallsquat','pullthrough'],'Floor-based today — standing work is out, per your caveat.');
+  if(caveats.includes('knees')){drop(['wallsquat'],'Wall squats dropped — knees are sore.');if(!out.some(it=>it.id==='glutebridge'))out.push({id:'glutebridge',dose:EXBY.glutebridge.dose})}
+  if(caveats.includes('quiet'))drop(['pullthrough','wallsquat'],'Low-key picks only today — nothing that needs space or noise.');
+  if(caveats.includes('noband')){
+    const removed=out.filter(it=>EXBY[it.id].band!=='none');
+    out=out.filter(it=>EXBY[it.id].band==='none');
+    removed.forEach(r=>{const alt=EX.find(x=>x.band==='none'&&x.id!==r.id&&x.targets.some(t=>EXBY[r.id].targets.includes(t))&&!out.some(it=>it.id===x.id));if(alt)out.push({id:alt.id,dose:alt.dose})});
+    if(removed.length)notes.push('No bands: swapped '+removed.length+' band move'+(removed.length>1?'s':'')+' for bodyweight equivalents.');
+  }
+  const capSets=(d,max)=>d.replace(/(\d+)\s*×/,(_,n)=>Math.min(+n,max)+' ×');
+  if(energy==='low'){out=out.map(it=>({...it,dose:capSets(it.dose,2)}));notes.push('Low energy: sets capped at 2. Finishing small beats skipping entirely.')}
+  ['right','left'].forEach(sd=>{
+    if(caveats.includes(sd)){out=out.map(it=>it.dose.includes('/ side')?{...it,dose:capSets(it.dose,2),note:'Easy dose — '+sd+' side is touchy today'}:it);notes.push('Gentle dosing on the '+sd+' side, per your caveat. The other side still works.')}
+  });
+  return{items:out,notes};
+}
+function buildLiveWorkout(mins,energy,caveats){
+  if(flareActive()||energy==='flare'){
+    const items=[['kneechest','8 alternating'],['figure4','30 sec / side'],['catcamel','6 cycles'],['qlreach','2 × 8 / side gentle']].map(([id,dose])=>({id,dose}));
+    return{title:'Live — flare protocol',est:8,reasons:['Pain is at flare level, so today is the <b>relief protocol only</b>. This is the plan working — not a day off, and it still protects the streak.'],sections:[{name:'Relief',tag:'cool',items}]};
+  }
+  const s=sessionExercises();
+  let main=[];
+  if(s.items)main=s.items.map(([id,dose])=>({id,dose}));
+  else{const L=['A','B','C'][(new Date().getDay()+6)%7%3];main=STRENGTH[L].ex.slice(0,3).map(([id,dose])=>({id,dose})).concat(['curlup','birddog','sideplank'].map(id=>({id,dose:EXBY[id].dose})))}
+  const corr=correctivePool().map(id=>({id,dose:EXBY[id].dose}));
+  const warmN=mins>=35?3:2, coolN=2;
+  let warm=LIVE_WARM.slice(0,warmN).map(id=>({id,dose:EXBY[id].dose}));
+  let cool=LIVE_COOL.filter(id=>!warm.some(w=>w.id===id)).slice(0,coolN).map(id=>({id,dose:EXBY[id].dose}));
+  const mixed=[];const maxLen=Math.max(main.length,corr.length);
+  for(let i=0;i<maxLen;i++){if(main[i])mixed.push(main[i]);if(corr[i])mixed.push(corr[i])}
+  const seen=new Set();const dedup=mixed.filter(it=>seen.has(it.id)?false:(seen.add(it.id),true));
+  const cv=applyCaveats(dedup,caveats,energy);
+  const warmCv=applyCaveats(warm,caveats,energy), coolCv=applyCaveats(cool,caveats,energy);
+  warm=warmCv.items;cool=coolCv.items;
+  const fixedEst=warm.concat(cool).reduce((a,it)=>a+estMins(it.dose),0);
+  let chosen=[];
+  if(mins<=6){chosen=cv.items.slice(0,2);warm=warm.slice(0,1);cool=cool.slice(0,1)}
+  else{let acc=fixedEst;for(const it of cv.items){const e=estMins(it.dose);if(acc+e>mins&&chosen.length>=3)break;chosen.push(it);acc+=e}}
+  const lastMap=lastDoneMap();
+  const reasons=[];
+  reasons.push("Built for a <b>"+(s.kind==='strength'?s.title:(s.kind==='cardio'?'Zone 2 day — strength sampler added':'rest day — foundation strength'))+"</b> shape, sized to <b>"+mins+" minutes</b>.");
+  const act=(S.results||[]).filter(f=>f.sev!=='ok');
+  if(act.length){
+    const keyOf=t=>{const fl=t.toLowerCase();return fl.includes('rotation')?'hip-ir':fl.includes('glute')?'glute-weak':fl.includes('tilt')?'apt':fl.includes('lateral')?'lateral-gap':(fl.includes('head')||fl.includes('shoulder'))?'upper-crossed':''};
+    let f=act[0],hit=null;
+    for(const cand of act){const k=keyOf(cand.t);if(!k)continue;const h=chosen.find(it=>EXBY[it.id].targets.includes(k));if(h){f=cand;hit=h;break}}
+    reasons.push("<b>"+f.t+"</b> is a "+(f.sev==='high'?'Priority':'Watch')+" finding from your assessment"+(hit?" — <b>"+EXBY[hit.id].n+"</b> in this session targets it directly.":"."));
+  } else reasons.push("Starter mix — take the <b>assessment</b> and this rebuilds itself around your findings.");
+  const due=chosen.map(it=>({it,d:daysAgo(lastMap[it.id])})).sort((a,b)=>(b.d===null?999:b.d)-(a.d===null?999:a.d))[0];
+  if(due)reasons.push(due.d===null?"<b>"+EXBY[due.it.id].n+"</b> is new to your log — first reps are the ones that teach the pattern.":"You last did <b>"+EXBY[due.it.id].n+"</b> "+due.d+" day"+(due.d===1?'':'s')+" ago — it was due.");
+  const tune=recoveryTune();if(tune)reasons.push("Today's check-in set the load: <b>"+tune.load+"</b>.");
+  cv.notes.concat(warmCv.notes,coolCv.notes).forEach(n=>reasons.push(n));
+  const st=streak();if(st>0)reasons.push("Day <b>"+(st+1)+"</b> of your streak is decided in the next "+mins+" minutes.");
+  const est=Math.round(warm.concat(chosen,cool).reduce((a,it)=>a+estMins(it.dose),0));
+  return{title:'Live workout — '+mins+' min',est,reasons,sections:[{name:'Warm-up',tag:'warm',items:warm},{name:'Main work',tag:'',items:chosen},{name:'Cool-down',tag:'cool',items:cool}]};
+}
+
+/* ---------- Live player ---------- */
+let LPL=null;
+function expandLive(sections){
+  const out=[];
+  sections.forEach(sec=>sec.items.forEach(it=>{
+    const e=EXBY[it.id];if(!e)return;
+    const p=parseDose(it.dose);
+    for(let sIdx=1;sIdx<=p.sets;sIdx++){
+      if(p.perSide){['Left side','Right side'].forEach(sd=>out.push({n:e.n,d:it.dose,found:it.id,sec:sec.name,note:it.note||'',hold:p.hold,setLabel:'Set '+sIdx+' of '+p.sets+' · '+sd,cue:e.cues[0]}))}
+      else out.push({n:e.n,d:it.dose,found:it.id,sec:sec.name,note:it.note||'',hold:p.hold,setLabel:p.sets>1?'Set '+sIdx+' of '+p.sets:'',cue:e.cues[0]});
+    }
+  }));
+  return out;
+}
+function persistLive(){if(LPL)S.livePlayer={date:todayStr(),idx:LPL.idx,steps:LPL.steps,meta:LPL.meta,seen:[...LPL.seen]};else S.livePlayer=null;save()}
+function startLive(){
+  const mins=+((document.querySelector('#liveTime button.on')||{}).dataset?.v||20);
+  const energy=(document.querySelector('#liveEnergy button.on')||{}).dataset?.v||derivedEnergy();
+  const caveats=$$('#liveCaveats button.on').map(b=>b.dataset.v);
+  S.livePrefs={mins,energy,caveats,touched:todayStr()};save();
+  const w=buildLiveWorkout(mins,energy,caveats);
+  LPL={steps:expandLive(w.sections),idx:0,rest:0,seen:new Set(),meta:{mins,energy,caveats,title:w.title,started:new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}};
+  if(!LPL.steps.length){toast('Nothing safe to run with those caveats — loosen one and retry');LPL=null;return}
+  persistLive();
+  if(navigator.wakeLock)navigator.wakeLock.request('screen').catch(()=>{});
+  toast('Built: ~'+w.est+' min · '+LPL.steps.length+' steps. Just follow the screen.');
+  showLiveStep();
+}
+function resumeLive(){const p=S.livePlayer;if(!p||p.date!==todayStr())return startLive();LPL={steps:p.steps,idx:Math.min(p.idx,p.steps.length-1),rest:0,seen:new Set(p.seen||[]),meta:p.meta};showLiveStep()}
+function showLiveStep(){
+  SHEETMODE='player';
+  const it=LPL.steps[LPL.idx],total=LPL.steps.length;
+  persistLive();
+  const pct=Math.round(LPL.idx/total*100);
+  const half=LPL.idx===Math.floor(total/2)&&total>4;
+  openSheet('<div class="playerstep"><span class="sectag '+(it.sec==='Warm-up'?'warm':it.sec==='Cool-down'?'cool':'')+'">'+it.sec+'</span>'+
+  '<div class="big" style="margin-top:10px">'+(EXBY[it.found]?EXBY[it.found].ic:'•')+'</div><h2>'+it.n+'</h2>'+
+  '<div class="sub">Step '+(LPL.idx+1)+' of '+total+' · '+it.d+(it.setLabel?' · <b style="color:var(--volt)">'+it.setLabel+'</b>':'')+(it.note?'<br><span style="color:var(--sky)">'+it.note+'</span>':'')+'</div>'+
+  '<div class="meter" style="margin:6px 0 4px"><i style="width:'+pct+'%"></i></div>'+
+  '<p class="small" style="text-align:left;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:10px 12px"><b style="color:var(--volt)">Coach:</b> '+it.cue+'</p>'+
+  (half?'<p class="small" style="color:var(--gold);font-weight:700">Halfway. The second half is where the habit is actually built.</p>':'')+
+  '<div class="timerbox"><div class="clock" id="clock">'+(it.hold?fmt(it.hold):'0:00')+'</div><div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">'+
+  (it.hold?'<button class="btn sm primary" onclick="startTimer('+it.hold+')">Start hold · '+it.hold+'s</button>':'')+
+  '<button class="btn sm" onclick="startTimer(20)">20s</button><button class="btn sm" onclick="startTimer(30)">30s</button><button class="btn sm" onclick="startTimer(45)">Rest 45s</button><button class="btn sm" onclick="startTimer(60)">Rest 60s</button></div></div>'+
+  '<button class="btn sm ghost" onclick="liveCues(\''+it.found+'\')">Full cues, mistakes &amp; video</button> '+
+  '<button class="btn sm ghost" onclick="liveRegress()">Too hard — regress it</button>'+
+  '<div class="playerfoot" style="display:flex;gap:8px"><button class="btn" style="flex:1" onclick="livePrev()" '+(LPL.idx===0?'disabled':'')+'>← Back</button><button class="btn ghost" style="flex:1" onclick="liveNext(true)">Skip</button>'+(LPL.idx<total-1?'<button class="btn primary" style="flex:2" onclick="liveNext(false)">Done — next →</button>':'<button class="btn primary" style="flex:2" onclick="showLiveFinish()">Finish ✓</button>')+'</div>'+
+  '<p class="small" style="margin-top:12px">Partner rules: pain spreading down the leg, or a nerve tug lingering 10+ seconds, ends the exercise — never the session. Regress or skip, keep moving.</p></div>');
+  if(LPL.rest){startTimer(LPL.rest);LPL.rest=0}
+}
+function liveNext(skipped){
+  stopTimer();const prev=LPL.steps[LPL.idx];
+  if(!skipped&&prev.found)LPL.seen.add(prev.found);
+  LPL.idx++;const nxt=LPL.steps[LPL.idx];
+  LPL.rest=(nxt&&nxt.n!==prev.n)?45:0;
+  if(LPL.idx>=LPL.steps.length)return showLiveFinish();
+  showLiveStep();
+}
+function livePrev(){stopTimer();LPL.idx=Math.max(0,LPL.idx-1);LPL.rest=0;showLiveStep()}
+function liveRegress(){
+  const it=LPL.steps[LPL.idx];if(!it.found)return;
+  it.d=EXBY[it.found].reg;it.hold=null;it.setLabel='Regressed — modify, don\u2019t stop';
+  toast('Regressed: '+EXBY[it.found].reg);showLiveStep();
+}
+function liveCues(id){if(!id)return;SHEETMODE='exback';openEx(id)}
+if(!window._liveWrapped){window._liveWrapped=true;const _origBack=backToPlayer;backToPlayer=function(){if(LPL){SHEETMODE='player';showLiveStep()}else _origBack()}}
+function showLiveFinish(){
+  const q=dayQuote();
+  const doneCount=LPL?LPL.seen.size:0;
+  const newStreak=streak()+(S.log.some(l=>l.date===todayStr())?0:1);
+  openSheet('<div class="celebrate"><div class="big">✓</div><h2>Workout done.</h2>'+
+  '<p style="color:var(--ink);font-weight:600;margin-top:6px">'+dayPraise()+'</p>'+
+  '<p class="small" style="margin-top:8px">'+(LPL?('You covered '+doneCount+' different exercises in your '+LPL.meta.mins+'-minute session, started '+LPL.meta.started+'.'):'')+' Streak after logging: <b style="color:var(--gold)">'+newStreak+' days</b>.</p>'+
+  '<div class="quotecard card" style="margin:14px 0;text-align:left"><div class="q" style="font-size:16px">“'+q[0]+'”</div><div class="who">— '+q[1]+'</div></div>'+
+  '<div class="sub">Pain now? One tap logs the session and teaches the defaults what worked.</div>'+
+  '<div class="seg" style="justify-content:center;margin:10px 0">'+[0,1,2,3,4,5,6,7,8,9,10].map(n=>'<button onclick="logLiveFinish('+n+')">'+n+'</button>').join('')+'</div>'+
+  '<button class="btn ghost" onclick="logLiveFinish(null)">Skip pain score — just log it</button></div>');
+}
+function logLiveFinish(p){
+  stopTimer();
+  const mins=LPL?LPL.meta.mins:0, seen=LPL?[...LPL.seen]:[];
+  S.log.push({date:todayStr(),kind:'live',title:'Live workout · '+mins+' min',pain:p,mins});
+  if(!S.exLog)S.exLog=[];
+  seen.forEach(id=>S.exLog.push({date:todayStr(),id}));
+  LPL=null;S.livePlayer=null;save();closeSheet();
+  renderTop();renderToday();renderLive();
+  toast('Logged. Streak: '+streak()+' days — the defaults just got smarter.');
+}
+
+/* ---------- Live view rendering ---------- */
+function weekDots(){
+  const days=new Set(S.log.map(l=>l.date));
+  const now=new Date(),mon=new Date(now);mon.setDate(now.getDate()-((now.getDay()+6)%7));mon.setHours(0,0,0,0);
+  let h='<div class="weekdots">';
+  for(let i=0;i<7;i++){const d=new Date(mon);d.setDate(mon.getDate()+i);const ds=todayStr(d);const done=days.has(ds);const isT=ds===todayStr();
+    h+='<div class="wd '+(done?'done':'')+(isT?' today':'')+'"><i>'+(done?'✓':['M','T','W','T','F','S','S'][i])+'</i><span>'+['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]+'</span></div>'}
+  return h+'</div>';
+}
+function badges(){
+  const total=S.log.length,st=streak(),live=S.log.filter(l=>l.kind==='live').length;
+  const all=[
+    [total>=1,'🌱 First session logged'],
+    [live>=1,'▶ First Live workout'],
+    [st>=3,'🔗 3-day chain'],
+    [st>=7,'🔥 Week unbroken'],
+    [total>=10,'🏅 10 sessions'],
+    [st>=14,'🧱 14-day streak'],
+    [total>=25,'🏆 25 sessions'],
+    [total>=50,'👑 50 sessions'],
+    [gateStatus().startsWith('READY'),'🚪 Progression gate opened']
+  ];
+  const earned=all.filter(b=>b[0]),next=all.find(b=>!b[0]);
+  return '<div class="badges">'+earned.map(b=>'<span class="badge earned">'+b[1]+'</span>').join('')+(next?'<span class="badge">Next: '+next[1]+'</span>':'')+'</div>';
+}
+function livePlanHTML(w){
+  const resume=(S.livePlayer&&S.livePlayer.date===todayStr())?'<button class="btn primary block" style="margin-bottom:12px" onclick="resumeLive()">▶ Resume live workout · step '+(S.livePlayer.idx+1)+' of '+S.livePlayer.steps.length+'</button>':'';
+  return resume+'<h3>'+w.title+' · ~'+w.est+' min</h3>'+
+    w.sections.map(sec=>'<p style="margin-top:12px"><span class="sectag '+(sec.tag||'')+'">'+sec.name+'</span></p>'+sec.items.map(it=>{const e=EXBY[it.id];return e?exRow(e,it.dose+(it.note?' · '+it.note:'')):''}).join('')).join('')+
+    '<hr class="hr"><h3 style="margin-bottom:2px">Why this workout?</h3>'+w.reasons.map(r=>'<div class="reason">'+r+'</div>').join('')+
+    '<p class="small" style="margin-top:10px">Defaults update themselves: log sessions and this rebuilds from your history; retake the assessment and it rebuilds from your new findings. Your only job is pressing start.</p>';
+}
+function renderLivePlanOnly(){
+  const mins=+((document.querySelector('#liveTime button.on')||{}).dataset?.v||20);
+  const energy=(document.querySelector('#liveEnergy button.on')||{}).dataset?.v||derivedEnergy();
+  const caveats=$$('#liveCaveats button.on').map(b=>b.dataset.v);
+  $('#livePlan').innerHTML=livePlanHTML(buildLiveWorkout(mins,energy,caveats));
+}
+function segSetLive(id,v){const el=document.getElementById(id);if(!el)return;[...el.children].forEach(x=>{const on=x.dataset.v===String(v);x.classList.toggle('on',on);x.setAttribute('aria-pressed',on?'true':'false')})}
+function segWireLive(id){const el=document.getElementById(id);if(!el)return;el.addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;segSetLive(id,b.dataset.v);renderLivePlanOnly()})}
+let quoteIx=null;
+function nextQuote(){quoteIx=((quoteIx===null?dayIdx():quoteIx)+1)%QUOTES.length;const q=QUOTES[quoteIx];$('#liveQuote').innerHTML='<div class="q">“'+q[0]+'”</div><div class="who">— '+q[1]+'</div><button class="btn sm ghost" style="margin-top:10px" onclick="nextQuote()">Another one</button>'}
+function renderLive(){
+  const q=dayQuote();
+  $('#liveQuote').innerHTML='<div class="q">“'+q[0]+'”</div><div class="who">— '+q[1]+'</div><button class="btn sm ghost" style="margin-top:10px" onclick="nextQuote()">Another one</button>';
+  const doneToday=S.log.some(l=>l.date===todayStr());
+  $('#liveHabit').innerHTML='<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div><div style="font-family:var(--disp);font-size:34px;font-weight:700">'+streak()+' <span style="font-size:16px;color:var(--muted)">day streak</span></div><div class="small">'+sessionsThisWeek()+' sessions this week · '+S.log.length+' total · micro counts, always</div></div>'+(doneToday?'<span class="tag volt" style="margin-left:auto">Today is already in the bank ✓ — anything else is bonus</span>':'<span class="tag coral" style="margin-left:auto">Today is still open — one tap below closes it</span>')+'</div>'+weekDots()+badges();
+  const p=livePrefs();
+  segSetLive('liveTime',String(p.mins));segSetLive('liveEnergy',p.energy);
+  $$('#liveCaveats button').forEach(b=>{const on=p.caveats.includes(b.dataset.v);b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false')});
+  renderLivePlanOnly();
+  const t=dayTip();
+  $('#liveCoach').innerHTML='<h3>'+t[0]+'</h3><p>'+t[1]+'</p><p class="small" style="margin-top:8px">One coach note a day — they rotate. The system around you does the motivating; you just keep the appointment.</p>';
+  if(!window._liveWired){window._liveWired=true;
+    segWireLive('liveTime');segWireLive('liveEnergy');
+    $('#liveCaveats').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;const on=!b.classList.contains('on');b.classList.toggle('on',on);b.setAttribute('aria-pressed',on?'true':'false');renderLivePlanOnly()});
+  }
+}
+renderLive();
+</script>
+
 </body>
 </html>
