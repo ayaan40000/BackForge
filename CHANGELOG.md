@@ -2,11 +2,17 @@
 
 All notable changes to BackForge. Versions follow the roadmap in `docs/ROADMAP.md`.
 
+## v2.0.1 — Assessment skip fix (2026-11-02)
+
+- **Fixed the phantom "Glutes are firing" finding in the app.** `scoreAssessment()` stored a skipped answer as the string `'skip'`, which is truthy in JS — so skipping every glute test (firing order, single-leg bridge, clamshell) satisfied the "glutes are firing" branch and reported a Clear finding from no data. The scorer now cleans `'skip'` to `null` for every answer before any check runs, exactly as the backend engine does. Stored answers are not changed; only scoring sees the cleaned copy.
+- This restores the documented invariant in the live app: skipped tests are no data and can never generate a finding — including the partial case (one side skipped, the other clean no longer reports "firing"; both sides genuinely clean still does).
+- Verified: JS syntax on all script blocks; functional scoring cases — all tests skipped → zero findings, glute tests only skipped → zero findings, clean glutes both sides → "Glutes are firing", two-hit right-side inhibition still detected, the full expected profile still scores its 10 findings; backend suite unchanged at 78 passing.
+
 ## Backend engine + exercise directory (2026-11-01)
 
 - **BackForge Engine v0.1 (`backend/`).** FastAPI + SQLite port of the frontend's assessment scoring (all 13 tests, same finding wording and severities), plan generator, Live workout builder, and rolling 14-day progression gate. Endpoints: `/health`, `/exercises` (filtered, profile-aware), `/profile`, `/assess`, `/plan`, `/workout/live`, `/log/checkin`, `/log/session`, `/progress`, `/progress/promote` (gate-enforced — 409 until the gate is ready), `/state/export`, `/state/import` (round-trips the app's `backforge_v1` shape).
 - **Safety invariants as tests — 78 passing.** Trap exercises (Jefferson curl, Russian twist, banded crunch) are never served; both-knees-to-chest never appears for any profile; extension-intolerant profiles exclude press-ups, sphinx, and prone extension (contra tags plus a spinal-load fallback rule); pain ≥ 7 yields relief-only plans and Live builds; gate boundaries tested (average pain exactly 3.0 passes; day-20 activity falls out of the window); skipped answers produce zero findings.
-- **One frontend bug deliberately not ported:** in the app, a skipped glute test can read as "firing" (the string `skip` is truthy in JS). The engine cleans skips to no-data before scoring, per the skip = no data invariant.
+- **One frontend bug deliberately not ported:** in the app, a skipped glute test could read as "firing" (the string `skip` is truthy in JS). The engine cleans skips to no-data before scoring, per the skip = no data invariant. (The app itself was fixed to match in v2.0.1, 2026-11-02.)
 - **Exercise directory: 26 → 48 exercises** (`backend/data/exercises.json`; human-readable `docs/EXERCISE-DIRECTORY.md`). New coverage: hip internal rotation (seated and standing banded IR, 90/90 lift-off), QL (suitcase carry, seated QL stretch), prone hip-extension firing drill, sciatic nerve glide, deep neck flexor holds, 360° breathing and brace. Validated: 0 loaded-flexion and 0 loaded-rotation entries; the only 3 extension-biased entries all carry the extension-intolerant exclusion tag.
 
 ## v2.0 — Live Mode (2026-11-01)

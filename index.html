@@ -508,7 +508,12 @@ function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');se
 <script>
 /* ---------------- Assessment engine ---------------- */
 function scoreAssessment(){
-  const A=S.answers, F=[];
+  // 'skip' means NO DATA: clean it to null before any check, so a skipped
+  // answer can never read as a value (matches the backend engine). Without
+  // this, the truthy string 'skip' fired a phantom "Glutes are firing"
+  // finding when every glute test was skipped.
+  const A={}, F=[];
+  Object.keys(S.answers).forEach(k=>{A[k]=S.answers[k]==='skip'?null:S.answers[k]});
   const add=(sev,t,d,fix)=>F.push({sev,t,d,fix});
   // Direction
   const bend=(A.dirbend==='skip'?null:A.dirbend), ext=(A.dirext==='skip'?null:A.dirext);

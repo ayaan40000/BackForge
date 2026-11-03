@@ -2,6 +2,8 @@
 
 **Live:** https://ayaan40000.github.io/BackForge/
 
+**Latest (v2.0.1, 2026-11-02):** assessment skip-handling fix — the scorer now cleans a skipped answer to no-data before scoring (as the backend engine already did), so skipping the glute tests can no longer produce a phantom "Glutes are firing" finding. See `CHANGELOG.md`.
+
 An assessment-led, resistance-band-first back-strength planner in a single self-contained `index.html`. No build step, no account — all data lives in the browser's localStorage and can be exported (JSON/CSV) or wiped from the Progress tab. An optional backend engine (`backend/`) mirrors the same logic server-side for sync and future clients; the app works fully without it.
 
 ## What it does
