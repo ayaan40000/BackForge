@@ -2,7 +2,7 @@
 
 **Vision.** BackForge becomes the reference standard for self-guided back rehabilitation software: an assessment-led training system a physiotherapy clinic would be proud to hand to a patient, that an engineer would call boring in the best way — deterministic, testable, private by architecture — and that a chronic procrastinator actually opens every day.
 
-**Where we are.** v1.0 (Oct 2026) proved the clinical core: 13-test assessment → findings engine → findings-driven plan → guided player → pain-gated progression. v2.0 (Nov 2026, this release) proves the adherence core: Live Mode. Everything after this is scale — of data, of intelligence, of trust, of reach — in that order.
+**Where we are.** v1.0 (Oct 2026) proved the clinical core: 13-test assessment → findings engine → findings-driven plan → guided player → pain-gated progression. v2.0 (Nov 2026) proved the adherence core: Live Mode. v2.5 (Nov 2026) gives the coach a memory: readiness, response learning, streak repair, deload intelligence, weekly review, protein floor. Everything after this is scale — of data, of intelligence, of trust, of reach — in that order.
 
 **Non-negotiable principles (every version, no exceptions).**
 
@@ -25,7 +25,7 @@
 - **Motivation system.** Daily quote from a real, attributed person (Clear, Twain, Bruce Lee, Marcus Aurelius, Lombardi, Ali…); rotating coach notes built on proven behavior science (2-minute rule, don't-break-the-chain, implementation intentions, temptation bundling, future-self continuity, self-compassion research, identity voting); Seinfeld-chain week dots; milestone badges; specific praise on completion, never generic confetti text.
 - **Exit criteria (met):** builder unit-tested across fresh/seeded states, all caveats, flare override; full session flow test green; safety invariants re-verified.
 
-## v2.5 — THE COACH GETS A MEMORY *(target: Dec 2026)*
+## v2.5 — THE COACH GETS A MEMORY *(shipped Nov 3, 2026)*
 
 **Theme: from reactive defaults to a coach that notices.**
 
@@ -34,8 +34,8 @@
 - **Smart streak repair.** A missed day triggers an automatic "repair session" offer (2 minutes, streak-preserving at reduced credit) instead of a broken chain — designed against the what-the-hell effect that kills habit apps.
 - **Deload intelligence.** Two consecutive pain-rising weeks auto-propose a deload week; two pain-falling weeks surface the retest invitation.
 - **Weekly review card.** One screen, Sunday-grade: sessions, pain trend, gate distance, one win, one adjustment. Exportable.
-- **Nutrition lite.** Protein floor tracker (target from bodyweight) with a photo-first log; low-protein days flagged — tissue rebuilds on protein.
-- **Exit criteria:** every adaptive weight change is explainable in one sentence in the UI; no black-box recommendations anywhere.
+- **Nutrition lite.** Protein floor tracker (target from bodyweight, 1.6 g/kg) with quick-add gram logging; low-protein days flagged in the weekly review — tissue rebuilds on protein. *(Shipped Nov 3, 2026 with quick-add logging; photo-first logging deferred to a later version.)*
+- **Exit criteria (met):** every adaptive weight change is explainable in one sentence in the UI; no black-box recommendations anywhere.
 
 ## v3.0 — THE BODY, CONNECTED *(target: Feb 2027)*
 
@@ -103,7 +103,7 @@
 |---|---|---|
 | v1.0 | Clinical core | Assessment → findings → plan, pain-gated progression |
 | **v2.0** | **Live Mode** | **Three taps to a coached workout; defaults that learn** |
-| v2.5 | Coach's memory | Readiness score, per-exercise response learning, streak repair |
+| **v2.5** | **Coach's memory** | **Readiness score, per-exercise response learning, streak repair** |
 | v3.0 | Connected body | Health Connect sync, recovery-aware gates |
 | v3.5 | Eyes on form | On-device form flags, camera-guided retest |
 | v4.0 | Clinic edition | Clinician share, templates, audit registry, WCAG AA |

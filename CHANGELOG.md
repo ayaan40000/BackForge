@@ -2,6 +2,17 @@
 
 All notable changes to BackForge. Versions follow the roadmap in `docs/ROADMAP.md`.
 
+## v2.5 — The Coach Gets a Memory (2026-11-03)
+
+- **Readiness score (Today → Coach's read).** Sleep + today's pain + pain trend between check-ins + recent session load → a 0–100 morning readiness call (full / trimmed / micro / relief), shown with the full arithmetic — every point is explained, per the roadmap exit rule. Live Mode's default energy now derives from readiness: relief → flare protocol, micro → low, trimmed → okay. Pain ≥ 7 forces relief regardless of score.
+- **Per-exercise response learning.** Each exercise is judged on next-morning pain after days it was logged (needs a check-in that day and the next): ≥2 readings and an average fall of 0.75+ → **Helps**; an average rise of 1.0+ → **Watch**; otherwise Neutral/Learning. The Live builder sorts Helps first and Watch last and prints the verdict sentence in "Why this workout?". All verdicts with their evidence live on Progress → "What the coach has learned".
+- **Smart streak repair.** Missing exactly one day leaves the chain repairable: the Today card offers a repair session (smallest Live build). Logging it bridges the missed day at reduced credit — the missed day itself never counts, and two consecutive misses still break the chain. Repair sessions log as their own kind (`repair`).
+- **Deload intelligence.** Weekly average pain compared across three week-windows: two consecutive rising weeks → deload proposed on Today; two falling weeks → retest invitation; a single rising week shows a plain watch note. An active deload week (7 days) trims the strength session to 3 exercises, drops one Live main exercise, caps sets at 2, and says so in every "Why" receipt.
+- **Weekly review card (Progress).** Sessions this week vs last, average pain and its delta, gate status, one auto-picked win, one auto-picked adjustment, and a one-tap .txt export.
+- **Protein floor tracker (Progress).** Bodyweight (lb) → floor of 1.6 g/kg/day; quick-add chips (+10/+25/+40 g) and custom grams; today's bar plus floor-hit days this week; low-protein weeks surface as the weekly review's adjustment. Photo-first logging is **not** in this version — it stays on the roadmap, and the in-app card says so.
+- State: `backforge_v1` gains `protein`, `bodyweightKg`, `deloadUntil` — old saves merge over the defaults, nothing is lost. App footer version label bumped to v2.5 in the page itself.
+- Verified: JS syntax on all 4 script blocks; 25-case functional harness over the extracted production functions (readiness bands incl. flare override and stale check-in, helps/watch/learning verdicts, repair offer + bridge + two-miss break, deload propose/retest/active/expired, protein target math, weekly review composition, builder integration incl. deload dose caps and flare relief-only, no extension-trap exercises served); v2.0.1 skip-fix regression re-run clean; backend suite unchanged at 78 passing (the engine port of the v2.5 logic is a follow-on, not in this release).
+
 ## v2.0.1 — Assessment skip fix (2026-11-02)
 
 - **Fixed the phantom "Glutes are firing" finding in the app.** `scoreAssessment()` stored a skipped answer as the string `'skip'`, which is truthy in JS — so skipping every glute test (firing order, single-leg bridge, clamshell) satisfied the "glutes are firing" branch and reported a Clear finding from no data. The scorer now cleans `'skip'` to `null` for every answer before any check runs, exactly as the backend engine does. Stored answers are not changed; only scoring sees the cleaned copy.

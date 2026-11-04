@@ -271,6 +271,10 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
       <button class="btn primary" id="saveCheckin">Save check-in &amp; tune today</button>
     </div>
 
+    <h2 class="sec-t">Coach's read</h2>
+    <p class="sec-sub">Readiness, streak repair and deload calls — computed from your check-ins and session log, with the reason always shown. No black box.</p>
+    <div class="card" id="coachCard"></div>
+
     <h2 class="sec-t">Your week</h2>
     <p class="sec-sub">Strength A / B / C, Zone 2 cardio, and the daily foundation — McGill Big 3 plus your corrective blocks. The micro version of any day counts as done.</p>
     <div class="grid c3" id="weekGrid"></div>
@@ -365,6 +369,15 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
     <p class="sec-sub">Progression here is gated on your pain trend and consistency — not the calendar. That is the rule serious rehab programs run on, and the one generic apps skip.</p>
     <div class="kpis" id="progKpis"></div>
     <div id="gateAction" style="margin-top:12px"></div>
+    <h2 class="sec-t">Weekly review</h2>
+    <p class="sec-sub">One screen: what happened, one win, one adjustment. Sunday-grade, any day.</p>
+    <div class="card" id="weekReview"></div>
+    <h2 class="sec-t">What the coach has learned</h2>
+    <p class="sec-sub">Per-exercise response learning: which moves precede your good days and your flare days, judged on next-morning pain. Every verdict shows its evidence.</p>
+    <div class="card" id="responseCard"></div>
+    <h2 class="sec-t">Protein floor</h2>
+    <p class="sec-sub">Nutrition lite: a daily protein floor from your bodyweight. Tissue rebuilds on protein — this is tracked like any other gate.</p>
+    <div class="card" id="proteinCard"></div>
     <div class="grid c2" style="margin-top:14px">
       <div class="card"><h3>Pain trend</h3><p>Daily check-in scores, last 14 entries.</p><canvas class="chart" id="painChart" width="520" height="170"></canvas></div>
       <div class="card"><h3>Sessions per week</h3><p>Foundation days count. Micro counts.</p><canvas class="chart" id="sessChart" width="520" height="170"></canvas></div>
@@ -402,7 +415,7 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
   </section>
 
   <footer class="foot">
-    BackForge · Assess. Correct. Rebuild. · Bands first, spine spared, micro counts. · v2.0 · Data stays on your device.
+    BackForge · Assess. Correct. Rebuild. · Bands first, spine spared, micro counts. · v2.5 · Data stays on your device.
   </footer>
 </main>
 
@@ -482,7 +495,8 @@ const TESTS=[
 const ROADMAP=[
 {t:'Live Mode — workout partner',d:'Three taps (time, energy, caveats) build a complete session — warm-up, main work, cool-down — and the partner player coaches it set by set with timers, regressions and skip-without-guilt. Defaults re-derive from your logged history and assessment after every session.',w:'v2.0',tag:'Live'},
 {t:'Motivation & habit engine',d:'Daily real-person quotes, Seinfeld-chain week dots, milestone badges, celebration debriefs with specific praise, and rotating coach notes built on proven behavior science — the 2-minute rule, never-miss-twice, temptation bundling, identity votes.',w:'v2.0',tag:'Habits'},
-{t:'Macro & protein counting',d:'Photo-first meal logging with a protein floor for tissue repair. Daily target auto-set from bodyweight; low-protein days flagged at the evening check-in.',w:'v2.5',tag:'Nutrition'},
+{t:'Coach\u2019s Memory — readiness & learning',d:'Readiness score every morning, per-exercise response learning with reasons shown, streak repair instead of a broken chain, deload proposals after two pain-rising weeks, a one-screen weekly review, and a protein floor tracker.',w:'v2.5',tag:'Coach'},
+{t:'Protein floor tracker',d:'Shipped in v2.5: daily protein target auto-set from bodyweight (1.6 g/kg), quick-add logging, low days flagged in the weekly review. Photo-first meal logging stays on the roadmap.',w:'v2.5',tag:'Nutrition'},
 {t:'Health sync — via Muse',d:'Google Fit and Samsung Health both land in Health Connect, which Muse already reads: steps, Zone 2 heart rate, sleep and weight feed the recovery score and Progress charts.',w:'v3.0',tag:'Sync'},
 {t:'AI form check',d:'Phone-camera rep counting and form flags for the Big 3 and hinge pattern — pelvis rotation on bird-dog, arch on bridge — using the same modify-don\u2019t-stop rules.',w:'v3.5',tag:'Vision'},
 {t:'Coach & physio share',d:'One-tap read-only link of assessment history, pain trend and session log — exactly the sheet a physiotherapist wants.',w:'v4.0',tag:'Share'},
@@ -499,7 +513,7 @@ const REFS=[
 /* ---------------- State ---------------- */
 const KEY='backforge_v1';
 let S=load();
-function load(){const base={v:1,answers:{},results:null,assessHistory:[],log:[],checkins:[],bandLevel:{},swaps:{},player:null,reminder:null,livePrefs:null,exLog:[],livePlayer:null};try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1)return Object.assign(base,s)}catch(e){}return base}
+function load(){const base={v:1,answers:{},results:null,assessHistory:[],log:[],checkins:[],bandLevel:{},swaps:{},player:null,reminder:null,livePrefs:null,exLog:[],livePlayer:null,protein:{},bodyweightKg:null,deloadUntil:null};try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1)return Object.assign(base,s)}catch(e){}return base}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function todayStr(d){d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
@@ -619,7 +633,19 @@ function go(v){$$('.view').forEach(x=>x.classList.toggle('active',x.id==='view-'
 $$('[data-nav]').forEach(b=>b.addEventListener('click',e=>{e.preventDefault();go(b.dataset.nav)}));
 
 /* ---------------- Streak / KPIs ---------------- */
-function streak(){const days=new Set(S.log.map(l=>l.date));let n=0,d=new Date();if(!days.has(todayStr(d)))d.setDate(d.getDate()-1);while(days.has(todayStr(d))){n++;d.setDate(d.getDate()-1)}return n}
+function streak(){
+  const byDate={};S.log.forEach(l=>{(byDate[l.date]=byDate[l.date]||[]).push(l.kind)});
+  let n=0,d=new Date(),bridged=false;
+  if(!byDate[todayStr(d)])d.setDate(d.getDate()-1);
+  while(true){
+    const ds=todayStr(d);
+    if(byDate[ds]){n++;d.setDate(d.getDate()-1);continue}
+    const after=bfAddDays(ds,1),before=bfAddDays(ds,-1);
+    if(!bridged&&(byDate[after]||[]).includes('repair')&&byDate[before]){bridged=true;d.setDate(d.getDate()-1);continue}
+    break;
+  }
+  return n;
+}
 function sessionsThisWeek(){const now=new Date(),mon=new Date(now);mon.setDate(now.getDate()-((now.getDay()+6)%7));mon.setHours(0,0,0,0);return S.log.filter(l=>new Date(l.date)>=mon).length}
 function renderTop(){
   $('#streakN').textContent=streak();
@@ -646,7 +672,8 @@ function sessionExercises(){
   const s=STRENGTH[k];
   let items=micro?s.ex.slice(0,2).map(([id])=>[id,'1 set only']):s.ex.slice();
   items=items.map(([id,d])=>{const sw=S.swaps[id];return(sw&&sw.date===todayStr()&&EXBY[sw.to])?[sw.to,d+' · swapped in']:[id,d]});
-  return{title:s.name+(micro?' — MICRO version':''),items:items,kind:'strength'};
+  if(deloadActive())items=items.slice(0,3);
+  return{title:s.name+(micro?' — MICRO version':'')+(deloadActive()?' — DELOAD WEEK':''),items:items,kind:'strength'};
 }
 function renderToday(){
   const s=sessionExercises(), tune=recoveryTune(), F=buildFoundation();
@@ -662,6 +689,7 @@ function renderToday(){
   h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:16px"><button class="btn primary" onclick="startPlayer()">▶ Start guided session</button><button class="btn" onclick="quickLog()">'+(doneToday?'Log another ✓':'Mark micro done ✓')+'</button></div>';
   $('#todayCard').innerHTML=h;
   $('#weekGrid').innerHTML=weekPlan().map(w=>{const isT=w.day===['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][(new Date().getDay()+6)%7];return '<div class="card" style="'+(isT?'border-color:var(--volt)':'')+'"><div style="display:flex;justify-content:space-between;align-items:center"><h3>'+w.day+'</h3>'+(isT?'<span class="tag volt">Today</span>':'')+'</div><p>'+w.label+'</p><p class="small" style="margin-top:6px">'+(w.kind==='cardio'?'Elliptical or treadmill, conversational pace.':w.kind==='rest'?'Morning blocks + Big 3 only.':'Foundation first, then the session. Micro version always available.')+'</p></div>'}).join('');
+  renderCoachCard();
 }
 function exRow(e,dose){return '<div class="exrow"><div class="thumb">'+e.ic+'</div><div><div class="nm">'+e.n+'</div><div class="dt">'+dose+' · '+(e.band==='none'?'Bodyweight':(e.band==='loop'?'Loop band':'Long band')+' L'+(S.bandLevel[e.id]||1))+'</div></div><div class="acts"><button class="iconbtn" onclick="openEx(\''+e.id+'\')">Details</button><button class="iconbtn" onclick="swapEx(\''+e.id+'\')">Swap</button></div></div>'}
 function swapEx(id){const e=EXBY[id];const alt=EX.find(x=>x.id!==id&&x.cat===e.cat&&x.targets.some(t=>e.targets.includes(t)))||EX.find(x=>x.id!==id&&x.cat===e.cat);if(!alt)return toast('No swap available');S.swaps[id]={to:alt.id,date:todayStr()};save();toast('Swapped: '+e.n+' → '+alt.n+' (modify, don\u2019t stop)');renderToday()}
@@ -810,6 +838,7 @@ function renderProgress(){
   else ga.innerHTML='<div class="card"><p><b>Progression gate:</b> opens when your 14-day average pain is 3 or under AND you have 8+ logged sessions in the last 14 days. No calendar guilt — the trend decides.</p></div>';
   drawChart('painChart',S.checkins.slice(-14).map(c=>c.pain),'#FF6B4A',S.checkins.slice(-14).map(c=>c.date.slice(5)),10);
   drawChart('sessChart',weeks,'#C8F04B',wl,7);
+  renderWeekReview();renderResponseCard();renderProteinCard();
   const el=$('#assessHistory');
   if(!S.assessHistory.length){el.innerHTML='<p>No scored assessment yet.</p>';return}
   el.innerHTML='<table class="cmp"><tr><th>Date</th><th>Findings</th></tr>'+S.assessHistory.slice().reverse().map(hx=>'<tr><td>'+hx.date+'</td><td>'+hx.flags.join(' · ')+'</td></tr>').join('')+'</table>';
@@ -818,6 +847,153 @@ function promoteBands(){EX.filter(e=>e.band!=='none').forEach(e=>S.bandLevel[e.i
 function sessionWeeks(){const out=[0,0,0,0];const now=new Date();S.log.forEach(l=>{const diff=Math.floor((now-new Date(l.date+'T12:00:00'))/864e5);const w=Math.floor(diff/7);if(w<4)out[3-w]++});return out}
 function weekLabels(){const out=[];const now=new Date();const mon=new Date(now);mon.setDate(now.getDate()-((now.getDay()+6)%7));for(let i=3;i>=0;i--){const d=new Date(mon);d.setDate(mon.getDate()-i*7);out.push((d.getMonth()+1)+'/'+d.getDate())}return out}
 function gateStatus(){const since=new Date();since.setDate(since.getDate()-14);const ck=S.checkins.filter(c=>new Date(c.date+'T12:00:00')>=since);const sess=S.log.filter(l=>new Date(l.date+'T12:00:00')>=since).length;if(ck.length<5)return 'Warming up';const avg=ck.reduce((a,c)=>a+c.pain,0)/ck.length;return(avg<=3&&sess>=8)?'READY — level up':'Hold — pain or consistency'}
+/* ---------------- Coach's Memory (v2.5) ----------------
+   Readiness, per-exercise response learning, streak repair, deload
+   intelligence, weekly review, protein floor. Every adaptive call
+   carries its reason in plain language — no black-box changes. */
+function bfAddDays(ds,n){const d=new Date(ds+'T12:00:00');d.setDate(d.getDate()+n);return todayStr(d)}
+function bfDaysAgo(ds){return Math.round((new Date(todayStr()+'T12:00:00')-new Date(ds+'T12:00:00'))/864e5)}
+function ckOn(ds){return S.checkins.find(c=>c.date===ds)||null}
+function painWindow(a,b){const cs=S.checkins.filter(c=>{const d=bfDaysAgo(c.date);return d>=a&&d<=b});return cs.length?cs.reduce((x,c)=>x+c.pain,0)/cs.length:null}
+function painWindowN(a,b){return S.checkins.filter(c=>{const d=bfDaysAgo(c.date);return d>=a&&d<=b}).length}
+function deloadActive(){return !!(S.deloadUntil&&S.deloadUntil>=todayStr())}
+function computeReadiness(){
+  const t=ckOn(todayStr())||S.checkins[S.checkins.length-1];
+  if(!t)return null;
+  const stale=bfDaysAgo(t.date)>1;
+  if(t.pain>=7)return{level:'relief',score:25,why:'Readiness is relief-only: pain is '+t.pain+'/10, so flare rules apply — relief protocol today, and it still protects the streak.'};
+  let score=70;const drivers=[];
+  if(t.sleep==='great'){score+=10;drivers.push('slept great (+10)')}
+  else if(t.sleep==='poor'){score-=15;drivers.push('poor sleep (−15)')}
+  else drivers.push('slept okay (±0)');
+  if(t.pain>=5){score-=20;drivers.push('pain at '+t.pain+'/10 (−20)')}
+  else if(t.pain>=3){score-=5;drivers.push('pain at '+t.pain+'/10 (−5)')}
+  else{score+=10;drivers.push('pain low at '+t.pain+'/10 (+10)')}
+  const cs=[...S.checkins].sort((a,b)=>a.date<b.date?-1:1);
+  if(cs.length>=2){const d=cs[cs.length-1].pain-cs[cs.length-2].pain;
+    if(d<=-1){score+=10;drivers.push('pain fell '+(-d)+' since the last check-in (+10)')}
+    else if(d>=2){score-=15;drivers.push('pain rose '+d+' since the last check-in (−15)')}}
+  const recent=S.log.filter(l=>{const d=bfDaysAgo(l.date);return d>=0&&d<=2}).length;
+  if(recent>=3){score-=5;drivers.push('three sessions in the last two days — load is adding up (−5)')}
+  if(deloadActive()){score=Math.min(score,64);drivers.push('deload week is on, so the ceiling is a trimmed session')}
+  score=Math.max(5,Math.min(98,Math.round(score)));
+  const level=score>=75?'full':score>=55?'trimmed':score>=35?'micro':'relief';
+  const word={full:'Full session',trimmed:'Trimmed session',micro:'Micro only',relief:'Relief only'}[level];
+  return{level,score,why:'Readiness '+score+'/100 → '+word+': '+drivers.join('; ')+'.'+(stale?' Based on your last check-in '+bfDaysAgo(t.date)+' day(s) ago — check in today to refresh it.':'')};
+}
+function exerciseResponse(){
+  const out={};
+  const ids=[...new Set((S.exLog||[]).map(x=>x.id))];
+  ids.forEach(id=>{
+    const days=[...new Set((S.exLog||[]).filter(x=>x.id===id).map(x=>x.date))];
+    const deltas=[];
+    days.forEach(d=>{const a=ckOn(d),b=ckOn(bfAddDays(d,1));if(a&&b)deltas.push(b.pain-a.pain)});
+    const name=EXBY[id]?EXBY[id].n:id;
+    if(deltas.length<2){out[id]={n:days.length,dAvg:deltas.length?deltas[0]:null,verdict:'learning',why:'Still learning: the coach needs at least 2 days with a morning-after check-in to judge '+name+' — it has '+deltas.length+' so far.'};return}
+    const dAvg=deltas.reduce((a,b)=>a+b,0)/deltas.length;
+    let verdict='neutral',why=name+' looks neutral so far: next-morning pain moved '+(dAvg>0?'+':'')+dAvg.toFixed(1)+' on average across '+deltas.length+' logged days — no change to how the builder treats it.';
+    if(dAvg<=-0.75){verdict='helps';why=name+' precedes pain drops for you: next-morning pain fell '+Math.abs(dAvg).toFixed(1)+' points on average across '+deltas.length+' logged days — the builder favours it.'}
+    else if(dAvg>=1){verdict='watch';why=name+' precedes pain rises for you: next-morning pain rose '+dAvg.toFixed(1)+' points on average across '+deltas.length+' logged days — the builder de-prioritises it; regress it rather than forcing it.'}
+    out[id]={n:days.length,dAvg,verdict,why};
+  });
+  return out;
+}
+function repairOffer(){
+  const days=new Set(S.log.map(l=>l.date));
+  const today=todayStr(),y=bfAddDays(today,-1),y2=bfAddDays(today,-2);
+  if(days.has(today)||days.has(y))return null;
+  if(!days.has(y2))return null;
+  let chain=0,d=y2;while(days.has(d)){chain++;d=bfAddDays(d,-1)}
+  return chain>=1?{missed:y,chain}:null;
+}
+function startRepair(){
+  go('live');segSetLive('liveTime','5');
+  const r=computeReadiness();
+  segSetLive('liveEnergy',r&&r.level==='relief'?'flare':'ok');
+  startLive();
+  if(LPL){LPL.meta.repair=true;persistLive()}
+}
+function deloadStatus(){
+  if(deloadActive())return{state:'active',why:'Deload week is ON until '+S.deloadUntil+' — sets capped, one main exercise dropped, no gate pressure. Earned rest is part of the program.'};
+  const w0=painWindow(0,6),w1=painWindow(7,13),w2=painWindow(14,20);
+  const n0=painWindowN(0,6),n1=painWindowN(7,13),n2=painWindowN(14,20);
+  if(w0!==null&&w1!==null&&n0>=3&&n1>=3){
+    if(w2!==null&&n2>=2){
+      if(w0>w1+0.3&&w1>w2+0.3)return{state:'propose',why:'Pain rose two weeks running ('+w2.toFixed(1)+' → '+w1.toFixed(1)+' → '+w0.toFixed(1)+'). The coach proposes a deload week: same movements, roughly half the dose, no progression.'};
+      if(w0<w1-0.3&&w1<w2-0.3)return{state:'retest',why:'Pain fell two weeks running ('+w2.toFixed(1)+' → '+w1.toFixed(1)+' → '+w0.toFixed(1)+'). Time to retest the assessment and let the plan rebuild around the new picture.'};
+    }
+    if(w0>w1+1)return{state:'watch',why:'Pain is up this week vs last ('+w1.toFixed(1)+' → '+w0.toFixed(1)+'). One more rising week and the coach will propose a deload.'};
+    if(w0<w1-1)return{state:'watch',why:'Pain is down this week vs last ('+w1.toFixed(1)+' → '+w0.toFixed(1)+'). Keep the fall going and a retest invitation follows.'};
+  }
+  return{state:'none',why:''};
+}
+function startDeload(){S.deloadUntil=bfAddDays(todayStr(),6);save();renderToday();toast('Deload week on — trimmed dose until '+S.deloadUntil)}
+function endDeload(){S.deloadUntil=null;save();renderToday();toast('Deload off — full plan restored')}
+function proteinTarget(){return S.bodyweightKg?Math.round(S.bodyweightKg*1.6):null}
+function proteinFloorStatus(){
+  const target=proteinTarget();if(!target)return null;
+  let loggedDays=0,hitDays=0;
+  for(let i=0;i<7;i++){const g=(S.protein||{})[bfAddDays(todayStr(),-i)];if(g){loggedDays++;if(g>=target*0.9)hitDays++}}
+  return{target,loggedDays,hitDays,today:(S.protein||{})[todayStr()]||0};
+}
+function addProtein(g){if(!S.protein)S.protein={};S.protein[todayStr()]=Math.round(((S.protein[todayStr()])||0)+g);save();renderProgress();toast('Protein logged: '+S.protein[todayStr()]+' g today')}
+function addProteinCustom(){const v=parseFloat((document.getElementById('protCustom')||{}).value);if(!v||v<=0)return toast('Enter the grams first');addProtein(v)}
+function setBodyweight(lb){const v=parseFloat(lb);if(!v||v<=0)return toast('Enter a bodyweight first');S.bodyweightKg=Math.round(v*0.4536*10)/10;save();renderProgress();toast('Protein floor set: '+proteinTarget()+' g/day (1.6 g per kg)')}
+function weeklyReview(){
+  const inWin=(l,a,b)=>{const d=bfDaysAgo(l.date);return d>=a&&d<=b};
+  const sess=S.log.filter(l=>inWin(l,0,6)).length,prev=S.log.filter(l=>inWin(l,7,13)).length;
+  const w0=painWindow(0,6),w1=painWindow(7,13);
+  const delta=(w0!==null&&w1!==null)?(w0-w1):null;
+  let win;
+  if(streak()>=7)win='A '+streak()+'-day chain is alive — the system is carrying you now, not willpower.';
+  else if(delta!==null&&delta<=-1)win='Average pain is down '+Math.abs(delta).toFixed(1)+' points vs last week.';
+  else if(sess>=5)win=sess+' sessions this week — consistency is the whole game at this stage.';
+  else if(gateStatus().startsWith('READY'))win='The progression gate opened — band levels earned a promotion.';
+  else win=sess?sess+' session'+(sess>1?'s':'')+' banked. Showing up in a thin week counts double.':'No sessions yet this week — the micro version is two minutes. Start there.';
+  let adj;const ds=deloadStatus(),resp=exerciseResponse();
+  const watchId=Object.keys(resp).find(id=>resp[id].verdict==='watch');
+  const pf=proteinFloorStatus();
+  if(ds.state==='propose')adj='Take the deload week the coach proposed on the Today tab.';
+  else if(ds.state==='retest')adj='Retest the assessment — pain has fallen two weeks running.';
+  else if(watchId)adj=resp[watchId].why;
+  else if(pf&&pf.loggedDays>=3&&pf.hitDays<pf.loggedDays)adj='Protein hit the floor on only '+pf.hitDays+' of '+pf.loggedDays+' logged days — close that gap before adding anything new.';
+  else adj='Nothing to fix. Hold the plan, keep the check-ins honest, and let the gate decide.';
+  return{sessions:sess,prevSessions:prev,avgPain:w0,delta,win,adj,gate:gateStatus()};
+}
+function exportWeekReview(){const r=weeklyReview();dl('backforge-weekly-review.txt','BackForge weekly review — '+todayStr()+'\nSessions this week: '+r.sessions+' (last week: '+r.prevSessions+')\nAverage pain: '+(r.avgPain===null?'no check-ins':r.avgPain.toFixed(1)+' / 10'+(r.delta!==null?' ('+(r.delta<=0?'down ':'up ')+Math.abs(r.delta).toFixed(1)+' vs last week)':''))+'\nProgression gate: '+r.gate+'\nWin: '+r.win+'\nOne adjustment: '+r.adj+'\n','text/plain');toast('Weekly review exported')}
+function renderCoachCard(){
+  const el=$('#coachCard');if(!el)return;
+  const r=computeReadiness(),word={full:'Full session',trimmed:'Trimmed session',micro:'Micro only',relief:'Relief only'};
+  let h='';
+  if(!r)h='<h3>No read yet</h3><p>Save a check-in above and the coach calls today\u2019s load — full, trimmed, micro or relief — with the arithmetic shown.</p>';
+  else h='<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div><div style="font-family:var(--disp);font-size:34px;font-weight:700">'+r.score+' <span style="font-size:16px;color:var(--muted)">/ 100 readiness</span></div><div class="small">Today\u2019s call: <b style="color:var(--ink)">'+word[r.level]+'</b></div></div></div><p style="margin-top:8px">'+r.why+'</p>';
+  const rep=repairOffer();
+  if(rep)h+='<hr class="hr"><h3>Streak repair</h3><p>Yesterday slipped — an accident, not a verdict. A repair session today (smallest Live build, about 2 minutes of work) bridges the gap and keeps your '+rep.chain+'-day chain alive at reduced credit. Never miss twice.</p><button class="btn primary sm" style="margin-top:8px" onclick="startRepair()">Start repair session</button>';
+  if(S.log.some(l=>l.date===todayStr()&&l.kind==='repair'))h+='<p class="small" style="margin-top:10px;color:var(--gold);font-weight:600">✓ Repair logged today — the chain bridges yesterday at reduced credit.</p>';
+  const ds=deloadStatus();
+  if(ds.state==='active')h+='<hr class="hr"><h3>Deload week — ON</h3><p>'+ds.why+'</p><button class="btn sm" style="margin-top:8px" onclick="endDeload()">End deload early</button>';
+  else if(ds.state==='propose')h+='<hr class="hr"><h3>Deload proposed</h3><p>'+ds.why+'</p><button class="btn primary sm" style="margin-top:8px" onclick="startDeload()">Start deload week</button>';
+  else if(ds.state==='retest')h+='<hr class="hr"><h3>Retest invited</h3><p>'+ds.why+'</p><button class="btn primary sm" style="margin-top:8px" onclick="go(\'assess\')">Go to assessment</button>';
+  else if(ds.state==='watch')h+='<p class="small" style="margin-top:10px">'+ds.why+'</p>';
+  el.innerHTML=h;
+}
+function renderWeekReview(){
+  const el=$('#weekReview');if(!el)return;const r=weeklyReview();
+  el.innerHTML='<p><b>Sessions:</b> '+r.sessions+' this week ('+r.prevSessions+' last week) &middot; <b>Average pain:</b> '+(r.avgPain===null?'no check-ins yet':r.avgPain.toFixed(1)+' / 10'+(r.delta!==null?' — '+(r.delta<=0?'down ':'up ')+Math.abs(r.delta).toFixed(1)+' vs last week':''))+' &middot; <b>Gate:</b> '+r.gate+'</p><p style="margin-top:8px"><b>One win:</b> '+r.win+'</p><p style="margin-top:6px"><b>One adjustment:</b> '+r.adj+'</p><button class="btn sm" style="margin-top:10px" onclick="exportWeekReview()">Export review (.txt)</button>';
+}
+function renderResponseCard(){
+  const el=$('#responseCard');if(!el)return;const resp=exerciseResponse(),ids=Object.keys(resp);
+  if(!ids.length){el.innerHTML='<p>No exercise history yet. Log Live or guided sessions and the coach starts learning which moves precede your good days and your flare days — every verdict shows its evidence.</p>';return}
+  const order={helps:0,watch:1,neutral:2,learning:3},lbl={helps:'Helps you',watch:'Watch',neutral:'Neutral',learning:'Learning'};
+  el.innerHTML=ids.sort((a,b)=>(order[resp[a].verdict]-order[resp[b].verdict])||(resp[b].n-resp[a].n)).map(id=>'<div class="flagrow"><div><div class="ft" style="font-size:14.5px">'+(EXBY[id]?EXBY[id].n:id)+' <span class="tag '+(resp[id].verdict==='helps'?'volt':resp[id].verdict==='watch'?'coral':'')+'">'+lbl[resp[id].verdict]+'</span></div><div class="fd">'+resp[id].why+'</div></div></div>').join('');
+}
+function renderProteinCard(){
+  const el=$('#proteinCard');if(!el)return;const t=proteinTarget();
+  const inp='background:var(--surface2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px;font-size:15px;min-height:44px';
+  if(!t){el.innerHTML='<p>Tissue rebuilds on protein. Set your bodyweight and the coach sets a floor of 1.6 g per kg per day, then tracks it like any other gate.</p><div style="display:flex;gap:8px;margin-top:10px;flex-wrap:wrap;align-items:center"><input type="number" id="bwInput" placeholder="Bodyweight (lb)" style="'+inp+';width:180px"><button class="btn sm primary" onclick="setBodyweight(document.getElementById(\'bwInput\').value)">Set my floor</button></div>';return}
+  const st=proteinFloorStatus(),pct=Math.min(100,Math.round(st.today/t*100));
+  el.innerHTML='<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div><div style="font-family:var(--disp);font-size:30px;font-weight:700">'+st.today+' g <span style="font-size:15px;color:var(--muted)">of '+t+' g floor</span></div><div class="small">'+pct+'% of today\u2019s floor &middot; floor hit on '+st.hitDays+' of '+st.loggedDays+' logged days this week</div></div></div><div class="meter" style="margin:12px 0 4px"><i style="width:'+pct+'%"></i></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center"><button class="btn sm" onclick="addProtein(10)">+10 g</button><button class="btn sm" onclick="addProtein(25)">+25 g</button><button class="btn sm" onclick="addProtein(40)">+40 g</button><input type="number" id="protCustom" placeholder="Custom g" style="'+inp+';width:120px"><button class="btn sm" onclick="addProteinCustom()">Add</button></div><p class="small" style="margin-top:8px">Target: 1.6 g per kg at '+S.bodyweightKg+' kg bodyweight. Quick-add logging in this version — photo logging stays on the roadmap.</p>';
+}
 /* ---------------- More view ---------------- */
 $('#roadmapGrid').innerHTML=ROADMAP.map(r=>'<div class="card roadmap"><div style="display:flex;gap:8px;align-items:center"><span class="tag volt">'+r.tag+'</span><span class="tag" style="margin-left:auto">'+r.w+'</span></div><h3 style="margin-top:10px">'+r.t+'</h3><p>'+r.d+'</p></div>').join('');
 $('#refCard').innerHTML=REFS.map(([t,d])=>'<div class="flagrow"><div><div class="ft" style="font-size:14.5px">'+t+'</div><div class="fd">'+d+'</div></div></div>').join('');
@@ -903,6 +1079,8 @@ function dayPraise(){return PRAISE[dayIdx()%PRAISE.length]}
 function lastDoneMap(){const m={};(S.exLog||[]).forEach(x=>{if(!m[x.id]||x.date>m[x.id])m[x.id]=x.date});return m}
 function daysAgo(ds){if(!ds)return null;return Math.round((new Date(todayStr()+'T12:00:00')-new Date(ds+'T12:00:00'))/864e5)}
 function derivedEnergy(){
+  const r25=(typeof computeReadiness==='function')?computeReadiness():null;
+  if(r25){if(r25.level==='relief')return'flare';if(r25.level==='micro')return'low';if(r25.level==='trimmed')return'ok'}
   const c=S.checkins[S.checkins.length-1];
   if(c&&c.date===todayStr()){if(c.pain>=7)return'flare';if(c.pain>=5||c.sleep==='poor')return'low';return'ok'}
   return'ok';
@@ -964,6 +1142,9 @@ function buildLiveWorkout(mins,energy,caveats){
   const mixed=[];const maxLen=Math.max(main.length,corr.length);
   for(let i=0;i<maxLen;i++){if(main[i])mixed.push(main[i]);if(corr[i])mixed.push(corr[i])}
   const seen=new Set();const dedup=mixed.filter(it=>seen.has(it.id)?false:(seen.add(it.id),true));
+  const respMap=exerciseResponse();
+  const rankOf=id=>{const v=respMap[id]&&respMap[id].verdict;return v==='helps'?0:v==='watch'?2:1};
+  dedup.sort((a,b)=>rankOf(a.id)-rankOf(b.id));
   const cv=applyCaveats(dedup,caveats,energy);
   const warmCv=applyCaveats(warm,caveats,energy), coolCv=applyCaveats(cool,caveats,energy);
   warm=warmCv.items;cool=coolCv.items;
@@ -971,6 +1152,7 @@ function buildLiveWorkout(mins,energy,caveats){
   let chosen=[];
   if(mins<=6){chosen=cv.items.slice(0,2);warm=warm.slice(0,1);cool=cool.slice(0,1)}
   else{let acc=fixedEst;for(const it of cv.items){const e=estMins(it.dose);if(acc+e>mins&&chosen.length>=3)break;chosen.push(it);acc+=e}}
+  if(deloadActive()){if(chosen.length>3)chosen=chosen.slice(0,chosen.length-1);chosen=chosen.map(it=>({...it,dose:it.dose.replace(/(\d+)\s*×/,function(_,n){return Math.min(+n,2)+' ×'})}))}
   const lastMap=lastDoneMap();
   const reasons=[];
   reasons.push("Built for a <b>"+(s.kind==='strength'?s.title:(s.kind==='cardio'?'Zone 2 day — strength sampler added':'rest day — foundation strength'))+"</b> shape, sized to <b>"+mins+" minutes</b>.");
@@ -984,6 +1166,9 @@ function buildLiveWorkout(mins,energy,caveats){
   const due=chosen.map(it=>({it,d:daysAgo(lastMap[it.id])})).sort((a,b)=>(b.d===null?999:b.d)-(a.d===null?999:a.d))[0];
   if(due)reasons.push(due.d===null?"<b>"+EXBY[due.it.id].n+"</b> is new to your log — first reps are the ones that teach the pattern.":"You last did <b>"+EXBY[due.it.id].n+"</b> "+due.d+" day"+(due.d===1?'':'s')+" ago — it was due.");
   const tune=recoveryTune();if(tune)reasons.push("Today's check-in set the load: <b>"+tune.load+"</b>.");
+  const hk=chosen.find(it=>respMap[it.id]&&respMap[it.id].verdict==='helps');if(hk)reasons.push(respMap[hk.id].why);
+  const wk2=chosen.find(it=>respMap[it.id]&&respMap[it.id].verdict==='watch');if(wk2)reasons.push(respMap[wk2.id].why);
+  if(deloadActive())reasons.push('<b>Deload week</b> is on until '+S.deloadUntil+' — the dose is trimmed on purpose; consistency, not load, is this week\u2019s job.');
   cv.notes.concat(warmCv.notes,coolCv.notes).forEach(n=>reasons.push(n));
   const st=streak();if(st>0)reasons.push("Day <b>"+(st+1)+"</b> of your streak is decided in the next "+mins+" minutes.");
   const est=Math.round(warm.concat(chosen,cool).reduce((a,it)=>a+estMins(it.dose),0));
@@ -1071,7 +1256,8 @@ function showLiveFinish(){
 function logLiveFinish(p){
   stopTimer();
   const mins=LPL?LPL.meta.mins:0, seen=LPL?[...LPL.seen]:[];
-  S.log.push({date:todayStr(),kind:'live',title:'Live workout · '+mins+' min',pain:p,mins});
+  const isRepair=!!(LPL&&LPL.meta&&LPL.meta.repair);
+  S.log.push({date:todayStr(),kind:isRepair?'repair':'live',title:isRepair?'Streak repair session':('Live workout · '+mins+' min'),pain:p,mins});
   if(!S.exLog)S.exLog=[];
   seen.forEach(id=>S.exLog.push({date:todayStr(),id}));
   LPL=null;S.livePlayer=null;save();closeSheet();
