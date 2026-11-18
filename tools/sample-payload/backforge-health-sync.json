@@ -1,0 +1,274 @@
+{
+  "kind": "backforge-health-sync",
+  "version": 1,
+  "generatedAt": "2026-11-18T03:19:14+00:00",
+  "source": "Health Connect via Muse (health-cli)",
+  "window": {
+    "from": "2026-10-21",
+    "to": "2026-11-17"
+  },
+  "zone2": {
+    "hrMin": 110,
+    "hrMax": 129,
+    "basis": "60-70% of estimated HRmax 184 (220-age)",
+    "method": "Logged workout sessions whose average HR falls in the band contribute their active minutes. Unlogged activity and walks without a logged workout are not counted; raw HR samples are not exposed by the connector."
+  },
+  "coverage": {
+    "complete": false,
+    "note": "Health data (including daily metrics, sleep, workouts etc) on 2026-11-17 are not synced from the device, hence missing from this query result. To sync, run the `backfill_data_source` action of the `devices` tool with source: health, start_date: 2026-10-21T00:00:00-04:00, end_date: 2026-11-17T23:59:59-05:00, then re-run this query to get accurate results."
+  },
+  "days": [
+    {
+      "date": "2026-10-21",
+      "steps": 3408,
+      "zone2Min": 0,
+      "sleepMin": 325,
+      "sleepDeepMin": 86,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-10-22",
+      "steps": 4465,
+      "zone2Min": 0,
+      "sleepMin": 80,
+      "sleepDeepMin": 12,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-10-23",
+      "steps": 5922,
+      "zone2Min": 0,
+      "sleepMin": 315,
+      "sleepDeepMin": 67,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-10-24",
+      "steps": 11327,
+      "zone2Min": 0,
+      "sleepMin": 78,
+      "sleepDeepMin": 24,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-10-25",
+      "steps": 7728,
+      "zone2Min": 0,
+      "sleepMin": 378,
+      "sleepDeepMin": 96,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-10-26",
+      "steps": 77,
+      "zone2Min": 0,
+      "sleepMin": 440,
+      "sleepDeepMin": 90,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-10-27",
+      "steps": 3680,
+      "zone2Min": 0,
+      "sleepMin": 356,
+      "sleepDeepMin": 62,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-10-28",
+      "steps": 4358,
+      "zone2Min": 0,
+      "sleepMin": 58,
+      "sleepDeepMin": 18,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-10-29",
+      "steps": 6395,
+      "zone2Min": 0,
+      "sleepMin": 320,
+      "sleepDeepMin": 46,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-10-30",
+      "steps": 6301,
+      "zone2Min": 12,
+      "sleepMin": 112,
+      "sleepDeepMin": 40,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-10-31",
+      "steps": 11542,
+      "zone2Min": 42,
+      "sleepMin": 356,
+      "sleepDeepMin": 90,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-01",
+      "steps": 3192,
+      "zone2Min": 0,
+      "sleepMin": 390,
+      "sleepDeepMin": 80,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-02",
+      "steps": 3901,
+      "zone2Min": 0,
+      "sleepMin": 428,
+      "sleepDeepMin": 98,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-03",
+      "steps": 2655,
+      "zone2Min": 0,
+      "sleepMin": 438,
+      "sleepDeepMin": 123,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-04",
+      "steps": 4725,
+      "zone2Min": 0,
+      "sleepMin": 369,
+      "sleepDeepMin": 88,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-05",
+      "steps": 3645,
+      "zone2Min": 0,
+      "sleepMin": 416,
+      "sleepDeepMin": 81,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-06",
+      "steps": 6165,
+      "zone2Min": 0,
+      "sleepMin": 498,
+      "sleepDeepMin": 120,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-07",
+      "steps": 6705,
+      "zone2Min": 0,
+      "sleepMin": 111,
+      "sleepDeepMin": 84,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-08",
+      "steps": 5175,
+      "zone2Min": 0,
+      "sleepMin": null,
+      "sleepDeepMin": null,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-09",
+      "steps": 3384,
+      "zone2Min": 0,
+      "sleepMin": 292,
+      "sleepDeepMin": 95,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-10",
+      "steps": 3680,
+      "zone2Min": 0,
+      "sleepMin": 322,
+      "sleepDeepMin": 102,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-11",
+      "steps": 10818,
+      "zone2Min": 0,
+      "sleepMin": 310,
+      "sleepDeepMin": 70,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-12",
+      "steps": 2736,
+      "zone2Min": 0,
+      "sleepMin": 396,
+      "sleepDeepMin": 88,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-13",
+      "steps": 6384,
+      "zone2Min": 0,
+      "sleepMin": 318,
+      "sleepDeepMin": 108,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-14",
+      "steps": 3984,
+      "zone2Min": 0,
+      "sleepMin": 446,
+      "sleepDeepMin": 89,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-15",
+      "steps": 6048,
+      "zone2Min": 0,
+      "sleepMin": 494,
+      "sleepDeepMin": 95,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-16",
+      "steps": 14304,
+      "zone2Min": 0,
+      "sleepMin": null,
+      "sleepDeepMin": null,
+      "sleepScore": null,
+      "weightKg": null
+    },
+    {
+      "date": "2026-11-17",
+      "steps": null,
+      "zone2Min": 0,
+      "sleepMin": 452,
+      "sleepDeepMin": 149,
+      "sleepScore": null,
+      "weightKg": null
+    }
+  ]
+}

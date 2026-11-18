@@ -37,16 +37,16 @@
 - **Nutrition lite.** Protein floor tracker (target from bodyweight, 1.6 g/kg) with quick-add gram logging; low-protein days flagged in the weekly review — tissue rebuilds on protein. *(Shipped Nov 3, 2026 with quick-add logging; photo-first logging deferred to a later version.)*
 - **Exit criteria (met):** every adaptive weight change is explainable in one sentence in the UI; no black-box recommendations anywhere.
 
-## v3.0 — THE BODY, CONNECTED *(target: Feb 2027)*
+## v3.0 — THE BODY, CONNECTED *(shipped Nov 17, 2026 — pulled forward from the Feb 2027 target on the owner's repo-development order)*
 
 **Theme: the phone's sensors join the clinical picture.**
 
-- **Health Connect sync via Muse.** Steps, Zone 2 heart-rate minutes, sleep duration/quality and weight flow in automatically (Google Fit and Samsung Health both land in Health Connect; Muse is the bridge — no new permissions empire inside the app).
-- **Recovery-aware planning.** Zone 2 compliance and step counts join pain in the progression gate; a 9,000-step day plus poor sleep trims tomorrow before the user asks.
-- **Weight & waist trends** on Progress, correlated (honestly, with confidence language) against pain trend.
-- **Desk-day defense.** Long sedentary stretches (phone-detected) trigger the standing/posture micro-block as a Live session variant.
-- **Data architecture step 1:** versioned state schema with migrations + an automated backup/export ritual (weekly JSON to a user-chosen destination). Still local-first.
-- **Exit criteria:** sync is read-only, pausable, and fully deletable; zero data leaves the device without a named destination.
+- **Health Connect sync via Muse.** Steps, Zone 2 heart-rate minutes, sleep duration/quality and weight flow in automatically (Google Fit and Samsung Health both land in Health Connect; Muse is the bridge — no new permissions empire inside the app). *As built:* Muse runs `tools/health_sync.py` against the Health Connect connector and produces one JSON payload; the user imports it on Progress. The connector exposes no raw heart-rate samples, so Zone 2 minutes count logged workout sessions whose average HR sits in the user's Zone 2 band (60–70% of estimated HRmax) — unlogged activity is honestly not counted, and the payload records the band and method used.
+- **Recovery-aware planning.** Zone 2 compliance and step counts join pain in the progression gate; a 9,000-step day plus poor sleep trims tomorrow before the user asks. *As built:* the gate's recovery criteria can only hold a promotion on clear evidence (≥7 synced days in the window plus a clearly failing signal — a sub-4,000-step average, or zero logged Zone 2 minutes); missing data never blocks. Readiness also takes synced drivers: short sleep (<6 h) −10, solid sleep (≥7.5 h) +5, a 9,000+ step yesterday −5.
+- **Weight & waist trends** on Progress, correlated (honestly, with confidence language) against pain trend. *As built:* weekly-bucket Pearson correlation with a 4-paired-week minimum before any claim, plain-language strength tiers, and a standing "correlation is not causation" note. Waist is manual entry — Health Connect carries no waist data for this user.
+- **Desk-day defense.** Long sedentary stretches (phone-detected) trigger the standing/posture micro-block as a Live session variant. *As built, honestly:* the app cannot read phone sedentary alerts, so a desk day is inferred from synced steps (a weekday under 3,000 steps) or declared by the user; the block is five standing moves from the existing library, and a flare day swaps it for the relief protocol.
+- **Data architecture step 1:** versioned state schema with migrations + an automated backup/export ritual (weekly JSON to a user-chosen destination). Still local-first. *As built:* state carries `schema: 2` (the `backforge_v1` envelope is unchanged, so the backend round-trip still works); the schema 1 → 2 migration is additive and lossless, keeps a pristine premigration copy on the device, and the weekly backup export refuses to run until the user names the destination.
+- **Exit criteria:** sync is read-only, pausable, and fully deletable; zero data leaves the device without a named destination. *(Met: import never touches check-ins/log/plan; pause makes synced data invisible to every consumer; delete wipes synced data only; the backup ritual enforces a named destination.)*
 
 ## v3.5 — EYES ON FORM *(target: Apr 2027)*
 
@@ -104,7 +104,7 @@
 | v1.0 | Clinical core | Assessment → findings → plan, pain-gated progression |
 | **v2.0** | **Live Mode** | **Three taps to a coached workout; defaults that learn** |
 | **v2.5** | **Coach's memory** | **Readiness score, per-exercise response learning, streak repair** |
-| v3.0 | Connected body | Health Connect sync, recovery-aware gates |
+| **v3.0** | **Connected body** | **Health Connect sync via Muse, recovery-aware gates, schema v2 + backup ritual** |
 | v3.5 | Eyes on form | On-device form flags, camera-guided retest |
 | v4.0 | Clinic edition | Clinician share, templates, audit registry, WCAG AA |
 | v4.5 | Circles | Guardrailed social accountability |

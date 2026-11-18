@@ -249,7 +249,7 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
     <div class="card" id="todayCard"></div>
 
     <h2 class="sec-t">Daily check-in</h2>
-    <p class="sec-sub">Thirty seconds. Your answers tune today's load — the same recovery logic Fitbod and Whoop charge for, driven by pain instead of a wrist sensor.</p>
+    <p class="sec-sub">Thirty seconds. Your answers tune today's load — the same recovery logic Fitbod and Whoop charge for, driven by pain first, and by your watch data once you sync it on Progress.</p>
     <div class="card checkin">
       <div>
         <label class="fl">Pain right now: <span id="painVal">—</span> / 10</label>
@@ -296,6 +296,9 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
 
     <h2 class="sec-t">Your habit</h2>
     <div class="card" id="liveHabit"></div>
+
+    <h2 class="sec-t">Desk-day defense</h2>
+    <div class="card" id="deskCard"></div>
 
     <h2 class="sec-t">Set up in ten seconds</h2>
     <div class="card">
@@ -366,7 +369,7 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
   <!-- ================= PROGRESS ================= -->
   <section class="view" id="view-progress">
     <h2 class="sec-t" style="margin-top:22px">Progress</h2>
-    <p class="sec-sub">Progression here is gated on your pain trend and consistency — not the calendar. That is the rule serious rehab programs run on, and the one generic apps skip.</p>
+    <p class="sec-sub">Progression here is gated on your pain trend, your consistency and — since v3.0 — your synced recovery data — not the calendar. That is the rule serious rehab programs run on, and the one generic apps skip.</p>
     <div class="kpis" id="progKpis"></div>
     <div id="gateAction" style="margin-top:12px"></div>
     <h2 class="sec-t">Weekly review</h2>
@@ -378,6 +381,12 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
     <h2 class="sec-t">Protein floor</h2>
     <p class="sec-sub">Nutrition lite: a daily protein floor from your bodyweight. Tissue rebuilds on protein — this is tracked like any other gate.</p>
     <div class="card" id="proteinCard"></div>
+    <h2 class="sec-t">Health sync — via Muse</h2>
+    <p class="sec-sub">Steps, Zone 2 minutes, sleep and weight from Health Connect (Galaxy Watch + phone), carried in by Muse as a small file. Read-only, pausable, fully deletable — the app itself sends nothing anywhere.</p>
+    <div class="card" id="syncCard"></div>
+    <h2 class="sec-t">Weight &amp; waist vs pain</h2>
+    <p class="sec-sub">Trends from your synced weigh-ins and your own waist entries, read against the pain trend — with the confidence language kept honest: small samples get small claims.</p>
+    <div class="card" id="trendCard"></div>
     <div class="grid c2" style="margin-top:14px">
       <div class="card"><h3>Pain trend</h3><p>Daily check-in scores, last 14 entries.</p><canvas class="chart" id="painChart" width="520" height="170"></canvas></div>
       <div class="card"><h3>Sessions per week</h3><p>Foundation days count. Micro counts.</p><canvas class="chart" id="sessChart" width="520" height="170"></canvas></div>
@@ -393,6 +402,15 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
         <button class="btn sm" id="exportCsv">Export workout log CSV</button>
         <button class="btn sm" id="wipeBtn">Erase all data</button>
       </div>
+      <hr class="hr">
+      <h3>Weekly backup ritual</h3>
+      <p class="small" style="margin-top:6px">Once a week, export one JSON backup and save it where you name here — a Drive folder, an email to yourself, a USB stick. The ritual refuses to run until the destination is named: data never leaves this device without a named destination.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;align-items:center">
+        <input type="text" id="backupDest" placeholder="Where backups live — e.g. Drive / BackForge folder" style="background:var(--surface2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px;font-size:15px;min-height:44px;flex:1;min-width:220px">
+        <button class="btn sm" onclick="saveBackupDest()">Save destination</button>
+        <button class="btn sm primary" onclick="exportBackup()">Export weekly backup</button>
+      </div>
+      <p class="small" id="backupState" style="margin-top:8px"></p>
     </div>
   </section>
 
@@ -415,7 +433,7 @@ table.cmp th{color:var(--muted);font-size:12px;text-transform:uppercase;letter-s
   </section>
 
   <footer class="foot">
-    BackForge · Assess. Correct. Rebuild. · Bands first, spine spared, micro counts. · v2.5 · Data stays on your device.
+    BackForge · Assess. Correct. Rebuild. · Bands first, spine spared, micro counts. · v3.0 · Data stays on your device.
   </footer>
 </main>
 
@@ -497,7 +515,7 @@ const ROADMAP=[
 {t:'Motivation & habit engine',d:'Daily real-person quotes, Seinfeld-chain week dots, milestone badges, celebration debriefs with specific praise, and rotating coach notes built on proven behavior science — the 2-minute rule, never-miss-twice, temptation bundling, identity votes.',w:'v2.0',tag:'Habits'},
 {t:'Coach\u2019s Memory — readiness & learning',d:'Readiness score every morning, per-exercise response learning with reasons shown, streak repair instead of a broken chain, deload proposals after two pain-rising weeks, a one-screen weekly review, and a protein floor tracker.',w:'v2.5',tag:'Coach'},
 {t:'Protein floor tracker',d:'Shipped in v2.5: daily protein target auto-set from bodyweight (1.6 g/kg), quick-add logging, low days flagged in the weekly review. Photo-first meal logging stays on the roadmap.',w:'v2.5',tag:'Nutrition'},
-{t:'Health sync — via Muse',d:'Google Fit and Samsung Health both land in Health Connect, which Muse already reads: steps, Zone 2 heart rate, sleep and weight feed the recovery score and Progress charts.',w:'v3.0',tag:'Sync'},
+{t:'Health sync — via Muse',d:'Shipped in v3.0: Google Fit and Samsung Health both land in Health Connect, which Muse already reads. Muse builds a small sync file (steps, Zone 2 minutes, sleep, scale weight); you import it on Progress and it feeds readiness, the progression gate and the weight/waist trends. Read-only, pausable, deletable.',w:'In this build',tag:'Sync'},
 {t:'AI form check',d:'Phone-camera rep counting and form flags for the Big 3 and hinge pattern — pelvis rotation on bird-dog, arch on bridge — using the same modify-don\u2019t-stop rules.',w:'v3.5',tag:'Vision'},
 {t:'Coach & physio share',d:'One-tap read-only link of assessment history, pain trend and session log — exactly the sheet a physiotherapist wants.',w:'v4.0',tag:'Share'},
 {t:'Community streaks',d:'Hevy-style accountability without the noise: streaks and session shares with people you choose. Optional, off by default.',w:'v4.5',tag:'Social'},
@@ -512,8 +530,38 @@ const REFS=[
 
 /* ---------------- State ---------------- */
 const KEY='backforge_v1';
+const SCHEMA=2;
+function bfDefaults(){return{v:1,schema:SCHEMA,answers:{},results:null,assessHistory:[],log:[],checkins:[],bandLevel:{},swaps:{},player:null,reminder:null,livePrefs:null,exLog:[],livePlayer:null,protein:{},bodyweightKg:null,deloadUntil:null,health:{days:{},meta:null,paused:false,lastSyncAt:null},waist:[],backup:{destination:'',lastExportAt:null},migratedFrom:null}}
+function migrateState(raw){
+  // Schema 1 -> 2, lossless: every v1/v2.5 field is carried over untouched;
+  // v3.0 only ADDS health sync, waist entries and backup settings.
+  const s=Object.assign(bfDefaults(),raw);
+  s.v=1;s.schema=SCHEMA;s.migratedFrom=1;
+  if(!s.health||typeof s.health!=='object')s.health={days:{},meta:null,paused:false,lastSyncAt:null};
+  if(!s.health.days||typeof s.health.days!=='object')s.health.days={};
+  if(s.health.paused===undefined)s.health.paused=false;
+  if(!Array.isArray(s.waist))s.waist=[];
+  if(!s.backup||typeof s.backup!=='object')s.backup={destination:'',lastExportAt:null};
+  return s;
+}
 let S=load();
-function load(){const base={v:1,answers:{},results:null,assessHistory:[],log:[],checkins:[],bandLevel:{},swaps:{},player:null,reminder:null,livePrefs:null,exLog:[],livePlayer:null,protein:{},bodyweightKg:null,deloadUntil:null};try{const s=JSON.parse(localStorage.getItem(KEY));if(s&&s.v===1)return Object.assign(base,s)}catch(e){}return base}
+function load(){
+  const base=bfDefaults();
+  try{
+    const raw=localStorage.getItem(KEY);
+    if(!raw)return base;
+    const s=JSON.parse(raw);
+    if(!s||s.v!==1)return base;
+    if(!s.schema||s.schema<2){
+      // Keep a pristine copy of the pre-migration state, then migrate in place.
+      try{localStorage.setItem(KEY+'_premigration',raw)}catch(e){}
+      const m=migrateState(s);
+      try{localStorage.setItem(KEY,JSON.stringify(m))}catch(e){}
+      return m;
+    }
+    return Object.assign(base,s);
+  }catch(e){return base}
+}
 function save(){try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}}
 function todayStr(d){d=d||new Date();return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')}
 function toast(m){const t=$('#toast');t.textContent=m;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2600)}
@@ -826,7 +874,7 @@ function drawChart(id,data,color,labels,fixedMax){
   if(fixedMax){ctx.fillStyle='#828D9B';ctx.font='11px Inter';ctx.fillText('10',8,16);ctx.fillText('0',12,H-14)}
   if(!data.length){ctx.fillStyle='#828D9B';ctx.font='13px Inter';ctx.fillText('No data yet — it starts with today\u2019s check-in.',40,H/2);return}
   const max=fixedMax||Math.max(...data,1)*1.15,pad=34,bw=(W-pad-14)/data.length;
-  if(id==='painChart'){ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.beginPath();data.forEach((v,i)=>{const x=pad+i*bw+bw/2,y=H-16-(v/max)*(H-36);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();ctx.fillStyle=color;data.forEach((v,i)=>{const x=pad+i*bw+bw/2,y=H-16-(v/max)*(H-36);ctx.beginPath();ctx.arc(x,y,3.5,0,7);ctx.fill()});}
+  if(id==='painChart'||id==='weightChart'||id==='waistChart'){ctx.strokeStyle=color;ctx.lineWidth=2.5;ctx.beginPath();data.forEach((v,i)=>{const x=pad+i*bw+bw/2,y=H-16-(v/max)*(H-36);i?ctx.lineTo(x,y):ctx.moveTo(x,y)});ctx.stroke();ctx.fillStyle=color;data.forEach((v,i)=>{const x=pad+i*bw+bw/2,y=H-16-(v/max)*(H-36);ctx.beginPath();ctx.arc(x,y,3.5,0,7);ctx.fill()});}
   else{ctx.fillStyle=color;data.forEach((v,i)=>{const hh=(v/max)*(H-36);ctx.fillRect(pad+i*bw+3,H-16-hh,bw-6,hh)})}
   ctx.fillStyle='#828D9B';ctx.font='11px Inter';(labels||[]).forEach((l,i)=>ctx.fillText(l,pad+i*bw+2,H-2));
 }
@@ -834,11 +882,12 @@ function renderProgress(){
   const weeks=sessionWeeks(),wl=weekLabels();
   $('#progKpis').innerHTML=kpi(S.log.length,'total sessions logged','foundation days included')+kpi(streak(),'current streak','days')+kpi(S.assessHistory.length,'assessments scored','retest every 4 weeks')+kpi(gateStatus(),'progression gate','rolling 14-day rule');
   const ga=$('#gateAction');
-  if(gateStatus().startsWith('READY')) ga.innerHTML='<div class="card" style="border-color:var(--volt)"><h3>Gate open — band levels can go up</h3><p>Your pain trend and consistency over the last 14 days earned a promotion. Raise every band exercise by one level, or adjust single exercises from their Library page.</p><button class="btn primary sm" style="margin-top:10px" onclick="promoteBands()">Promote all band levels +1</button></div>';
-  else ga.innerHTML='<div class="card"><p><b>Progression gate:</b> opens when your 14-day average pain is 3 or under AND you have 8+ logged sessions in the last 14 days. No calendar guilt — the trend decides.</p></div>';
+  const gd=gateDetail();
+  if(gd.status.startsWith('READY')) ga.innerHTML='<div class="card" style="border-color:var(--volt)"><h3>Gate open — band levels can go up</h3><p>Your pain trend and consistency over the last 14 days earned a promotion. Raise every band exercise by one level, or adjust single exercises from their Library page.</p><button class="btn primary sm" style="margin-top:10px" onclick="promoteBands()">Promote all band levels +1</button></div><div class="card" style="margin-top:12px"><h3>How the gate reads it</h3>'+gd.lines.map(l=>'<p class="small" style="margin-top:6px">'+l+'</p>').join('')+'</div>';
+  else ga.innerHTML='<div class="card"><p><b>Progression gate:</b> opens when your 14-day average pain is 3 or under AND you have 8+ logged sessions in the last 14 days. Since v3.0, synced recovery data can also hold it — but only on clear evidence, never on missing data. No calendar guilt — the trend decides.</p>'+gd.lines.map(l=>'<p class="small" style="margin-top:6px">'+l+'</p>').join('')+'</div>';
   drawChart('painChart',S.checkins.slice(-14).map(c=>c.pain),'#FF6B4A',S.checkins.slice(-14).map(c=>c.date.slice(5)),10);
   drawChart('sessChart',weeks,'#C8F04B',wl,7);
-  renderWeekReview();renderResponseCard();renderProteinCard();
+  renderWeekReview();renderResponseCard();renderProteinCard();renderSyncCard();renderTrendCard();renderBackupState();
   const el=$('#assessHistory');
   if(!S.assessHistory.length){el.innerHTML='<p>No scored assessment yet.</p>';return}
   el.innerHTML='<table class="cmp"><tr><th>Date</th><th>Findings</th></tr>'+S.assessHistory.slice().reverse().map(hx=>'<tr><td>'+hx.date+'</td><td>'+hx.flags.join(' · ')+'</td></tr>').join('')+'</table>';
@@ -846,7 +895,37 @@ function renderProgress(){
 function promoteBands(){EX.filter(e=>e.band!=='none').forEach(e=>S.bandLevel[e.id]=(S.bandLevel[e.id]||1)+1);save();renderProgress();renderToday();toast('Band levels promoted — earned, not given')}
 function sessionWeeks(){const out=[0,0,0,0];const now=new Date();S.log.forEach(l=>{const diff=Math.floor((now-new Date(l.date+'T12:00:00'))/864e5);const w=Math.floor(diff/7);if(w<4)out[3-w]++});return out}
 function weekLabels(){const out=[];const now=new Date();const mon=new Date(now);mon.setDate(now.getDate()-((now.getDay()+6)%7));for(let i=3;i>=0;i--){const d=new Date(mon);d.setDate(mon.getDate()-i*7);out.push((d.getMonth()+1)+'/'+d.getDate())}return out}
-function gateStatus(){const since=new Date();since.setDate(since.getDate()-14);const ck=S.checkins.filter(c=>new Date(c.date+'T12:00:00')>=since);const sess=S.log.filter(l=>new Date(l.date+'T12:00:00')>=since).length;if(ck.length<5)return 'Warming up';const avg=ck.reduce((a,c)=>a+c.pain,0)/ck.length;return(avg<=3&&sess>=8)?'READY — level up':'Hold — pain or consistency'}
+function gateDetail(){
+  const since=new Date();since.setDate(since.getDate()-14);
+  const ck=S.checkins.filter(c=>new Date(c.date+'T12:00:00')>=since);
+  const sess=S.log.filter(l=>new Date(l.date+'T12:00:00')>=since).length;
+  const lines=[];
+  if(ck.length<5){lines.push('Pain: still warming up — '+ck.length+' of 5 check-ins needed inside the last 14 days.');return{status:'Warming up',lines,avg:null,sess}}
+  const avg=ck.reduce((a,c)=>a+c.pain,0)/ck.length;
+  const painOk=avg<=3;
+  lines.push('Pain: 14-day average '+avg.toFixed(1)+' / 10 '+(painOk?'— at or under the 3.0 bar ✓':'— above the 3.0 bar ✗'));
+  const sessOk=sess>=8;
+  lines.push('Consistency: '+sess+' sessions in 14 days '+(sessOk?'— 8 or more ✓':'— needs 8 or more ✗'));
+  // v3.0 recovery criteria. Synced data can only HOLD the gate on clear
+  // evidence (solid coverage + a clearly failing signal) — missing data
+  // never blocks a promotion the pain trend has earned.
+  let recoveryHold=false;
+  const st=stepsWindow(0,13);
+  if(st.n>=7){
+    const ok=st.avg>=4000;
+    if(!ok)recoveryHold=true;
+    lines.push('Steps (Health Connect): averaging '+Math.round(st.avg).toLocaleString()+' a day over '+st.n+' synced days '+(ok?'— above the 4,000 sedentary line ✓':'— a sedentary fortnight: the gate holds until daily movement recovers ✗'));
+  } else lines.push('Steps (Health Connect): '+st.n+' synced day(s) in the window — not enough to judge, so steps cannot hold the gate.');
+  const zDays=healthDaysIn(0,13).length, zMin=zone2Window(0,13);
+  if(zDays>=7){
+    const ok=zMin>0;
+    if(!ok)recoveryHold=true;
+    lines.push('Zone 2 (Health Connect): '+zMin+' logged minutes in 14 days '+(ok?'✓':'— zero logged Zone 2 minutes: the gate holds until one logged cardio session lands ✗'));
+  } else lines.push('Zone 2 (Health Connect): '+zDays+' synced day(s) in the window — not judged yet.');
+  const status=(painOk&&sessOk&&!recoveryHold)?'READY — level up':((painOk&&sessOk)?'Hold — recovery':'Hold — pain or consistency');
+  return{status,lines,avg,sess};
+}
+function gateStatus(){return gateDetail().status}
 /* ---------------- Coach's Memory (v2.5) ----------------
    Readiness, per-exercise response learning, streak repair, deload
    intelligence, weekly review, protein floor. Every adaptive call
@@ -875,6 +954,17 @@ function computeReadiness(){
     else if(d>=2){score-=15;drivers.push('pain rose '+d+' since the last check-in (−15)')}}
   const recent=S.log.filter(l=>{const d=bfDaysAgo(l.date);return d>=0&&d<=2}).length;
   if(recent>=3){score-=5;drivers.push('three sessions in the last two days — load is adding up (−5)')}
+  // v3.0: synced recovery signals (Health Connect via Muse). Sleep is
+  // attributed to the morning you woke up, so last night = today's record.
+  const hcToday=healthDay(todayStr()),hcYest=healthDay(bfAddDays(todayStr(),-1));
+  const night=(hcToday&&hcToday.sleepMin!=null)?hcToday:((hcYest&&hcYest.sleepMin!=null)?hcYest:null);
+  // A sub-3h recorded night is a partial watch recording, not a night —
+  // readiness ignores it rather than reading it as a terrible sleep.
+  if(night&&night.sleepMin>=180){
+    if(night.sleepMin<360){score-=10;drivers.push('Health Connect: only '+(night.sleepMin/60).toFixed(1)+'h sleep last night (−10)')}
+    else if(night.sleepMin>=450){score+=5;drivers.push('Health Connect: '+(night.sleepMin/60).toFixed(1)+'h sleep last night (+5)')}
+  }
+  if(hcYest&&hcYest.steps!=null&&hcYest.steps>=9000){score-=5;drivers.push('Health Connect: '+hcYest.steps.toLocaleString()+' steps yesterday — a big day on the legs, so today trims a notch (−5)')}
   if(deloadActive()){score=Math.min(score,64);drivers.push('deload week is on, so the ceiling is a trimmed session')}
   score=Math.max(5,Math.min(98,Math.round(score)));
   const level=score>=75?'full':score>=55?'trimmed':score>=35?'micro':'relief';
@@ -994,6 +1084,133 @@ function renderProteinCard(){
   const st=proteinFloorStatus(),pct=Math.min(100,Math.round(st.today/t*100));
   el.innerHTML='<div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap"><div><div style="font-family:var(--disp);font-size:30px;font-weight:700">'+st.today+' g <span style="font-size:15px;color:var(--muted)">of '+t+' g floor</span></div><div class="small">'+pct+'% of today\u2019s floor &middot; floor hit on '+st.hitDays+' of '+st.loggedDays+' logged days this week</div></div></div><div class="meter" style="margin:12px 0 4px"><i style="width:'+pct+'%"></i></div><div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px;align-items:center"><button class="btn sm" onclick="addProtein(10)">+10 g</button><button class="btn sm" onclick="addProtein(25)">+25 g</button><button class="btn sm" onclick="addProtein(40)">+40 g</button><input type="number" id="protCustom" placeholder="Custom g" style="'+inp+';width:120px"><button class="btn sm" onclick="addProteinCustom()">Add</button></div><p class="small" style="margin-top:8px">Target: 1.6 g per kg at '+S.bodyweightKg+' kg bodyweight. Quick-add logging in this version — photo logging stays on the roadmap.</p>';
 }
+/* ---------------- Connected Body (v3.0) ----------------
+   Health Connect sync via Muse: Muse reads Health Connect
+   (Galaxy Watch + phone) and builds a small JSON payload; the user
+   imports it here. The app itself has no network access to health
+   data and sends nothing anywhere. Sync is read-only (import never
+   touches check-ins, log or plan), pausable, and fully deletable. */
+function healthDay(ds){if(!S.health||S.health.paused)return null;return (S.health.days||{})[ds]||null}
+function healthDaysIn(a,b){const out=[];for(let i=a;i<=b;i++){const ds=bfAddDays(todayStr(),-i);const d=healthDay(ds);if(d)out.push(Object.assign({date:ds},d))}return out}
+function stepsWindow(a,b){const ds=healthDaysIn(a,b).filter(d=>d.steps!=null);return{n:ds.length,avg:ds.length?ds.reduce((x,d)=>x+d.steps,0)/ds.length:null}}
+function zone2Window(a,b){return healthDaysIn(a,b).reduce((x,d)=>x+(d.zone2Min||0),0)}
+function importHealthSync(text){
+  let p;try{p=JSON.parse(text)}catch(e){toast('That file is not valid JSON — nothing imported');return false}
+  if(!p||p.kind!=='backforge-health-sync'||p.version!==1||!Array.isArray(p.days)){toast('That is not a BackForge health sync file — nothing imported');return false}
+  if(!S.health||typeof S.health!=='object')S.health={days:{},meta:null,paused:false,lastSyncAt:null};
+  if(!S.health.days)S.health.days={};
+  let n=0;
+  p.days.forEach(d=>{
+    if(!d||!d.date)return;
+    S.health.days[d.date]={steps:(d.steps==null?null:d.steps),zone2Min:d.zone2Min||0,sleepMin:(d.sleepMin==null?null:d.sleepMin),sleepDeepMin:(d.sleepDeepMin==null?null:d.sleepDeepMin),sleepScore:(d.sleepScore==null?null:d.sleepScore),weightKg:(d.weightKg==null?null:d.weightKg)};
+    n++;
+  });
+  S.health.meta={generatedAt:p.generatedAt||null,source:p.source||'Health Connect via Muse',window:p.window||null,zone2:p.zone2||null,coverage:p.coverage||null};
+  S.health.lastSyncAt=todayStr();
+  save();renderProgress();
+  toast('Health sync imported — '+n+' day'+(n===1?'':'s')+' merged');
+  return true;
+}
+function onSyncFile(ev){const f=ev.target.files&&ev.target.files[0];if(!f)return;const r=new FileReader();r.onload=()=>importHealthSync(String(r.result));r.readAsText(f)}
+function importSyncPaste(){const t=document.getElementById('syncPaste');if(!t||!t.value.trim())return toast('Paste the sync JSON first');importHealthSync(t.value)}
+function toggleSyncPause(){if(!S.health)return;S.health.paused=!S.health.paused;save();renderProgress();toast(S.health.paused?'Health sync paused — synced data is ignored until you resume':'Health sync resumed')}
+function deleteHealthSync(){if(!confirm('Delete all synced Health Connect data from this device? Your check-ins, sessions and plan stay untouched.'))return;S.health={days:{},meta:null,paused:false,lastSyncAt:null};save();renderProgress();toast('Synced health data deleted')}
+function renderSyncCard(){
+  const el=$('#syncCard');if(!el)return;
+  const h=S.health||{days:{},meta:null,paused:false,lastSyncAt:null};
+  const dayCount=Object.keys(h.days||{}).length;
+  const inp='background:var(--surface2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px;font-size:15px;min-height:44px';
+  let head='';
+  if(!h.meta)head='<p>No sync imported yet. Ask Muse to run a BackForge health sync — Muse reads your Health Connect data (Galaxy Watch + phone) and hands you one small JSON file. Import it here and your steps, Zone 2 minutes, sleep and weight start feeding readiness, the progression gate and the trends below.</p>';
+  else{
+    const w=h.window||{};
+    head='<p><b>Last sync:</b> '+(h.lastSyncAt||'—')+' · <b>'+dayCount+' days</b> on record'+(w.from?' ('+w.from+' → '+w.to+')':'')+' · Source: '+(h.source||'Health Connect via Muse')+'</p>'
+      +((h.coverage&&h.coverage.complete===false)?'<p class="small" style="margin-top:6px">Coverage note: the newest day in the window had not finished syncing from the phone when Muse pulled it — treat the last day as partial.</p>':'')
+      +(h.paused?'<p class="small" style="margin-top:6px;color:var(--gold);font-weight:600">Sync is PAUSED — the data below stays stored but readiness, the gate and trends ignore it.</p>':'');
+  }
+  const recent=healthDaysIn(0,6);
+  const recentHtml=recent.length?'<table class="cmp" style="margin-top:10px"><tr><th>Day</th><th>Steps</th><th>Zone 2</th><th>Sleep</th><th>Weight</th></tr>'+recent.map(d=>'<tr><td>'+d.date.slice(5)+'</td><td>'+(d.steps==null?'—':d.steps.toLocaleString())+'</td><td>'+(d.zone2Min?d.zone2Min+' min':'—')+'</td><td>'+(d.sleepMin==null?'—':(d.sleepMin/60).toFixed(1)+' h')+'</td><td>'+(d.weightKg==null?'—':d.weightKg.toFixed(1)+' kg')+'</td></tr>').join('')+'</table>':'';
+  el.innerHTML=head+recentHtml
+    +'<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center"><label class="btn sm primary" style="cursor:pointer">Import sync file<input type="file" id="syncFile" accept=".json,application/json" style="display:none"></label>'
+    +(dayCount?'<button class="btn sm" onclick="toggleSyncPause()">'+(h.paused?'Resume sync':'Pause sync')+'</button><button class="btn sm ghost" onclick="deleteHealthSync()">Delete synced data</button>':'')
+    +'</div>'
+    +'<details style="margin-top:10px"><summary class="small" style="cursor:pointer">…or paste the sync JSON</summary><textarea id="syncPaste" rows="4" placeholder="Paste the backforge-health-sync JSON here" style="'+inp+';width:100%;margin-top:8px"></textarea><button class="btn sm" style="margin-top:8px" onclick="importSyncPaste()">Import pasted JSON</button></details>'
+    +'<p class="small" style="margin-top:10px">Honest limits: Zone 2 minutes count only logged workouts whose average heart rate sits in your Zone 2 band — unlogged walks do not count, and the connector does not expose raw heart-rate samples. Weight comes from your scale\u2019s weigh-ins, which are sparse (that is the scale\u2019s sync, not a gap in this app). A night the watch only partly recorded (under 3 hours) is ignored by readiness rather than read as a terrible night. Waist is manual, below — Health Connect carries no waist entries for you. Nothing here leaves the device: importing writes to this browser only.</p>';
+  const sf=document.getElementById('syncFile');if(sf)sf.addEventListener('change',onSyncFile);
+}
+/* ---- Weight & waist vs pain, with honest confidence language ---- */
+function pearson(xs,ys){
+  const n=xs.length;if(n<2)return null;
+  const mx=xs.reduce((a,b)=>a+b,0)/n,my=ys.reduce((a,b)=>a+b,0)/n;
+  let num=0,dx=0,dy=0;
+  for(let i=0;i<n;i++){num+=(xs[i]-mx)*(ys[i]-my);dx+=(xs[i]-mx)*(xs[i]-mx);dy+=(ys[i]-my)*(ys[i]-my)}
+  if(!dx||!dy)return null;
+  return num/Math.sqrt(dx*dy);
+}
+function weekKey(ds){const d=new Date(ds+'T12:00:00');const dow=(d.getDay()+6)%7;d.setDate(d.getDate()-dow);return todayStr(d)}
+function trendAnalysis(){
+  const weeks={};
+  const bucket=k=>weeks[k]||(weeks[k]={pain:[],weight:[],waist:[]});
+  S.checkins.forEach(c=>bucket(weekKey(c.date)).pain.push(c.pain));
+  if(S.health&&!S.health.paused)Object.keys(S.health.days||{}).forEach(ds=>{const d=S.health.days[ds];if(d&&d.weightKg!=null)bucket(weekKey(ds)).weight.push(d.weightKg)});
+  (S.waist||[]).forEach(w=>{if(w&&w.date&&w.cm)bucket(weekKey(w.date)).waist.push(w.cm)});
+  const keys=Object.keys(weeks).sort().slice(-8);
+  const avg=a=>a.length?a.reduce((x,y)=>x+y,0)/a.length:null;
+  const rows=keys.map(k=>({week:k,pain:avg(weeks[k].pain),weight:avg(weeks[k].weight),waist:avg(weeks[k].waist)}));
+  const verdict=(pairs,label)=>{
+    if(pairs.length<4)return 'Not enough overlapping data yet — '+pairs.length+' paired week(s) with both '+label+' and pain. A correlation claim needs at least 4; keep syncing and logging and this sharpens on its own.';
+    const r=pearson(pairs.map(p=>p[0]),pairs.map(p=>p[1]));
+    if(r===null)return 'Not enough variation yet to read a relationship.';
+    const ar=Math.abs(r),strength=ar<0.3?'no clear relationship':ar<0.6?'a weak-to-moderate pattern':'a stronger pattern';
+    const dir=r>0?'weeks with higher '+label+' tended to come with higher pain':r<0?'weeks with higher '+label+' tended to come with lower pain':'';
+    return 'Across '+pairs.length+' paired weeks: '+strength+' (r = '+r.toFixed(2)+')'+(dir?' — '+dir:'')+'. At this sample size that can still be coincidence. Correlation is not causation: pain also moves with sleep, load and stress.';
+  };
+  return{rows,
+    weightVerdict:verdict(rows.filter(r=>r.weight!==null&&r.pain!==null).map(r=>[r.weight,r.pain]),'weight'),
+    waistVerdict:verdict(rows.filter(r=>r.waist!==null&&r.pain!==null).map(r=>[r.waist,r.pain]),'waist')};
+}
+function addWaist(){const v=parseFloat((document.getElementById('waistInput')||{}).value);if(!v||v<40||v>250)return toast('Enter a waist measurement in cm');if(!Array.isArray(S.waist))S.waist=[];S.waist.push({date:todayStr(),cm:Math.round(v*10)/10});S.waist.sort((a,b)=>a.date<b.date?-1:1);save();renderProgress();toast('Waist logged: '+v+' cm')}
+function deleteLastWaist(){if(!S.waist||!S.waist.length)return;S.waist.pop();save();renderProgress();toast('Last waist entry removed')}
+function renderTrendCard(){
+  const el=$('#trendCard');if(!el)return;
+  const t=trendAnalysis();
+  const weights=[];if(S.health&&!S.health.paused)Object.keys(S.health.days||{}).sort().forEach(ds=>{const d=S.health.days[ds];if(d&&d.weightKg!=null)weights.push({date:ds,kg:d.weightKg})});
+  const waists=(S.waist||[]).slice();
+  const inp='background:var(--surface2);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px;font-size:15px;min-height:44px';
+  let h='';
+  if(weights.length){
+    const first=weights[0],last=weights[weights.length-1],chg=last.kg-first.kg;
+    h+='<p><b>Weight:</b> '+last.kg.toFixed(1)+' kg (latest weigh-in '+last.date+')'+(weights.length>1?' — '+(chg<=0?'down ':'up ')+Math.abs(chg).toFixed(1)+' kg since '+first.date:'')+'.</p><p class="small" style="margin-top:6px">'+t.weightVerdict+'</p>';
+  } else h+='<p><b>Weight:</b> no weigh-ins synced yet — your scale\u2019s readings land here after a health sync.</p><p class="small" style="margin-top:6px">'+t.weightVerdict+'</p>';
+  if(waists.length){
+    const first=waists[0],last=waists[waists.length-1],chg=last.cm-first.cm;
+    h+='<p style="margin-top:10px"><b>Waist:</b> '+last.cm+' cm (latest '+last.date+')'+(waists.length>1?' — '+(chg<=0?'down ':'up ')+Math.abs(chg).toFixed(1)+' cm since '+first.date:'')+'.</p><p class="small" style="margin-top:6px">'+t.waistVerdict+'</p>';
+  } else h+='<p style="margin-top:10px"><b>Waist:</b> no entries yet. Measure at the navel, relaxed, same time of day — one number a week is plenty.</p><p class="small" style="margin-top:6px">'+t.waistVerdict+'</p>';
+  h+='<div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px;align-items:center"><input type="number" id="waistInput" step="0.1" placeholder="Waist today (cm)" style="'+inp+';width:170px"><button class="btn sm" onclick="addWaist()">Log waist</button>'+(waists.length?'<button class="btn sm ghost" onclick="deleteLastWaist()">Remove last</button>':'')+'</div>';
+  h+='<div class="grid c2" style="margin-top:14px"><div><h3 style="font-size:15px">Weight (kg)</h3><canvas class="chart" id="weightChart" width="520" height="170"></canvas></div><div><h3 style="font-size:15px">Waist (cm)</h3><canvas class="chart" id="waistChart" width="520" height="170"></canvas></div></div>';
+  el.innerHTML=h;
+  drawChart('weightChart',weights.map(w=>w.kg),'#7DD3FC',weights.map(w=>w.date.slice(5)));
+  drawChart('waistChart',waists.map(w=>w.cm),'#F0B24A',waists.map(w=>w.date.slice(5)));
+}
+/* ---- Weekly backup ritual: named destination or it does not leave ---- */
+function renderBackupState(){
+  const el=$('#backupState');if(!el)return;
+  const b=S.backup||{destination:'',lastExportAt:null};
+  const dest=document.getElementById('backupDest');if(dest&&document.activeElement!==dest)dest.value=b.destination||'';
+  if(!b.destination){el.innerHTML='<span style="color:var(--gold);font-weight:600">No destination named yet — the weekly backup will not export until you name where the file lives.</span>';return}
+  if(!b.lastExportAt){el.innerHTML='Destination: <b style="color:var(--ink)">'+b.destination+'</b> · no backup exported yet — the first one is due now.';return}
+  const age=bfDaysAgo(b.lastExportAt);
+  el.innerHTML='Destination: <b style="color:var(--ink)">'+b.destination+'</b> · last backup '+b.lastExportAt+(age>=7?' · <span style="color:var(--gold);font-weight:600">weekly backup due</span>':' · next due in '+(7-age)+' day(s)');
+}
+function saveBackupDest(){const v=(document.getElementById('backupDest')||{}).value||'';if(!S.backup)S.backup={destination:'',lastExportAt:null};S.backup.destination=v.trim();save();renderBackupState();toast(S.backup.destination?'Backup destination saved':'Destination cleared')}
+function exportBackup(){
+  if(!S.backup||!S.backup.destination){toast('Name the backup destination first — data never leaves without one');const d=document.getElementById('backupDest');if(d)d.focus();return false}
+  dl('backforge-backup-'+todayStr()+'.json',JSON.stringify(S,null,2),'application/json');
+  S.backup.lastExportAt=todayStr();save();renderBackupState();
+  toast('Backup exported — save it to: '+S.backup.destination);
+  return true;
+}
+
 /* ---------------- More view ---------------- */
 $('#roadmapGrid').innerHTML=ROADMAP.map(r=>'<div class="card roadmap"><div style="display:flex;gap:8px;align-items:center"><span class="tag volt">'+r.tag+'</span><span class="tag" style="margin-left:auto">'+r.w+'</span></div><h3 style="margin-top:10px">'+r.t+'</h3><p>'+r.d+'</p></div>').join('');
 $('#refCard').innerHTML=REFS.map(([t,d])=>'<div class="flagrow"><div><div class="ft" style="font-size:14.5px">'+t+'</div><div class="fd">'+d+'</div></div></div>').join('');
@@ -1175,6 +1392,53 @@ function buildLiveWorkout(mins,energy,caveats){
   return{title:'Live workout — '+mins+' min',est,reasons,sections:[{name:'Warm-up',tag:'warm',items:warm},{name:'Main work',tag:'',items:chosen},{name:'Cool-down',tag:'cool',items:cool}]};
 }
 
+/* ---------- Desk-day defense (v3.0) ----------
+   A standing/posture micro-block offered as a Live variant when a
+   desk-bound day shows up. Honest detection: the app cannot read the
+   phone's sedentary alerts — it infers a desk day from synced step
+   counts (a weekday under 3,000 steps, newest synced day within the
+   last 2 days), or the user declares one. The block itself is
+   standing work from the existing library only. */
+function deskDayInfo(){
+  for(let i=0;i<=2;i++){
+    const ds=bfAddDays(todayStr(),-i),d=healthDay(ds);
+    if(d&&d.steps!=null){
+      const dow=new Date(ds+'T12:00:00').getDay(),weekday=dow>=1&&dow<=5;
+      return{date:ds,steps:d.steps,desk:weekday&&d.steps<3000};
+    }
+  }
+  return null;
+}
+function buildDeskBlock(){
+  if(flareActive()){
+    const w=buildLiveWorkout(5,'flare',[]);
+    return{title:'Desk-day defense — flare today, so relief instead',est:w.est,reasons:['Pain is at flare level, so the standing block is off the table — today the desk-day defense IS the relief protocol.'].concat(w.reasons),sections:w.sections};
+  }
+  const items=['chintuck','wallangel','hipflexorstretch','pullapart','march9090'].map(id=>({id,dose:EXBY[id].dose}));
+  return{title:'Desk-day defense — stand & reset',est:5,
+    reasons:['Five standing moves, about five minutes: chin tucks and wall angels for the forward head and rounded shoulders, the hip-flexor stretch against the tilt, pull-aparts, and a 90/90 march to switch the glutes back on.',
+             'This is the direct counter to a sitting day in your own findings — the desk rule from your assessment is stand every 30–40 minutes; this block is the deep version of one of those stands.'],
+    sections:[{name:'Stand & reset',tag:'warm',items}]};
+}
+function startDeskDefense(){
+  const w=buildDeskBlock();
+  LPL={steps:expandLive(w.sections),idx:0,rest:0,seen:new Set(),meta:{mins:5,energy:'ok',caveats:[],title:w.title,variant:'desk',started:new Date().toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}};
+  if(!LPL.steps.length){toast('Nothing safe to run in the desk block today');LPL=null;return}
+  persistLive();
+  if(navigator.wakeLock)navigator.wakeLock.request('screen').catch(()=>{});
+  toast('Desk-day defense: ~'+w.est+' min · '+LPL.steps.length+' steps. Stand up — just follow the screen.');
+  showLiveStep();
+}
+function renderDeskCard(){
+  const el=$('#deskCard');if(!el)return;
+  const info=deskDayInfo();
+  let h='<p class="small">BackForge cannot see your phone\u2019s sedentary alerts. It infers a desk day from synced step counts — a weekday under 3,000 steps — or you declare one yourself. Either way, the answer is the same five-minute standing block.</p>';
+  if(info&&info.desk)h+='<p style="margin-top:10px"><b>Desk day detected:</b> '+info.steps.toLocaleString()+' steps on '+info.date+' — a sitting-bound weekday by your synced data. Long sitting is your anterior-tilt trigger; run the block now rather than at the next ache.</p><button class="btn primary sm" style="margin-top:10px" onclick="startDeskDefense()">▶ Start desk-day defense (~5 min)</button>';
+  else if(info)h+='<p style="margin-top:10px">Latest synced day: <b>'+info.steps.toLocaleString()+' steps</b> on '+info.date+' — no desk-day pattern in it. The block is still here whenever a meeting marathon hits.</p><button class="btn sm" style="margin-top:10px" onclick="startDeskDefense()">Desk day today — start the block</button>';
+  else h+='<p style="margin-top:10px">No synced step data yet — import a health sync on the Progress tab and desk days start flagging themselves. Until then, declare one:</p><button class="btn sm" style="margin-top:10px" onclick="startDeskDefense()">Desk day today — start the block</button>';
+  el.innerHTML=h;
+}
+
 /* ---------- Live player ---------- */
 let LPL=null;
 function expandLive(sections){
@@ -1257,7 +1521,8 @@ function logLiveFinish(p){
   stopTimer();
   const mins=LPL?LPL.meta.mins:0, seen=LPL?[...LPL.seen]:[];
   const isRepair=!!(LPL&&LPL.meta&&LPL.meta.repair);
-  S.log.push({date:todayStr(),kind:isRepair?'repair':'live',title:isRepair?'Streak repair session':('Live workout · '+mins+' min'),pain:p,mins});
+  const isDesk=!!(LPL&&LPL.meta&&LPL.meta.variant==='desk');
+  S.log.push({date:todayStr(),kind:isRepair?'repair':'live',title:isRepair?'Streak repair session':(isDesk?'Desk-day defense · '+mins+' min':('Live workout · '+mins+' min')),pain:p,mins});
   if(!S.exLog)S.exLog=[];
   seen.forEach(id=>S.exLog.push({date:todayStr(),id}));
   LPL=null;S.livePlayer=null;save();closeSheet();
@@ -1308,6 +1573,7 @@ function segWireLive(id){const el=document.getElementById(id);if(!el)return;el.a
 let quoteIx=null;
 function nextQuote(){quoteIx=((quoteIx===null?dayIdx():quoteIx)+1)%QUOTES.length;const q=QUOTES[quoteIx];$('#liveQuote').innerHTML='<div class="q">“'+q[0]+'”</div><div class="who">— '+q[1]+'</div><button class="btn sm ghost" style="margin-top:10px" onclick="nextQuote()">Another one</button>'}
 function renderLive(){
+  renderDeskCard();
   const q=dayQuote();
   $('#liveQuote').innerHTML='<div class="q">“'+q[0]+'”</div><div class="who">— '+q[1]+'</div><button class="btn sm ghost" style="margin-top:10px" onclick="nextQuote()">Another one</button>';
   const doneToday=S.log.some(l=>l.date===todayStr());

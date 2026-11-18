@@ -14,7 +14,12 @@ from .models import Profile
 
 # kv keys that are plain frontend state
 _KV_KEYS = ("answers", "results", "assessHistory", "bandLevel", "swaps",
-            "player", "reminder", "livePrefs", "livePlayer")
+            "player", "reminder", "livePrefs", "livePlayer",
+            # v2.5 / v3.0 passthrough keys: not in default_state(), so an
+            # empty DB exports exactly as before; they survive import ->
+            # export only when present in the imported state.
+            "protein", "bodyweightKg", "deloadUntil",
+            "schema", "health", "waist", "backup", "migratedFrom")
 
 
 def default_state() -> dict:

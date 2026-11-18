@@ -2,7 +2,7 @@
 
 **Live:** https://ayaan40000.github.io/BackForge/
 
-**Latest (v2.5, 2026-11-03):** The Coach Gets a Memory — morning readiness score with shown arithmetic, per-exercise response learning that re-weights the Live builder (reasons printed), streak repair instead of a broken chain, deload proposals after two pain-rising weeks, a one-screen weekly review, and a protein floor tracker. See `CHANGELOG.md`.
+**Latest (v3.0, 2026-11-17):** The Body, Connected — Health Connect sync via Muse (steps, Zone 2 minutes, sleep, scale weight), recovery-aware progression gate and readiness, weight & waist trends read against pain with honest confidence language, a desk-day defense Live variant, and data architecture step 1 (versioned state schema with lossless migrations + a weekly backup ritual). See `CHANGELOG.md`.
 
 An assessment-led, resistance-band-first back-strength planner in a single self-contained `index.html`. No build step, no account — all data lives in the browser's localStorage and can be exported (JSON/CSV) or wiped from the Progress tab. An optional backend engine (`backend/`) mirrors the same logic server-side for sync and future clients; the app works fully without it.
 
@@ -14,8 +14,29 @@ An assessment-led, resistance-band-first back-strength planner in a single self-
 4. **Daily check-in → load tuning** — pain (0–10), location and sleep set today's load: full, minus top set, micro-only, or flare protocol at pain ≥ 7.
 5. **Guided player** — sessions expand into set × side steps with parsed hold timers (timestamp-based, audible beep, wake lock), auto rest between exercises, resume-where-you-left-off, and an in-player pain score at the end.
 6. **Library** — 26 band-first exercises in the app with cues, common mistakes, a regression and a progression for each, per-exercise band levels, and form-video links from multiple sources (Squat University, BackFitPro/McGill, E3 Rehab, Low Back Ability, Christina Nicci, Bob & Brad). One verified embed: Squat University's McGill Big 3 walkthrough. The canonical directory (`backend/data/exercises.json`, browsable in `docs/EXERCISE-DIRECTORY.md`) now holds 48 exercises, and the backend engine serves all 48.
-7. **Progress** — pain trend on a fixed 0–10 scale, sessions/week, assessment history, and a rolling 14-day progression gate (avg pain ≤ 3 **and** 8+ sessions) that unlocks band-level promotions.
+7. **Progress** — pain trend on a fixed 0–10 scale, sessions/week, assessment history, and a rolling 14-day progression gate (avg pain ≤ 3 **and** 8+ sessions) that unlocks band-level promotions. Since v3.0 the gate also reads synced recovery data — see below.
 8. **In-app daily reminder** — set a time under *More → Daily reminder*; replaces the chat check-in from deploy day.
+
+## Health sync (v3.0) — how a sync actually runs
+
+BackForge has no account and no server, so health data arrives the way the roadmap specified: **Muse is the bridge.**
+
+1. Ask Muse (in chat) to run a BackForge health sync. Muse runs `tools/health_sync.py`, which reads Health Connect through Muse's connector (Galaxy Watch + phone: Google Fit and Samsung Health both land there) and writes one small file, `backforge-health-sync.json` — per-day steps, Zone 2 minutes, sleep duration/deep minutes, and scale weigh-ins for the last 28 days.
+2. Muse sends you that file. In BackForge: **Progress → Health sync — via Muse → Import sync file** (or paste the JSON). Days merge by date; re-importing a newer file just refreshes the overlap.
+3. Synced data feeds the morning readiness score (last night's sleep, yesterday's steps), the progression gate (recovery criteria), and the weight trend. It is **read-only** — importing never touches your check-ins, session log or plan. **Pause sync** makes every consumer ignore the data without deleting it; **Delete synced data** wipes it, and only it.
+
+Honest limits, by design:
+
+- **Zone 2 minutes** count logged workout sessions whose average heart rate falls in your Zone 2 band (60–70% of estimated HRmax, 220 − age; the band and method are recorded inside every payload). The connector does not expose raw heart-rate samples, so unlogged walks and cardio are *not* counted — the number is a floor, not a total.
+- **Weight** comes from scale weigh-ins synced to Health Connect. They are sparse (the scale syncs when it syncs) — the trend works with whatever weigh-ins exist and says so.
+- **Waist** is manual (Progress → Weight & waist vs pain): Health Connect carries no waist entries, so the app takes one number a week from you instead of pretending.
+- **Desk-day defense** (Live tab): the app cannot read your phone's sedentary alerts. It infers a desk day from synced steps — a weekday under 3,000 steps — or you declare one, and offers a five-minute standing/posture block as a Live session variant. Flare days get the relief protocol instead.
+- **Recovery gate rule:** synced data can only *hold* a promotion on clear evidence — at least 7 synced days in the 14-day window plus a clearly failing signal (step average under 4,000/day, or zero logged Zone 2 minutes). Missing data never blocks a promotion the pain trend earned.
+
+## Data architecture (v3.0)
+
+- State schema is versioned (`schema: 2`) inside the unchanged `backforge_v1` localStorage envelope. The schema 1 → 2 migration is additive and lossless — every v1/v2.5 field carries over; the pre-migration state is kept on the device under `backforge_v1_premigration` as a rollback copy. Verified by a seeded-v2.5-payload test in `dev/harness-v3.mjs`.
+- **Weekly backup ritual** (Progress → Your data is yours): name where backups live (a Drive folder, an email to yourself, a USB stick), then one tap exports a dated full-state JSON. The export refuses to run until the destination is named — data never leaves the device without a named destination. Still local-first: nothing is uploaded by the app, ever.
 
 ## Live Mode (v2.0)
 
@@ -41,8 +62,8 @@ The **Live** tab is a workout partner built for zero-decision starts:
 
 ## Roadmap
 
-Full roadmap to v5.0: **[docs/ROADMAP.md](docs/ROADMAP.md)** — v2.0 Live Mode (shipped) → v2.5 Coach's memory → v3.0 Connected body (Health Connect) → v3.5 Eyes on form → v4.0 Clinic edition → v4.5 Circles → v5.0 Platform. The *More* tab carries the summary cards. Version history: [CHANGELOG.md](CHANGELOG.md).
+Full roadmap to v5.0: **[docs/ROADMAP.md](docs/ROADMAP.md)** — v2.0 Live Mode (shipped) → v2.5 Coach's memory (shipped) → v3.0 Connected body (shipped) → v3.5 Eyes on form → v4.0 Clinic edition → v4.5 Circles → v5.0 Platform. The *More* tab carries the summary cards. Version history: [CHANGELOG.md](CHANGELOG.md).
 
 ## Tech
 
-Single file, vanilla HTML/CSS/JS (~119 KB). Backend (optional): Python 3 + FastAPI + SQLite in `backend/` (pytest, 78 tests passing). State key `backforge_v1` in localStorage (v2.0 adds `livePrefs`, `exLog`, `livePlayer` — old saves upgrade in place). Fonts: Space Grotesk + Inter (graceful system-font fallback offline). Installable: theme color, icon, runtime-generated web manifest.
+Single file, vanilla HTML/CSS/JS (~139 KB). Backend (optional): Python 3 + FastAPI + SQLite in `backend/` (pytest, 81 tests passing — the state round-trip now also preserves the v2.5 and v3.0 fields instead of dropping them). State key `backforge_v1` in localStorage, data schema v2 (v2.0 adds `livePrefs`, `exLog`, `livePlayer`; v2.5 adds `protein`, `bodyweightKg`, `deloadUntil`; v3.0 adds `health`, `waist`, `backup` — old saves migrate in place, losslessly). Sync generator: `tools/health_sync.py` (stdlib-only Python, run by Muse against the Health Connect connector). Fonts: Space Grotesk + Inter (graceful system-font fallback offline). Installable: theme color, icon, runtime-generated web manifest.
