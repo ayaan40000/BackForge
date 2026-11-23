@@ -70,7 +70,7 @@ function sess(n, kind) {
   };
   const raw = JSON.stringify(v25);
   const w = loadApp(raw);
-  check('migration: schema becomes 2', E(w, 'S.schema') === 2);
+  check('migration: schema becomes 3', E(w, 'S.schema') === 3);
   check('migration: migratedFrom recorded as 1', E(w, 'S.migratedFrom') === 1);
   check('migration: answers preserved', E(w, 'S.answers.dirext') === 'worse');
   check('migration: results preserved', E(w, 'S.results.length') === 1 && E(w, 'S.results[0].t') === 'Extension-intolerant pattern');
@@ -81,11 +81,11 @@ function sess(n, kind) {
   check('migration: pristine premigration copy kept', w.localStorage.getItem('backforge_v1_premigration') === raw);
   const migratedRaw = w.localStorage.getItem('backforge_v1');
   const w2 = loadApp(migratedRaw);
-  check('migration: idempotent on second load', E(w2, 'S.schema') === 2 && E(w2, 'S.migratedFrom') === 1 && w2.localStorage.getItem('backforge_v1_premigration') === null);
+  check('migration: idempotent on second load', E(w2, 'S.schema') === 3 && E(w2, 'S.migratedFrom') === 1 && w2.localStorage.getItem('backforge_v1_premigration') === null);
 }
 {
   const w = loadApp(null);
-  check('fresh install: schema 2, no migration mark', E(w, 'S.schema') === 2 && E(w, 'S.migratedFrom') === null);
+  check('fresh install: schema 3, no migration mark', E(w, 'S.schema') === 3 && E(w, 'S.migratedFrom') === null);
 }
 
 /* ---------- 2. Progression gate (pain + consistency + recovery) ---------- */

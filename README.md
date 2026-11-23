@@ -2,7 +2,7 @@
 
 **Live:** https://ayaan40000.github.io/BackForge/
 
-**Latest (v3.0, 2026-11-17):** The Body, Connected — Health Connect sync via Muse (steps, Zone 2 minutes, sleep, scale weight), recovery-aware progression gate and readiness, weight & waist trends read against pain with honest confidence language, a desk-day defense Live variant, and data architecture step 1 (versioned state schema with lossless migrations + a weekly backup ritual). See `CHANGELOG.md`.
+**Latest (v4.0, 2026-11-22):** The Clinic Edition — a full app-shell overhaul (5 tabs: Home / Train / Posture / Moves / Progress, Profile behind the header avatar, segmented panels, per-tab scroll restore), daily posture cues for anterior pelvic tilt and forward-head/rounded shoulders, an 8-test band-graded posture assessment whose grades rewrite the plan, a 40-exercise database with "you've got it" markers and click-to-play videos, a photo posture check via the Muse bridge with an AES-256-GCM encrypted vault for GitHub backup, a local PIN gate, and a pain-guarded calorie + weight-loss body plan fed by Sync-with-Muse v2. Built under a three-round adversarial review (5.4 → 5.8 → 6.4 / 10); the remaining path to 8/10 is documented in `docs/ROADMAP.md`. See `CHANGELOG.md`.
 
 An assessment-led, resistance-band-first back-strength planner in a single self-contained `index.html`. No build step, no account — all data lives in the browser's localStorage and can be exported (JSON/CSV) or wiped from the Progress tab. An optional backend engine (`backend/`) mirrors the same logic server-side for sync and future clients; the app works fully without it.
 
@@ -13,7 +13,7 @@ An assessment-led, resistance-band-first back-strength planner in a single self-
 3. **Plan generator** — rebuilds the daily foundation blocks (in-bed, posture, band activation, hip IR, tilt correction, McGill Big 3) and the weekly A/B/C + Zone 2 split *from the findings*: extension-intolerant backs lose prone lying and press-ups automatically; the weaker side gets extra sets; a hip IR deficit adds a daily IR block; anterior pelvic tilt adds a tilt-correction block.
 4. **Daily check-in → load tuning** — pain (0–10), location and sleep set today's load: full, minus top set, micro-only, or flare protocol at pain ≥ 7.
 5. **Guided player** — sessions expand into set × side steps with parsed hold timers (timestamp-based, audible beep, wake lock), auto rest between exercises, resume-where-you-left-off, and an in-player pain score at the end.
-6. **Library** — 26 band-first exercises in the app with cues, common mistakes, a regression and a progression for each, per-exercise band levels, and form-video links from multiple sources (Squat University, BackFitPro/McGill, E3 Rehab, Low Back Ability, Christina Nicci, Bob & Brad). One verified embed: Squat University's McGill Big 3 walkthrough. The canonical directory (`backend/data/exercises.json`, browsable in `docs/EXERCISE-DIRECTORY.md`) now holds 48 exercises, and the backend engine serves all 48.
+6. **Library (Moves)** — 40 exercises in the app (26 originals + the backend directory's breathing/tilt/neck/wall-slide/doorway/seated-IR set + 8 no-equipment desk & travel moves) with cues, common mistakes, a regression and a progression for each, per-exercise band levels, and form-video links from multiple sources (Squat University, BackFitPro/McGill, E3 Rehab, Low Back Ability, Christina Nicci, Bob & Brad). One verified embed: Squat University's McGill Big 3 walkthrough. The canonical directory (`backend/data/exercises.json`, browsable in `docs/EXERCISE-DIRECTORY.md`) now holds 48 exercises, and the backend engine serves all 48.
 7. **Progress** — pain trend on a fixed 0–10 scale, sessions/week, assessment history, and a rolling 14-day progression gate (avg pain ≤ 3 **and** 8+ sessions) that unlocks band-level promotions. Since v3.0 the gate also reads synced recovery data — see below.
 8. **In-app daily reminder** — set a time under *More → Daily reminder*; replaces the chat check-in from deploy day.
 
@@ -35,7 +35,7 @@ Honest limits, by design:
 
 ## Data architecture (v3.0)
 
-- State schema is versioned (`schema: 2`) inside the unchanged `backforge_v1` localStorage envelope. The schema 1 → 2 migration is additive and lossless — every v1/v2.5 field carries over; the pre-migration state is kept on the device under `backforge_v1_premigration` as a rollback copy. Verified by a seeded-v2.5-payload test in `dev/harness-v3.mjs`.
+- State schema is versioned (`schema: 3` since v4.0; was 2 in v3.0) inside the unchanged `backforge_v1` localStorage envelope. Migrations are additive and lossless, and v4 additionally repairs partial/corrupt v4 subfields on every load instead of crashing — every v1/v2.5 field carries over; the pre-migration state is kept on the device under `backforge_v1_premigration` as a rollback copy. Verified by a seeded-v2.5-payload test in `dev/harness-v3.mjs`.
 - **Weekly backup ritual** (Progress → Your data is yours): name where backups live (a Drive folder, an email to yourself, a USB stick), then one tap exports a dated full-state JSON. The export refuses to run until the destination is named — data never leaves the device without a named destination. Still local-first: nothing is uploaded by the app, ever.
 
 ## Live Mode (v2.0)

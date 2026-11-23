@@ -48,7 +48,7 @@
 - **Data architecture step 1:** versioned state schema with migrations + an automated backup/export ritual (weekly JSON to a user-chosen destination). Still local-first. *As built:* state carries `schema: 2` (the `backforge_v1` envelope is unchanged, so the backend round-trip still works); the schema 1 → 2 migration is additive and lossless, keeps a pristine premigration copy on the device, and the weekly backup export refuses to run until the user names the destination.
 - **Exit criteria:** sync is read-only, pausable, and fully deletable; zero data leaves the device without a named destination. *(Met: import never touches check-ins/log/plan; pause makes synced data invisible to every consumer; delete wipes synced data only; the backup ritual enforces a named destination.)*
 
-## v3.5 — EYES ON FORM *(target: Apr 2027)*
+## v3.5 — EYES ON FORM *(shipped Nov 22, 2026, inside the v4.0 release — see the v4.0 entry below; the camera-coach items that were NOT part of the owner's v3.5 scope remain future work)*
 
 **Theme: the camera becomes a coach's eye.**
 
@@ -57,7 +57,35 @@
 - **Guided retest mode.** The 13-test assessment performed *to* the camera with timed holds and side-by-side symmetry readouts; results pre-fill the assessment (user confirms every value — the camera proposes, the human disposes).
 - **Exit criteria:** pose pipeline validated against manually counted gold-standard sets (≥95% rep accuracy on library exercises); all processing on-device, provably.
 
-## v4.0 — THE CLINIC EDITION *(target: Jun 2027)*
+## v4.0 — THE CLINIC EDITION *(shipped Nov 22, 2026 — pulled forward from the Jun 2027 target on the owner's repo-development order; delivered scope was the owner's clinic brief: posture grading, photo assessment, encrypted vault, PIN profile, body plan. The original v4.0 items below — clinician share links, program templates, multi-profile, WCAG pass — remain planned and move to the next cycle.)*
+
+**As built (Nov 22, 2026).** App shell (5 tabs, Profile, segmented panels, scroll restore); 16 daily posture cues; 8-test band-graded posture assessment whose grades rewrite the plan (merge-on-retest, pain carried, flare-gated); 40-exercise database with got-it markers and click-to-play videos (5 verified directs, labelled searches); photo posture check via the Muse bridge (4 views, IndexedDB, validated result import, plan-inert by design); AES-256-GCM photo vault with fresh-device restore; local PIN gate (salted PBKDF2, escalating lockout, no PIN value in the shipped code — the owner sets his own); Sync-with-Muse v2 + pain-guarded calorie/weight body plan. State schema 3. Full detail: `CHANGELOG.md` v4.0 entry; build record: `dev/v4-build/FIXES.md`.
+
+**Adversarial review record (owner-mandated process).** An independent expert-of-experts reviewer ran three full iterations against the built app and the four design specs (`dev/v4-specs/`), attacking clinical safety, grading validity, UX, DB/video honesty, imaging/encryption/PIN security, and the sync bridge, with its own jsdom probes beyond the repo harness:
+
+| Iteration | Score | Clinical | Grading | UX | DB + videos | Imaging/PIN | Sync |
+|---|---|---|---|---|---|---|---|
+| 1 | 5.4 / 10 | 6.5 | 4.0 | 5.5 | 6.5 | 4.5 | 5.5 |
+| 2 | 5.8 / 10 | 7.0 | 6.0 | 5.5 | 7.0 | 4.5 | 5.0 |
+| 3 | **6.4 / 10** | 7.5 | 6.5 | 5.5 | 7.5 | 5.5 | 6.0 |
+
+Iteration 1 found three criticals (wizard fabricated grades from unanswered inputs; vault base64 crashed on real photos; vault restore impossible after device loss) — all fixed and probe-verified. Iteration 2 found the restore fix orphaning photos via a local-only view mapping, a partial retest wiping the plan, a dead sleep series, and corrupt-state init crashes — all fixed. Iteration 3 found no safety-invariant violation and no fabricated-data path; its remaining findings (merge forgetting pain, half-complete state normalisation, draft placeholder semantics, calDays shape) were fixed immediately after the review closed, with harness regressions (`dev/harness-v4.mjs` §15; suites now 113/113 and 50/50). Per the owner's ruling, the release deployed at iteration 3's 6.4 rather than holding for 8 — what keeps it below 8 is mostly *evidence*, not known breakage, and it is itemised next.
+
+**Path to 8/10 — the next iteration's roadmap.** Everything the final reviewer listed as still pending, in their order:
+
+1. ~~Carry pain through the retest merge (per-test carried pain + merged painFlag + provenance in history)~~ — **done post-review** (harness §15). Remaining: a second successive partial retest case.
+2. **Give the vault a real end-to-end test.** Run the photo journey under an IndexedDB shim (fake-indexeddb) or a real-browser smoke test: create vault + labelled photo → export envelope → wipe *all* local state incl. IDB → restore with passphrase on a fresh profile → assert the photo is retrievable *and* assigned to its original view; repeat with the view stripped (must land in the assign strip) and with a wrong passphrase (per-file failure reporting). Until this runs green, imaging stays capped at 6 — code reading is exactly the evidence standard that failed in iteration 1.
+3. ~~Complete state normalisation for every top-level field~~ — **done post-review** (type guards + corrupt-seed cases). Remaining: downstream-flow cases on repaired seeds (create PIN / log weight / make sync request on each repaired seed, not just load-and-render).
+4. **Close the remaining untested iteration-2 claims with executed regressions:** N6 Priority renders (half-kneeling Pallof dose, supported single-leg, gated 90/90 progression in the sheet), N10 future-dated pain check (does not lock; a past one does), N15 flare-day Assess caution, the back-solve's ≥14-day weight-coverage gate, the sync request's `createdAt`/calorie-`context` shape, and a mechanical string diff of the rendered vault threat text against Spec D's five lines.
+5. ~~Canonical calDays shape + delete→import→body-plan sequence; draft stores answered inputs only~~ — **done post-review** (calDays verified object-shaped by design; delete→re-import→render sequence in harness §15; draft answered-only + resume refill). Remaining: resume-a-draft-and-finish-untouched fabrication test.
+6. **Prove the viewport budget (the standing UX debt).** Measure Today, Train, Posture, Moves, Progress, Profile at 390×844 in a real layout engine (headless Chromium) and publish scroll-depth per tab against the ≤1.5-viewport rule. Progress still stacks ~10 cards behind its segmented panels and Today/Train remain stacked flows; whatever exceeds budget gets the segmented/sheet treatment or a documented exemption. UX cannot exceed ~6.5 unmeasured.
+7. **Per-view photo-capture tick-boxes.** The stance guidance is currently one shared checklist paragraph plus per-view hints, not Spec D's per-view tick-before-use checklist. Implement per-view checklists in the capture cells (gate the shutter, with an override), or amend the spec with the owner's sign-off — don't leave the divergence silent.
+8. **Verify video liveness, not just URL shape.** One pass (and a periodic re-check) that each of the 11 `direct` YouTube entries actually resolves and is the claimed source's video; a dead or swapped ID currently passes every check in the repo.
+9. **Real-device pass for what jsdom can't reach:** PIN gate countdown/lockout timing on an actual phone, vault 10-minute auto-lock, PWA relaunch restoring last tab + per-tab scroll, and the first-run PIN offer reaching a no-PIN existing profile — signed off on device.
+10. ~~Retire the stale v3 harness assertions~~ — **done post-review** (schema-3 assertions; both suites fully green).
+
+**Original v4.0 scope (still planned, moved to the next cycle):**
+
 
 **Theme: from personal tool to institutional instrument.**
 
