@@ -2,6 +2,21 @@
 
 All notable changes to BackForge. Versions follow the roadmap in `docs/ROADMAP.md`.
 
+## v4.5 — Live Studio (2026-11-23)
+
+A new app. The v4.0 single file moved to `/classic` (still used for the check-ups); the root is now a rebuilt, design-led app sharing the same data.
+
+- **New look and shell.** Five places: Today, Live, Moves, Progress, You. Phones get a glass tab bar, tablets a rail, desktops a sidebar with two or three columns. Liquid-glass surfaces sit over a slowly drifting light background, in dark and light themes, with smooth screen transitions. "Reduce motion" and "Solid surfaces" are under You. Built from `docs/DESIGN-PROTOCOL.md`, written by a design lead with connected-fitness and digital-physio experience.
+- **Live is live.** Choose 5–60 minutes, your energy, and any adjustments; all three are pre-filled. BackForge builds the session second by second (warm-up, main work, cool-down, sets, left and right sides, rests) and fits it to the time you chose. Press Start and it runs by itself.
+- **A voice coach.** It talks you through the session like a personal trainer: what the move is, how to set up, what to focus on, the countdown, a form reminder, "two more", praise in the rests, a pain check, and what's coming next. It never talks over the countdown. Captions show every line, so it also works muted.
+- **Built for the floor.** The Pain button is always on screen: sharp or leg pain stops that move, and warning signs stop the session with urgent-care advice. "Easier" swaps to the regression for the rest of the move, and "+15 s" adds rest. Headphone buttons pause and skip. The screen stays on, an optional generated music bed plays underneath, and a session resumes where you left off if it's interrupted.
+- **Today** shows readiness as a ring with its reasons, then the one session with a Start button. Next come posture cues and a health strip (steps, sleep stages, resting HR, HRV, Zone 2, weight), then this week. You check in with one tap on a 0–10 scale.
+- **Progress** has four sections. Overview: pain trend, a 17-week consistency map, sessions per week, the progression gate, insights that state how much data they're based on, and what the coach has learned. Health: steps, sleep stages, resting HR and HRV against your normal range, Zone 2 per week, and recent workouts. Body: weight trend, energy balance, waist, protein. Posture: findings and assessment history.
+- **Demo data.** You → Data → "Preview with demo data" (or `?demo=1`) shows the app with 120 days of example history, including Google Fit and Samsung Health data. It is stored separately and never mixed with your data.
+- **Health sync v3.** The import now also accepts resting HR, HRV, sleep stages, VO₂ max, SpO₂, body fat and workouts. Older sync files still import.
+- **For maintainers.** `AGENTS.md` explains how Muse or any AI can maintain the app. Coach lines, cues and coaching notes are data files. 19 new tests cover the safety rules for Live, duration fitting, the coach's timing and wording rules, the data files and the health import. A 42-check browser smoke test covers phone, tablet and desktop. Classic harnesses still pass (113 + 50), and the backend still passes (81).
+- Safety rules carry over unchanged and are re-tested on every Live build. The flare protocol drops the side-bend, as it did in v4.0.
+
 ## v4.0 — The Clinic Edition (2026-11-22)
 
 Ships the roadmap's v3.5 + v4.0 owner scope in one release: posture grading, photo assessment, and the app becoming a clinic-grade instrument. Built by a four-expert design pass (posture science, exercise DB/videos, UX architecture, imaging/security/sync — specs in `dev/v4-specs/`) and hardened by three adversarial review iterations (scores and the path-to-8/10 plan: `docs/ROADMAP.md`).

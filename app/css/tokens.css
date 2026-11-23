@@ -1,0 +1,75 @@
+/* BackForge design tokens — the ONLY file that defines --c-* --g-* --viz-* --sp-* --r-* --t-* --d-* --e-* --elev-*.
+   Spec: docs/DESIGN-PROTOCOL.md §5–6. Tune values here; never hard-code colours elsewhere. */
+@layer reset, tokens, base, materials, layout, components, screens, utilities, overrides;
+
+@layer tokens {
+  @property --amb-a { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+  @property --p { syntax: '<number>'; inherits: true; initial-value: 0; }
+
+  @font-face { font-family: 'Inter'; src: url('../vendor/fonts/inter-latin-wght-normal.woff2') format('woff2'); font-weight: 100 900; font-display: swap; }
+  @font-face { font-family: 'Space Grotesk'; src: url('../vendor/fonts/space-grotesk-latin-600-normal.woff2') format('woff2'); font-weight: 600; font-display: swap; }
+
+  :root {
+    color-scheme: dark;
+    /* colour — dark first */
+    --c-bg: oklch(0.15 0.02 262); --c-bg-deep: oklch(0.11 0.02 262);
+    --c-surface: oklch(0.21 0.018 262); --c-surface-2: oklch(0.26 0.018 262);
+    --c-line: oklch(1 0 0 / 0.10);
+    --c-ink: oklch(0.97 0.005 250); --c-ink-2: oklch(0.80 0.015 250); --c-ink-3: oklch(0.68 0.015 250);
+    --c-accent: oklch(0.90 0.19 124); --c-on-accent: oklch(0.20 0.05 124);
+    --c-attention: oklch(0.72 0.18 35); --c-info: oklch(0.80 0.12 230); --c-calm: oklch(0.78 0.11 295); --c-reward: oklch(0.86 0.15 82);
+    --c-good: oklch(0.80 0.17 152); --c-warn: oklch(0.84 0.15 80); --c-bad: oklch(0.68 0.20 25);
+    --c-phase-warm: oklch(0.82 0.13 70); --c-phase-main: var(--c-accent); --c-phase-rest: oklch(0.80 0.10 230); --c-phase-cool: var(--c-calm);
+    /* glass */
+    --g-thin-bg: oklch(0.22 0.02 262 / 0.38); --g-thin-blur: blur(14px) saturate(150%);
+    --g-regular-bg: oklch(0.22 0.02 262 / 0.56); --g-regular-blur: blur(24px) saturate(170%);
+    --g-thick-bg: oklch(0.18 0.02 262 / 0.74); --g-thick-blur: blur(40px) saturate(180%);
+    --g-border: inset 0 0 0 1px oklch(1 0 0 / 0.10);
+    --g-rim: inset 0 1px 0 0 oklch(1 0 0 / 0.22), inset 0 -1px 0 0 oklch(0 0 0 / 0.18);
+    --g-specular: linear-gradient(160deg, oklch(1 0 0 / 0.16) 0%, oklch(1 0 0 / 0.04) 28%, transparent 55%);
+    --g-noise: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
+    --amb-1: oklch(0.90 0.19 124 / 0.20); --amb-2: oklch(0.80 0.12 230 / 0.22); --amb-3: oklch(0.78 0.11 295 / 0.24);
+    /* data viz */
+    --viz-steps: oklch(0.80 0.12 232); --viz-z2: oklch(0.82 0.16 152); --viz-rhr: oklch(0.72 0.16 15); --viz-hrv: oklch(0.80 0.11 195);
+    --viz-weight: oklch(0.86 0.14 82); --viz-pain: oklch(0.72 0.17 35);
+    --viz-sl-awake: oklch(0.84 0.11 70); --viz-sl-rem: oklch(0.74 0.15 325); --viz-sl-light: oklch(0.70 0.10 268); --viz-sl-deep: oklch(0.50 0.15 275);
+    --viz-hr1: oklch(0.72 0.05 250); --viz-hr2: oklch(0.82 0.16 152); --viz-hr3: oklch(0.86 0.15 95); --viz-hr4: oklch(0.76 0.16 55); --viz-hr5: oklch(0.66 0.20 25);
+    --viz-sess: var(--c-accent);
+    /* shape & space */
+    --r-xs: 8px; --r-sm: 12px; --r-md: 18px; --r-lg: 26px; --r-xl: 34px; --r-pill: 999px;
+    --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-4: 16px; --sp-5: 20px; --sp-6: 24px; --sp-8: 32px; --sp-10: 40px; --sp-12: 48px;
+    --gutter: 16px;
+    --elev-1: 0 1px 2px oklch(0 0 0 / .25); --elev-2: 0 6px 20px -6px oklch(0 0 0 / .40); --elev-3: 0 18px 48px -12px oklch(0 0 0 / .55);
+    /* type */
+    --f-ui: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif; --f-display: 'Space Grotesk', var(--f-ui);
+    --t-countdown: clamp(84px, 24vmin, 200px);
+    /* motion */
+    --d-instant: 90ms; --d-fast: 160ms; --d-base: 240ms; --d-slow: 380ms; --d-scene: 520ms; --d-celebrate: 900ms;
+    --e-out: cubic-bezier(.2,.8,.2,1); --e-in: cubic-bezier(.4,0,1,1); --e-in-out: cubic-bezier(.65,0,.35,1);
+    --e-spring: linear(0, .22 8%, .62 18%, .9 28%, 1.03 38%, 1.05 46%, 1.02 58%, .995 72%, 1);
+  }
+  @media (min-width: 600px) { :root { --gutter: 24px; } }
+  @media (min-width: 1024px) { :root { --gutter: 32px; } }
+
+  /* light theme — app/js/main.js resolves System/Dark/Light into data-theme-resolved.
+     Without JS the page stays dark (the default). */
+  :root[data-theme-resolved="light"] {
+    color-scheme: light;
+    --c-bg: oklch(0.97 0.006 250); --c-bg-deep: oklch(0.93 0.01 250); --c-surface: oklch(1 0 0); --c-surface-2: oklch(0.955 0.006 250);
+    --c-line: oklch(0.2 0.02 262 / 0.10); --c-ink: oklch(0.20 0.02 262); --c-ink-2: oklch(0.40 0.02 262); --c-ink-3: oklch(0.52 0.02 262);
+    --c-accent: oklch(0.62 0.17 132); --c-on-accent: oklch(0.99 0 0); --c-attention: oklch(0.58 0.19 33); --c-info: oklch(0.55 0.14 240);
+    --c-calm: oklch(0.52 0.15 295); --c-reward: oklch(0.62 0.14 70); --c-good: oklch(0.55 0.15 152); --c-warn: oklch(0.60 0.14 70); --c-bad: oklch(0.55 0.20 25);
+    --g-thin-bg: oklch(0.99 0.004 250 / 0.45); --g-regular-bg: oklch(0.99 0.004 250 / 0.62); --g-thick-bg: oklch(0.99 0.004 250 / 0.80);
+    --g-border: inset 0 0 0 1px oklch(0.2 0.02 262 / 0.08); --g-rim: inset 0 1px 0 0 oklch(1 0 0 / 0.9), inset 0 -1px 0 0 oklch(0 0 0 / 0.06);
+    --g-specular: linear-gradient(160deg, oklch(1 0 0 / 0.7) 0%, oklch(1 0 0 / 0.15) 30%, transparent 55%);
+    --amb-1: oklch(0.85 0.17 124 / 0.14); --amb-2: oklch(0.75 0.12 230 / 0.14); --amb-3: oklch(0.70 0.13 295 / 0.12);
+    --viz-steps: oklch(0.56 0.14 240); --viz-z2: oklch(0.56 0.15 152); --viz-rhr: oklch(0.55 0.18 15); --viz-hrv: oklch(0.55 0.11 200);
+    --viz-weight: oklch(0.60 0.13 70); --viz-pain: oklch(0.56 0.18 33);
+    --viz-sl-awake: oklch(0.66 0.12 70); --viz-sl-rem: oklch(0.56 0.17 325); --viz-sl-light: oklch(0.66 0.09 268); --viz-sl-deep: oklch(0.40 0.15 275);
+    --elev-1: 0 1px 2px oklch(0.3 0.03 262 / .10); --elev-2: 0 8px 24px -8px oklch(0.3 0.03 262 / .22); --elev-3: 0 20px 50px -14px oklch(0.3 0.03 262 / .30);
+  }
+  /* solid surfaces: no backdrop support, reduced transparency, or the user's choice */
+  @supports not (backdrop-filter: blur(1px)) { :root { --g-thin-bg: var(--c-surface); --g-regular-bg: var(--c-surface); --g-thick-bg: var(--c-surface); --g-thin-blur: none; --g-regular-blur: none; --g-thick-blur: none; } }
+  @media (prefers-reduced-transparency: reduce), (prefers-contrast: more) { :root { --g-thin-bg: var(--c-surface); --g-regular-bg: var(--c-surface); --g-thick-bg: var(--c-surface); --g-thin-blur: none; --g-regular-blur: none; --g-thick-blur: none; } }
+  :root[data-solid] { --g-thin-bg: var(--c-surface); --g-regular-bg: var(--c-surface); --g-thick-bg: var(--c-surface); --g-thin-blur: none; --g-regular-blur: none; --g-thick-blur: none; }
+}

@@ -1,0 +1,242 @@
+[
+ {
+  "id": "new-seated-pelvic-tilt",
+  "name": "Seated Pelvic Tilt & Rib Stack",
+  "category": "mobility",
+  "targets": [
+   "apt",
+   "posture"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 8 · 3-sec holds",
+  "level": 1,
+  "cues": [
+   "Sit on your sit-bones, feet flat",
+   "Gently roll the pelvis under, like tucking a tail",
+   "Exhale as you tuck — ribs drop over the pelvis"
+  ],
+  "mistakes": [
+   "Slumping the whole spine instead of tilting the pelvis",
+   "Breath-holding"
+  ],
+  "regression": "Smaller range, hands on thighs for feedback",
+  "progression": "Hold 5 sec per rep",
+  "spinal_load": "none",
+  "contra": [],
+  "tags": [
+   "desk"
+  ]
+ },
+ {
+  "id": "new-seated-scap-pinch",
+  "name": "Seated Scapular Pinch & Set",
+  "category": "mobility",
+  "targets": [
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 10 · 3-sec holds",
+  "level": 1,
+  "cues": [
+   "Sit tall, arms relaxed",
+   "Pinch the shoulder blades together and down, toward the back pockets",
+   "Neck stays long — chin lightly tucked"
+  ],
+  "mistakes": [
+   "Shrugging up instead of sliding down",
+   "Arching the low back to fake the pinch"
+  ],
+  "regression": "1-sec holds, smaller pinch",
+  "progression": "Add a chin tuck to every rep",
+  "spinal_load": "none",
+  "contra": [],
+  "tags": [
+   "desk"
+  ]
+ },
+ {
+  "id": "new-standing-wall-reset",
+  "name": "Standing Wall Posture Reset",
+  "category": "mobility",
+  "targets": [
+   "upper-crossed",
+   "apt",
+   "posture"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "3 × 20-sec holds",
+  "level": 1,
+  "cues": [
+   "Three points on the wall: tailbone, shoulder blades, head",
+   "Chin in — do not look up to force head contact",
+   "Breathe: if you cannot breathe, you are forcing it"
+  ],
+  "mistakes": [
+   "Arching the low back off the wall",
+   "Craning the neck back"
+  ],
+  "regression": "Head off the wall with chin tucked — measure the gap shrinking over weeks",
+  "progression": "Add 10 wall angels from this position",
+  "spinal_load": "none",
+  "contra": [],
+  "tags": [
+   "desk"
+  ]
+ },
+ {
+  "id": "new-seated-thoracic-opener",
+  "name": "Seated Thoracic Opener (chair back)",
+  "category": "mobility",
+  "targets": [
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 6 slow reps",
+  "level": 1,
+  "cues": [
+   "Chair-back edge at the MID-back, never the low back",
+   "Hands cradle the head, elbows wide",
+   "Small range, exhale as you open. Stop if anything refers down the leg"
+  ],
+  "mistakes": [
+   "Edge at the low back — that is lumbar extension, banned here",
+   "Forcing range"
+  ],
+  "regression": "Rolled towel over the chair back, smaller range",
+  "progression": "Move the edge one segment up per rep",
+  "spinal_load": "none",
+  "contra": [],
+  "tags": [
+   "desk"
+  ]
+ },
+ {
+  "id": "new-standing-glute-tilt",
+  "name": "Standing Glute Squeeze & Tilt",
+  "category": "mobility",
+  "targets": [
+   "apt",
+   "glute-weak"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "3 × 8 · 5-sec holds",
+  "level": 1,
+  "cues": [
+   "Stand tall, feet hip-width, hand on a counter if needed",
+   "Squeeze the glutes and tip the belt buckle up toward the ribs",
+   "Ribs stay down — tall, not arched"
+  ],
+  "mistakes": [
+   "Arching instead of tucking",
+   "Locking the knees hard"
+  ],
+  "regression": "2-sec holds",
+  "progression": "Single-leg version at the counter",
+  "spinal_load": "none",
+  "contra": [],
+  "tags": [
+   "desk"
+  ]
+ },
+ {
+  "id": "new-seated-desk-hip-ir",
+  "name": "Seated Desk Hip IR (no band)",
+  "category": "mobility",
+  "targets": [
+   "hip-ir"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 10 / side",
+  "level": 1,
+  "cues": [
+   "Sit tall at the chair edge, knee at 90°",
+   "Thigh pinned — swing the foot outward from the hip only",
+   "Slow: 2 seconds out, 2 back. Right side first + extra set"
+  ],
+  "mistakes": [
+   "Trunk leaning away",
+   "Thigh swinging with the foot"
+  ],
+  "regression": "Smaller range, hands gripping the chair seat",
+  "progression": "Add the loop band version (seated hip IR)",
+  "spinal_load": "none",
+  "contra": [],
+  "tags": [
+   "desk"
+  ]
+ },
+ {
+  "id": "new-chair-sit-stand",
+  "name": "Chair Sit-to-Stand",
+  "category": "mobility",
+  "targets": [
+   "glute-weak",
+   "hinge"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 8 · slow lower",
+  "level": 1,
+  "cues": [
+   "Feet flat, hinge slightly from the hips",
+   "Drive through the heels to stand",
+   "Finish tall — glutes squeezed, pelvis tucked, do not arch"
+  ],
+  "mistakes": [
+   "Rounding then arching the low back",
+   "Pushing off with the hands (that is the regression, not the rep)"
+  ],
+  "regression": "Higher chair, hands on thighs",
+  "progression": "Slower 5-sec lower",
+  "spinal_load": "none",
+  "contra": [],
+  "tags": [
+   "desk"
+  ]
+ },
+ {
+  "id": "new-standing-chest-opener",
+  "name": "Standing Chest Opener (hands behind back)",
+  "category": "mobility",
+  "targets": [
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 20-sec holds",
+  "level": 1,
+  "cues": [
+   "Clasp the hands behind your back",
+   "Straighten the arms gently and lift them a small way",
+   "Chest tall, chin tucked, ribs down — stretch in the chest, never the low back"
+  ],
+  "mistakes": [
+   "Arching to fake range",
+   "Shrugging"
+  ],
+  "regression": "Hold a towel between the hands if the clasp does not reach",
+  "progression": "Longer holds, 30 sec",
+  "spinal_load": "none",
+  "contra": [],
+  "tags": [
+   "desk"
+  ]
+ }
+]

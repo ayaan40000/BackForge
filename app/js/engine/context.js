@@ -1,0 +1,19 @@
+// Build the engine context from the app state (the classic `backforge_v1` object).
+import { dayStr } from './dates.js';
+export function makeCtx(S, today = dayStr()) {
+  const findings = Array.isArray(S.results) ? S.results : [];
+  const flags = new Set();
+  for (const f of findings) {
+    if ((f.t || '').includes('Extension-intolerant')) flags.add('extension-intolerant');
+    if ((f.t || '').includes('Flexion-intolerant')) flags.add('flexion-intolerant');
+  }
+  const checkins = Array.isArray(S.checkins) ? S.checkins : [];
+  return {
+    today, findings, flags, checkins,
+    log: Array.isArray(S.log) ? S.log : [], exLog: Array.isArray(S.exLog) ? S.exLog : [],
+    swaps: S.swaps || {}, bandLevel: S.bandLevel || {}, deloadUntil: S.deloadUntil || null,
+    health: S.health && !S.health.paused ? (S.health.days || {}) : {},
+    has: txt => findings.some(f => (f.t || '').includes(txt)),
+    todaysCheckin: () => { const c = checkins[checkins.length - 1]; return c && c.date === today ? c : null; },
+  };
+}

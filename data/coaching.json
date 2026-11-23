@@ -1,0 +1,979 @@
+{
+ "_about": "Per-exercise coaching extras for the app. Keyed by backend/data/exercises.json id. See AGENTS.md > Add an exercise. setupCue (≤ 8 words) and focusCue (≤ 6 words) are what the Live coach says in the briefing — spoken-friendly, no symbols.",
+ "exercises": {
+  "curlup": {
+   "helps": "Builds front-core endurance without bending the spine under load.",
+   "muscles": "Rectus abdominis, obliques (bracing)",
+   "postureFix": "A braced, rib-down trunk that stops the pelvis dumping forward into tilt.",
+   "gotIt": "Hold 8s with head/neck/shoulders lifted as one unit, natural low-back curve preserved on your hands, breathing through pursed lips.",
+   "holdTarget": 8,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Squat University",
+     "type": "direct",
+     "url": "https://www.youtube.com/watch?v=2_e4I-brfqs"
+    },
+    {
+     "channel": "BackFitPro",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=McGill+curl+up+BackFitPro"
+    }
+   ],
+   "setupCue": "Hands under your low back",
+   "focusCue": "Head and shoulders as one"
+  },
+  "birddog": {
+   "helps": "Trains the back and glutes to hold the spine still while limbs move.",
+   "muscles": "Gluteus maximus, spinal extensors (isometric), obliques, transverse abdominis",
+   "postureFix": "A pelvis that stays level in walking and lifting instead of tipping forward.",
+   "gotIt": "Hold 8s per side with the pelvis level (the imagined glass of water stays on your low back) and the leg reaching long, not high.",
+   "holdTarget": 8,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Squat University",
+     "type": "direct",
+     "url": "https://www.youtube.com/watch?v=2_e4I-brfqs"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=bird+dog+exercise+E3+Rehab"
+    }
+   ],
+   "setupCue": "Hands under shoulders, knees under hips",
+   "focusCue": "Reach long, not high"
+  },
+  "sideplank": {
+   "helps": "Builds the side-core endurance that is your known lateral gap.",
+   "muscles": "Quadratus lumborum, obliques, gluteus medius",
+   "postureFix": "A pelvis that does not drop or roll sideways in single-leg stance and gait.",
+   "gotIt": "Hold 30s per side in one straight line from head to knees, hips stacked, breathing steadily — stop at form loss, not shaking failure.",
+   "holdTarget": 30,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Squat University",
+     "type": "direct",
+     "url": "https://www.youtube.com/watch?v=2_e4I-brfqs"
+    },
+    {
+     "channel": "BackFitPro",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=McGill+side+bridge+side+plank+BackFitPro"
+    }
+   ],
+   "setupCue": "Elbow under shoulder, hips stacked",
+   "focusCue": "One straight line"
+  },
+  "deadbug": {
+   "helps": "Teaches the core to hold a tucked, rib-down pelvis while the legs move — the anti-tilt skill.",
+   "muscles": "Transverse abdominis, rectus abdominis, obliques",
+   "postureFix": "Posterior-tilt control on demand, so standing stops defaulting to an arched stance.",
+   "gotIt": "A full set with the low back staying heavy on the floor for every rep — the moment it arches off, the rep does not count.",
+   "holdTarget": 0,
+   "bandTarget": "Light long band anchored overhead; if the back arches, drop the band and do toe taps",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=dead+bug+exercise+E3+Rehab"
+    },
+    {
+     "channel": "Squat University",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=dead+bug+core+stability+Squat+University"
+    }
+   ],
+   "setupCue": "On your back, arms up, knees at ninety",
+   "focusCue": "Low back stays heavy"
+  },
+  "pallof": {
+   "helps": "Anti-rotation strength — the trunk refuses to be twisted by everyday loads.",
+   "muscles": "Obliques, transverse abdominis, gluteus medius (stance side)",
+   "postureFix": "Ribs stacked over the pelvis under load instead of flaring and tipping.",
+   "gotIt": "10 presses per side with ribs down, hips square, and zero torso rotation as the arms extend.",
+   "holdTarget": 2,
+   "bandTarget": "Light-to-medium long band at chest height — the last 2 reps are work, the torso never rotates",
+   "contexts": [
+    "home"
+   ],
+   "videos": [
+    {
+     "channel": "Squat University",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=Pallof+press+Squat+University"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=Pallof+press+anti+rotation+E3+Rehab"
+    }
+   ],
+   "setupCue": "Stand side-on to the band",
+   "focusCue": "Press out, resist the twist"
+  },
+  "breathing360": {
+   "helps": "Restores diaphragmatic breathing and the brace every other exercise depends on.",
+   "muscles": "Diaphragm, transverse abdominis, pelvic floor, obliques",
+   "postureFix": "Ribs that drop down-and-in on the exhale instead of flaring up into tilt.",
+   "gotIt": "6 breaths where your hands on the lower ribs move out sideways and back — not up — and each exhale ends in a gentle brace, ribs down.",
+   "holdTarget": 0,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "desk",
+    "travel"
+   ],
+   "videos": [],
+   "setupCue": "Hands on your lower ribs",
+   "focusCue": "Breathe into your sides"
+  },
+  "pelvictilt": {
+   "helps": "Teaches the posterior tilt itself — the exact movement tilt correction is built on.",
+   "muscles": "Deep abdominals, gluteus maximus",
+   "postureFix": "Voluntary control of pelvic position — the prerequisite for the hip-flexor stretch and dead bug.",
+   "gotIt": "Hold 3s per rep with the waistband visibly tipping up using abs + glutes, pain-free, breathing throughout.",
+   "holdTarget": 3,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Bob & Brad",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=pelvic+tilt+exercise+Bob+and+Brad"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=posterior+pelvic+tilt+anterior+pelvic+tilt+exercise"
+    }
+   ],
+   "setupCue": "On your back, knees bent",
+   "focusCue": "Waistband tips up"
+  },
+  "hipflexorstretch": {
+   "helps": "Lengthens the tight hip flexors that pull the pelvis into anterior tilt.",
+   "muscles": "Iliopsoas, rectus femoris (stretched); gluteus maximus of the back leg (active)",
+   "postureFix": "The direct counter to anterior tilt — the pelvis can sit neutral instead of being dragged forward.",
+   "gotIt": "Hold 45s per side feeling the stretch in the FRONT of the hip, tailbone tucked, no low-back arch — if you feel it in your back, you are arching, not stretching.",
+   "holdTarget": 45,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel",
+    "desk"
+   ],
+   "videos": [
+    {
+     "channel": "Live Lean TV",
+     "type": "direct",
+     "url": "https://www.youtube.com/watch?v=Bfb-9dIWEr4"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=half+kneeling+hip+flexor+stretch+E3+Rehab"
+    }
+   ],
+   "setupCue": "Half-kneeling, back knee on a cushion",
+   "focusCue": "Tuck first, then shift"
+  },
+  "glutebridge": {
+   "helps": "Wakes up the glute max that tilt and sitting switch off.",
+   "muscles": "Gluteus maximus, gluteus medius (band), hamstrings (assist only)",
+   "postureFix": "Glutes strong enough to hold the pelvis tucked in standing, not just on the floor.",
+   "gotIt": "Top of every rep held 2s with ribs down, knees pushing out into the band, squeeze from the glutes — never an arch to finish.",
+   "holdTarget": 2,
+   "bandTarget": "Light-to-medium loop band above the knees — knees stay out for all 20 reps",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Squat University",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=glute+bridge+form+Squat+University"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=banded+glute+bridge+glute+activation"
+    }
+   ],
+   "setupCue": "On your back, band above knees",
+   "focusCue": "Knees out, ribs down"
+  },
+  "clamshell": {
+   "helps": "Builds glute med, the pelvic-stability muscle weak in the guarding pattern.",
+   "muscles": "Gluteus medius, deep hip external rotators",
+   "postureFix": "A pelvis that stays level in single-leg support instead of dropping toward the weak side.",
+   "gotIt": "A full set felt deep in the buttock, pelvis not rolling back, feet glued — front-of-hip feel means TFL took over: reduce range.",
+   "holdTarget": 1,
+   "bandTarget": "Light loop band above the knees; no band until the deep-buttock feel is reliable",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=clamshell+exercise+glute+med+E3+Rehab"
+    },
+    {
+     "channel": "Squat University",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=clamshell+exercise+form+Squat+University"
+    }
+   ],
+   "setupCue": "Lie on your side, band above knees",
+   "focusCue": "Pelvis stays still"
+  },
+  "pullapart": {
+   "helps": "Strengthens the upper-back muscles sitting switches off.",
+   "muscles": "Rhomboids, middle/lower trapezius, posterior deltoid",
+   "postureFix": "Shoulder blades that sit down-and-together by default, undoing rounded shoulders.",
+   "gotIt": "15 reps with the band touching the chest, blades pinching, ribs down, no low-back arch, 2-second return.",
+   "holdTarget": 1,
+   "bandTarget": "Light long band — full range to the chest for all 15 reps with no shrug",
+   "contexts": [
+    "home",
+    "desk",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Chad G — Ortho OT",
+     "type": "direct",
+     "url": "https://www.youtube.com/watch?v=oMbijdp5IYY"
+    },
+    {
+     "channel": "Squat University",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=band+pull+apart+posture+Squat+University"
+    }
+   ],
+   "setupCue": "Arms straight, band at chest height",
+   "focusCue": "Squeeze the shoulder blades"
+  },
+  "facepull": {
+   "helps": "Trains external rotation + upper back together — the full upper-crossed antidote.",
+   "muscles": "Infraspinatus/teres minor, rhomboids, middle trapezius, posterior deltoid",
+   "postureFix": "Shoulders that rotate open and sit back instead of rolling forward and in.",
+   "gotIt": "Finish position held with knuckles back, thumbs behind you, elbows high, neck long, chin tucked — for all 15 reps.",
+   "holdTarget": 1,
+   "bandTarget": "Light long band anchored at face height — rotation must complete on every rep",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Squat University",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=face+pull+external+rotation+Squat+University"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=banded+face+pull+posture+correction"
+    }
+   ],
+   "setupCue": "Band at head height, elbows high",
+   "focusCue": "Knuckles back, thumbs behind"
+  },
+  "row": {
+   "helps": "Builds the mid-back pulling strength that holds the chest tall.",
+   "muscles": "Rhomboids, middle trapezius, latissimus dorsi, posterior deltoid",
+   "postureFix": "A tall chest and retracted shoulder blades that persist through the workday.",
+   "gotIt": "12 reps pulled to the lower ribs, spine neutral, blades gliding together, ribs down at the finish.",
+   "holdTarget": 1,
+   "bandTarget": "Medium long band — last 2 reps effortful, spine never rounds",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Squat University",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=band+row+form+Squat+University"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=seated+band+row+posture+exercise"
+    }
+   ],
+   "setupCue": "Band anchored at chest height",
+   "focusCue": "Elbows back to the ribs"
+  },
+  "chintuck": {
+   "helps": "Wakes up the deep neck flexors and glides the head back over the shoulders.",
+   "muscles": "Deep cervical flexors (longus colli/capitis)",
+   "postureFix": "Head stacked over the shoulders instead of jutting forward of them.",
+   "gotIt": "Hold 5s per rep with a straight-back glide (double chin made), eyes level, no downward tilt — 10 clean reps.",
+   "holdTarget": 5,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "desk",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Chad G — Ortho OT",
+     "type": "direct",
+     "url": "https://www.youtube.com/watch?v=oMbijdp5IYY"
+    },
+    {
+     "channel": "Bob & Brad",
+     "type": "direct",
+     "url": "https://www.youtube.com/watch?v=87nFLQno0qQ"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=chin+tuck+forward+head+E3+Rehab"
+    }
+   ],
+   "setupCue": "Sit or stand tall, eyes level",
+   "focusCue": "Chin straight back"
+  },
+  "deepneckflexor": {
+   "helps": "Builds endurance in the deep neck flexors so the chin tuck holds all day.",
+   "muscles": "Deep cervical flexors (longus colli/capitis)",
+   "postureFix": "Forward-head correction that lasts — endurance, not just mobility.",
+   "gotIt": "Hold 10s with the tuck kept the whole time, head barely off the floor, breathing normally, front-of-neck staying quiet.",
+   "holdTarget": 10,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=deep+neck+flexor+exercise+forward+head"
+    },
+    {
+     "channel": "Bob & Brad",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=deep+cervical+flexor+chin+tuck+hold"
+    }
+   ],
+   "setupCue": "On your back, small chin tuck",
+   "focusCue": "Head heavy, effort light"
+  },
+  "wallangel": {
+   "helps": "Combines thoracic mobility with lower-trap control against a wall that gives honest feedback.",
+   "muscles": "Lower/middle trapezius, serratus anterior; thoracic extensors (mobility)",
+   "postureFix": "Arms can reach overhead without ribs flaring and the low back arching off the wall.",
+   "gotIt": "10 reps with head, upper back and tailbone all staying on the wall, ribs down for the whole slide.",
+   "holdTarget": 0,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "desk",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Bob & Brad",
+     "type": "direct",
+     "url": "https://www.youtube.com/watch?v=87nFLQno0qQ"
+    },
+    {
+     "channel": "Squat University",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=wall+angel+exercise+Squat+University"
+    }
+   ],
+   "setupCue": "Back against the wall, feet forward",
+   "focusCue": "Keep contact as you slide"
+  },
+  "wallslide": {
+   "helps": "Teaches the shoulder blades to slide up-and-around without shrugging.",
+   "muscles": "Serratus anterior, lower trapezius",
+   "postureFix": "Upward scapular rotation with a long neck, replacing the shrug-and-round pattern.",
+   "gotIt": "10 slides in a narrow V, forearms staying on the wall, ribs down, neck long, no ear-shrug at the top.",
+   "holdTarget": 0,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "desk",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=scapular+wall+slide+serratus+anterior"
+    },
+    {
+     "channel": "Squat University",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=wall+slide+exercise+posture+Squat+University"
+    }
+   ],
+   "setupCue": "Forearms on the wall",
+   "focusCue": "Ribs down, neck long"
+  },
+  "doorwaychest": {
+   "helps": "Opens the tight pecs that pull the shoulders forward.",
+   "muscles": "Pectoralis major/minor (stretched)",
+   "postureFix": "Removes the front-side tightness so the upper-back work can hold the shoulders back.",
+   "gotIt": "Hold 30s per side with the stretch in the front of the chest, chin lightly tucked, ribs down, zero low-back arch.",
+   "holdTarget": 30,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "desk",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Bob & Brad",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=doorway+chest+stretch+rounded+shoulders+Bob+and+Brad"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=doorway+pec+stretch+E3+Rehab"
+    }
+   ],
+   "setupCue": "Forearm on the door frame",
+   "focusCue": "Step through gently"
+  },
+  "hipir9090": {
+   "helps": "Restores hip rotation so the lumbar spine stops compensating for a stiff right hip.",
+   "muscles": "Hip internal/external rotators, gluteus medius, adductors",
+   "postureFix": "A right hip that rotates inward in gait, ending the left-side weight-shift guarding.",
+   "gotIt": "8 slow switches sitting tall, both knees reaching the floor on both sides — the stiff right side is the measure; leaning away does not count.",
+   "holdTarget": 2,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Christina Nicci",
+     "type": "direct",
+     "url": "https://www.youtube.com/shorts/CVVg8haOYlQ"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=how+to+improve+hip+range+of+motion+E3+Rehab"
+    }
+   ],
+   "setupCue": "Sit tall, both knees at ninety",
+   "focusCue": "Slow into the stiff side"
+  },
+  "seatedhipir": {
+   "helps": "Strengthens right hip IR in a chair — the desk-friendly version of the IR program.",
+   "muscles": "Hip internal rotators (adductor group, gluteus medius anterior fibres)",
+   "postureFix": "Active IR strength, not just passive range, on the side that guards.",
+   "gotIt": "12 reps per side with the thigh pinned still and trunk tall — rotation from the hip only; right side first, plus an extra set.",
+   "holdTarget": 1,
+   "bandTarget": "Light loop band around the ankles — full set without the thigh swinging",
+   "contexts": [
+    "home",
+    "desk",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=seated+hip+internal+rotation+exercise"
+    },
+    {
+     "channel": "Squat University",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=hip+internal+rotation+drills+Squat+University"
+    }
+   ],
+   "setupCue": "Sit tall, band around the ankles",
+   "focusCue": "Thigh stays still"
+  },
+  "sidesteps": {
+   "helps": "Builds glute med endurance for level-pelvis walking.",
+   "muscles": "Gluteus medius, gluteus minimus",
+   "postureFix": "A pelvis that stays level step after step instead of dipping toward the weak side.",
+   "gotIt": "A full set at one height — no bouncing — knees out, band tight on every step.",
+   "holdTarget": 0,
+   "bandTarget": "Light loop band above the knees; band at ankles is the progression",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [],
+   "setupCue": "Soft knees, band above knees",
+   "focusCue": "Stay the same height"
+  },
+  "proneir": {
+   "helps": "Measures and mobilises prone hip internal rotation — your known right-side deficit.",
+   "muscles": "Hip internal rotators (mobility)",
+   "postureFix": "Inward rotation restored at the hip so the lumbar spine stops rotating in its place.",
+   "gotIt": "Foot drops outward with the pelvis glued to the floor — compare sides honestly; the smaller side is the work.",
+   "holdTarget": 0,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [],
+   "setupCue": "Face down, one knee bent",
+   "focusCue": "Pelvis glued to the floor"
+  },
+  "adductorsqueeze": {
+   "helps": "Teaches the inward rotators to work with the 90/90 pattern.",
+   "muscles": "Adductors, hip internal rotators",
+   "postureFix": "Inward-rotation strength to pair with the mobility work.",
+   "gotIt": "10 squeezes at 70% effort, 5-sec holds, breathing out on each squeeze.",
+   "holdTarget": 5,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [],
+   "setupCue": "Side-lying, pillow between the knees",
+   "focusCue": "Squeeze at seventy percent"
+  },
+  "hiphinge": {
+   "helps": "Grooves the hip hinge — load through the hips, spine neutral.",
+   "muscles": "Gluteus maximus, hamstrings (eccentric control)",
+   "postureFix": "A hinge that replaces lumbar flexion in every daily bend and lift.",
+   "gotIt": "All three dowel contacts — head, mid-back, tailbone — held for every rep; stop where contact breaks.",
+   "holdTarget": 0,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [],
+   "setupCue": "Dowel on head, mid-back and tailbone",
+   "focusCue": "Hips back, spine stays long"
+  },
+  "pullthrough": {
+   "helps": "Hinge power from the glutes with a band — the deadlift pattern, spine-sparing.",
+   "muscles": "Gluteus maximus, hamstrings",
+   "postureFix": "Glutes finishing the hip extension so the low back never arches to finish a rep.",
+   "gotIt": "15 reps snapped upright by the glutes, ribs down at the top — squeeze, never arch.",
+   "holdTarget": 0,
+   "bandTarget": "Medium-to-heavy long band anchored low",
+   "contexts": [
+    "home"
+   ],
+   "videos": [],
+   "setupCue": "Face away from the band, hinge back",
+   "focusCue": "Glutes snap you upright"
+  },
+  "singlebridge": {
+   "helps": "Single-leg glute strength with pelvic control — the guarding corrector.",
+   "muscles": "Gluteus maximus, gluteus medius",
+   "postureFix": "Both sides trusted equally in single-leg support; the avoided side relearns load.",
+   "gotIt": "12 reps per side with the pelvis level — no drop or rotation on the free side.",
+   "holdTarget": 0,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [],
+   "setupCue": "On your back, one foot planted",
+   "focusCue": "Hips stay level"
+  },
+  "qlreach": {
+   "helps": "Gentle QL mobility — the side that guards and shortens.",
+   "muscles": "Quadratus lumborum (gentle mobility)",
+   "postureFix": "Side-to-side ease so one stiff side stops steering the trunk.",
+   "gotIt": "Small, smooth range with easy breathing — stop if anything refers down the leg. Gentle and unloaded, always.",
+   "holdTarget": 0,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [],
+   "setupCue": "Stand tall, feet hip-width",
+   "focusCue": "Small range, smooth breath"
+  },
+  "kneechest": {
+   "helps": "Gentle flexion relief for a stiff, achy low back — one knee only, always.",
+   "muscles": "Lumbar flexors (gentle stretch), hip flexors",
+   "postureFix": "A relief position that settles morning stiffness without stressing the disc.",
+   "gotIt": "8 alternating reps, 20-sec gentle holds, mild stretch only — never both knees together.",
+   "holdTarget": 20,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [],
+   "setupCue": "On your back, knees bent",
+   "focusCue": "One knee only, gently"
+  },
+  "figure4": {
+   "helps": "Releases the piriformis/deep rotators that crowd the sciatic nerve.",
+   "muscles": "Piriformis, deep hip external rotators (stretched)",
+   "postureFix": "Hip external rotation ease that pairs with the IR program.",
+   "gotIt": "30 sec per side felt in the buttock, not the knee, softening with the breath.",
+   "holdTarget": 30,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [],
+   "setupCue": "On your back, ankle over knee",
+   "focusCue": "Feel it in the buttock"
+  },
+  "catcamel": {
+   "helps": "Gentle segmental motion that reduces spinal stiffness before stability work.",
+   "muscles": "Spinal mobilisers (unloaded motion)",
+   "postureFix": "A spine that moves segment by segment instead of hinging at one sore level.",
+   "gotIt": "5–6 slow cycles through a comfortable arc — motion, not stretch; no end-range pushing.",
+   "holdTarget": 0,
+   "bandTarget": "none",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [],
+   "setupCue": "Hands and knees, spine relaxed",
+   "focusCue": "Slow, comfortable range"
+  },
+  "wallsquat": {
+   "helps": "Supported squat pattern while leg strength rebuilds.",
+   "muscles": "Quadriceps, gluteus maximus",
+   "postureFix": "Knees tracking over toes with a supported, neutral spine.",
+   "gotIt": "12 reps with knees tracking over the toes, heels down, only as deep as symptoms allow.",
+   "holdTarget": 0,
+   "bandTarget": "none",
+   "contexts": [
+    "home"
+   ],
+   "videos": [],
+   "setupCue": "Back to the wall, feet forward",
+   "focusCue": "Knees over toes"
+  },
+  "march9090": {
+   "helps": "Banded hip control — marching with a level pelvis (Christina Nicci: control before load).",
+   "muscles": "Gluteus medius, hip rotators, deep core",
+   "postureFix": "Pelvic control in the gait pattern itself.",
+   "gotIt": "8 slow steps per side, pelvis level, 3 seconds per step — no trunk lean to lift the leg.",
+   "holdTarget": 0,
+   "bandTarget": "Light loop band above the knees",
+   "contexts": [
+    "home",
+    "travel"
+   ],
+   "videos": [],
+   "setupCue": "On your back, band above knees",
+   "focusCue": "Pelvis stays level"
+  },
+  "new-seated-pelvic-tilt": {
+   "helps": "Resets anterior tilt while seated — the position the tilt is worst in.",
+   "muscles": "Deep abdominals, gluteus maximus (seated squeeze)",
+   "postureFix": "A seated pelvis that can find neutral instead of slumping then arching.",
+   "gotIt": "Hold 3s with the waistband tipped up, ribs stacked over the pelvis, feet flat, no breath-hold.",
+   "holdTarget": 3,
+   "bandTarget": "none",
+   "contexts": [
+    "desk",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Bob & Brad",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=seated+pelvic+tilt+exercise+desk"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=seated+posture+reset+pelvic+tilt"
+    }
+   ],
+   "setupCue": "Sit on your sit-bones, feet flat",
+   "focusCue": "Tuck as you exhale"
+  },
+  "new-seated-scap-pinch": {
+   "helps": "No-band substitute for pull-aparts during the workday.",
+   "muscles": "Rhomboids, middle/lower trapezius",
+   "postureFix": "Shoulder blades re-set down-and-together after every hour of screen slouch.",
+   "gotIt": "Hold 3s with blades pinched and slid down toward the back pockets, chest tall, no arch, no shrug.",
+   "holdTarget": 3,
+   "bandTarget": "none",
+   "contexts": [
+    "desk",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Bob & Brad",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=scapular+retraction+squeeze+exercise+posture"
+    },
+    {
+     "channel": "Desk exercise",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=seated+shoulder+blade+squeeze+desk+exercise"
+    }
+   ],
+   "setupCue": "Sit tall, arms relaxed",
+   "focusCue": "Blades down and back"
+  },
+  "new-standing-wall-reset": {
+   "helps": "A full-stack posture check — head, ribs, pelvis — against a wall’s honest feedback.",
+   "muscles": "Deep cervical flexors, lower trapezius, deep abdominals (isometric)",
+   "postureFix": "Re-teaches the stacked standing posture that tilt + forward head erase.",
+   "gotIt": "Hold 20s with tailbone, upper back and back of head all on the wall, chin tucked, ribs down, breathing normally.",
+   "holdTarget": 20,
+   "bandTarget": "none",
+   "contexts": [
+    "desk",
+    "travel",
+    "home"
+   ],
+   "videos": [
+    {
+     "channel": "Bob & Brad",
+     "type": "direct",
+     "url": "https://www.youtube.com/watch?v=87nFLQno0qQ"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=wall+posture+test+exercise"
+    }
+   ],
+   "setupCue": "Tailbone, blades and head on the wall",
+   "focusCue": "Chin in, eyes level"
+  },
+  "new-seated-thoracic-opener": {
+   "helps": "Mobilises the stiff upper back (T4–T7) over the chair back — thoracic only, lumbar stays still.",
+   "muscles": "Thoracic extensors (mobility), deep neck flexors (head support)",
+   "postureFix": "Upper-back extension restored so the neck stops compensating for a rounded thorax.",
+   "gotIt": "6 reps arching only over the chair-back edge at mid-back level, hands supporting the head, pelvis glued to the seat.",
+   "holdTarget": 2,
+   "bandTarget": "none",
+   "contexts": [
+    "desk"
+   ],
+   "videos": [
+    {
+     "channel": "Chad G — Ortho OT",
+     "type": "direct",
+     "url": "https://www.youtube.com/watch?v=oMbijdp5IYY"
+    },
+    {
+     "channel": "Bob & Brad",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=seated+thoracic+extension+chair+exercise"
+    }
+   ],
+   "setupCue": "Chair back at your mid-back",
+   "focusCue": "Elbows wide, lean gently"
+  },
+  "new-standing-glute-tilt": {
+   "helps": "The standing version of the tilt fix — glutes on, pelvis tucked, while the coffee brews.",
+   "muscles": "Gluteus maximus, deep abdominals",
+   "postureFix": "Standing posture with the pelvis tucked by glutes instead of hanging on the hip flexors and low back.",
+   "gotIt": "Hold 5s standing tall, glutes squeezed, belt buckle tipped up toward the ribs, knees soft, breathing normally.",
+   "holdTarget": 5,
+   "bandTarget": "none",
+   "contexts": [
+    "desk",
+    "travel",
+    "home"
+   ],
+   "videos": [
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=standing+posterior+pelvic+tilt+glute+squeeze"
+    },
+    {
+     "channel": "Squat University",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=anterior+pelvic+tilt+fix+Squat+University"
+    }
+   ],
+   "setupCue": "Stand tall, feet hip-width",
+   "focusCue": "Squeeze and tip up"
+  },
+  "new-seated-desk-hip-ir": {
+   "helps": "The work-clothes version of the right-hip IR program — no band, no floor.",
+   "muscles": "Hip internal rotators",
+   "postureFix": "Keeps right IR range from stiffening back up across a desk day.",
+   "gotIt": "10 reps with the thigh still, trunk tall, shin rotating out from the hip only — no trunk lean.",
+   "holdTarget": 2,
+   "bandTarget": "none",
+   "contexts": [
+    "desk",
+    "travel"
+   ],
+   "videos": [
+    {
+     "channel": "Desk drill",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=seated+hip+internal+rotation+chair+drill"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=hip+internal+rotation+mobility+E3+Rehab"
+    }
+   ],
+   "setupCue": "Sit at the chair edge",
+   "focusCue": "Thigh pinned, foot swings out"
+  },
+  "new-chair-sit-stand": {
+   "helps": "Glute strength in the exact pattern of getting out of a chair — done 50× a day.",
+   "muscles": "Gluteus maximus, quadriceps",
+   "postureFix": "Rising with glutes and a neutral spine instead of rounding then arching the low back.",
+   "gotIt": "8 reps standing fully tall, glutes squeezed, pelvis tucked at the top, knees tracking over toes, no hand push-off.",
+   "holdTarget": 1,
+   "bandTarget": "none",
+   "contexts": [
+    "desk",
+    "travel",
+    "home"
+   ],
+   "videos": [
+    {
+     "channel": "Bob & Brad",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=sit+to+stand+exercise+proper+form"
+    },
+    {
+     "channel": "E3 Rehab",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=chair+sit+to+stand+glute+exercise"
+    }
+   ],
+   "setupCue": "Feet flat, sit near the edge",
+   "focusCue": "Drive through the heels"
+  },
+  "new-standing-chest-opener": {
+   "helps": "Doorway-stretch substitute for hotel rooms and offices with no free door frame.",
+   "muscles": "Pectoralis major/minor, anterior deltoid (stretched)",
+   "postureFix": "Opens the chest anywhere, so rounded shoulders do not set in during travel days.",
+   "gotIt": "Hold 20s, hands clasped behind the back, arms gently straightening, chest open, chin tucked, ribs down.",
+   "holdTarget": 20,
+   "bandTarget": "none",
+   "contexts": [
+    "desk",
+    "travel",
+    "home"
+   ],
+   "videos": [
+    {
+     "channel": "Bob & Brad",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=standing+chest+opener+stretch+posture"
+    },
+    {
+     "channel": "Chest stretch",
+     "type": "search",
+     "url": "https://www.youtube.com/results?search_query=standing+chest+stretch+no+equipment+rounded+shoulders"
+    }
+   ],
+   "setupCue": "Clasp your hands behind you",
+   "focusCue": "Lift gently, chest open"
+  },
+  "openbook": {
+   "setupCue": "Side-lying, knees stacked",
+   "focusCue": "Rotate the upper back only"
+  },
+  "standinghipir": {
+   "setupCue": "Side-on to a chair, band at the ankle",
+   "focusCue": "Turn from the hip"
+  },
+  "ir9090liftoff": {
+   "setupCue": "Sit in ninety ninety",
+   "focusCue": "Lift with the hip only"
+  },
+  "rectusstretch": {
+   "setupCue": "Hold a chair, hold your ankle",
+   "focusCue": "Tuck the tailbone first"
+  },
+  "sidelieabduction": {
+   "setupCue": "Side-lying, top leg straight",
+   "focusCue": "Lead with the heel"
+  },
+  "kickback": {
+   "setupCue": "Band at the ankles, hold a chair",
+   "focusCue": "Short range, squeeze"
+  },
+  "pronehipext": {
+   "setupCue": "Face down, forehead on hands",
+   "focusCue": "Glute first, then lift"
+  },
+  "suitcasecarry": {
+   "setupCue": "Weight in one hand, stand tall",
+   "focusCue": "Do not lean"
+  },
+  "qlstretch": {
+   "setupCue": "Sit tall, one arm overhead",
+   "focusCue": "Both sit-bones down"
+  },
+  "proneext": {
+   "setupCue": "Face down, arms at your sides",
+   "focusCue": "Small range only"
+  },
+  "sphinx": {
+   "setupCue": "Face down on your forearms",
+   "focusCue": "Hips relaxed"
+  },
+  "pressup": {
+   "setupCue": "Face down, hands under shoulders",
+   "focusCue": "Pelvis stays down"
+  },
+  "nerveglide": {
+   "setupCue": "Sit tall, knee bent",
+   "focusCue": "Gentle, no strong tug"
+  },
+  "hamstring9090": {
+   "setupCue": "On your back, hold behind the thigh",
+   "focusCue": "Straighten with control"
+  },
+  "stepup": {
+   "setupCue": "Facing a low step",
+   "focusCue": "Drive through the heel"
+  },
+  "constructiverest": {
+   "setupCue": "On your back, calves on a chair",
+   "focusCue": "Let the back settle"
+  }
+ }
+}

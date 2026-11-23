@@ -1,5 +1,7 @@
 # CLAUDE-REVIEW.md — BackForge handoff for Claude
 
+> **Since v4.5 (2026-11-23):** the app at the repo root is a new modular build (`index.html` + `app/`), and this document describes the classic single-file app, now at `classic/index.html`. The safety invariants in §5 still apply to both and are tested in `tests/engine.test.mjs`. For how to work on the current app, read **`AGENTS.md`** first.
+
 **For:** Claude (review + future development partner, per Ayaan's shared agent protocol)
 **From:** Muse (builder), 2026-10-30
 **Repo:** `ayaan40000/BackForge` (renamed from Reserved-2 on 2026-10-31) · **App:** `index.html` (single file, ~89 KB, no build step)

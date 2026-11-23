@@ -1,21 +1,53 @@
 # BackForge — Assess. Correct. Rebuild.
 
-**Live:** https://ayaan40000.github.io/BackForge/
+**Live:** https://ayaan40000.github.io/BackForge/ · **Demo with 120 days of data:** https://ayaan40000.github.io/BackForge/?demo=1 · **Classic v4.0 app:** `/classic/`
 
-**Latest (v4.0, 2026-11-22):** The Clinic Edition — a full app-shell overhaul (5 tabs: Home / Train / Posture / Moves / Progress, Profile behind the header avatar, segmented panels, per-tab scroll restore), daily posture cues for anterior pelvic tilt and forward-head/rounded shoulders, an 8-test band-graded posture assessment whose grades rewrite the plan, a 40-exercise database with "you've got it" markers and click-to-play videos, a photo posture check via the Muse bridge with an AES-256-GCM encrypted vault for GitHub backup, a local PIN gate, and a pain-guarded calorie + weight-loss body plan fed by Sync-with-Muse v2. Built under a three-round adversarial review (5.4 → 5.8 → 6.4 / 10); the remaining path to 8/10 is documented in `docs/ROADMAP.md`. See `CHANGELOG.md`.
+**Latest (v4.5 "Live Studio", 2026-11-23):** a rebuilt app with a liquid-glass UI that works on phone, tablet and desktop, and a **real-time, voice-coached Live mode**. Pick a length (5–60 min) and press Start. BackForge builds the session second by second (warm-up, main work, cool-down, sets, sides, rests) and a voice coach runs it the way a personal trainer would. Demo mode shows the app full of data, including Google Fit and Samsung Health. See `CHANGELOG.md`; the plan to v5.0 is in `docs/ROADMAP.md`.
 
-An assessment-led, resistance-band-first back-strength planner in a single self-contained `index.html`. No build step, no account — all data lives in the browser's localStorage and can be exported (JSON/CSV) or wiped from the Progress tab. An optional backend engine (`backend/`) mirrors the same logic server-side for sync and future clients; the app works fully without it.
+An assessment-led, resistance-band-first back-strength trainer. No account, no server, no build step: everything lives on your device.
 
-## What it does
+## The app (v4.5)
 
-1. **13-test movement assessment** — direction tolerance (flexion vs extension), glute firing order, single-leg bridge control, clamshell compensation, Thomas test (hip flexor length), pelvic tilt check, hamstring control-vs-length, prone hip internal rotation per side, 90/90 switch, timed side-plank endurance (McGill ratio), wall posture test, weight-shift guarding check.
-2. **Findings engine** — turns answers into plain-language findings with severity (Priority / Watch / Clear). Skipped tests count as *no data* and can never generate a finding.
-3. **Plan generator** — rebuilds the daily foundation blocks (in-bed, posture, band activation, hip IR, tilt correction, McGill Big 3) and the weekly A/B/C + Zone 2 split *from the findings*: extension-intolerant backs lose prone lying and press-ups automatically; the weaker side gets extra sets; a hip IR deficit adds a daily IR block; anterior pelvic tilt adds a tilt-correction block.
-4. **Daily check-in → load tuning** — pain (0–10), location and sleep set today's load: full, minus top set, micro-only, or flare protocol at pain ≥ 7.
-5. **Guided player** — sessions expand into set × side steps with parsed hold timers (timestamp-based, audible beep, wake lock), auto rest between exercises, resume-where-you-left-off, and an in-player pain score at the end.
-6. **Library (Moves)** — 40 exercises in the app (26 originals + the backend directory's breathing/tilt/neck/wall-slide/doorway/seated-IR set + 8 no-equipment desk & travel moves) with cues, common mistakes, a regression and a progression for each, per-exercise band levels, and form-video links from multiple sources (Squat University, BackFitPro/McGill, E3 Rehab, Low Back Ability, Christina Nicci, Bob & Brad). One verified embed: Squat University's McGill Big 3 walkthrough. The canonical directory (`backend/data/exercises.json`, browsable in `docs/EXERCISE-DIRECTORY.md`) now holds 48 exercises, and the backend engine serves all 48.
-7. **Progress** — pain trend on a fixed 0–10 scale, sessions/week, assessment history, and a rolling 14-day progression gate (avg pain ≤ 3 **and** 8+ sessions) that unlocks band-level promotions. Since v3.0 the gate also reads synced recovery data — see below.
-8. **In-app daily reminder** — set a time under *More → Daily reminder*; replaces the chat check-in from deploy day.
+| Place | What you do there |
+|---|---|
+| **Today** | Readiness ring with its reasons · one-tap pain check-in · today's session with one **Start** · posture cues · health strip (steps, sleep stages, resting HR, HRV, Zone 2, weight) · your week |
+| **Live** | Three pre-filled choices (length, energy, adjustments) → a preview of the timeline → **Start** → the full-screen player |
+| **Moves** | 56 exercises, search and filters, a detail sheet with the exact setup and focus cues the coach speaks, easier/harder versions, videos, "Preview voice" |
+| **Progress** | Overview (pain trend, 17-week consistency map, sessions per week, progression gate, insights, what the coach learned) · Health · Body · Posture |
+| **You** | Name, check-ups (classic tools for now), coach voice and chattiness, theme, reduce motion, solid surfaces, demo data, backup |
+
+### Live mode — how a session runs
+1. `app/js/engine/live.js` picks the moves (from your findings, today's check-in, caveats and response history), with the same rules as before. It is re-checked by the safety layer on every build.
+2. `app/js/live/compiler.js` turns them into a timeline: intro, then per move a brief, work (per side), switch and rest, then the outro. It fits your minutes by flexing rests, then whole sets. Holds and reps are never shortened.
+3. `app/js/live/coach.js` schedules what the coach says and when: a brief before the move (name and dose, one setup cue, one focus cue), a countdown, 1.5 s of quiet after "go", a form cue at about ⅓, encouragement at about ⅔, "two more" / "last five", specific praise and breathing in rests, a pain check after the first set of each main move, and a preview of the next move. Nothing is spoken in the last 3.2 s of any segment (that's the 3-2-1). Lines that don't fit are dropped, never delayed.
+4. `app/js/live/player.js` keeps time with the wall clock, so a dimmed screen, a phone call or a throttled tab never drifts it. Voice comes from the Web Speech API (on-device voices), tones from Web Audio. Headphone and lock-screen control uses Media Session, and Wake Lock keeps the screen on.
+5. In the player: Back / Play-Pause / Skip, **Easier** (switches to the regression for the rest of that move), **+15 s** rest, Voice, Music, and an always-visible **Pain** button (sharp or leg pain stops the move; red-flag symptoms stop the session with urgent-care copy). Desktop keys: Space, ← →, E, R, V, P, Esc.
+
+### Demo data
+**You → Data → Preview with demo data** (or `?demo=1`) loads `data/demo/demo-state.json`: 120 days of check-ins, sessions, assessments and Health Connect data (Google Fit / Samsung Health / Galaxy Watch). It covers steps, sleep stages, resting HR, HRV, SpO₂, VO₂ max, weight, body fat, calories and workouts. It is stored under its own key (`backforge_demo`) and your data is never touched. Regenerate it with `node tools/make_demo_data.mjs`.
+
+## Architecture
+
+- **No build step.** Native ES modules, Preact + htm vendored in `app/vendor/`, modern CSS (oklch tokens, `@layer`, nesting, container queries, View Transitions, `@starting-style`, scroll-driven animations, `backdrop-filter` glass). Installable PWA (`manifest.webmanifest`, `sw.js`, offline fonts).
+- **One state object.** Both apps read and write the same `backforge_v1` localStorage object. The new app writes it back whole, so classic-only fields (posture, vault, PIN) survive.
+- **Content is data.** `backend/data/exercises.json` + `data/exercises-desk.json` (the library), `data/coaching.json` (spoken cues, "you've got it" markers, videos), `data/voice-lines.json` (everything the coach says).
+- **Design authority:** `docs/DESIGN-PROTOCOL.md`. **Maintenance guide (Muse and any AI):** `AGENTS.md`.
+
+## Tests
+
+```bash
+npm test               # 19 tests: safety for every Live build, duration fit, coach timing and wording rules, data files, health import (no installs)
+npm run test:browser   # 42 real-browser checks at phone / tablet / desktop (needs Playwright; serve the repo on :8765 first)
+npm run test:classic   # classic app harnesses (113 + 50)
+cd backend && python3 -m pytest -q   # 81 backend tests
+```
+
+## Safety invariants (do not break — see CLAUDE-REVIEW.md)
+
+- No loaded spinal flexion, no loaded twisting, never both knees to chest at once.
+- Press-ups / prone lying are removed for extension-intolerant patterns.
+- Modify-don't-stop: every exercise ships a regression; swaps apply to today's session.
+- Red-flag stop rules lead the assessment; the app screens patterns, it does not diagnose.
 
 ## Health sync (v3.0) — how a sync actually runs
 
@@ -33,26 +65,7 @@ Honest limits, by design:
 - **Desk-day defense** (Live tab): the app cannot read your phone's sedentary alerts. It infers a desk day from synced steps — a weekday under 3,000 steps — or you declare one, and offers a five-minute standing/posture block as a Live session variant. Flare days get the relief protocol instead.
 - **Recovery gate rule:** synced data can only *hold* a promotion on clear evidence — at least 7 synced days in the 14-day window plus a clearly failing signal (step average under 4,000/day, or zero logged Zone 2 minutes). Missing data never blocks a promotion the pain trend earned.
 
-## Data architecture (v3.0)
-
-- State schema is versioned (`schema: 3` since v4.0; was 2 in v3.0) inside the unchanged `backforge_v1` localStorage envelope. Migrations are additive and lossless, and v4 additionally repairs partial/corrupt v4 subfields on every load instead of crashing — every v1/v2.5 field carries over; the pre-migration state is kept on the device under `backforge_v1_premigration` as a rollback copy. Verified by a seeded-v2.5-payload test in `dev/harness-v3.mjs`.
-- **Weekly backup ritual** (Progress → Your data is yours): name where backups live (a Drive folder, an email to yourself, a USB stick), then one tap exports a dated full-state JSON. The export refuses to run until the destination is named — data never leaves the device without a named destination. Still local-first: nothing is uploaded by the app, ever.
-
-## Live Mode (v2.0)
-
-The **Live** tab is a workout partner built for zero-decision starts:
-
-- **Three taps build the workout** — time on hand (5/10/20/35/50 min), body feel, and caveats (standing hurts, a touchy side, sore knees, no bands, quiet) produce a full session: warm-up → main work → cool-down. Flare days get the relief protocol only.
-- **Defaults that update themselves** — the builder re-derives the default session from assessment findings, per-exercise logged history, today's check-in and the weekly slot, and prints a "Why this workout?" receipt for every build.
-- **Partner player** — coach cue on every step, hold timers, auto-rests, one-tap Regress and guilt-free Skip, resume after interruption, and a celebration finish (specific praise + a real-person quote + one-tap pain score).
-- **Habit system** — week-chain dots, milestone badges, daily attributed motivational quotes (Clear, Twain, Bruce Lee, Aurelius, Lombardi, Ali…) and rotating coach notes on proven anti-procrastination mechanics (2-minute rule, never-miss-twice, temptation bundling, identity votes). Micro counts, always.
-
-## Safety invariants (do not break — see CLAUDE-REVIEW.md)
-
-- No loaded spinal flexion, no loaded twisting, never both knees to chest at once.
-- Press-ups / prone lying are removed for extension-intolerant patterns.
-- Modify-don't-stop: every exercise ships a regression; swaps apply to today's session.
-- Red-flag stop rules lead the assessment; the app screens patterns, it does not diagnose.
+**v4.5 sync format (v3):** the importer (Progress → Health → Import sync file) also accepts `restingHr`, `hrvMs`, `sleepRemMin`, `sleepLightMin`, `sleepAwakeMin`, `spo2`, `vo2max`, `bodyFatPct`, `activeKcal`, `distanceKm` and `workouts[{type, min, avgHr}]`. Every field is range-checked and nothing is zero-filled. See `AGENTS.md` §4.
 
 ## Backend engine & exercise directory
 
@@ -60,10 +73,19 @@ The **Live** tab is a workout partner built for zero-decision starts:
 - **Safety as tests** — the invariants below are enforced by a server-side safety layer and 78 automated tests: no loaded flexion/twisting is ever served, both-knees-to-chest never appears, extension-intolerant profiles lose all extension-biased moves, pain ≥ 7 returns relief work only, and skipped assessment answers produce no findings.
 - **Exercise directory** — 48 band-first exercises with dose, level, equipment, cues, mistakes, regression/progression, and safety tags (`backend/data/exercises.json`; human-readable: `docs/EXERCISE-DIRECTORY.md`).
 
+## Classic app (v4.0) — still available at `/classic/`
+
+The check-ups live here until v4.7 rebuilds them: the 13-test movement assessment, the band posture check, the photo check with its encrypted vault, and PIN setup. The new app links to them under **You → Check-ups**, and the classic app has a "← New BackForge" link back. What the classic app does:
+
+1. **13-test movement assessment** — direction tolerance (flexion vs extension), glute firing order, single-leg bridge control, clamshell compensation, Thomas test (hip flexor length), pelvic tilt check, hamstring control-vs-length, prone hip internal rotation per side, 90/90 switch, timed side-plank endurance (McGill ratio), wall posture test, weight-shift guarding check.
+2. **Findings engine** — turns answers into plain-language findings with severity (Priority / Watch / Clear). Skipped tests count as *no data* and can never generate a finding.
+3. **Plan generator** — rebuilds the daily foundation blocks (in-bed, posture, band activation, hip IR, tilt correction, McGill Big 3) and the weekly A/B/C + Zone 2 split *from the findings*: extension-intolerant backs lose prone lying and press-ups automatically; the weaker side gets extra sets; a hip IR deficit adds a daily IR block; anterior pelvic tilt adds a tilt-correction block.
+4. **Daily check-in → load tuning** — pain (0–10), location and sleep set today's load: full, minus top set, micro-only, or flare protocol at pain ≥ 7.
+5. **Guided player** — sessions expand into set × side steps with parsed hold timers (timestamp-based, audible beep, wake lock), auto rest between exercises, resume-where-you-left-off, and an in-player pain score at the end.
+6. **Library (Moves)** — 40 exercises in the app (26 originals + the backend directory's breathing/tilt/neck/wall-slide/doorway/seated-IR set + 8 no-equipment desk & travel moves) with cues, common mistakes, a regression and a progression for each, per-exercise band levels, and form-video links from multiple sources (Squat University, BackFitPro/McGill, E3 Rehab, Low Back Ability, Christina Nicci, Bob & Brad). One verified embed: Squat University's McGill Big 3 walkthrough. The canonical directory (`backend/data/exercises.json`, browsable in `docs/EXERCISE-DIRECTORY.md`) now holds 48 exercises, and the backend engine serves all 48.
+7. **Progress** — pain trend on a fixed 0–10 scale, sessions/week, assessment history, and a rolling 14-day progression gate (avg pain ≤ 3 **and** 8+ sessions) that unlocks band-level promotions. Since v3.0 the gate also reads synced recovery data — see below.
+8. **In-app daily reminder** — set a time under *More → Daily reminder*; replaces the chat check-in from deploy day.
+
 ## Roadmap
 
-Full roadmap to v5.0: **[docs/ROADMAP.md](docs/ROADMAP.md)** — v2.0 Live Mode (shipped) → v2.5 Coach's memory (shipped) → v3.0 Connected body (shipped) → v3.5 Eyes on form → v4.0 Clinic edition → v4.5 Circles → v5.0 Platform. The *More* tab carries the summary cards. Version history: [CHANGELOG.md](CHANGELOG.md).
-
-## Tech
-
-Single file, vanilla HTML/CSS/JS (~139 KB). Backend (optional): Python 3 + FastAPI + SQLite in `backend/` (pytest, 81 tests passing — the state round-trip now also preserves the v2.5 and v3.0 fields instead of dropping them). State key `backforge_v1` in localStorage, data schema v2 (v2.0 adds `livePrefs`, `exLog`, `livePlayer`; v2.5 adds `protein`, `bodyweightKg`, `deloadUntil`; v3.0 adds `health`, `waist`, `backup` — old saves migrate in place, losslessly). Sync generator: `tools/health_sync.py` (stdlib-only Python, run by Muse against the Health Connect connector). Fonts: Space Grotesk + Inter (graceful system-font fallback offline). Installable: theme color, icon, runtime-generated web manifest.
+**[docs/ROADMAP.md](docs/ROADMAP.md)** — v4.5 Live Studio (shipping) → v4.7 The coach sees and hears (on-device form tracking, hands-free voice, live heart rate, classic retired) → v5.0 The platform (encrypted sync across devices, clinician mode, periodisation, open schema, published outcomes).

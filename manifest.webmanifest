@@ -1,0 +1,12 @@
+{
+  "name": "BackForge",
+  "short_name": "BackForge",
+  "description": "Assessment-led back strength with a real-time, voice-coached Live mode.",
+  "start_url": "./#/today",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0d111a",
+  "theme_color": "#0d111a",
+  "icons": [{ "src": "app/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }],
+  "shortcuts": [{ "name": "Start Live", "url": "./#/live" }, { "name": "Progress", "url": "./#/progress" }]
+}

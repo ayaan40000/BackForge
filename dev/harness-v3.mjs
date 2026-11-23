@@ -8,7 +8,7 @@ import { createRequire } from 'module';
 import fs from 'fs';
 const { JSDOM } = createRequire('/tmp/bf-harness/package.json')('jsdom');
 
-const html = fs.readFileSync(new URL('../index.html', import.meta.url), 'utf8');
+const html = fs.readFileSync(new URL('../classic/index.html', import.meta.url), 'utf8');
 let pass = 0, fail = 0;
 function check(name, cond, extra) {
   if (cond) { pass++; console.log('ok   - ' + name); }
