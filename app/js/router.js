@@ -17,7 +17,11 @@ function apply() {
   current = next;
   const run = () => listeners.forEach(f => f());
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (document.startViewTransition && !reduce && prev.top !== next.top) document.startViewTransition(run); else run();
+  if (document.startViewTransition && !reduce && prev.top !== next.top) {
+    // a quick second navigation skips the first transition — that's expected, not an error
+    const t = document.startViewTransition(run);
+    for (const p of [t.ready, t.finished, t.updateCallbackDone]) p?.catch(() => {});
+  } else run();
   if (prev.top !== next.top) window.scrollTo({ top: 0 });
 }
 addEventListener('hashchange', apply);
