@@ -6,7 +6,7 @@
 //  2. Device voice: Web Speech API (speechSynthesis), the most natural voice the
 //     device offers. Used when the pack is off, or for a safety/brief sentence the
 //     pack doesn't cover. Captions always show every line, so muted works too.
-import { duck, decode, playChain, ensureAudio } from './audio.js';
+import { duck, decode, playChain, ensureAudio, audioReady } from './audio.js';
 import { splitSentences } from './sentences.js';
 
 export const PACKS = [{ id: 'af_heart', label: 'Natural — Heart (warm, clear)' }]; // add more with tools/render_voice.py --voice <id>
@@ -38,6 +38,8 @@ export async function loadPronunciation(base) { try { pron = (await (await fetch
 const pronounce = t => { if (!pron) return t; for (const k of Object.keys(pron).sort((a, b) => b.length - a.length)) t = t.split(k).join(pron[k]); return t; };
 
 export const packActive = () => !!pack && enabled;
+export const stats = { played: 0, device: 0, failed: 0 };
+export const packSize = () => (pack ? Object.keys(pack.sentences).length : 0);
 /** Is every sentence of this line recorded? */
 export const covers = text => !!pack && splitSentences(text).every(s => pack.sentences[s]);
 /** Real spoken length of a fully recorded line (seconds), else null. */
@@ -48,7 +50,7 @@ export function durationOf(text) {
 }
 async function bufferFor(sentence) {
   const e = pack?.sentences[sentence]; if (!e) return null;
-  if (!buffers.has(e[0])) buffers.set(e[0], fetch(packBase + e[0]).then(r => r.arrayBuffer()).then(decode).catch(() => null));
+  if (!buffers.has(e[0])) buffers.set(e[0], fetch(packBase + e[0]).then(r => { if (!r.ok) throw new Error(r.status); return r.arrayBuffer(); }).then(decode).catch(() => { buffers.delete(e[0]); return null; }));
   return buffers.get(e[0]);
 }
 /** Warm the cache for a whole session (called at start with the transcript). */
@@ -78,15 +80,19 @@ function speakDevice(text, pri) {
 export async function speak(text, { pri = 2 } = {}) {
   listeners.forEach(f => f(text));
   if (!enabled || !text) return;
-  if (pack) {
+  if (pack && audioReady()) {
     if (covers(text)) {
       if (pri >= 3 || current) { current?.stop(); synth()?.cancel(); }
-      const bufs = (await Promise.all(splitSentences(text).map(bufferFor))).filter(Boolean);
+      const bufs = await Promise.all(splitSentences(text).map(bufferFor));
+      // a clip that failed to download or decode: say the line with the device voice instead of going quiet
+      if (bufs.some(b => !b)) { stats.failed++; speakDevice(text, pri); return; }
+      stats.played++;
       current = playChain(bufs, { rate: rate / 1.04, onstart: () => duck(true), onend: () => { duck(false); current = null; } });
       return;
     }
     if (pri < 3) return;
   }
+  stats.device++;
   speakDevice(text, pri);
 }
 export function stop() { current?.stop(); current = null; synth()?.cancel(); duck(false); }

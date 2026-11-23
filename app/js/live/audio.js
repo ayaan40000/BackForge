@@ -4,11 +4,40 @@
 // (lock-screen controls via Media Session, keeps playing with the screen dim).
 let ctx, master, cueBus, bedBus, voiceBus, bedNodes = null, mediaEl = null;
 
+// ---- unlocking (phones) ----
+// iPhone Safari only lets audio start inside a tap, and mutes Web Audio with the
+// ring/silent switch unless the page is playing media. unlockAudio() is called on
+// every tap until sound is running: it resumes the context, plays a silent
+// sample, starts a looping silent <audio> (puts iOS in "playback" mode), declares
+// navigator.audioSession = 'playback' where supported, and warms up speech.
+let silentEl = null;
+function silentWavUrl() {
+  const n = 2400, buf = new ArrayBuffer(44 + n), v = new DataView(buf), w = (o, s) => [...s].forEach((ch, i) => v.setUint8(o + i, ch.charCodeAt(0)));
+  w(0, 'RIFF'); v.setUint32(4, 36 + n, true); w(8, 'WAVE'); w(12, 'fmt '); v.setUint32(16, 16, true); v.setUint16(20, 1, true); v.setUint16(22, 1, true);
+  v.setUint32(24, 8000, true); v.setUint32(28, 8000, true); v.setUint16(32, 1, true); v.setUint16(34, 8, true); w(36, 'data'); v.setUint32(40, n, true);
+  for (let i = 0; i < n; i++) v.setUint8(44 + i, 128);
+  return URL.createObjectURL(new Blob([buf], { type: 'audio/wav' }));
+}
+export function unlockAudio() {
+  const c = ensureAudio(); if (!c) return false;
+  try { if (navigator.audioSession) navigator.audioSession.type = 'playback'; } catch {}
+  if (c.state !== 'running') c.resume().catch(() => {});
+  try { const b = c.createBuffer(1, 1, 22050), s = c.createBufferSource(); s.buffer = b; s.connect(c.destination); s.start(0); } catch {}
+  try { if (!silentEl) { silentEl = new Audio(silentWavUrl()); silentEl.loop = true; silentEl.setAttribute('playsinline', ''); } if (silentEl.paused) silentEl.play().catch(() => {}); } catch {}
+  try { if (window.speechSynthesis && !unlockAudio.spoke) { const u = new SpeechSynthesisUtterance(' '); u.volume = 0; speechSynthesis.speak(u); unlockAudio.spoke = true; } } catch {}
+  return c.state === 'running';
+}
+export const audioReady = () => !!ctx && ctx.state === 'running';
+const stateSubs = new Set();
+/** Called when sound starts, gets blocked, or is interrupted (iPhone: calls, screen lock). */
+export const onAudioState = f => (stateSubs.add(f), () => stateSubs.delete(f));
+
 export function ensureAudio() {
   if (ctx) { if (ctx.state === 'suspended') ctx.resume(); return ctx; }
   const AC = window.AudioContext || window.webkitAudioContext;
   if (!AC) return null;
   ctx = new AC();
+  ctx.onstatechange = () => stateSubs.forEach(f => f(ctx.state));
   master = ctx.createGain(); master.gain.value = 0.9;
   cueBus = ctx.createGain(); cueBus.gain.value = 0.8;
   bedBus = ctx.createGain(); bedBus.gain.value = 0;

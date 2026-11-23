@@ -63,5 +63,19 @@ ok('player: Space pauses (sheet opens or clock stops)', a === (await p.locator('
   ok('posture session: player runs', (await p2.locator('.player').count()) === 1);
   ok('posture check flow: no page errors', pe.length === 0);
 }
+// sound on phones: strict autoplay (like iPhone Safari). Observed passively — calling into the app counts as a tap.
+{
+  const sb = await chromium.launch({ args: ['--autoplay-policy=document-user-activation-required'] });
+  const init = () => { localStorage.setItem('backforge_v1', JSON.stringify({ v: 1, ui: { onboarded: 'x' } })); const O = window.AudioContext; window.__ctxs = []; window.AudioContext = class extends O { constructor(...a) { super(...a); window.__ctxs.push(this); } }; const S = window.AudioBufferSourceNode.prototype.start; window.__clips = 0; window.AudioBufferSourceNode.prototype.start = function (...a) { if (this.buffer && this.buffer.duration > 0.2) window.__clips++; return S.apply(this, a); }; };
+  const c1 = await sb.newContext({ viewport: { width: 390, height: 844 } }); await c1.addInitScript(init);
+  const q = await c1.newPage(); await q.goto(U + '#/live/play?mins=10&energy=ok'); await q.waitForTimeout(2500);
+  ok('sound: blocked audio shows "Tap for sound"', await q.evaluate(() => window.__ctxs.every(c => c.state !== 'running') && !!document.querySelector('.sound-gate')));
+  await q.locator('.sound-gate').click({ timeout: 5000 }); await q.waitForTimeout(6000);
+  ok('sound: one tap starts audio and the coach voice plays recorded clips', await q.evaluate(() => window.__ctxs[0].state === 'running' && !document.querySelector('.sound-gate') && window.__clips > 0));
+  const c2 = await sb.newContext({ viewport: { width: 390, height: 844 } }); await c2.addInitScript(init);
+  const q2 = await c2.newPage(); await q2.goto(U + '#/live'); await q2.waitForTimeout(1500); await q2.getByRole('button', { name: /Start/ }).first().click(); await q2.waitForTimeout(3000);
+  ok('sound: tapping Start unlocks audio (no extra tap needed)', await q2.evaluate(() => window.__ctxs[0]?.state === 'running' && !document.querySelector('.sound-gate')));
+  await sb.close();
+}
 await b.close();
 console.log(`\n${pass} passed, ${errs.length} failed`); process.exit(errs.length ? 1 : 0);

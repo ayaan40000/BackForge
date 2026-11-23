@@ -2,6 +2,15 @@
 
 All notable changes to BackForge. Versions follow the roadmap in `docs/ROADMAP.md`.
 
+## v4.8.1 — The coach's voice works on phones (2026-11-23)
+
+- **Fixed: no voice (and no beeps) on iPhone.** iPhone Safari only lets a page make sound if the audio starts inside a tap. BackForge was switching audio on a moment *after* you tapped Start, when the player screen opened, so the phone kept it muted for the whole session. Now every tap switches sound on, and tapping Start is enough.
+- **The ring/silent switch no longer silences the coach.** BackForge now tells the phone it is playing media (a silent background track, plus the audio-session setting where Safari supports it), so the coach is heard like music or a video.
+- **"Tap for sound" button.** If a phone still blocks audio, for example after a call or locking the screen, the player shows a pulsing "Tap for sound" button. One tap brings the voice back and repeats the current line.
+- **No more silent gaps.** If a recorded clip fails to download, the coach says that line with the device voice instead of skipping it.
+- **Sound check (You → Coach).** Plays a beep and a coach line, and shows whether sound is on and which voice is in use.
+- Tests: three new browser checks run with iPhone-style autoplay rules: blocked sound shows the button, one tap starts the voice, and tapping Start needs no extra tap. 77 browser checks in total.
+
 ## v4.8 — One app, natural voice, everything you own (2026-11-23)
 
 - **The classic app has retired.** Everything now lives in one app. The last classic-only tools moved to **You → Privacy & data**: setting, changing and removing your PIN, the encrypted photo vault (encrypt a photo set, restore it on any device with just your passphrase), and erase-everything. Old `/classic/` links forward to the new app. Your PIN and vault files from the classic app still work.

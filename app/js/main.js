@@ -2,6 +2,7 @@
 import { html, render, useState, useEffect } from '../vendor/htm-preact.mjs';
 import { loadData, BASE } from './data.js';
 import { loadPack, loadPronunciation } from './live/voice.js';
+import { unlockAudio, audioReady } from './live/audio.js';
 import { load, subscribe, uiPrefs, state, update, isDemo, enterDemo, setUi } from './store.js';
 import { route, onRoute, go } from './router.js';
 import { Icon, Logo } from './ui/icons.js';
@@ -103,6 +104,9 @@ function App() {
     document.addEventListener('visibilitychange', () => document.documentElement.toggleAttribute('data-hidden', document.hidden));
     render(html`<${App} />`, document.getElementById('app'));
     startDeskTimer();
+    // phones only allow sound that starts inside a tap: unlock on every tap until it's running
+    const unlock = () => { unlockAudio(); if (audioReady()) ['pointerdown', 'touchend', 'click', 'keydown'].forEach(t => removeEventListener(t, unlock, true)); };
+    ['pointerdown', 'touchend', 'click', 'keydown'].forEach(t => addEventListener(t, unlock, true));
     if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('./sw.js').catch(() => {});
   } catch (e) {
     document.getElementById('app').innerHTML = `<div class="empty"><h1 class="title2">BackForge couldn't start</h1><p class="callout">${String(e.message || e)}</p><p><a href="classic/index.html">Open the classic app</a></p></div>`;

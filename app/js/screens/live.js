@@ -134,6 +134,7 @@ export function LivePlayer() {
 
   return html`<div class="player" data-phase=${phase} data-running=${running} style=${`--phase:${PHASE[phase]}`}>
     <div class="player-bg" aria-hidden="true"></div>
+    ${!live.audioReady() && uiPrefs().voice !== false && html`<button class="sound-gate glass-thick" onClick=${live.enableSound}><${Icon} n="voice" s=${22} /> Tap for sound</button>`}
     <header class="player-top">
       <button class="icon-btn glass-thin" aria-label="End session" onClick=${() => { if (running) live.toggle(); setSheet('exit'); }}><${Icon} n="close" /></button>
       <div class="caption" style="color:var(--c-ink-2)">${phase === 'rest' ? 'Recover' : phase === 'main' ? 'Main work' : phase === 'cool' ? 'Cool-down' : 'Warm-up'}${seg.exIndex != null ? ` · ${seg.exIndex + 1} of ${seg.exCount}` : ''}</div>

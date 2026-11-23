@@ -6,7 +6,7 @@ import { readiness } from '../engine/progress.js';
 import { compile } from './compiler.js';
 import { scriptSession, makePicker } from './coach.js';
 import { LivePlayer } from './player.js';
-import { cue, ensureAudio, startBed, stopBed, setCueVolume } from './audio.js';
+import { cue, ensureAudio, startBed, stopBed, setCueVolume, unlockAudio, audioReady, onAudioState } from './audio.js';
 import { speak, stop as stopVoice, configureVoice, pickVoice, packActive, covers as packCovers, durationOf, prefetch } from './voice.js';
 import { transcript } from './coach.js';
 import { lib, voiceLines, ctx } from '../data.js';
@@ -41,7 +41,7 @@ export function start(opts, { resumeAt = 0 } = {}) {
   if (run) end(false);
   const { workout, tl } = prepare(opts);
   const prefs = uiPrefs();
-  ensureAudio(); setCueVolume(prefs.cueVolume ?? 0.8);
+  unlockAudio(); setCueVolume(prefs.cueVolume ?? 0.8);
   configureVoice({ enabled: prefs.voice !== false, rate: prefs.rate || 1.04, name: prefs.voiceName || undefined }); pickVoice(prefs.voiceName);
   if (prefs.bed) startBed();
   // iOS needs a speech call inside the user gesture to unlock the synth
@@ -79,8 +79,13 @@ export function snapshot() {
 }
 
 const say = (key, vars = {}, pri = 2) => { const t = run.pick(key, vars, run.player.elapsed); if (t) { run.caption = t; speak(t, { pri }); } };
+export { audioReady };
+onAudioState(() => emit());
+/** The player's "Tap for sound" button: unlock inside the tap, then repeat the current line. */
+export function enableSound() { unlockAudio(); setTimeout(() => { if (run?.caption) speak(run.caption, { pri: 3 }); emit(); }, 250); }
 export function toggle() {
   if (!run) return;
+  unlockAudio();
   const was = run.player.running;
   run.player.toggle();
   if (was) { stopVoice(); say('pause', {}, 3); releaseWake(); }

@@ -101,3 +101,7 @@
     .player-caption { min-height: 0; font-size: 14px; line-height: 19px; }
   }
 }
+@layer screens {
+  .sound-gate { position: absolute; z-index: 5; left: 50%; top: calc(env(safe-area-inset-top) + 64px); translate: -50% 0; display: flex; align-items: center; gap: 10px; padding: 12px 20px; border-radius: var(--r-pill); font-weight: 700; color: var(--c-ink); box-shadow: var(--g-border), var(--g-rim), 0 0 0 2px var(--c-accent); animation: pulse 1.6s ease-in-out infinite; }
+  @keyframes pulse { 50% { box-shadow: var(--g-border), var(--g-rim), 0 0 0 6px color-mix(in oklab, var(--c-accent) 40%, transparent); } }
+}

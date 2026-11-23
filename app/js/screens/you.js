@@ -5,18 +5,20 @@ import { Icon } from '../ui/icons.js';
 import { Seg } from '../ui/kit.js';
 import { state, update, uiPrefs, setUi, isDemo, enterDemo, exitDemo, KEY } from '../store.js';
 import { BASE } from '../data.js';
-import { voices, speak, configureVoice, PACKS, loadPack, voiceState } from '../live/voice.js';
+import { voices, speak, configureVoice, PACKS, loadPack, voiceState, packSize, stats } from '../live/voice.js';
+import { unlockAudio, audioReady, cue } from '../live/audio.js';
 import { route } from '../router.js';
 import { Privacy } from './privacy.js';
 import { KitScreen } from './kit.js';
 import { dayStr } from '../engine/dates.js';
 
-export const VERSION = '4.8.0';
+export const VERSION = '4.8.1';
 
 export function You() {
   const S = state(), p = uiPrefs(), sub = route().parts[1];
   const [vs, setVs] = useState(voices());
   const [busy, setBusy] = useState(false);
+  const [, force] = useState(0);
   useEffect(() => { const f = () => setVs(voices()); speechSynthesis?.addEventListener?.('voiceschanged', f); return () => speechSynthesis?.removeEventListener?.('voiceschanged', f); }, []);
   const name = S.profile?.displayName || S.profile?.name || '';
   const last = d => (d ? new Date(d).toLocaleDateString(undefined, { day: 'numeric', month: 'short' }) : 'never');
@@ -46,7 +48,8 @@ export function You() {
         ${PACKS.map(v => html`<option value=${v.id}>${v.label}</option>`)}<option value="device">Device voice (built into your phone/computer)</option></select>
         <p class="caption mt-2">Natural voices are recorded with an open-source neural voice (Kokoro) and play offline once loaded.</p></div>
       ${(p.voicePack === 'device') && vs.length > 0 && html`<div class="mt-4"><div class="caption mb-2">Device voice (${vs.length} on this device)</div><select value=${p.voiceName || ''} onChange=${e => setUi({ voiceName: e.target.value || null })}><option value="">Best available</option>${vs.map(v => html`<option value=${v.name}>${v.name}${v.localService ? '' : ' (online)'}</option>`)}</select></div>`}
-      <button class="btn ghost mt-3" onClick=${() => { configureVoice({ enabled: true, rate: p.rate || 1.04, name: p.voiceName || undefined }); speak('Bird-dog. Hands under shoulders, knees under hips. Focus: reach long, not high.', { pri: 3 }); }}><${Icon} n="voice" s=${18} /> Preview</button>
+      <button class="btn ghost mt-3" onClick=${() => { configureVoice({ enabled: true, rate: p.rate || 1.04, name: p.voiceName || undefined }); unlockAudio(); setTimeout(() => { cue('go'); speak('First up: Bird-Dog. Hands under shoulders, knees under hips. Focus: reach long, not high.', { pri: 3 }); setTimeout(() => force?.(x => x + 1), 1500); }, 200); }}><${Icon} n="voice" s=${18} /> Sound check</button>
+      <p class="caption mt-2">Sound: ${audioReady() ? 'on' : 'not started yet — tap Sound check'} · Voice: ${voiceState().pack ? `natural (${packSize()} recorded lines)` : 'device voice'}${stats.failed ? ` · ${stats.failed} clips failed to load` : ''}. On iPhone, also check the volume buttons.</p>
       <p class="caption mt-2">Voices come from your device. Other apps' music can't be lowered from a web page; your phone may do it automatically.</p>
     </section>
   </div><div class="col">
