@@ -1,9 +1,13 @@
 {
- "_about": "Posture check: 8 band tests (classic v4.0) + 5 bodyweight tests (v4.6). Text and options only — grading is app/js/engine/posture.js (keyed by id). pattern: apt (pelvis & core / anterior pelvic tilt), head (forward head), back (hunched upper back / thoracic kyphosis), shoulders (rounded shoulders). Never rename an id or an option value: they are stored in the user's history.",
+ "_about": "Posture check: 8 band tests (classic v4.0) + 5 bodyweight tests (v4.6). Text and options only — grading is app/js/engine/posture.js (keyed by id). pattern: apt (pelvis & core / anterior pelvic tilt), hips (hip rotation & glute control), head (forward head), back (hunched upper back / thoracic kyphosis), shoulders (rounded shoulders). Never rename an id or an option value: they are stored in the user's history. Thresholds revised after the physio review (docs/reviews/PHYSIO-REVIEW-2026-11.md), check v3.",
  "patterns": {
   "apt": {
    "label": "Pelvis & core",
    "problem": "Anterior pelvic tilt"
+  },
+  "hips": {
+   "label": "Hips & glutes",
+   "problem": "Hip rotation and glute control"
   },
   "head": {
    "label": "Head & neck",
@@ -25,11 +29,19 @@
   ],
   [
    "back",
-   "Back-only ache"
+   "My usual back ache went up during the test"
   ],
   [
    "leg",
    "Pain into the leg"
+  ],
+  [
+   "arm",
+   "Pain, pins and needles or numbness into the arm"
+  ],
+  [
+   "dizzy",
+   "Dizziness, headache or blurred vision"
   ],
   [
    "sharp",
@@ -156,10 +168,10 @@
   {
    "id": "hip-ir-band",
    "name": "Hip Internal Rotation Test (banded)",
-   "pattern": "apt",
+   "pattern": "hips",
    "kind": "band",
    "equipment": "Loop band around the ankles · chair",
-   "setup": "Sit tall on a firm chair, knees at 90°, loop band around the ankles. Thigh pinned still, rotate the shin OUTWARD (the hip turns inward). Judge each side against its own heel: full ≈ the foot travels its whole arc.",
+   "setup": "Sit tall on a firm chair, knees at 90°, loop band around the ankles. Thigh pinned still, rotate the shin OUTWARD (the hip turns inward). Judge each side against its own heel: full ≈ the foot travels its whole arc. A phone level app against the shin reads the angle from vertical.",
    "inputs": [
     {
      "key": "rR",
@@ -167,19 +179,19 @@
      "options": [
       [
        "3",
-       "Full range"
+       "35° or more"
       ],
       [
        "2",
-       "About ¾"
+       "25–34°"
       ],
       [
        "1",
-       "About ½"
+       "15–24°"
       ],
       [
        "0",
-       "Barely moves"
+       "Under 15°"
       ]
      ]
     },
@@ -189,19 +201,19 @@
      "options": [
       [
        "3",
-       "Full range"
+       "35° or more"
       ],
       [
        "2",
-       "About ¾"
+       "25–34°"
       ],
       [
        "1",
-       "About ½"
+       "15–24°"
       ],
       [
        "0",
-       "Barely moves"
+       "Under 15°"
       ]
      ]
     },
@@ -308,10 +320,10 @@
   {
    "id": "glutemed-wall",
    "name": "Glute Med Wall Test",
-   "pattern": "apt",
+   "pattern": "hips",
    "kind": "band",
    "equipment": "Loop band above the knees · wall",
-   "setup": "Loop band above the knees. Stand side-on to a wall, inside leg is the stance leg; press the outside knee into the wall against the band, pelvis level, and hold. Test both sides — grade by the worse one.",
+   "setup": "Loop band above the knees. Stand side-on, about a forearm's length from the wall. Stand on the leg FURTHER from the wall — that is the side being tested. Lift the near-wall knee to hip height and press the outside of that knee into the wall. Pelvis level, trunk upright. Hold, then turn round for the other side. Grade by the worse side.",
    "inputs": [
     {
      "key": "hold",
@@ -551,7 +563,7 @@
    "pattern": "back",
    "kind": "bodyweight",
    "equipment": "A wall",
-   "setup": "Stand with heels, buttocks and upper back against a wall. Look straight ahead with your chin level — eyes on the horizon, do not tip your chin up. Feel (or have someone check) the gap between the back of your head and the wall.",
+   "setup": "Stand with heels, buttocks and upper back against a wall. Look straight ahead with your chin level — eyes on the horizon, do not tip your chin up. Do NOT arch your low back to get your shoulders or head onto the wall; a hand-flat gap at the low back is normal. Stop if your back complains. Feel (or have someone check) the gap between the back of your head and the wall.",
    "inputs": [
     {
      "key": "gap",
@@ -559,19 +571,19 @@
      "options": [
       [
        "0",
-       "Touches the wall easily, chin level"
+       "Touches easily, chin level"
       ],
       [
        "1",
-       "Touches only if I tip my chin up"
+       "Touches only if I tip my chin up, or a 1-finger gap"
       ],
       [
        "2",
-       "Gap of about 2 fingers"
+       "2–3 finger gap (about 3–5 cm)"
       ],
       [
        "3",
-       "Gap wider than 3 fingers"
+       "4 fingers or more (about 6 cm+)"
       ]
      ]
     },
@@ -598,7 +610,7 @@
     "Clear": "Upper-back work stays at maintenance.",
     "Mild": "Wall posture resets join the desk routine.",
     "Moderate": "The hunched-upper-back block (open book, wall slides, rows) joins the daily plan.",
-    "Priority": "The upper-back block is daily and starts at Reset: thoracic mobility before any loaded rows; retest in 2 weeks."
+    "Priority": "The upper-back block is daily and starts at Reset: thoracic mobility before any loaded rows; retest in 2 weeks. A gap this size can be partly structural — show your physio; not all of it will change with exercise."
    },
    "evidence": "Occiput-to-wall distance is a standard clinical screen for thoracic kyphosis and forward head carriage."
   },
@@ -608,7 +620,7 @@
    "pattern": "head",
    "kind": "bodyweight",
    "equipment": "Floor · a timer",
-   "setup": "Lie on your back, knees bent. Tuck your chin gently (a small double chin), then lift your head about 2–3 cm off the floor and hold. Stop the timer when the chin pokes forward, the head drops, or the tuck is lost.",
+   "setup": "Lie on your back, knees bent, a folded towel under your head. Start a phone timer, tuck your chin gently (a small double chin), and lift your head just off the towel. The test ENDS when the tuck is lost, your chin pokes, or your head touches the towel for more than a second. Stop at 60 s.",
    "inputs": [
     {
      "key": "hold",
@@ -634,19 +646,19 @@
     },
     {
      "key": "quality",
-     "label": "What ended it",
+     "label": "What ended it (recorded, not graded)",
      "options": [
       [
        "tuck",
-       "Fatigue — the tuck held until I stopped"
+       "Reached 60 s, or stopped by choice"
       ],
       [
        "poke",
-       "My chin poked up / forward"
+       "Tuck lost / chin poked (the normal end)"
       ],
       [
        "shake",
-       "Strong shaking early"
+       "Neck shook or ached early"
       ]
      ]
     }
@@ -657,7 +669,7 @@
     "Moderate": "Deep neck flexor holds join the daily plan and the forward-head block drives part of every session.",
     "Priority": "Deep neck flexor work starts at Reset (supported, short holds) every day; retest in 2 weeks."
    },
-   "evidence": "Craniocervical flexion endurance (Jull/Harris style). Healthy adults commonly hold roughly 30–40 s; shorter holds are associated with forward head posture and neck pain."
+   "evidence": "Deep neck flexor endurance test (Harris et al. 2005): healthy adults averaged about 39 s, people with neck pain about 24 s (see also Domenech et al. 2011). Graded on time only."
   },
   {
    "id": "pec-minor",
@@ -665,7 +677,7 @@
    "pattern": "shoulders",
    "kind": "bodyweight",
    "equipment": "Floor",
-   "setup": "Lie on your back, arms relaxed by your sides, palms up. Let the shoulders sink. Feel whether the BACK of each shoulder rests on the floor or hovers above it (a partner or a phone photo from the side helps).",
+   "setup": "Lie on your back, arms by your sides, palms up, and let the shoulders sink. Stand a bank card on its long edge on the floor next to your shoulder (it is 5.4 cm tall). Have someone look, or film from floor level at your side: how high is the back of the bony tip of your shoulder above the floor?",
    "inputs": [
     {
      "key": "R",
@@ -673,15 +685,15 @@
      "options": [
       [
        "0",
-       "Rests flat on the floor"
+       "About 1 finger-width (2.5 cm) or less"
       ],
       [
        "1",
-       "Hovers about one finger-width"
+       "Between 1 finger-width and the card’s height (2.5–5 cm)"
       ],
       [
        "2",
-       "Hovers two finger-widths or more"
+       "Higher than the card (over 5 cm)"
       ]
      ]
     },
@@ -691,15 +703,15 @@
      "options": [
       [
        "0",
-       "Rests flat on the floor"
+       "About 1 finger-width (2.5 cm) or less"
       ],
       [
        "1",
-       "Hovers about one finger-width"
+       "Between 1 finger-width and the card’s height (2.5–5 cm)"
       ],
       [
        "2",
-       "Hovers two finger-widths or more"
+       "Higher than the card (over 5 cm)"
       ]
      ]
     }
@@ -708,9 +720,9 @@
     "Clear": "No chest-opening work needed beyond warm-ups.",
     "Mild": "Doorway chest stretch joins the daily posture block.",
     "Moderate": "Chest opening (doorway, standing opener) daily plus band pull-aparts and face pulls 3× a week.",
-    "Priority": "Chest opening twice daily and rows/face pulls every session; retest in 2 weeks."
+    "Priority": "Chest opening (doorway, standing opener) daily plus band pull-aparts and face pulls 3× a week."
    },
-   "evidence": "A shoulder resting well above the table in supine is a common clinical sign of a short pectoralis minor, part of the rounded-shoulder (upper-crossed) pattern."
+   "evidence": "Acromion height in lying is a common screen for a short pec minor, but it is poor at telling short from normal (Lewis & Valentine 2007; about 2.5 cm is normal, Sahrmann 2002). It is used only as a minor sign and never grades Priority."
   },
   {
    "id": "overhead-reach",
@@ -718,7 +730,7 @@
    "pattern": "back",
    "kind": "bodyweight",
    "equipment": "Floor",
-   "setup": "Lie on your back, knees bent, low back gently heavy on the floor (ribs down). Keep your arms straight, thumbs up, and raise them overhead toward the floor behind you. Do not let the ribs flare or the back arch to get there.",
+   "setup": "Lie on your back, feet flat, knees bent, low back gently heavy on the floor (ribs down). Keep your arms straight, thumbs up, and raise them overhead toward the floor behind you — measure only as far as your ribs stay down. If it pinches your low back or shoulder, stop.",
    "inputs": [
     {
      "key": "reach",
@@ -726,19 +738,19 @@
      "options": [
       [
        "floor",
-       "Both touch the floor with ribs down"
+       "Thumbs touch the floor, ribs stayed down"
       ],
       [
        "gap",
-       "A few centimetres short of the floor"
-      ],
-      [
-       "arch",
-       "I only reach by arching / flaring my ribs"
+       "Short by less than a hand-width"
       ],
       [
        "far",
-       "Well short — more than a hand's width"
+       "Short by a hand-width or more"
+      ],
+      [
+       "arch",
+       "Couldn't keep my ribs down at all"
       ]
      ]
     }
@@ -747,7 +759,7 @@
     "Clear": "No change.",
     "Mild": "Wall slides join the posture block.",
     "Moderate": "Open books and wall slides daily; overhead work stays ribs-down only.",
-    "Priority": "Thoracic mobility (open book, cat-camel, seated opener) every day before any overhead pressing or pulling."
+    "Priority": "Open books and wall slides daily; overhead work stays ribs-down only."
    },
    "evidence": "Supine shoulder-flexion range with the lumbar spine controlled reflects thoracic extension and lat length — limited range is typical of a hunched upper back."
   },
@@ -757,7 +769,7 @@
    "pattern": "back",
    "kind": "bodyweight",
    "equipment": "Chair",
-   "setup": "Sit tall on a chair, knees together, arms crossed on your chest. Keeping the hips still, gently turn the upper body to each side as far as is comfortable. Unloaded and slow — stop if anything is painful.",
+   "setup": "Sit tall on a chair, a pillow squeezed between your knees, feet flat, a broom handle across the front of your shoulders. Lay your phone flat on your breastbone with the compass open and note the starting reading. Turn slowly to each side; stop before your low back or hips join in. Never bounce.",
    "inputs": [
     {
      "key": "R",
@@ -765,15 +777,15 @@
      "options": [
       [
        "2",
-       "Easy — shoulders turn well past the knees (about 45°+)"
+       "45° or more"
       ],
       [
        "1",
-       "Moderate — about 30°"
+       "30–44°"
       ],
       [
        "0",
-       "Stiff — barely turns"
+       "Under 30°"
       ]
      ]
     },
@@ -783,15 +795,15 @@
      "options": [
       [
        "2",
-       "Easy — shoulders turn well past the knees (about 45°+)"
+       "45° or more"
       ],
       [
        "1",
-       "Moderate — about 30°"
+       "30–44°"
       ],
       [
        "0",
-       "Stiff — barely turns"
+       "Under 30°"
       ]
      ]
     }
@@ -802,7 +814,7 @@
     "Moderate": "Open books daily, stiffer side first.",
     "Priority": "Thoracic rotation mobility twice daily, stiffer side first; the lumbar spine must not make up the difference."
    },
-   "evidence": "Upper-back rotation is commonly reduced with kyphotic posture; when it is limited the lower back tends to rotate instead."
+   "evidence": "Seated rotation with the pelvis fixed is a reliable thoracic measure (Johnson et al. 2012). Unloaded and slow — never a loaded twist."
   }
  ]
 }

@@ -1,5 +1,8 @@
-/* Parity: the new engine (app/js/engine/assessment.js + posture.js) must score
-   EXACTLY like the classic app for every answer combination we can throw at it.
+/* Parity (v4.7): after the physio review (docs/reviews/PHYSIO-REVIEW-2026-11.md)
+   the movement scoring and three band graders DELIBERATELY differ from the classic
+   app. This harness now proves the graders the review said to leave alone are still
+   identical to classic: tilt-control, hip-ir-band, pallof-hold, glutemed-wall,
+   pullapart-endurance, wallslide-band. (v4.6 movement parity: 3000/3000 before the review.)
    Loads classic/index.html in jsdom, then compares 3000 random movement-answer
    sets and 3000 random input sets per band test. Run: node dev/parity-assessment.mjs
    (jsdom from /tmp/bf-harness, same as the other harnesses). */
@@ -20,19 +23,7 @@ const w = new JSDOM(html, { url: 'https://localhost/', runScripts: 'dangerously'
 let seed = 42; const rnd = () => ((seed = (seed * 1664525 + 1013904223) >>> 0) / 2 ** 32);
 const pickOf = a => a[Math.floor(rnd() * a.length)];
 let fail = 0, n = 0;
-for (let i = 0; i < 3000; i++) {
-  const ans = {};
-  for (const t of MT) {
-    if (rnd() < 0.15) continue;
-    if (t.kind === 'opts') ans[t.id] = pickOf(t.options)[0];
-    if (t.kind === 'sides') for (const s of ['L', 'R']) if (rnd() > 0.1) ans[`${t.id}_${s}`] = pickOf(t.options)[0];
-    if (t.kind === 'nums') for (const s of ['L', 'R']) if (rnd() > 0.1) ans[`${t.id}_${s}`] = String(Math.floor(rnd() * 60));
-  }
-  w.eval(`S.answers = ${JSON.stringify(ans)}`);
-  const a = JSON.stringify(w.eval('scoreAssessment()')), b = JSON.stringify(scoreAssessment(ans));
-  n++; if (a !== b) { fail++; if (fail < 4) console.log('MOVEMENT MISMATCH', JSON.stringify(ans), '\n classic', a, '\n new    ', b); }
-}
-const classicIds = w.eval('PTESTS.map(t=>t.id)');
+const classicIds = ['tilt-control', 'hip-ir-band', 'pallof-hold', 'glutemed-wall', 'pullapart-endurance', 'wallslide-band'];
 for (const id of classicIds) {
   const t = PT.find(x => x.id === id);
   for (let i = 0; i < 3000; i++) {

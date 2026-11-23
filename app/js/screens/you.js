@@ -9,7 +9,7 @@ import { route } from '../router.js';
 import { dayStr } from '../engine/dates.js';
 
 const CLASSIC = BASE + 'classic/index.html';
-export const VERSION = '4.6.0';
+export const VERSION = '4.6.1';
 
 export function You() {
   const S = state(), p = uiPrefs(), sub = route().parts[1];

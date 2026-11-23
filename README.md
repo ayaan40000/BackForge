@@ -2,7 +2,9 @@
 
 **Live:** https://ayaan40000.github.io/BackForge/ · **Demo with 120 days of data:** https://ayaan40000.github.io/BackForge/?demo=1 · **Classic v4.0 app:** `/classic/`
 
-**Latest (v4.6 "Assess & Correct", 2026-11-23):** the movement assessment, a posture check (8 band + 5 bodyweight tests) and a photo check read by Muse are now part of the new app. Their grades build a phased posture plan for forward head, a hunched upper back, rounded shoulders and anterior pelvic tilt, and the voice coach runs it as a Live session. Each corrective move ends with a quick form rating.
+**v4.6.1 (2026-11-23): physio-reviewed scoring.** A physiotherapist review (`docs/reviews/PHYSIO-REVIEW-2026-11.md`) recalibrated the tests, made the extension-intolerant flag stay on after a single good retest, added leg-spread, arm-symptom and dizziness stops, and added a hips & glutes area to the plan.
+
+**v4.6 "Assess & Correct":** the movement assessment, a posture check (8 band + 5 bodyweight tests) and a photo check read by Muse are now part of the new app. Their grades build a phased posture plan for forward head, a hunched upper back, rounded shoulders and anterior pelvic tilt, and the voice coach runs it as a Live session. Each corrective move ends with a quick form rating.
 
 **v4.5 "Live Studio":** a rebuilt app with a liquid-glass UI that works on phone, tablet and desktop, and a **real-time, voice-coached Live mode**. Pick a length (5–60 min) and press Start. BackForge builds the session second by second (warm-up, main work, cool-down, sets, sides, rests) and a voice coach runs it the way a personal trainer would. Demo mode shows the app full of data, including Google Fit and Samsung Health. See `CHANGELOG.md`; the plan to v5.0 is in `docs/ROADMAP.md`.
 
@@ -39,8 +41,8 @@ An assessment-led, resistance-band-first back-strength trainer. No account, no s
 ## Tests
 
 ```bash
-npm test               # 31 tests: safety for every Live build, duration fit, coach timing and wording rules, data files, health import (no installs)
-node dev/parity-assessment.mjs   # 27,000 cases: new scoring == classic scoring
+npm test               # 39 tests: safety for every Live build, duration fit, coach timing and wording rules, data files, health import (no installs)
+node dev/parity-assessment.mjs   # 18,000 cases: graders the physio review left unchanged == classic
 npm run test:browser   # 56 real-browser checks at phone / tablet / desktop (needs Playwright; serve the repo on :8765 first)
 npm run test:classic   # classic app harnesses (113 + 50)
 cd backend && python3 -m pytest -q   # 81 backend tests

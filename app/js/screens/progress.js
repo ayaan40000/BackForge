@@ -106,8 +106,8 @@ function Body() {
 
 function Posture() {
   const S = state(), hist = S.assessHistory || [], checks = S.posture?.bandChecks || [], photos = S.posture?.assessments || [];
-  const pats = [['apt', 'Pelvic tilt'], ['head', 'Forward head'], ['back', 'Hunched upper back'], ['shoulders', 'Rounded shoulders']];
-  const gOf = (c, k) => c.summary?.[k] || ((k === 'head' || k === 'shoulders') && !c.v ? c.summary?.upper : null);
+  const pats = [['apt', 'Pelvic tilt'], ['hips', 'Hips & glutes'], ['head', 'Forward head'], ['back', 'Hunched upper back'], ['shoulders', 'Rounded shoulders']];
+  const gOf = (c, k) => c.summary?.[k] || ((k === 'head' || k === 'shoulders') && !c.v ? c.summary?.upper : null) || (k === 'hips' && c.grades ? [c.grades['hip-ir-band'], c.grades['glutemed-wall']].filter(Boolean).sort((a, b) => SEV[b] - SEV[a])[0] : null);
   const SEV = { Clear: 0, Mild: 1, Moderate: 2, Priority: 3 };
   return html`<div class="grid-2"><div class="col">
     <section class="card glass"><div class="row between"><div class="kicker">Posture grades over time</div><a class="caption" href="#/checkup/posture">Retest</a></div>

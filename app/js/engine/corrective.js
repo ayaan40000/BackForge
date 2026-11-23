@@ -8,46 +8,54 @@
 // Retests move a pattern forward (or back) a phase. Form ratings logged in Live
 // sessions regress a move that keeps feeling hard and flag one that's ready to progress.
 import { capSets } from './dose.js';
-import { GSEV } from './posture.js';
+import { GSEV, combineGrades } from './posture.js';
 import { daysBetween } from './dates.js';
 
 export const PHASES = {
-  reset: { label: 'Reset', what: 'Unloaded mobility and breathing to restore range.', maxSets: 2, perWeek: 7 },
-  control: { label: 'Control', what: 'Light activation — own the position before loading it.', maxSets: 2, perWeek: 6 },
-  strengthen: { label: 'Strengthen', what: 'Band strength and endurance for the weak links.', maxSets: 3, perWeek: 4 },
+  reset: { label: 'Reset', what: 'The lowest-load version of what is weak: short daily doses, holds of 5–10 s, pain no higher than 3/10 and settled by next morning.', maxSets: 2, perWeek: 7 },
+  control: { label: 'Control', what: 'Light activation — own the position before loading it. Quality over volume.', maxSets: 2, perWeek: 5 },
+  strengthen: { label: 'Strengthen', what: 'Band and bodyweight strength and endurance, on non-consecutive days.', maxSets: 3, perWeek: 3 },
   integrate: { label: 'Integrate', what: 'Maintenance — carry the position into daily life.', maxSets: 2, perWeek: 2 },
 };
 export const PHASE_OF = { Priority: 'reset', Moderate: 'control', Mild: 'strengthen', Clear: 'integrate' };
 
-/** Move menus per pattern and phase (ids from the library; unsafe ids are filtered out per profile). */
+/** Move menus per pattern and phase (physio review §4). Order is the prescription:
+ *  the first 3 (2 in Integrate) are used; later ids are fallbacks when one is filtered out. */
 export const MENU = {
   apt: {
     label: 'Anterior pelvic tilt', area: 'Pelvis & core',
-    reset: ['breathing360', 'pelvictilt', 'hipflexorstretch', 'kneechest'],
-    control: ['pelvictilt', 'deadbug', 'glutebridge', 'hipflexorstretch', 'clamshell'],
-    strengthen: ['glutebridge', 'deadbug', 'singlebridge', 'pallof', 'sidesteps'],
-    integrate: ['hiphinge', 'pallof', 'new-standing-glute-tilt', 'pullthrough'],
+    reset: ['pelvictilt', 'hipflexorstretch', 'breathing360', 'kneechest'],
+    control: ['pelvictilt', 'deadbug', 'hipflexorstretch', 'new-seated-pelvic-tilt'],
+    strengthen: ['deadbug', 'pallof', 'sideplank', 'birddog'],
+    integrate: ['pallof', 'new-standing-glute-tilt', 'hiphinge'],
+  },
+  hips: {
+    label: 'Hip rotation & glutes', area: 'Hips & glutes',
+    reset: ['new-seated-desk-hip-ir', 'hipir9090', 'clamshell', 'adductorsqueeze'],
+    control: ['seatedhipir', 'clamshell', 'glutebridge', 'sidelieabduction'],
+    strengthen: ['singlebridge', 'sidesteps', 'ir9090liftoff', 'standinghipir'],
+    integrate: ['stepup', 'standinghipir', 'pullthrough'],
   },
   head: {
     label: 'Forward head', area: 'Head & neck',
-    reset: ['chintuck', 'breathing360', 'doorwaychest'],
-    control: ['chintuck', 'deepneckflexor', 'wallangel'],
-    strengthen: ['deepneckflexor', 'chintuck', 'facepull', 'row'],
-    integrate: ['new-seated-scap-pinch', 'chintuck', 'facepull'],
+    reset: ['chintuck', 'deepneckflexor', 'doorwaychest'],
+    control: ['deepneckflexor', 'chintuck', 'wallslide'],
+    strengthen: ['deepneckflexor', 'facepull', 'row'],
+    integrate: ['chintuck', 'new-seated-scap-pinch'],
   },
   back: {
     label: 'Hunched upper back', area: 'Upper back',
-    reset: ['openbook', 'catcamel', 'new-seated-thoracic-opener', 'breathing360'],
-    control: ['openbook', 'wallslide', 'wallangel'],
-    strengthen: ['row', 'wallslide', 'pullapart', 'openbook'],
-    integrate: ['new-standing-wall-reset', 'row', 'facepull'],
+    reset: ['openbook', 'catcamel', 'breathing360'],
+    control: ['openbook', 'wallslide', 'new-standing-wall-reset'],
+    strengthen: ['row', 'wallslide', 'openbook'],
+    integrate: ['row', 'new-standing-wall-reset'],
   },
   shoulders: {
     label: 'Rounded shoulders', area: 'Shoulders',
-    reset: ['doorwaychest', 'new-standing-chest-opener', 'openbook'],
-    control: ['pullapart', 'wallslide', 'new-seated-scap-pinch', 'doorwaychest'],
-    strengthen: ['facepull', 'row', 'pullapart'],
-    integrate: ['facepull', 'row', 'new-standing-wall-reset'],
+    reset: ['doorwaychest', 'new-seated-scap-pinch', 'wallslide'],
+    control: ['pullapart', 'wallslide', 'doorwaychest'],
+    strengthen: ['row', 'facepull', 'pullapart'],
+    integrate: ['facepull', 'new-standing-wall-reset'],
   },
 };
 
@@ -57,15 +65,41 @@ export function patternGrades(S) {
   const last = checks[checks.length - 1];
   const out = {}, source = {};
   if (last?.summary) for (const p of Object.keys(MENU)) if (last.summary[p]) { out[p] = last.summary[p]; source[p] = 'check'; }
+  // checks from before v4.7 graded hip IR + glute med under 'apt': rebuild the hips grade from those two tests
+  if (last?.grades && !out.hips) { const g = combineGrades([last.grades['hip-ir-band'], last.grades['glutemed-wall']]); if (g) { out.hips = g; source.hips = 'check'; } }
   // classic (v4.0) checks have only apt/upper: map upper onto head + shoulders
   if (last?.summary && !last.v) { if (!out.head && last.summary.upper) { out.head = last.summary.upper; source.head = 'check'; } if (!out.shoulders && last.summary.upper) { out.shoulders = last.summary.upper; source.shoulders = 'check'; } }
   const t = (S.results || []).map(f => f.t).join(' | ');
   const derive = (p, re) => { if (!out[p] && re.test(t)) { out[p] = 'Moderate'; source[p] = 'assessment'; } };
-  derive('apt', /Anterior pelvic tilt/i); derive('head', /Forward-head/i); derive('shoulders', /rounded shoulders/i);
-  return { grades: out, source, last };
+  derive('apt', /Anterior pelvic tilt/i); derive('head', /Forward-head/i); derive('shoulders', /rounded shoulders/i); derive('hips', /Glute inhibition|internal rotation deficit/i);
+  return { grades: out, source, last, phases: last?.phases || {} };
 }
 
-/** Form log → per-exercise adjustment. ratings: 'clean' | 'shaky' | 'hard'. */
+/**
+ * Form ratings → per-move mode (physio review §5). Only ratings logged after the
+ * move's last change count. 'shaky' is neutral.
+ *  regress  — 2 of the last 3 are 'hard', or the last is 'hard' and that day's
+ *             post-session pain was ≥ 1 point above the morning check-in.
+ *  progress — the last 3 are 'clean', on ≥ 2 different days, ≥ 7 days since the
+ *             last change, no check-in pain ≥ 4 on those days, and the pattern is not Priority.
+ *  A regressed move that then meets the progress rule returns to normal (null).
+ * @returns {'regress'|'progress'|null}
+ */
+export function formMode(id, { formLog = [], state = {}, checkins = [], log = [], priority = false, today }) {
+  const prev = state[id] || { mode: null, changedAt: null };
+  const r = formLog.filter(x => x.id === id && (!prev.changedAt || x.date > prev.changedAt)).slice(-3);
+  const painOn = d => checkins.find(c => c.date === d)?.pain;
+  const hard = r.filter(x => x.r === 'hard').length;
+  const last = r[r.length - 1];
+  const painRose = last && last.r === 'hard' && (() => { const pre = painOn(last.date), post = [...log].reverse().find(l => l.date === last.date)?.pain; return pre != null && post != null && post - pre >= 1; })();
+  if (hard >= 2 || painRose) return 'regress';
+  const since = prev.changedAt || (formLog.find(x => x.id === id)?.date ?? null);
+  const daysSince = since && today ? Math.round((Date.parse(today) - Date.parse(since)) / 864e5) : 0;
+  const okProgress = r.length === 3 && r.every(x => x.r === 'clean') && new Set(r.map(x => x.date)).size >= 2 && daysSince >= 7 && r.every(x => (painOn(x.date) ?? 0) < 4) && !priority;
+  if (okProgress) return prev.mode === 'regress' ? null : 'progress';
+  return prev.mode;
+}
+/** Back-compat helper used by older callers/tests: mode from ratings alone. */
 export function formStatus(formLog = [], id) {
   const r = formLog.filter(x => x.id === id).slice(-3).map(x => x.r);
   if (r.filter(x => x === 'hard').length >= 2) return 'regress';
@@ -77,19 +111,32 @@ export function formStatus(formLog = [], id) {
  * @returns {{patterns: Array, hasData: boolean, retest: string|null}}
  */
 export function buildCorrectivePlan(lib, ctx, S) {
-  const { grades, source, last } = patternGrades(S);
-  const formLog = S.posture?.formLog || [];
+  const { grades, source, last, phases } = patternGrades(S);
+  const formLog = S.posture?.formLog || [], formState = S.posture?.formState || {};
+  // deficit side from the banded IR test, else from the movement-assessment finding
+  const irIn = last?.inputs?.['hip-ir-band'];
+  const side = irIn && irIn.rR != null && irIn.rL != null && +irIn.rR !== +irIn.rL ? (+irIn.rR < +irIn.rL ? 'Right' : 'Left')
+    : ctx.has('Right hip internal') ? 'Right' : ctx.has('Left hip internal') ? 'Left' : null;
+  const irPriority = last?.grades?.['hip-ir-band'] === 'Priority';
+  const extInt = ctx.flags.has('extension-intolerant');
   const patterns = Object.entries(grades)
     .map(([key, grade]) => {
-      const phase = PHASE_OF[grade];
+      const phase = phases[key] && source[key] === 'check' ? phases[key] : PHASE_OF[grade];
       const menu = MENU[key];
-      const moves = menu[phase].map(id => lib.safeGet(id, ctx.flags)).filter(Boolean).slice(0, phase === 'integrate' ? 2 : 3).map(ex => {
+      const ids = menu[phase].filter(id => !(id === 'ir9090liftoff' && irPriority));
+      const moves = ids.map(id => lib.safeGet(id, ctx.flags)).filter(Boolean).slice(0, phase === 'integrate' ? 2 : 3).map(ex => {
         let dose = capSets(ex.dose, PHASES[phase].maxSets);
-        const fs = formStatus(formLog, ex.id);
-        let note = null;
-        if (fs === 'regress') { dose = capSets(dose, 1); note = `Felt hard twice lately — easier version: ${ex.regression || 'smaller range'}`; }
-        if (fs === 'progress') note = `Three clean sets in a row — ready to progress: ${ex.progression || 'add a set'}`;
-        return { id: ex.id, name: ex.name, dose, note, form: fs };
+        const fs = formMode(ex.id, { formLog, state: formState, checkins: ctx.checkins, log: ctx.log, priority: grade === 'Priority', today: ctx.today });
+        const notes = [];
+        if (fs === 'regress') { dose = capSets(dose, 2); notes.push(`Felt hard lately — easier version: ${ex.regression || 'smaller range'}`); }
+        if (fs === 'progress') notes.push(`Clean on 3 ratings over 2+ days — ready for one change: add a set, then hold time, then band (${ex.progression || 'next step'})`);
+        if (ex.id === 'deepneckflexor' && phase === 'reset') notes.push('Reset version: chin-tuck holds on the floor, no lift');
+        if (ex.id === 'catcamel' && extInt) notes.push('Arch only back to a flat back, not past it');
+        if (ex.id === 'birddog') notes.push('Leg to hip height only');
+        if (ex.id === 'openbook') notes.push('Pillow between the knees, top knee pinned to the floor');
+        if (key === 'hips' && side && /hip|clam|bridge|abduction|sidesteps|stepup|liftoff/.test(ex.id + ex.name.toLowerCase())) notes.push(`${side} side first, extra set on the ${side.toLowerCase()}`);
+        if (key === 'apt' && ex.id === 'hipflexorstretch' && Object.values(S.answers || {}).includes('lifted-ext')) { const rf = lib.safeGet('rectusstretch', ctx.flags); if (rf) return { id: rf.id, name: rf.name, dose: capSets(rf.dose, PHASES[phase].maxSets), note: 'Tuck first, no arch (front-thigh tightness on the hip-flexor test)', form: null }; }
+        return { id: ex.id, name: ex.name, dose, note: notes.join(' · ') || null, form: fs };
       });
       const prevChecks = (S.posture?.bandChecks || []).filter(c => c.summary?.[key]);
       const before = prevChecks.length > 1 ? prevChecks[prevChecks.length - 2].summary[key] : null;

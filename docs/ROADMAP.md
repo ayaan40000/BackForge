@@ -15,7 +15,7 @@
 | v3.0 | Health Connect data arrives through Muse; plans react to recovery | Shipped |
 | v4.0 "Clinic Edition" | Posture grading, photo check with an encrypted vault, PIN, body plan | Shipped. Adversarial review scored it 6.4/10; the UX scored 5.5 |
 | v4.5 "Live Studio" | A new app: liquid-glass UI, works on phone, tablet and desktop, and Live runs in real time with a voice coach | Shipped 23 Nov 2026 |
-| **v4.6 "Assess & Correct"** | **Assessments, a band + bodyweight posture check and a Muse photo check in the new app, building a phased plan that corrects what's weak** | **Shipped 23 Nov 2026** |
+| **v4.6 "Assess & Correct"** | **Assessments, a band + bodyweight posture check and a Muse photo check in the new app, building a phased plan that corrects what's weak** | **Shipped 23 Nov 2026** (scoring physio-reviewed in v4.6.1) |
 
 **What the review of the old plan found:**
 

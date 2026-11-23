@@ -100,13 +100,13 @@ for (let n = DAYS - 1; n >= 0; n--) {
   if (logged) S.protein[d] = Math.round(lerp(95, 132, t) + gauss() * 18);
 }
 // ---- posture history: three posture checks (improving) + two Muse photo reviews ----
-const chk = (n, grades, summary) => ({ date: day(n), bandLevel: 'light', grades, inputs: {}, painFlag: false, carried: {}, carriedPain: {}, v: 2, summary });
+const chk = (n, grades, summary) => ({ date: day(n), bandLevel: 'light', grades, inputs: n < 20 ? { 'hip-ir-band': { rR: '1', rL: '2', quality: 'still', pain: 'none' } } : {}, painFlag: false, carried: {}, carriedPain: {}, v: 3, summary });
 S.posture = {
   cues: {}, captures: [], formLog: [],
   bandChecks: [
-    chk(110, { 'tilt-control': 'Moderate', 'deadbug-band': 'Moderate', 'hip-ir-band': 'Priority', 'pallof-hold': 'Mild', 'glutemed-wall': 'Moderate', 'chintuck-band': 'Moderate', 'pullapart-endurance': 'Moderate', 'wallslide-band': 'Moderate', 'occiput-wall': 'Moderate', 'dnf-endurance': 'Priority', 'pec-minor': 'Moderate', 'overhead-reach': 'Moderate', 'thoracic-rotation': 'Mild' }, { apt: 'Moderate', head: 'Priority', back: 'Moderate', shoulders: 'Moderate', upper: 'Moderate', overall: 'Moderate' }),
-    chk(58, { 'tilt-control': 'Mild', 'deadbug-band': 'Moderate', 'hip-ir-band': 'Moderate', 'pallof-hold': 'Mild', 'glutemed-wall': 'Mild', 'chintuck-band': 'Moderate', 'pullapart-endurance': 'Mild', 'wallslide-band': 'Moderate', 'occiput-wall': 'Moderate', 'dnf-endurance': 'Moderate', 'pec-minor': 'Mild', 'overhead-reach': 'Mild', 'thoracic-rotation': 'Mild' }, { apt: 'Mild', head: 'Moderate', back: 'Moderate', shoulders: 'Mild', upper: 'Moderate', overall: 'Moderate' }),
-    chk(9, { 'tilt-control': 'Mild', 'deadbug-band': 'Mild', 'hip-ir-band': 'Moderate', 'pallof-hold': 'Clear', 'glutemed-wall': 'Mild', 'chintuck-band': 'Mild', 'pullapart-endurance': 'Clear', 'wallslide-band': 'Mild', 'occiput-wall': 'Moderate', 'dnf-endurance': 'Mild', 'pec-minor': 'Mild', 'overhead-reach': 'Mild', 'thoracic-rotation': 'Clear' }, { apt: 'Mild', head: 'Mild', back: 'Moderate', shoulders: 'Mild', upper: 'Mild', overall: 'Mild' }),
+    chk(110, { 'tilt-control': 'Moderate', 'deadbug-band': 'Moderate', 'hip-ir-band': 'Priority', 'pallof-hold': 'Mild', 'glutemed-wall': 'Moderate', 'chintuck-band': 'Moderate', 'pullapart-endurance': 'Moderate', 'wallslide-band': 'Moderate', 'occiput-wall': 'Moderate', 'dnf-endurance': 'Priority', 'pec-minor': 'Moderate', 'overhead-reach': 'Moderate', 'thoracic-rotation': 'Mild' }, { apt: 'Moderate', hips: 'Priority', head: 'Priority', back: 'Moderate', shoulders: 'Moderate', upper: 'Moderate', overall: 'Moderate' }),
+    chk(58, { 'tilt-control': 'Mild', 'deadbug-band': 'Moderate', 'hip-ir-band': 'Moderate', 'pallof-hold': 'Mild', 'glutemed-wall': 'Mild', 'chintuck-band': 'Moderate', 'pullapart-endurance': 'Mild', 'wallslide-band': 'Moderate', 'occiput-wall': 'Moderate', 'dnf-endurance': 'Moderate', 'pec-minor': 'Mild', 'overhead-reach': 'Mild', 'thoracic-rotation': 'Mild' }, { apt: 'Mild', hips: 'Moderate', head: 'Moderate', back: 'Moderate', shoulders: 'Mild', upper: 'Moderate', overall: 'Moderate' }),
+    chk(9, { 'tilt-control': 'Mild', 'deadbug-band': 'Mild', 'hip-ir-band': 'Moderate', 'pallof-hold': 'Clear', 'glutemed-wall': 'Mild', 'chintuck-band': 'Mild', 'pullapart-endurance': 'Clear', 'wallslide-band': 'Mild', 'occiput-wall': 'Moderate', 'dnf-endurance': 'Mild', 'pec-minor': 'Mild', 'overhead-reach': 'Mild', 'thoracic-rotation': 'Clear' }, { apt: 'Mild', hips: 'Moderate', head: 'Mild', back: 'Moderate', shoulders: 'Mild', upper: 'Mild', overall: 'Mild' }),
   ],
   findings: [
     { sev: 'mod', t: 'Right hip internal rotation deficit — band check', d: 'Banded IR test graded Moderate.', fix: 'Daily IR work stays the corrective priority, deficit side first.' },
@@ -121,5 +121,6 @@ S.posture = {
 };
 for (let n = 40; n >= 1; n -= 3) for (const id of ['openbook', 'chintuck', 'deepneckflexor', 'pullapart', 'row']) S.posture.formLog.push({ date: day(n), id, r: id === 'deepneckflexor' && n > 25 ? 'hard' : n < 12 || id !== 'row' ? 'clean' : 'shaky' });
 S.profile.displayName = 'Ayaan';
+S.profile.extIntolerant = { since: day(118) };
 fs.writeFileSync(new URL('../data/demo/demo-state.json', import.meta.url), JSON.stringify({ _about: 'Demo data only — loaded by the app in Demo mode into its own storage key; never mixed with real data. Regenerate: node tools/make_demo_data.mjs', anchor: ANCHOR, state: S }) + '\n');
 console.log('days', Object.keys(S.health.days).length, 'checkins', S.checkins.length, 'sessions', S.log.length, 'exLog', S.exLog.length);

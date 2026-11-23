@@ -20,6 +20,11 @@ export function normalise(raw) {
   if (!S.posture || typeof S.posture !== 'object') S.posture = {};
   for (const k of ['bandChecks', 'findings', 'captures', 'assessments', 'formLog']) if (!Array.isArray(S.posture[k])) S.posture[k] = [];
   if (!S.posture.cues || typeof S.posture.cues !== 'object') S.posture.cues = {};
+  // v4.7: direction intolerance is sticky. Carry an existing finding onto the profile once.
+  const found = t => Array.isArray(S.results) && S.results.some(f => (f.t || '').startsWith(t) || (f.t || '').startsWith('Both directions'));
+  const since = (S.assessHistory || []).at(-1)?.date || null;
+  if (found('Extension-intolerant') && !S.profile?.extIntolerant) S.profile = { ...(S.profile || {}), extIntolerant: { since, migrated: true } };
+  if (found('Flexion-intolerant') && !S.profile?.flexIntolerant) S.profile = { ...(S.profile || {}), flexIntolerant: { since, migrated: true } };
   return S;
 }
 

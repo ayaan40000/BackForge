@@ -8,6 +8,9 @@ export function makeCtx(S, today = dayStr()) {
     if ((f.t || '').includes('Extension-intolerant')) flags.add('extension-intolerant');
     if ((f.t || '').includes('Flexion-intolerant')) flags.add('flexion-intolerant');
   }
+  // sticky direction intolerance (physio review M1): survives a single good retest
+  if (S.profile?.extIntolerant) flags.add('extension-intolerant');
+  if (S.profile?.flexIntolerant) flags.add('flexion-intolerant');
   const checkins = Array.isArray(S.checkins) ? S.checkins : [];
   return {
     today, findings, flags, checkins,

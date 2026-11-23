@@ -1,12 +1,15 @@
-// Posture check grading: 8 band tests (port of the classic PTESTS grade
-// functions, unchanged) + 5 bodyweight tests (v4.6). Grades: Clear · Mild ·
-// Moderate · Priority. Pain rule: leg or sharp pain during a test = Priority +
-// physio flag; back-only ache caps the grade at no better than Moderate.
+// Posture check grading: 8 band tests (ported from classic) + 5 bodyweight tests,
+// revised in v4.7 after the physio review (docs/reviews/PHYSIO-REVIEW-2026-11.md).
+// Grades: Clear · Mild · Moderate · Priority. Pain rule: leg, arm, sharp pain or
+// dizziness during a test = stop, Priority + physio flag + 7-day retest lock;
+// "my usual back ache went up" = no better than Moderate.
 import { addDays, daysBetween } from './dates.js';
 
 export const GRADES = ['Clear', 'Mild', 'Moderate', 'Priority'];
 export const GSEV = { Clear: 0, Mild: 1, Moderate: 2, Priority: 3 };
-export const PATTERN_KEYS = ['apt', 'head', 'back', 'shoulders'];
+export const PATTERN_KEYS = ['apt', 'hips', 'head', 'back', 'shoulders'];
+export const STOP_PAIN = ['leg', 'arm', 'sharp', 'dizzy'];
+export const CHECK_VERSION = 3;
 
 function holdGrade(hold, q, sidesSimilar) {
   let g;
@@ -24,18 +27,22 @@ function holdGrade(hold, q, sidesSimilar) {
 /** Grade functions keyed by test id. Input = the answers object for that test. */
 export const GRADERS = {
   'tilt-control': i => { const h = +i.hold, q = i.quality; if (h === 0 || (q === 'shakes' && h < 2)) return 'Priority'; if (q === 'arches' || h === 1) return 'Moderate'; if (q === 'shakes') return 'Moderate'; if (h === 3 && q === 'flat') return 'Clear'; return 'Mild'; },
-  'deadbug-band': i => { const r = +i.reps, q = i.quality; if (r === 0 && q === 'arches') return 'Priority'; if (r === 2 && q === 'heavy') return 'Clear'; if ((r === 2 && q === 'flare') || (r === 1 && q === 'heavy')) return 'Mild'; return 'Moderate'; },
+  'deadbug-band': i => { const r = +i.reps, q = i.quality; if (r === 0 && q === 'arches') return 'Priority'; if (r === 2 && q === 'heavy') return 'Clear'; if ((r === 2 && (q === 'flare' || q === 'breath')) || (r === 1 && q === 'heavy')) return 'Mild'; return 'Moderate'; }, // S10: breath-hold at full reps = cue issue
   'hip-ir-band': i => { const R = +i.rR, L = +i.rL, w = Math.min(R, L), a = Math.abs(R - L); if (w === 0 || (a >= 2 && i.quality !== 'still')) return 'Priority'; if (w === 1 || a >= 2) return 'Moderate'; if (w === 2 || a === 1) return 'Mild'; return i.quality === 'still' ? 'Clear' : 'Mild'; },
   'pallof-hold': i => holdGrade(+i.hold, i.quality === 'clean' ? 'clean' : i.quality === 'lean' ? 'lean' : i.quality === 'turn' ? 'turn' : 'arch', i.sides === 'similar'),
   'glutemed-wall': i => { let g = holdGrade(+i.hold, i.quality === 'clean' ? 'clean' : i.quality === 'lean' || i.quality === 'foh' ? 'lean' : 'turn', true); if (i.quality === 'foh') g = +i.hold >= 2 ? 'Moderate' : 'Priority'; return g; },
   'pullapart-endurance': i => { const r = +i.reps, q = i.quality; if (r === 0 || (q === 'arch' && r <= 1)) return 'Priority'; if (r === 1 || q === 'shrug') return 'Moderate'; if (q === 'arch') return 'Moderate'; if (r === 3 && q === 'clean') return 'Clear'; return 'Mild'; },
   'wallslide-band': i => { const r = +i.reps, q = i.quality; if (r === 0 || (q === 'shrug' && r <= 1)) return 'Priority'; if (r === 1 || q === 'leaves') return 'Moderate'; if ((r === 2 && (q === 'holds' || q === 'poke')) || (r === 3 && q === 'poke')) return 'Mild'; if (r === 3 && q === 'holds') return 'Clear'; return 'Moderate'; },
-  'chintuck-band': i => { const r = +i.reps, q = i.quality; if (r === 0 || q === 'tilt') return 'Priority'; if (r === 1 || q === 'front') return 'Moderate'; if ((r === 2 && (q === 'glide' || q === 'breath')) || (r === 3 && q === 'breath')) return 'Mild'; if (r === 3 && q === 'glide') return 'Clear'; return 'Moderate'; },
+  // S9: a nod (tilt) is a technique error, not severity: Moderate, Priority only at 0 reps
+  'chintuck-band': i => { const r = +i.reps, q = i.quality; if (r === 0) return 'Priority'; if (r === 1 || q === 'front' || q === 'tilt') return 'Moderate'; if ((r === 2 && (q === 'glide' || q === 'breath')) || (r === 3 && q === 'breath')) return 'Mild'; if (r === 3 && q === 'glide') return 'Clear'; return 'Moderate'; },
   // ---- bodyweight (v4.6) ----
   'occiput-wall': i => { const g = +i.gap, b = i.blades; if (g === 3 || (g === 2 && b === 'none')) return 'Priority'; if (g === 2 || b === 'none') return 'Moderate'; if (g === 1 || b === 'one') return 'Mild'; return 'Clear'; },
-  'dnf-endurance': i => { const h = +i.hold, q = i.quality; if (h === 0) return 'Priority'; if (h === 1 || (q === 'poke' && h <= 2) || q === 'shake') return 'Moderate'; if (h === 2 || q === 'poke') return 'Mild'; return 'Clear'; },
-  'pec-minor': i => { const R = +i.R, L = +i.L; if (R === 2 && L === 2) return 'Priority'; const w = Math.max(R, L); return w === 2 ? 'Moderate' : w === 1 ? 'Mild' : 'Clear'; },
-  'overhead-reach': i => ({ floor: 'Clear', gap: 'Mild', arch: 'Moderate', far: 'Priority' }[i.reach]),
+  // M6: losing the tuck is the normal end of the test — grade on time only (<10 / 10–19 / 20–29 / ≥30 s)
+  'dnf-endurance': i => ['Priority', 'Moderate', 'Mild', 'Clear'][+i.hold],
+  // M5: ≤2.5 cm is normal; weak diagnostic accuracy, so never Priority
+  'pec-minor': i => ['Clear', 'Mild', 'Moderate'][Math.max(+i.R, +i.L)],
+  // M7: ribs-down range only; shoulder/lat-limited too, so never Priority
+  'overhead-reach': i => ({ floor: 'Clear', gap: 'Mild', far: 'Moderate', arch: 'Moderate' }[i.reach]),
   'thoracic-rotation': i => { const R = +i.R, L = +i.L, w = Math.min(R, L); if (R === 0 && L === 0) return 'Priority'; if (w === 0 || Math.abs(R - L) >= 2) return 'Moderate'; return w === 1 ? 'Mild' : 'Clear'; },
 };
 
@@ -45,7 +52,7 @@ export const testComplete = (t, inp) => !!inp && !inp.skip && t.inputs.every(x =
 /** Grade one test with the pain rule. Returns {grade, painStop} or null (skipped/incomplete = no data). */
 export function gradeTest(t, inp) {
   if (!testComplete(t, inp)) return null;
-  if (inp.pain === 'leg' || inp.pain === 'sharp') return { grade: 'Priority', painStop: true };
+  if (STOP_PAIN.includes(inp.pain)) return { grade: 'Priority', painStop: true };
   let g = GRADERS[t.id](inp);
   if (!g) return null;
   if (inp.pain === 'back' && GSEV[g] < 2) g = 'Moderate';
@@ -106,18 +113,37 @@ export function finishCheck({ inputs, tests, date, band = 'light', prev = null }
   const carried = {}, carriedPain = {};
   if (prev?.grades) for (const k of Object.keys(prev.grades)) if (!(k in grades)) {
     grades[k] = prev.grades[k]; carried[k] = prev.date;
-    if (prev.inputs?.[k]) { ins[k] = prev.inputs[k]; if (prev.inputs[k].pain === 'leg' || prev.inputs[k].pain === 'sharp') { painFlag = true; carriedPain[k] = prev.date; } }
+    if (prev.inputs?.[k]) { ins[k] = prev.inputs[k]; if (STOP_PAIN.includes(prev.inputs[k].pain)) { painFlag = true; carriedPain[k] = prev.date; } }
   }
-  const check = { date, bandLevel: band, grades, inputs: ins, painFlag, carried, carriedPain, v: 2 };
+  const check = { date, bandLevel: band, grades, inputs: ins, painFlag, carried, carriedPain, v: CHECK_VERSION };
   check.summary = summarise(grades, tests);
+  check.phases = nextPhases(prev?.phases, prev?.summary, check.summary);
   return check;
 }
 
 /** Can a check be taken today? (flare day = no; 7 days after a pain-stopped check = no) */
 export function checkGate({ today, flare, last }) {
   if (flare) return { ok: false, why: 'Today’s check-in puts you in the flare protocol (pain 7+). A check today would grade the flare, not your posture. Run the relief session and test on a normal day.' };
-  if (last?.painFlag) { const d = daysBetween(last.date, today); if (d >= 0 && d < 7) return { ok: false, why: `Your last check (${last.date}) was stopped for leg or sharp pain. No retest for 7 days — ${7 - d} to go. If leg pain is new, worse, or comes with weakness or numbness, see a clinician.` }; }
+  if (last?.painFlag) { const d = daysBetween(last.date, today); if (d >= 0 && d < 7) return { ok: false, why: `Your last check (${last.date}) was stopped for leg, arm or sharp pain, or dizziness. No retest for 7 days — ${7 - d} to go. If leg pain is new, worse, or comes with weakness or numbness, see a clinician.` }; }
   return { ok: true };
+}
+/**
+ * Phase per pattern after a check (physio review §4): the phase follows the
+ * grade, but a pattern moves UP at most one phase per retest (big jumps at home
+ * are usually measurement noise). Moving back has no limit.
+ */
+const ORDER = ['reset', 'control', 'strengthen', 'integrate'];
+const PHASE_FOR = { Priority: 'reset', Moderate: 'control', Mild: 'strengthen', Clear: 'integrate' };
+export function nextPhases(prevPhases, prevSummary, summary) {
+  const out = {};
+  for (const p of PATTERN_KEYS) {
+    const g = summary?.[p]; if (!g) continue;
+    let want = ORDER.indexOf(PHASE_FOR[g]);
+    const before = prevPhases?.[p] ?? (prevSummary?.[p] ? PHASE_FOR[prevSummary[p]] : null);
+    if (before) want = Math.min(want, ORDER.indexOf(before) + 1);
+    out[p] = ORDER[want];
+  }
+  return out;
 }
 /** Retest every 4 weeks; 2 while any grade is Priority. */
 export function retestDue(last) {

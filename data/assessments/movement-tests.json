@@ -5,13 +5,17 @@
    "id": "dirbend",
    "name": "Direction screen A — repeated forward bends",
    "domain": "Direction preference",
-   "how": "Stand and slowly bend forward as if touching your toes, return to standing. 10 slow reps. How do your symptoms behave across the reps?",
+   "how": "Note where your symptoms are before you start. Stand and slowly bend forward, sliding your hands down your thighs, then return to standing. Up to 10 slow reps. Stop at the first rep that sends symptoms further down the leg. How do your symptoms behave?",
    "why": "From your initiation assessment: direction preference decides which positions your plan emphasizes — and which it bans.",
    "kind": "opts",
    "options": [
     [
      "better",
-     "Better — flexion relieves"
+     "Better — bending forward relieves"
+    ],
+    [
+     "central",
+     "Leg symptoms moved back toward the spine / eased"
     ],
     [
      "same",
@@ -19,11 +23,19 @@
     ],
     [
      "worse",
-     "Worse — flexion provokes"
+     "Worse — bending forward provokes"
+    ],
+    [
+     "leg",
+     "Pain spread further into the buttock or leg"
+    ],
+    [
+     "painful",
+     "Stopped: it hurt"
     ],
     [
      "skip",
-     "Skipped — painful"
+     "Skipped: didn't do it"
     ]
    ]
   },
@@ -31,13 +43,17 @@
    "id": "dirext",
    "name": "Direction screen B — standing extension",
    "domain": "Direction preference",
-   "how": "Stand, hands on the small of your back, gently arch backward. 5 slow reps, small range only. How do your symptoms respond?",
+   "how": "Note where your symptoms are before you start. Stand, hands on the small of your back, gently arch backward — small range only, up to 5 slow reps. Stop at the first rep that sends symptoms further down the leg. How do your symptoms respond?",
    "why": "Extension worsening symptoms = extension-intolerant pattern: press-ups and prone lying come OUT of the plan. This reversed your own program once — it matters.",
    "kind": "opts",
    "options": [
     [
      "better",
      "Better — extension relieves"
+    ],
+    [
+     "central",
+     "Leg symptoms moved back toward the spine / eased"
     ],
     [
      "same",
@@ -48,8 +64,16 @@
      "Worse — extension provokes"
     ],
     [
+     "leg",
+     "Pain spread further into the buttock or leg"
+    ],
+    [
+     "painful",
+     "Stopped: it hurt"
+    ],
+    [
      "skip",
-     "Skipped — painful"
+     "Skipped: didn't do it"
     ]
    ]
   },
@@ -57,8 +81,8 @@
    "id": "firing",
    "name": "Prone hip extension — firing order",
    "domain": "Glute function",
-   "how": "Face down, forehead on hands. Put one hand on the glute and one on the hamstring of the working leg. Slowly lift the straight leg ~6 inches. Which muscle fires FIRST? Repeat per side.",
-   "why": "Glute-first is the healthy order. Hamstring or low back firing first = glute inhibition — the back does the glutes’ job and complains about it.",
+   "how": "Face down with a pillow under your belly, forehead on hands. Put one hand on the glute and one on the hamstring of the working leg. Lift the straight leg just 2–3 cm, knee straight. Which muscle fires FIRST? Repeat per side.",
+   "why": "Glute-first is the healthy order. Hamstring or low back firing first = glute inhibition — the back does the glutes’ job and complains about it. This is a rough self-check: it only counts together with the bridge and clam tests.",
    "kind": "sides",
    "options": [
     [
@@ -131,7 +155,7 @@
    "id": "thomas",
    "name": "Thomas test — hip flexor length",
    "domain": "Hip flexors & tilt",
-   "how": "Sit on the edge of a sturdy table or bed. Hug one knee to your chest and lie back, letting the other leg hang. What does the hanging leg do? Repeat per side.",
+   "how": "Sit on the edge of a sturdy table or bed. Hug one knee to your chest and lie back, hugging until your low back is flat on the table; let the other leg hang. What does the hanging leg do? To get up, roll onto your side and push up with your arms — never sit straight up. Repeat per side.",
    "why": "A thigh that cannot rest flat = tight hip flexors (iliopsoas) — the front anchor of anterior pelvic tilt.",
    "kind": "sides",
    "options": [
@@ -183,7 +207,7 @@
    "id": "slr",
    "name": "Straight-leg raise — active vs passive",
    "domain": "Hamstring: control vs length",
-   "how": "On your back: (1) actively lift one straight leg as high as you can. (2) Then use a towel around the foot and gently pull it higher. Compare the two heights — and note what you feel.",
+   "how": "On your back: (1) actively lift one straight leg as high as you can. (2) Then use a towel around the foot and gently pull it higher. (3) Lower the leg just below where you feel a tug and pull your toes toward you: does the tug get stronger or spread? Stop at the first tug — never pull through it. Compare the heights and note what you feel.",
    "why": "Passive much higher than active = a control deficit, not short hamstrings. The fix is strength, not aggressive stretching — protective hamstrings should not be yanked on.",
    "kind": "opts",
    "options": [
@@ -197,7 +221,7 @@
     ],
     [
      "nerve",
-     "Sharp / electric tug behind the knee"
+     "Electric or shooting pain, my usual leg pain, OR the tug got stronger when I pulled my toes up"
     ],
     [
      "skip",
@@ -209,21 +233,21 @@
    "id": "hipir",
    "name": "Prone hip internal rotation",
    "domain": "Hip rotation",
-   "how": "Face down, one knee bent 90° with the shin vertical. Let the foot drop OUTWARD slowly — that measures internal rotation. Estimate each side honestly.",
+   "how": "Face down with a pillow under your belly, one knee bent 90° with the shin vertical. Let the foot drop OUTWARD slowly — that measures internal rotation. A phone level app held against the shin reads the angle from vertical. Measure each side.",
    "why": "A common finding in one-sided back pain: one hip rotates far less than the other, often on the symptomatic side. A stiff hip makes the lumbar spine rotate instead.",
    "kind": "sides",
    "options": [
     [
      "full",
-     "Foot drops a lot (~45°+)"
+     "40° or more"
     ],
     [
      "mid",
-     "Moderate drop (~25–40°)"
+     "25–39°"
     ],
     [
      "low",
-     "Barely drops (<25°)"
+     "Under 25°"
     ],
     [
      "skip",
@@ -235,7 +259,7 @@
    "id": "switch9090",
    "name": "90/90 hip switch",
    "domain": "Hip rotation",
-   "how": "Sit with both knees bent at 90°, feet wide. Slowly rotate both knees side to side like windshield wipers, 8 switches. How does it move?",
+   "how": "Sit with both knees bent at 90°, feet wide, hands behind you for support. Slowly rotate both knees side to side like windshield wipers, 8 switches. How does it move?",
    "why": "Catches rotation limits the prone test misses, and shows which side guards.",
    "kind": "opts",
    "options": [
@@ -245,11 +269,11 @@
     ],
     [
      "r-stuck",
-     "Stiff turning right-in"
+     "Stiff when the RIGHT knee drops inward"
     ],
     [
      "l-stuck",
-     "Stiff turning left-in"
+     "Stiff when the LEFT knee drops inward"
     ],
     [
      "both",
@@ -265,8 +289,8 @@
    "id": "sideplanksec",
    "name": "Side plank endurance (from knees)",
    "domain": "Core endurance",
-   "how": "Side plank from the knees, elbow under shoulder. Time each side until form breaks (hips drop or roll). Enter seconds.",
-   "why": "McGill’s endurance ratios: left and right side-bridge times should sit within ~10% of each other. A gap is a lateral stability deficit — and QL territory.",
+   "how": "Side plank from the knees, elbow under shoulder. Time each side with a phone until form breaks (hips drop or roll). Stop at 60 s, at the first form break, or at any pain. Rest 1 minute between sides. Enter seconds.",
+   "why": "McGill uses a ~5% left/right guide on full side bridges timed by a clinician; for a self-timed knee version the app uses 10% and at least 5 s to allow for timing error. A gap is a lateral stability deficit.",
    "kind": "nums",
    "options": null
   },
@@ -274,7 +298,7 @@
    "id": "posturewall",
    "name": "Wall posture test",
    "domain": "Posture — upper crossed",
-   "how": "Stand with your back to a wall, heels a few inches out. What touches without forcing: tailbone, mid-back, and the back of your head?",
+   "how": "Stand with heels, buttocks and upper back against a wall, chin level. Do not arch your low back to get your shoulders or head onto the wall — a hand-flat gap at the low back is normal. What touches without forcing: tailbone, mid-back, and the back of your head?",
    "why": "Head not touching = forward-head posture; shoulders rolling forward off the wall = rounded shoulders. Together: upper-crossed syndrome — chin tucks, rows and face pulls are its direct counter.",
    "kind": "opts",
    "options": [

@@ -30,7 +30,7 @@ Both apps share one localStorage object, `backforge_v1`. The new app reads it wh
 ```bash
 npm test                 # node --test tests/*.test.mjs   (engine, live, data — no installs needed)
 npm run test:classic     # classic app harnesses (needs jsdom in /tmp/bf-harness, see dev/harness-v4.mjs)
-node dev/parity-assessment.mjs   # assessment/posture scoring must equal the classic app (same jsdom)
+node dev/parity-assessment.mjs   # unchanged band graders must still equal the classic app (same jsdom)
 cd backend && python3 -m pytest -q
 # optional, real browser:  npm run serve &  npm run test:browser
 ```
@@ -39,8 +39,11 @@ Then: add a plain-English entry at the top of `CHANGELOG.md`, and update `README
 
 ## 3. Safety invariants — never break (tests enforce them)
 
+Clinical thresholds and exercise menus follow `docs/reviews/PHYSIO-REVIEW-2026-11.md`. Change them only with a new review entry that cites its evidence.
+
+
 1. No loaded spinal flexion, no loaded twisting. Never both knees to chest.
-2. Extension-intolerant ⇒ no press-ups, sphinx, prone extension, or lumbar-arch finishes.
+2. Extension-intolerant ⇒ no press-ups, sphinx, prone extension, or lumbar-arch finishes. The flag is sticky (`S.profile.extIntolerant`): only two not-worse tests ≥ 28 days apart plus the user's confirmation clear it.
 3. Pain ≥ 7 today ⇒ relief protocol only. No side-bend (`qlreach`) in the flare protocol.
 4. Skipped assessment answers are no data — never a finding.
 5. Every exercise keeps a regression (modify, don't stop).
@@ -76,7 +79,7 @@ Ayaan sends you `backforge-posture-request.json`, plus `side-right.jpg`, `side-l
 `consistency` compares your photo grade with `request.assessment.patterns` (the user's own test grades). `progress` compares with the `prev-*` photos. The app validates every field (`parseResult()` in `app/js/engine/photo.js`) and computes its own consistency too. Photo grades never change the plan; only tests do.
 
 ### Add or change a posture test
-Add its text to `data/assessments/posture-tests.json` (`id`, `name`, `pattern` apt|head|back|shoulders, `kind` band|bodyweight, `equipment`, `setup`, `inputs[{key,label,options}]`, `planChange` for all four grades, `evidence`). Add a grader with the same id to `GRADERS` in `app/js/engine/posture.js`. `npm test` checks that every input combination grades. Never rename an id or an option value: they are stored in the user's history.
+Add its text to `data/assessments/posture-tests.json` (`id`, `name`, `pattern` apt|hips|head|back|shoulders, `kind` band|bodyweight, `equipment`, `setup`, `inputs[{key,label,options}]`, `planChange` for all four grades, `evidence`). Add a grader with the same id to `GRADERS` in `app/js/engine/posture.js`. `npm test` checks that every input combination grades. Never rename an id or an option value: they are stored in the user's history.
 
 ### Change the look
 Only through tokens in `app/css/tokens.css`. No raw colours, no inline `style` colours outside tokens, no emoji as icons (use `app/js/ui/icons.js`). Glass is for controls and cards, never on list rows or long text. Check dark, light, "Solid surfaces" and reduced motion.

@@ -6,8 +6,8 @@ import { Sheet } from '../ui/kit.js';
 import { state, update, isDemo } from '../store.js';
 import { ctx, lib, movementTests, postureTests, postureDoc, BASE } from '../data.js';
 import { route, go } from '../router.js';
-import { scoreAssessment, answeredCount } from '../engine/assessment.js';
-import { finishCheck, postureFindings, checkGate, retestDue, GSEV, testComplete } from '../engine/posture.js';
+import { scoreAssessment, answeredCount, directionFlags } from '../engine/assessment.js';
+import { finishCheck, postureFindings, checkGate, retestDue, GSEV, testComplete, STOP_PAIN } from '../engine/posture.js';
 import { buildCorrectivePlan, PHASES } from '../engine/corrective.js';
 import { flareActive } from '../engine/plan.js';
 import { dayStr, daysBetween } from '../engine/dates.js';
@@ -18,7 +18,7 @@ const GCLS = { Clear: 'good', Mild: 'calm', Moderate: 'warn', Priority: 'att' };
 export const GradeChip = ({ g }) => (g ? html`<span class=${`tag ${GCLS[g] || ''}`}>${g}</span>` : html`<span class="caption">not tested</span>`);
 const fmtD = d => (d ? new Date(d).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: daysBetween(d, dayStr()) > 300 ? 'numeric' : undefined }) : 'never');
 const RedFlags = () => html`<section class="card glass-thin" style="box-shadow:var(--g-border),inset 3px 0 0 var(--c-bad)"><div class="kicker" style="color:var(--c-bad)">Stop rules — read first</div>
-  <p class="callout mt-2">New numbness in the groin or saddle area, new leg weakness, or changes in bladder or bowel control need urgent care — not a test. Sharp, electric, or leg pain during any test: stop that test. BackForge screens patterns; it does not diagnose.</p></section>`;
+  <p class="callout mt-2">New numbness in the groin or saddle area, new leg weakness, or changes in bladder or bowel control need urgent care — not a test. Pain that is worse at night and not eased by any position, fever, unexplained weight loss, or pain after a fall or accident: see a doctor before testing. Sharp, electric, leg or arm pain, or dizziness during any test: stop that test. BackForge screens patterns; it does not diagnose.</p></section>`;
 
 export function Checkups() {
   const sub = route().parts[1];
@@ -82,6 +82,7 @@ function MovementWizard() {
   if (done) return html`<header class="screen-head"><div><div class="sub"><a href="#/checkup">Check-ups</a></div><h1>Your findings</h1></div></header>
     <section class="card glass"><p class="callout">${done.filter(f => f.sev !== 'ok').length} findings. Each says exactly what changed in your plan.</p>
     <div class="list mt-3">${done.map(f => html`<div style="align-items:flex-start"><span class=${`tag ${f.sev === 'high' ? 'att' : f.sev === 'mod' ? 'warn' : 'good'}`}>${f.sev === 'high' ? 'Priority' : f.sev === 'mod' ? 'Watch' : 'Clear'}</span><span class="grow"><span class="t">${f.t}</span><br/><span class="d">${f.d}</span><br/><span class="d" style="color:var(--c-ink-2)"><b>In your plan:</b> ${f.fix}</span></span></div>`)}</div>
+    <${DirectionNote} findings=${done} />
     <div class="row wrap mt-4"><a class="btn primary" href="#/checkup/posture">Next: posture check</a><a class="btn ghost" href="#/today">Back to Today</a></div></section>`;
   if (step === 0) return html`<header class="screen-head"><div><div class="sub"><a href="#/checkup">Check-ups</a></div><h1>Movement assessment</h1></div></header>
     <div class="grid-2"><div class="col"><${RedFlags} /><section class="card glass"><p class="callout">13 short tests, about 12 minutes. Answer honestly — the plan is built from these. Skip anything painful: a skipped test is no data and never creates a finding.</p>
@@ -92,7 +93,7 @@ function MovementWizard() {
   const next = () => { if (step < tests.length) { setStep(step + 1); scrollTo(0, 0); } else setStep(99); };
   if (step === 99) return html`<header class="screen-head"><div><div class="sub"><a href="#/checkup">Check-ups</a></div><h1>Ready to score</h1></div></header>
     <section class="card glass"><p class="callout">${n} of 13 tests answered.${n < 6 ? ' At least 6 are needed for a fair read.' : ''}</p>
-      <div class="row wrap mt-4"><button class="btn primary" disabled=${n < 6} onClick=${() => { const F = scoreAssessment(state().answers); update(x => { x.results = F; x.assessHistory.push({ date: dayStr(), flags: F.map(f => f.t) }); }); setDone(F); }}>Score my assessment</button><button class="btn ghost" onClick=${() => setStep(1)}>Review answers</button></div></section>`;
+      <div class="row wrap mt-4"><button class="btn primary" disabled=${n < 6} onClick=${() => { const st = state(), F = scoreAssessment(st.answers); update(x => { x.results = F; x.assessHistory.push({ date: dayStr(), flags: F.map(f => f.t), dir: { dirext: st.answers.dirext ?? null, dirbend: st.answers.dirbend ?? null } }); const d = directionFlags(x, F, dayStr()); x.profile = { ...(x.profile || {}), ...d.set }; }); setDone(F); }}>Score my assessment</button><button class="btn ghost" onClick=${() => setStep(1)}>Review answers</button></div></section>`;
   return html`<header class="screen-head"><div><div class="sub"><a href="#/checkup">Check-ups</a> · ${t.domain}</div><h1 style="font-size:28px;line-height:34px">${t.name}</h1></div></header>
     <${Progress} i=${step} n=${tests.length} />
     <div class="grid-2 mt-4"><div class="col"><section class="card glass"><div class="kicker">How</div><p class="mt-2">${t.how}</p><details class="more mt-3"><summary>Why this test</summary><p class="callout">${t.why}</p></details></section></div>
@@ -102,6 +103,21 @@ function MovementWizard() {
       ${t.kind === 'nums' && html`<div class="grid-2 mt-3">${['L', 'R'].map(sd => html`<label><span class="kicker">${sd === 'L' ? 'Left' : 'Right'} — seconds</span><input type="number" inputmode="numeric" min="0" max="600" value=${A[t.id + '_' + sd] ?? ''} onInput=${e => set(t.id + '_' + sd, e.target.value)} /></label>`)}</div>`}
       <div class="row between mt-6"><button class="btn ghost" onClick=${() => setStep(step - 1)}>Back</button><button class="btn primary" onClick=${next}>${step === tests.length ? 'Finish' : 'Next'}</button></div>
     </section></div></div>`;
+}
+
+/** Sticky direction intolerance: say it stays on, and offer to clear only when two retests ≥ 28 days apart allow it. */
+function DirectionNote({ findings }) {
+  const [, force] = useState(0);
+  const S = state(), d = directionFlags(S, findings, dayStr()), p = S.profile || {};
+  const kept = (p.extIntolerant && !findings.some(f => f.t.startsWith('Extension-intolerant'))) || (p.flexIntolerant && !findings.some(f => f.t.startsWith('Flexion-intolerant')));
+  if (!kept && !d.canClearExt && !d.canClearFlex) return null;
+  const clear = k => { update(x => { x.profile = { ...(x.profile || {}) }; delete x.profile[k]; }); force(n => n + 1); };
+  return html`<div class="banner mt-4" style="background:color-mix(in oklab,var(--c-calm) 14%,transparent);display:block">
+    ${p.extIntolerant && html`<p><b>Back-bending stays out of your plan.</b> You were extension-intolerant on ${p.extIntolerant.since}; one good retest doesn't change that.</p>`}
+    ${p.flexIntolerant && html`<p class="mt-2"><b>Loaded forward bending stays capped.</b> Flexion-intolerant since ${p.flexIntolerant.since}.</p>`}
+    ${d.canClearExt && html`<div class="mt-3"><p class="callout">Your last two extension tests, at least 28 days apart, didn't provoke symptoms. Allow back-bending moves again?</p><button class="btn ghost mt-2" onClick=${() => clear('extIntolerant')}>Yes, allow them again</button></div>`}
+    ${d.canClearFlex && html`<div class="mt-3"><p class="callout">Your last two forward-bend tests, at least 28 days apart, were fine. Lift the flexion cap?</p><button class="btn ghost mt-2" onClick=${() => clear('flexIntolerant')}>Yes, lift it</button></div>`}
+  </div>`;
 }
 
 // ------------------------------------------------------------------ posture check
@@ -143,7 +159,7 @@ function PostureWizard() {
     <div class="col"><section class="card glass">
       ${t.inputs.map(x => html`<${Choice} label=${x.label} options=${x.options} value=${inp[x.key]} onPick=${v => setIn(x.key, v)} />`)}
       <${Choice} label="Pain during this test" options=${doc.painOptions} value=${inp.pain} onPick=${v => setIn('pain', v)} />
-      ${(inp.pain === 'leg' || inp.pain === 'sharp') && html`<p class="callout mt-2" style="color:var(--c-attention)">Stop this test now. It grades Priority and flags your physio — don't push through it.</p>`}
+      ${STOP_PAIN.includes(inp.pain) && html`<p class="callout mt-2" style="color:var(--c-attention)">Stop this test now. It grades Priority and flags your physio — don't push through it.${inp.pain === 'arm' || inp.pain === 'dizzy' ? ' If arm symptoms or dizziness are new or don’t settle, see a clinician.' : ''}</p>`}
       <div class="row between mt-6 wrap">
         <button class="btn ghost" onClick=${() => save({ ...w, step: w.step - 1 })}>Back</button>
         <button class="btn text" onClick=${() => advance({ ...w, step: w.step + 1, inputs: { ...w.inputs, [t.id]: { skip: true } } })}>Skip test</button>

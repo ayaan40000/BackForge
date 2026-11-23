@@ -11,6 +11,7 @@ import { speak, stop as stopVoice, configureVoice, pickVoice } from './voice.js'
 import { lib, voiceLines, ctx } from '../data.js';
 import { state, update, uiPrefs, logSession } from '../store.js';
 import { dayStr } from '../engine/dates.js';
+import { formMode, patternGrades, MENU } from '../engine/corrective.js';
 
 let run = null;               // { opts, workout, tl, player, caption, captionAt, ... }
 const subs = new Set();
@@ -97,7 +98,16 @@ export function easier() {
 export function rateForm(exId, r) {
   if (!run || !exId) return;
   run.rated = run.rated || {}; run.rated[exId] = r;
-  update(S => { S.posture = S.posture || {}; S.posture.formLog = [...(S.posture.formLog || []), { date: dayStr(), id: exId, r }].slice(-400); });
+  update(S => {
+    S.posture = S.posture || {};
+    S.posture.formLog = [...(S.posture.formLog || []), { date: dayStr(), id: exId, r }].slice(-400);
+    // track the move's mode; a change resets the counting window (physio review §5)
+    const st = S.posture.formState || {};
+    const grades = patternGrades(S).grades;
+    const priority = Object.entries(MENU).some(([k, m]) => grades[k] === 'Priority' && Object.values(m).some(a => Array.isArray(a) && a.includes(exId)));
+    const mode = formMode(exId, { formLog: S.posture.formLog, state: st, checkins: S.checkins, log: S.log, priority, today: dayStr() });
+    if (mode !== (st[exId]?.mode ?? null)) S.posture.formState = { ...st, [exId]: { mode, changedAt: dayStr() } };
+  });
   emit();
 }
 export const ratedFor = exId => run?.rated?.[exId] || null;

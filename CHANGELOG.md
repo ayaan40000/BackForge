@@ -2,6 +2,26 @@
 
 All notable changes to BackForge. Versions follow the roadmap in `docs/ROADMAP.md`.
 
+## v4.6.1 — Physio-reviewed scoring (2026-11-23)
+
+A senior musculoskeletal physiotherapist reviewed every test, threshold and exercise mapping (full review: `docs/reviews/PHYSIO-REVIEW-2026-11.md`). The old app was not treated as the rule book. All 12 must-fix and 14 should-change items are in.
+
+- **Safety: back-bending stays out once it's out.** If an assessment ever finds you extension-intolerant, press-ups, sphinx and prone extension stay out even if a later retest is fine. They can come back only after two tests at least 28 days apart are both fine, and you agree. The same goes for forward bending. If you were already flagged, that carries over automatically. "It hurt, I stopped" is now an answer that counts as worse, not a skip.
+- **The direction tests watch where symptoms go.** New answers: pain spread further into the buttock or leg (counts as worse, flagged, with "see a clinician if this is new") and leg symptoms moved back toward the spine (counts as better). Fewer reps, and a "note where your symptoms are first" step.
+- **Neck and shoulder tests now stop for arm symptoms or dizziness,** the same way as for leg pain. The back-pain answer now means "my usual ache went up", so a back that always aches isn't penalised.
+- **Recalibrated tests:**
+  - Shoulder height lying down now treats up to 2.5 cm as normal (measured against a bank card) and never grades Priority.
+  - The deep neck flexor test is graded on time only, because losing the tuck is the normal end; norms from Harris 2005.
+  - Overhead reach is measured with ribs down and never grades Priority.
+  - Occiput-to-wall warns you not to arch your low back to "pass".
+  - Hip rotation and thoracic rotation now give angle bands you can read with a phone.
+- **Severity matches the evidence.** A one-band hip-rotation difference is a watch item; two bands is a priority. Anterior pelvic tilt is a training target, not a risk. A side-plank gap needs at least 5 s (timing error). "Physio should assess the capsule" and other diagnostic wording are gone. The glute med wall test instructions were backwards and are fixed. Other setups gained safety cues: pillow under the belly face-down, roll to your side to get up.
+- **New plan area: hips & glutes.** Your right hip rotation and right glute findings now get their own moves (seated hip rotation, clamshells, bridges, side-lying abduction and more), right side first with an extra set. Before, they only got pelvic-tilt work.
+- **Revised exercise menus** for every area and phase. Removed: the chair-back thoracic opener, wall angels and the standing chest opener (too easy to arch an extension-intolerant low back). Added: cues on open book, cat-camel ("only back to flat") and bird-dog ("leg to hip height"). Control is now 5 days a week and Strengthen 3 non-consecutive days.
+- **Steadier progressions.** An area moves up at most one phase per retest (big jumps at home are usually measurement noise); it can move down any amount. Form ratings: "regress" swaps to the easier version and keeps up to 2 sets. "Ready to progress" needs 3 clean ratings over 2+ days, at least 7 days since the last change, check-in pain under 4, and not a Priority area.
+- More warning signs on the stop-rules card: night pain no position eases, fever, unexplained weight loss, pain after a fall.
+- Tests: 39 node tests (8 new, one per review rule). The parity harness now checks only the graders the review left unchanged (18,000 identical). 56 browser checks, classic 113 + 50 and backend 81 all pass. The classic app (`/classic`) still uses the old scoring, so take assessments in the new app.
+
 ## v4.6 — Assess & Correct (2026-11-23)
 
 The check-ups now live in the new app, and they build a posture plan that corrects what they find.
