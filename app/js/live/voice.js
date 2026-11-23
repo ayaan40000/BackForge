@@ -9,7 +9,7 @@
 import { duck, decode, playChain, ensureAudio } from './audio.js';
 import { splitSentences } from './sentences.js';
 
-export const PACKS = [{ id: 'af_heart', label: 'Natural — Heart (warm, clear)' }, { id: 'am_michael', label: 'Natural — Michael (deeper)' }];
+export const PACKS = [{ id: 'af_heart', label: 'Natural — Heart (warm, clear)' }]; // add more with tools/render_voice.py --voice <id>
 const PREFERRED = [/natural/i, /neural/i, /premium/i, /enhanced/i, /Google UK English Female/i, /Google US English/i, /Samantha/i, /Daniel/i, /Serena/i, /Karen/i, /Moira/i, /Aria/i, /Jenny/i, /Guy/i];
 let voice = null, enabled = true, rate = 1.04, volume = 1, listeners = new Set();
 let pack = null, packBase = '', buffers = new Map(), current = null, pron = null;
