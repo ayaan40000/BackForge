@@ -1,9 +1,10 @@
 // Live: setup (≤ 3 decisions, all pre-filled) → full-screen real-time player → finish.
 import { html, useState, useEffect, useMemo, useRef } from '../../vendor/htm-preact.mjs';
+import { HelpFor } from './learn.js';
 import { Icon, glyphFor } from '../ui/icons.js';
-import { Seg, Sheet, PainScale, fmtTime } from '../ui/kit.js';
+import { Seg, Sheet, PainScale, fmtTime, Flip } from '../ui/kit.js';
 import { state, uiPrefs, setUi } from '../store.js';
-import { ctx, lib } from '../data.js';
+import { ctx, lib, photosFor } from '../data.js';
 import { readiness, energyFor, streak } from '../engine/progress.js';
 import { flareActive } from '../engine/plan.js';
 import { CAVEATS } from '../engine/live.js';
@@ -29,7 +30,7 @@ export function LiveSetup() {
   const startUrl = `/live/play?mins=${mins}&energy=${opts.energy}&cav=${cav.join(',')}&variant=${variant}`;
 
   return html`
-  <header class="screen-head"><div><div class="sub">Voice-coached, real time</div><h1>Live</h1></div></header>
+  <header class="screen-head"><div><div class="sub">Voice-coached, real time</div><h1>Live</h1></div><${HelpFor} screen="live" /></header>
   <div class="grid-2">
     <div class="col">
       ${relief ? html`<section class="card glass" style="box-shadow:var(--g-border),var(--g-rim),0 0 0 1px color-mix(in oklch,var(--c-calm) 40%,transparent)">
@@ -51,7 +52,7 @@ export function LiveSetup() {
       </section>
       <section class="card glass" aria-label="Adjust">
         <button class="row between w-full" onClick=${() => setOpen(!open)} aria-expanded=${open}><span><span class="kicker">3 · Adjust</span><br/><span class="headline">${cav.length ? CAVEATS.filter(([k]) => cav.includes(k)).map(x => x[1]).join(', ') : 'No changes'}</span></span><${Icon} n="chevdown" /></button>
-        ${open && html`<div class="chips mt-3">${CAVEATS.map(([k, l]) => html`<button class="chip" aria-pressed=${cav.includes(k)} onClick=${() => setCav(cav.includes(k) ? cav.filter(x => x !== k) : [...cav, k])}>${l}</button>`)}
+        ${open && html`<p class="caption mt-3">Uses the equipment you ticked in <a href="#/you/kit">You → Equipment</a>.</p><div class="chips mt-3">${CAVEATS.map(([k, l]) => html`<button class="chip" aria-pressed=${cav.includes(k)} onClick=${() => setCav(cav.includes(k) ? cav.filter(x => x !== k) : [...cav, k])}>${l}</button>`)}
           <button class="chip" aria-pressed=${variant === 'desk'} onClick=${() => setVariant(variant === 'desk' ? 'standard' : 'desk')}>Desk-day reset</button></div>
           <button class="btn text mt-2" style="padding:0;color:var(--c-calm)" onClick=${() => setRelief(true)}>I'm in a flare — relief only</button>`}
       </section>`}
@@ -97,7 +98,7 @@ export function LivePlayer() {
   useEffect(() => {
     if (!live.active()) {
       const r = q.resume && live.resumable();
-      const opts = r ? r.opts : { mins: +q.mins || 20, energy: q.energy || 'ok', caveats: q.cav ? q.cav.split(',').filter(Boolean) : [], variant: q.variant || 'standard' };
+      const opts = r ? r.opts : { mins: +q.mins || 20, energy: q.energy || 'ok', caveats: q.cav ? q.cav.split(',').filter(Boolean) : [], variant: q.variant || 'standard', ids: q.ids ? q.ids.split(',') : null, title: q.title || null };
       live.start(opts, { resumeAt: r ? r.elapsed : 0 });
     }
     document.documentElement.dataset.player = '';
@@ -147,6 +148,7 @@ export function LivePlayer() {
         <h1 class="player-name" key=${seg.i + 'n'}>${title}</h1>
         <div class="player-line2">${line2}${snap.regressed ? html` · <span class="tag calm">Easier version</span>` : ''}</div>
         ${snap.regressed && seg.regression && html`<div class="callout">${seg.regression}</div>`}
+        ${seg.exId && photosFor(seg.exId) && (seg.type === 'prep' || seg.type === 'work') && html`<div class=${seg.type === 'prep' ? 'player-demo' : 'player-demo small'}><${Flip} media=${photosFor(seg.exId)} size=${seg.type === 'prep' ? 'md' : 'sm'} label=${seg.name} /></div>`}
         <p class="player-caption" aria-live="polite" id="live-caption">${uiPrefs().captions !== false ? caption : ''}</p>
         ${(() => { const r = formTarget(tl, pos.index); if (!r) return null; const got = live.ratedFor(r.exId); return html`<div class="form-rate" role="group" aria-label=${'How was your form on ' + r.name}>
           <span class="caption" style="width:100%;text-align:center">${got ? 'Form noted — thanks.' : `Form on ${r.name}?`}</span>

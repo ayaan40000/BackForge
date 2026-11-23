@@ -95,3 +95,11 @@ export function Sheet({ open, onClose, children, label }) {
 
 export const fmtTime = s => { s = Math.max(0, Math.round(s)); const m = Math.floor(s / 60); return `${m}:${String(s % 60).padStart(2, '0')}`; };
 export const fmtNum = n => (n == null ? '—' : Math.round(n).toLocaleString());
+
+/** Two-frame stop-motion demo (start ↔ end position). Reduced motion: both frames side by side. */
+export function Flip({ media, size = 'md', label }) {
+  if (!media) return null;
+  return html`<figure class=${`flip flip-${size}`} aria-label=${label ? `${label}: start and end position` : 'Start and end position'}>
+    <img src=${media.frames[0]} alt="Start position" loading="lazy" decoding="async" /><img src=${media.frames[1]} alt="End position" loading="lazy" decoding="async" />
+    ${size !== 'sm' && html`<figcaption>${media.similar ? media.similar + ' · ' : ''}Photo: <a href=${media.source} target="_blank" rel="noopener">free-exercise-db</a> (public domain)</figcaption>`}</figure>`;
+}

@@ -1,6 +1,7 @@
 // Check-ups: movement assessment (13 tests), posture check (8 band + 5 bodyweight),
 // the corrective posture plan they build, and the photo check read by Muse.
 import { html, useState, useEffect } from '../../vendor/htm-preact.mjs';
+import { HelpFor } from './learn.js';
 import { Icon, glyphFor } from '../ui/icons.js';
 import { Sheet } from '../ui/kit.js';
 import { state, update, isDemo } from '../store.js';
@@ -33,7 +34,7 @@ function Hub() {
   const S = state(), c = ctx(), plan = buildCorrectivePlan(lib(), c, S);
   const last = S.posture.bandChecks.at(-1), due = retestDue(last), photo = S.posture.assessments.at(-1);
   const cons = photo && last ? consistency(photo, last) : [];
-  return html`<header class="screen-head"><div><div class="sub">Assess · correct · retest</div><h1>Check-ups</h1></div></header>
+  return html`<header class="screen-head"><div><div class="sub">Assess · correct · retest</div><h1>Check-ups</h1></div><${HelpFor} screen="checkup" /></header>
   <div class="grid-2"><div class="col">
     <${PlanCard} plan=${plan} />
     <section class="card glass"><div class="row between"><div><div class="kicker">Posture check · 13 tests</div><div class="headline">Band + bodyweight</div></div><span class="caption">${fmtD(last?.date)}</span></div>
@@ -49,7 +50,7 @@ function Hub() {
       <p class="callout mt-2">Photos confirm what the tests found and show change over time. They stay on this device until you send them to Muse.</p>
       ${cons.length > 0 && html`<div class="list mt-3">${cons.map(x => html`<div><span class="grow"><span class="t">${PHOTO_LABEL[x.pattern]}</span><br/><span class="d">${VERDICT_TEXT[x.verdict]}</span></span><${Verdict} v=${x.verdict} /></div>`)}</div>`}
       <a class="btn ${photo ? 'ghost' : 'primary'} mt-3" href="#/checkup/photos">Open photo check</a></section>
-    <section class="card glass-thin"><p class="caption">Encrypted photo vault and PIN setup stay in the <a href=${BASE + 'classic/index.html#more'}>classic tools</a> for now — same data.</p></section>
+    <section class="card glass-thin"><p class="caption">Encrypt photo sets for backup in <a href="#/you/privacy">You → Privacy & data</a>.</p></section>
   </div></div>`;
 }
 const Verdict = ({ v }) => html`<span class=${`tag ${v === 'agrees' ? 'good' : v === 'photo-shows-more' ? 'warn' : v === 'photo-shows-less' ? 'calm' : ''}`}>${v === 'agrees' ? 'Agrees' : v === 'photo-shows-more' ? 'More' : v === 'photo-shows-less' ? 'Less' : '—'}</span>`;

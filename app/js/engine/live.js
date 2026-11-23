@@ -6,9 +6,11 @@ import { sessionExercises, flareActive, recoveryTune, STRENGTH, FLARE_ITEMS } fr
 import { streak, exerciseResponse } from './progress.js';
 import { daysBetween, weekday } from './dates.js';
 import { buildPostureWorkout } from './corrective.js';
+import { fitToKit, useWhatYouHave, available } from './kit.js';
 
-export const LIVE_WARM = ['catcamel', 'breathing360', 'kneechest', 'figure4', 'chintuck', 'hipflexorstretch'];
-export const LIVE_COOL = ['hipflexorstretch', 'figure4', 'kneechest', 'constructiverest', 'chintuck'];
+// warm-up = dynamic only; cool-down = static stretches of what was trained (physio syllabus §3)
+export const LIVE_WARM = ['catcamel', 'breathing360', 'foam-roller-thoracic', 'adductor-rockback', 'quadruped-hip-ir-rock', 'ankle-dorsiflexion-wall', 'kneechest', 'chintuck'];
+export const LIVE_COOL = ['hipflexorstretch', 'strap-hamstring-supine', 'figure4-wall', 'doorwaychest', 'calf-stretch-wall', 'figure4', 'doorway-lat-stretch', 'kneechest', 'constructiverest', 'chintuck'];
 export const DESK_BLOCK = ['chintuck', 'wallangel', 'hipflexorstretch', 'pullapart', 'new-standing-glute-tilt'];
 export const CAVEATS = [
   ['standing', 'Standing hurts'], ['right', 'Right side touchy'], ['left', 'Left side touchy'],
@@ -57,12 +59,17 @@ const named = (lib, ctx, items) => items.map(i => { const ex = lib.safeGet(i.id,
 /**
  * @param {{mins:number, energy:'great'|'ok'|'low'|'flare', caveats:string[], variant?:'standard'|'desk'}} opts
  */
-export function buildLive(lib, ctx, { mins, energy = 'ok', caveats = [], variant = 'standard', S = null }) {
+export function buildLive(lib, ctx, { mins, energy = 'ok', caveats = [], variant = 'standard', S = null, ids = null, title = null }) {
   if (flareActive(ctx) || energy === 'flare') {
     return {
       title: 'Relief session', kind: 'flare', mins, reasons: ['Pain is at flare level, so today is the relief protocol only. This is the plan working — and it still protects the streak.'],
       sections: [{ name: 'Relief', tag: 'cool', items: named(lib, ctx, FLARE_ITEMS.map(([id, dose]) => ({ id, dose }))) }],
     };
+  }
+  // a chosen list of moves (desk micro-breaks, tutorial demo): still safety- and kit-filtered
+  if (variant === 'custom' && ids?.length) {
+    const items = fitToKit(lib, ctx, ids.filter(id => lib.safeGet(id, ctx.flags)).map(id => ({ id, dose: lib.get(id).dose }))).items;
+    return { title: title || 'Quick break', kind: 'desk', mins, reasons: ['A short break chosen for you.'], sections: [{ name: 'Break', tag: 'main', items: named(lib, ctx, items.map(i => ({ ...i, dose: capSets(i.dose, 1) }))) }] };
   }
   if (variant === 'posture' && S) {
     const w = buildPostureWorkout(lib, ctx, S, { mins, caveats });
@@ -79,7 +86,7 @@ export function buildLive(lib, ctx, { mins, energy = 'ok', caveats = [], variant
     return STRENGTH[L].ex.slice(0, 3).map(([id, dose]) => ({ id, dose })).concat(['curlup', 'birddog', 'sideplank'].map(id => ({ id, dose: lib.get(id).dose })));
   })();
   const corr = correctivePool(ctx).filter(id => lib.get(id)).map(id => ({ id, dose: lib.get(id).dose }));
-  let warm = LIVE_WARM.slice(0, mins >= 35 ? 3 : 2).filter(id => lib.get(id)).map(id => ({ id, dose: lib.get(id).dose }));
+  let warm = LIVE_WARM.filter(id => lib.get(id) && lib.safeGet(id, ctx.flags) && (!ctx.kit || available(lib.get(id), ctx.kit))).slice(0, mins >= 35 ? 3 : 2).map(id => ({ id, dose: lib.get(id).dose }));
   let cool = LIVE_COOL.filter(id => !warm.some(w => w.id === id) && lib.get(id)).slice(0, 2).map(id => ({ id, dose: lib.get(id).dose }));
   const mixed = []; for (let i = 0; i < Math.max(main.length, corr.length); i++) { if (main[i]) mixed.push(main[i]); if (corr[i]) mixed.push(corr[i]); }
   const seen = new Set(); let dedup = mixed.filter(i => !seen.has(i.id) && seen.add(i.id));
@@ -91,7 +98,7 @@ export function buildLive(lib, ctx, { mins, energy = 'ok', caveats = [], variant
   let chosen = [];
   if (mins <= 6) { chosen = cv.items.slice(0, 2); warm = warm.slice(0, 1); cool = cool.slice(0, 1); }
   else { let acc = [...warm, ...cool].reduce((a, i) => a + estMins(i.dose), 0); for (const it of cv.items) { const e = estMins(it.dose); if (acc + e > mins && chosen.length >= 3) break; chosen.push(it); acc += e; } }
-  { const used = new Set(chosen.map(i => i.id)); const pool = LIVE_COOL.filter(id => !warm.some(w => w.id === id) && !used.has(id) && lib.get(id)); cool = applyCaveats(lib, ctx, pool.slice(0, mins <= 6 ? 1 : 2).map(id => ({ id, dose: lib.get(id).dose })), caveats, energy).items; }
+  { const used = new Set(chosen.map(i => i.id)); const pool = LIVE_COOL.filter(id => !warm.some(w => w.id === id) && !used.has(id) && lib.get(id) && lib.safeGet(id, ctx.flags) && (!ctx.kit || available(lib.get(id), ctx.kit))); cool = applyCaveats(lib, ctx, pool.slice(0, mins <= 6 ? 1 : 2).map(id => ({ id, dose: lib.get(id).dose })), caveats, energy).items; }
   if (ctx.deloadUntil && ctx.deloadUntil >= ctx.today) { if (chosen.length > 3) chosen = chosen.slice(0, -1); chosen = chosen.map(i => ({ ...i, dose: capSets(i.dose, 2) })); }
 
   const reasons = [];
@@ -109,6 +116,12 @@ export function buildLive(lib, ctx, { mins, energy = 'ok', caveats = [], variant
   const tune = recoveryTune(ctx); if (tune) reasons.push(`Today's check-in set the load: ${tune.load}.`);
   reasons.push(...new Set([...cv.notes, ...wc.notes, ...cc.notes]));
   const st = streak(ctx); if (st > 0) reasons.push(`Day ${st + 1} of your streak is decided in the next ${mins} minutes.`);
+  // equipment: swap what you can't do, then work in what you own
+  const k1 = fitToKit(lib, ctx, warm), k2 = fitToKit(lib, ctx, chosen), k3 = fitToKit(lib, ctx, cool);
+  warm = k1.items; chosen = k2.items; cool = k3.items;
+  const yw = useWhatYouHave(lib, ctx, chosen, { energy }); chosen = yw.items;
+  const ywWarm = useWhatYouHave(lib, ctx, warm, { energy, maxSwaps: 1, section: 'warm' }); warm = ywWarm.items;
+  reasons.push(...new Set([...k1.notes, ...k2.notes, ...k3.notes, ...yw.notes, ...ywWarm.notes]));
   return {
     title: `${mins}-minute ${s.kind === 'strength' ? s.title.split(' — ')[0] : 'foundation'} session`, kind: 'live', mins, reasons,
     sections: [

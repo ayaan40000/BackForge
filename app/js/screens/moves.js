@@ -1,8 +1,9 @@
 // Moves: searchable library, filters, exercise detail sheet (the exact cues the coach speaks).
 import { html, useState, useMemo } from '../../vendor/htm-preact.mjs';
+import { HelpFor } from './learn.js';
 import { Icon, glyphFor } from '../ui/icons.js';
-import { Sheet } from '../ui/kit.js';
-import { lib, ctx } from '../data.js';
+import { Sheet, Flip } from '../ui/kit.js';
+import { lib, ctx, photosFor, videosFor } from '../data.js';
 import { exclusionReason, hasBand } from '../engine/library.js';
 import { exerciseResponse } from '../engine/progress.js';
 import { route, go } from '../router.js';
@@ -27,7 +28,7 @@ export function Moves() {
   });
   const safe = items.filter(e => !exclusionReason(e, c.flags)), blocked = items.filter(e => exclusionReason(e, c.flags));
   const row = e => html`<a href=${`#/moves/${e.id}`} style=${blocked.includes(e) ? 'opacity:.5' : ''}>
-    <span class="glyph"><${Icon} n=${glyphFor(e)} s=${22} /></span>
+    ${photosFor(e.id) ? html`<${Flip} media=${photosFor(e.id)} size="sm" />` : html`<span class="glyph"><${Icon} n=${glyphFor(e)} s=${22} /></span>`}
     <span class="grow"><span class="t">${e.name}</span><br/><span class="d">${e.dose}${hasBand(e) ? ' · band' : ''}</span></span>
     ${resp[e.id]?.verdict === 'helps' && html`<span class="tag good">Helps</span>`}${resp[e.id]?.verdict === 'watch' && html`<span class="tag warn">Watch</span>`}
     <${Icon} n="chevron" s=${16} /></a>`;
@@ -49,7 +50,8 @@ function Detail({ id, resp }) {
   const rx = prescribe(e.dose), dose = doseText({ ...rx, sides: rx.perSide ? ['right', 'left'] : [null], holdSec: rx.holdSec || rx.durationSec });
   const v = resp[e.id];
   return html`<div class="row" style="gap:14px"><span class="glyph" style="width:56px;height:56px"><${Icon} n=${glyphFor(e)} s=${28} /></span><div><div class="kicker">${e.category}</div><h2 class="title2">${e.name}</h2></div></div>
-    <p class="callout mt-2">${e.dose}${c.bandLevel[id] ? ` · band level ${c.bandLevel[id]}` : ''}</p>
+    <div class="mt-3"><${Flip} media=${photosFor(id)} label=${e.name} /></div>
+    <p class="callout mt-2">${e.dose}${c.bandLevel[id] ? ` · band level ${c.bandLevel[id]}` : ''}${(e.equipment || []).filter(x => x !== 'none').length ? ` · needs ${e.equipment.filter(x => x !== 'none').join(', ').replace(/-/g, ' ')}` : ''}</p>
     ${why && html`<div class="banner" style="background:color-mix(in oklch,var(--c-attention) 14%,transparent)"><${Icon} n="lock" s=${18} /> Not served to you: ${why}.</div>`}
     ${co.helps && html`<p class="mt-3">${co.helps}</p>`}
     <div class="list mt-4">
@@ -63,6 +65,8 @@ function Detail({ id, resp }) {
     ${co.muscles && html`<p class="caption mt-2">Works: ${co.muscles}</p>`}
     <div class="row wrap mt-4" style="gap:8px">
       <button class="btn ghost" onClick=${() => speak(`${e.name}. ${dose} ${co.setupCue || e.cues[0]}. Focus: ${co.focusCue || ''}.`, { pri: 3 })}><${Icon} n="voice" s=${18} /> Preview voice</button>
-      ${(co.videos || []).map(vd => html`<a class="btn ghost" href=${vd.url} target="_blank" rel="noopener"><${Icon} n="video" s=${18} /> ${vd.type === 'direct' ? vd.channel : `Search: ${vd.channel}`}</a>`)}
-    </div>`;
+    </div>
+    <div class="kicker mt-4 mb-2">Videos & demos</div>
+    <div class="list">${videosFor(e).map(v => html`<a href=${v.url} target="_blank" rel="noopener"><span class="glyph" style=${v.direct ? 'color:var(--c-attention)' : ''}><${Icon} n="video" s=${18} /></span><span class="grow t" style="font-size:14px">${v.label}</span><span class="tag">${v.direct ? 'Video' : 'Search'}</span></a>`)}</div>
+    ${e.source && html`<p class="caption mt-3">Evidence: ${e.source}</p>`}`;
 }

@@ -1,6 +1,7 @@
 // Exercise library + the safety layer. Port of backend/app/exercises.py.
 // Every exercise the app serves goes through safeGet(); never bypass it.
-const LOAD_EQUIPMENT = new Set(['band', 'mini-band', 'dumbbell']);
+// anything that adds external load counts (physio syllabus §4)
+const LOAD_EQUIPMENT = new Set(['band', 'mini-band', 'dumbbell', 'kettlebell', 'cable', 'ab-wheel', 'tube-band', 'stability-ball', 'slider']);
 const BAND_EQUIPMENT = new Set(['band', 'mini-band']);
 const BOTH_KNEES = /(both|double)[-_ ]?knees?/i;
 

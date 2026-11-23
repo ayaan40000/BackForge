@@ -2,6 +2,36 @@
 
 All notable changes to BackForge. Versions follow the roadmap in `docs/ROADMAP.md`.
 
+## v4.8 — One app, natural voice, everything you own (2026-11-23)
+
+- **The classic app has retired.** Everything now lives in one app. The last classic-only tools moved to **You → Privacy & data**: setting, changing and removing your PIN, the encrypted photo vault (encrypt a photo set, restore it on any device with just your passphrase), and erase-everything. Old `/classic/` links forward to the new app. Your PIN and vault files from the classic app still work.
+- **A natural coach voice.** The robotic device voice is replaced by a recorded neural voice: Kokoro, open source (Apache-2.0), with no account and no cloud. Every line the coach can say is pre-recorded, and it plays offline once loaded. Because the coach knows exactly how long each line takes, it times what it says from the recordings. Change the voice, or go back to your device's voice, under You → Coach.
+- **Equipment on hand (You → Equipment).** Tick what you own: mini bands, long bands, tube bands and door anchors (each with its resistance levels), foam roller, massage ball, kettlebell, dumbbells, stability ball, ab wheel, yoga block, sliders, step, pull-up bar, cable machine. Every plan uses only what you have, swaps anything else for a move that trains the same thing, and works in your special kit on good days: a kettlebell carry, a foam-roller warm-up, door-anchored rows. Loaded moves never appear on low-energy or flare days.
+- **68 new exercises from a physiotherapy syllabus pass** (`docs/reviews/PHYSIO-SYLLABUS-2026-11.md`), 124 in total:
+  - advanced band work, mostly door-anchored: rows, high face pulls, half- and tall-kneeling Pallof, lat pulldowns, external rotation at 90°, Y-T-W, an anti-extension dead bug, band hip hinge, split squats, monster walks, lateral lunges
+  - stretching, using the doorway, a strap or the wall
+  - a desk set
+  - hip internal-rotation mobility and strength work
+  - equipment moves
+  The ab wheel is held back for an extension-intolerant back, and the review explains why.
+- **Duck feet.** Two new hip tests in the posture check:
+  - a foot-angle (toe-out) screen. It never grades Priority, because out-toeing can simply be how your bones are built, and the app never forces your feet straight.
+  - a banded hip internal-rotation strength test with a left/right comparison
+  When indicated, the hips plan switches to a duck-feet block: IR isometrics, toe-forward bridges, side-lying IR lifts, hip airplanes and a straight-foot walking drill, weaker side first.
+- **Stretching is part of every plan.** Warm-ups use moving (dynamic) stretches only. Cool-downs hold static stretches for what you just trained. Reset phases include stretches for the tight side of each pattern. Extension-intolerant rules apply throughout: tuck first, never arch.
+- **Desk.** A new section for combatting what sitting and slouching do. Eight common problems (tight hip flexors, sleepy glutes, forward head, rounded upper back, low-back stiffness, slumped hamstrings, wrists, circulation) each come with why it happens, signs and a one-tap fix. There are six ready-made 1–2 minute breaks the coach runs, and a desk-setup checklist. Break reminders run during your work hours (every 30–90 minutes), with a notification and chime while BackForge is open, and "Add to calendar" puts them on your phone even when the app is closed.
+- **Learn (the tutorial).** Nine short lessons:
+  - how BackForge works and setting up in five minutes
+  - your first Live session
+  - check-ups and your posture plan
+  - Desk days and progress & health data
+  - safety, and privacy
+  Every screen has a "?" that opens its lesson. New users get a two-step welcome: tick your equipment, then start a check-up or just train.
+- **Exercise demos and videos.** 39 moves show a looping two-frame stop-motion of the start and end position, using public-domain photos from free-exercise-db with credit; when a photo shows a close variant, it says so. The rest get drawn animated figures (see below). Every exercise has video links: curated ones first, then labelled YouTube searches pointed at reputable physio channels. Demos also play in the Live player during the get-ready countdown.
+- **New icon:** three vertebrae stacked as one upward arrow, in volt, mint and sky, with the liquid-glass treatment. It reads clearly at 16 px and on light and dark home screens.
+- Safety layer: kettlebells, cables, ab wheels, tube bands, stability balls and sliders now count as load, so the no-loaded-flexion/rotation rule covers them.
+- Tests: 47 node tests (new: vault and PIN round-trips, duck feet, equipment, the stretching rules, a full-library safety check) and 74 browser checks, including the first-run welcome. The classic harnesses retired with the classic app.
+
 ## v4.6.1 — Physio-reviewed scoring (2026-11-23)
 
 A senior musculoskeletal physiotherapist reviewed every test, threshold and exercise mapping (full review: `docs/reviews/PHYSIO-REVIEW-2026-11.md`). The old app was not treated as the rule book. All 12 must-fix and 14 should-change items are in.

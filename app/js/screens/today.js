@@ -1,5 +1,6 @@
 // Today: readiness → the one session + Start → posture cues → health strip → one nudge → week.
 import { html, useState, useMemo } from '../../vendor/htm-preact.mjs';
+import { HelpFor } from './learn.js';
 import { Icon, glyphFor } from '../ui/icons.js';
 import { Ring, Spark, PainScale, fmtNum } from '../ui/kit.js';
 import { state, logCheckin, isDemo } from '../store.js';
@@ -10,6 +11,7 @@ import { prepare, resumable } from '../live/session.js';
 import { dayStr, addDays, weekday } from '../engine/dates.js';
 import { go } from '../router.js';
 import { PlanCard } from './checkups.js';
+import { deskPrefs, inWorkHours, nextDueAt } from '../desk.js';
 import { buildCorrectivePlan } from '../engine/corrective.js';
 import { retestDue } from '../engine/posture.js';
 
@@ -37,7 +39,7 @@ export function Today() {
   return html`
   <header class="screen-head">
     <div><div class="sub">${new Date().toLocaleDateString(undefined, { weekday: 'long', day: 'numeric', month: 'long' })}</div><h1>${name ? `${hello}, ${name}` : 'Today'}</h1></div>
-    <a class="avatar" href="#/you" aria-label="You">${(name || 'B')[0]}</a>
+    <div class="row" style="gap:8px"><${HelpFor} screen="today" /><a class="avatar" href="#/you" aria-label="You">${(name || 'B')[0]}</a></div>
   </header>
   ${isDemo() && html`<div class="banner demo"><${Icon} n="spark" s=${18} /> Demo data — 120 days of example history. Your real data is untouched. <a href="#/you" style="margin-left:auto">Exit</a></div>`}
   <div class="grid-today">
@@ -81,6 +83,7 @@ export function Today() {
         <div class="row between"><div class="kicker">This week</div><span class="tag" style="color:var(--c-reward)"><${Icon} n="flame" s=${14} /> ${st}-day streak</span></div>
         <${WeekDots} />
       </section>
+      ${(() => { const p = deskPrefs(); return html`<a class="card glass row between" href="#/desk"><span><span class="kicker">Desk</span><br/><span class="headline">${p.on ? (inWorkHours(p) ? `Next break in ${Math.max(0, Math.round((nextDueAt(p) - Date.now()) / 60000))} min` : 'Reminders on · outside work hours') : 'Sitting all day?'}</span><br/><span class="caption">${p.on ? 'Quick breaks for hips, neck and upper back' : 'Turn on 1–2 minute break reminders'}</span></span><${Icon} n="desk" s=${28} /></a>`; })()}
       ${preview.workout.reasons?.length > 0 && html`<section class="card glass-thin"><div class="kicker mb-2">Why this session</div><ul class="callout" style="padding-left:18px;display:grid;gap:4px">${preview.workout.reasons.slice(0, 4).map(x => html`<li>${x}</li>`)}</ul></section>`}
     </div>
   </div>`;

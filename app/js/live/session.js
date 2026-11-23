@@ -7,7 +7,8 @@ import { compile } from './compiler.js';
 import { scriptSession, makePicker } from './coach.js';
 import { LivePlayer } from './player.js';
 import { cue, ensureAudio, startBed, stopBed, setCueVolume } from './audio.js';
-import { speak, stop as stopVoice, configureVoice, pickVoice } from './voice.js';
+import { speak, stop as stopVoice, configureVoice, pickVoice, packActive, covers as packCovers, durationOf, prefetch } from './voice.js';
+import { transcript } from './coach.js';
 import { lib, voiceLines, ctx } from '../data.js';
 import { state, update, uiPrefs, logSession } from '../store.js';
 import { dayStr } from '../engine/dates.js';
@@ -27,7 +28,7 @@ export function prepare(opts) {
   const workout = buildLive(lib(), c, { ...opts, S });
   const ws = weakSide(c);
   const r = readiness(c), ck = c.todaysCheckin();
-  const script = target => scriptSession(compile(lib(), workout, { targetMin: target, firstSide: ws || undefined }), voiceLines(), { name: (S.profile?.displayName || S.profile?.name || '').split(' ')[0], mins: opts.mins, readiness: r?.level, pain: ck?.pain, sleep: ck?.sleep, weakSide: ws, chattiness: uiPrefs().chattiness || 'standard', seed: hash(dayStr() + opts.mins) });
+  const script = target => scriptSession(compile(lib(), workout, { targetMin: target, firstSide: ws || undefined }), voiceLines(), { name: (S.profile?.displayName || S.profile?.name || '').split(' ')[0], mins: opts.mins, readiness: r?.level, pain: ck?.pain, sleep: ck?.sleep, weakSide: ws, chattiness: uiPrefs().chattiness || 'standard', seed: hash(dayStr() + opts.mins), ...(packActive() ? { covers: packCovers, durationOf, name: (S.profile?.displayName || S.profile?.name || '').split(' ')[0] === 'Ayaan' ? 'Ayaan' : '' } : {}) });
   // briefings may lengthen a prep; re-fit once so the clock reads the chosen time
   let tl = script(opts.mins);
   const over = tl.totalSec - opts.mins * 60;
@@ -49,6 +50,7 @@ export function start(opts, { resumeAt = 0 } = {}) {
     onCue: (l) => { run.caption = l.text; run.captionAt = performance.now(); speak(l.text, { pri: l.pri >= 6 ? 3 : 2 }); emit(); },
     onBeep: (b) => { cue(b.tone); if (navigator.vibrate && navigator.userActivation?.hasBeenActive) navigator.vibrate(b.tone === 'go' ? 40 : b.tone === 'rest' ? [20, 60, 20] : b.tone === 'finish' ? [30, 50, 30, 50, 120] : 0); },
   });
+  prefetch(transcript(tl).map(l => l.text));
   run = { opts, workout, tl, player, caption: '', lastSeg: -1, pain: [], startedAt: Date.now(), preTimeline: tl.totalSec, pick: makePicker(voiceLines(), 99) };
   player.addEventListener('tick', onTick);
   player.addEventListener('state', emit);
@@ -129,8 +131,8 @@ export function finish({ pain = null, leg = null } = {}) {
   if (!run) return null;
   const ids = run.player.completedIds();
   const mins = Math.max(1, Math.round(run.player.elapsed / 60));
-  const kind = run.workout.kind === 'flare' ? 'flare' : run.workout.kind === 'posture' ? 'posture' : 'live';
-  logSession({ kind, title: run.workout.kind === 'flare' ? 'Relief session' : run.workout.kind === 'posture' ? `Posture session · ${run.opts.mins} min` : `Live workout · ${run.opts.mins} min`, pain, mins, exerciseIds: ids });
+  const kind = run.workout.kind === 'flare' ? 'flare' : run.workout.kind === 'posture' ? 'posture' : run.workout.kind === 'desk' ? 'micro' : 'live';
+  logSession({ kind, title: run.workout.kind === 'flare' ? 'Relief session' : run.workout.kind === 'desk' ? `Desk break · ${run.workout.title}` : run.workout.kind === 'posture' ? `Posture session · ${run.opts.mins} min` : `Live workout · ${run.opts.mins} min`, pain, mins, exerciseIds: ids });
   update(S => { S.livePrefs = { ...(S.livePrefs || {}), mins: run.opts.mins, energy: run.opts.energy, caveats: run.opts.caveats }; if (leg != null) S.log[S.log.length - 1].leg = leg; if (run.pain.length) S.log[S.log.length - 1].painEvents = run.pain; S.liveRun = null; });
   const summary = { mins, moves: ids.length, regressions: run.player.regressed.size, ids };
   end(false);

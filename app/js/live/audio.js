@@ -2,7 +2,7 @@
 // synthesised — no audio files to ship or license. The graph is routed into a
 // MediaStream <audio> element too, so phones treat the session as media
 // (lock-screen controls via Media Session, keeps playing with the screen dim).
-let ctx, master, cueBus, bedBus, bedNodes = null, mediaEl = null;
+let ctx, master, cueBus, bedBus, voiceBus, bedNodes = null, mediaEl = null;
 
 export function ensureAudio() {
   if (ctx) { if (ctx.state === 'suspended') ctx.resume(); return ctx; }
@@ -12,7 +12,8 @@ export function ensureAudio() {
   master = ctx.createGain(); master.gain.value = 0.9;
   cueBus = ctx.createGain(); cueBus.gain.value = 0.8;
   bedBus = ctx.createGain(); bedBus.gain.value = 0;
-  cueBus.connect(master); bedBus.connect(master);
+  voiceBus = ctx.createGain(); voiceBus.gain.value = 1;
+  cueBus.connect(master); bedBus.connect(master); voiceBus.connect(master);
   master.connect(ctx.destination);
   try {
     const dest = ctx.createMediaStreamDestination();
@@ -75,3 +76,17 @@ export function stopBed() {
 /** Lower the bed while the coach talks. */
 export function duck(on) { if (ctx && bedNodes) bedBus.gain.setTargetAtTime(on ? bedLevel * 0.35 : bedLevel, ctx.currentTime, on ? 0.08 : 0.6); }
 export const bedOn = () => !!bedNodes;
+
+// ---- recorded voice (neural voice pack) ----
+export const audioCtx = () => ensureAudio();
+export async function decode(arrayBuf) { const c = ensureAudio(); return c.decodeAudioData(arrayBuf); }
+/** Play buffers back to back; returns a handle with stop(). */
+export function playChain(buffers, { onstart, onend, rate = 1 } = {}) {
+  const c = ensureAudio(); let t = c.currentTime + 0.03; const srcs = [];
+  for (const b of buffers) { const s = c.createBufferSource(); s.buffer = b; s.playbackRate.value = rate; s.connect(voiceBus); s.start(t); srcs.push(s); t += b.duration / rate + 0.12; }
+  onstart?.(); let done = false;
+  const finish = () => { if (!done) { done = true; onend?.(); } };
+  if (srcs.length) srcs[srcs.length - 1].onended = finish; else finish();
+  return { stop() { for (const s of srcs) try { s.stop(); } catch {} finish(); }, endsAt: t };
+}
+export function setVoiceVolume(v) { if (ensureAudio() && voiceBus) voiceBus.gain.setTargetAtTime(v, ctx.currentTime, 0.05); }

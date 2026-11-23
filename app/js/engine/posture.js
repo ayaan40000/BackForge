@@ -35,6 +35,10 @@ export const GRADERS = {
   'wallslide-band': i => { const r = +i.reps, q = i.quality; if (r === 0 || (q === 'shrug' && r <= 1)) return 'Priority'; if (r === 1 || q === 'leaves') return 'Moderate'; if ((r === 2 && (q === 'holds' || q === 'poke')) || (r === 3 && q === 'poke')) return 'Mild'; if (r === 3 && q === 'holds') return 'Clear'; return 'Moderate'; },
   // S9: a nod (tilt) is a technique error, not severity: Moderate, Priority only at 0 reps
   'chintuck-band': i => { const r = +i.reps, q = i.quality; if (r === 0) return 'Priority'; if (r === 1 || q === 'front' || q === 'tilt') return 'Moderate'; if ((r === 2 && (q === 'glide' || q === 'breath')) || (r === 3 && q === 'breath')) return 'Mild'; if (r === 3 && q === 'glide') return 'Clear'; return 'Moderate'; },
+  // ---- duck feet / hip IR (v4.8, docs/reviews/PHYSIO-SYLLABUS-2026-11.md §2) ----
+  // foot angle is a screen: never Priority; if the feet won't go straight it may be bony build, so stays Mild
+  'foot-angle': i => { const v = s => (s === 'in' ? 0 : +s); const R = v(i.R), L = v(i.L), w = Math.max(R, L), a = Math.abs(R - L); if (w === 0) return 'Clear'; if (w === 2 || a >= 2) return i.straight === 'easy' ? 'Moderate' : 'Mild'; return 'Mild'; },
+  'hip-ir-strength': i => { const R = +i.R, L = +i.L, w = Math.min(R, L), d = Math.abs(R - L); if (w === 0 || (d >= 2 && i.quality !== 'still')) return 'Priority'; if (w === 1 || d >= 2) return 'Moderate'; if (w === 2 || d === 1 || i.quality !== 'still') return 'Mild'; return 'Clear'; },
   // ---- bodyweight (v4.6) ----
   'occiput-wall': i => { const g = +i.gap, b = i.blades; if (g === 3 || (g === 2 && b === 'none')) return 'Priority'; if (g === 2 || b === 'none') return 'Moderate'; if (g === 1 || b === 'one') return 'Mild'; return 'Clear'; },
   // M6: losing the tuck is the normal end of the test — grade on time only (<10 / 10–19 / 20–29 / ≥30 s)
@@ -95,6 +99,11 @@ export function postureFindings(check, tests) {
   if (g['glutemed-wall'] === 'Priority') push('Guarding pattern — band check', 'mod', 'Glute med wall test graded Priority — the pelvis cannot hold level under load.', 'Supported single-leg work only; figure-4 and single-knee relief enter the corrective pool.');
   if (mod('pullapart-endurance') || mod('wallslide-band') || mod('pec-minor')) push('Rounded shoulders (upper-crossed) — posture check', 'mod', 'Shoulder tests graded moderate or worse.', 'Daily pull-apart / wall-slide work; chest opening.');
   if (mod('chintuck-band') || mod('dnf-endurance')) push('Forward-head posture — posture check', 'mod', 'Neck tests graded moderate or worse.', 'Daily chin tucks + deep neck flexor holds.');
+  const fa = g['foot-angle'], irs = g['hip-ir-strength'], irr = g['hip-ir-band'];
+  const irWeak = GSEV[irs] >= 2 || GSEV[irr] >= 2;
+  if (GSEV[fa] >= 1 && irWeak) push('Feet turn out with limited hip internal rotation — posture check', 'mod', 'Foot angle ' + fa + '; hip internal rotation ' + (irs || irr) + '.', 'The duck-feet hip block leads the hips plan, weaker side first.');
+  else if (GSEV[fa] >= 1) push('Feet turn out; hip rotation tests look fine — posture check', 'mod', 'Foot angle ' + fa + '.', check.inputs?.['foot-angle']?.straight === 'easy' ? 'Straight-foot walking drill and foot tripod work.' : 'This can be how your hips and shins are built. No foot forcing; calf and foot work only.');
+  if (GSEV[irs] >= 2) { const i = check.inputs?.['hip-ir-strength'] || {}; const side = i.R != null && i.L != null && +i.R !== +i.L ? (+i.R < +i.L ? 'Right' : 'Left') : null; push((side ? side + ' ' : '') + 'hip internal rotation weakness — band check', irs === 'Priority' ? 'high' : 'mod', 'Banded IR reps graded ' + irs + '.', 'Daily IR isometrics, weaker side first.'); }
   const s = check.summary || {};
   if (['Moderate', 'Priority'].includes(s.back)) push('Hunched upper back (thoracic kyphosis) — posture check', s.back === 'Priority' ? 'high' : 'mod', 'Upper-back tests graded ' + s.back.toLowerCase() + '.', 'Daily thoracic mobility (open book, wall slides) before rows and face pulls.');
   const pri = Object.values(g).filter(x => x === 'Priority').length;

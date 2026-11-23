@@ -2,6 +2,8 @@
 
 **Live:** https://ayaan40000.github.io/BackForge/ · **Demo with 120 days of data:** https://ayaan40000.github.io/BackForge/?demo=1 · **Classic v4.0 app:** `/classic/`
 
+**Latest (v4.8, 2026-11-23):** the classic app has retired (PIN, encrypted vault and erase-everything moved into the app). The coach has a natural, pre-recorded neural voice (Kokoro, open source). Plans use only the equipment you tick, and use all of it. 68 new exercises came from a physiotherapy syllabus pass: advanced and door-anchored band work, stretching, desk moves, and hip internal-rotation work for duck feet. There are two new hip tests, a Desk section with break reminders and a calendar export, a Learn tutorial, stop-motion photo demos plus video links for every move, and a new icon.
+
 **v4.6.1 (2026-11-23): physio-reviewed scoring.** A physiotherapist review (`docs/reviews/PHYSIO-REVIEW-2026-11.md`) recalibrated the tests, made the extension-intolerant flag stay on after a single good retest, added leg-spread, arm-symptom and dizziness stops, and added a hips & glutes area to the plan.
 
 **v4.6 "Assess & Correct":** the movement assessment, a posture check (8 band + 5 bodyweight tests) and a photo check read by Muse are now part of the new app. Their grades build a phased posture plan for forward head, a hunched upper back, rounded shoulders and anterior pelvic tilt, and the voice coach runs it as a Live session. Each corrective move ends with a quick form rating.
@@ -19,7 +21,9 @@ An assessment-led, resistance-band-first back-strength trainer. No account, no s
 | **Moves** | 56 exercises, search and filters, a detail sheet with the exact setup and focus cues the coach speaks, easier/harder versions, videos, "Preview voice" |
 | **Progress** | Overview (pain trend, 17-week consistency map, sessions per week, progression gate, insights, what the coach learned) · Health · Body · Posture |
 | **Check-ups** (`#/checkup`) | Movement assessment (13 tests) · posture check (8 band + 5 bodyweight tests, graded per area) · your posture plan (phase per weak area, Start posture session) · photo check with Muse (consistency with your tests, then vs now) |
-| **You** | Name, coach voice and chattiness, theme, reduce motion, solid surfaces, demo data, backup |
+| **Desk** (`#/desk`) | Sitting/slouching problems with one-tap fixes, 1–2 min coached breaks, a setup checklist, work-hours reminders and a calendar export |
+| **Learn** (`#/learn`) | Nine short lessons; every screen's ? opens its lesson |
+| **You** | Name, equipment on hand, coach voice, theme, privacy & data (PIN, encrypted vault, erase), demo data, backup |
 
 ### Live mode — how a session runs
 1. `app/js/engine/live.js` picks the moves (from your findings, today's check-in, caveats and response history), with the same rules as before. It is re-checked by the safety layer on every build.
@@ -41,10 +45,8 @@ An assessment-led, resistance-band-first back-strength trainer. No account, no s
 ## Tests
 
 ```bash
-npm test               # 39 tests: safety for every Live build, duration fit, coach timing and wording rules, data files, health import (no installs)
-node dev/parity-assessment.mjs   # 18,000 cases: graders the physio review left unchanged == classic
-npm run test:browser   # 56 real-browser checks at phone / tablet / desktop (needs Playwright; serve the repo on :8765 first)
-npm run test:classic   # classic app harnesses (113 + 50)
+npm test               # 47 tests: safety for every Live build, duration fit, coach timing and wording rules, data files, health import (no installs)
+npm run test:browser   # 74 real-browser checks at phone / tablet / desktop (needs Playwright; serve the repo on :8765 first)
 cd backend && python3 -m pytest -q   # 81 backend tests
 ```
 
@@ -79,18 +81,9 @@ Honest limits, by design:
 - **Safety as tests** — the invariants below are enforced by a server-side safety layer and 78 automated tests: no loaded flexion/twisting is ever served, both-knees-to-chest never appears, extension-intolerant profiles lose all extension-biased moves, pain ≥ 7 returns relief work only, and skipped assessment answers produce no findings.
 - **Exercise directory** — 48 band-first exercises with dose, level, equipment, cues, mistakes, regression/progression, and safety tags (`backend/data/exercises.json`; human-readable: `docs/EXERCISE-DIRECTORY.md`).
 
-## Classic app (v4.0) — still available at `/classic/`
+## Voice pack (natural coach voice)
 
-Since v4.6 the assessments, posture check and photo check live in the new app. The classic app still hosts the encrypted photo vault and PIN setup, and both apps share the same data. The new app links to them under **You → Check-ups**, and the classic app has a "← New BackForge" link back. What the classic app does:
-
-1. **13-test movement assessment** — direction tolerance (flexion vs extension), glute firing order, single-leg bridge control, clamshell compensation, Thomas test (hip flexor length), pelvic tilt check, hamstring control-vs-length, prone hip internal rotation per side, 90/90 switch, timed side-plank endurance (McGill ratio), wall posture test, weight-shift guarding check.
-2. **Findings engine** — turns answers into plain-language findings with severity (Priority / Watch / Clear). Skipped tests count as *no data* and can never generate a finding.
-3. **Plan generator** — rebuilds the daily foundation blocks (in-bed, posture, band activation, hip IR, tilt correction, McGill Big 3) and the weekly A/B/C + Zone 2 split *from the findings*: extension-intolerant backs lose prone lying and press-ups automatically; the weaker side gets extra sets; a hip IR deficit adds a daily IR block; anterior pelvic tilt adds a tilt-correction block.
-4. **Daily check-in → load tuning** — pain (0–10), location and sleep set today's load: full, minus top set, micro-only, or flare protocol at pain ≥ 7.
-5. **Guided player** — sessions expand into set × side steps with parsed hold timers (timestamp-based, audible beep, wake lock), auto rest between exercises, resume-where-you-left-off, and an in-player pain score at the end.
-6. **Library (Moves)** — 40 exercises in the app (26 originals + the backend directory's breathing/tilt/neck/wall-slide/doorway/seated-IR set + 8 no-equipment desk & travel moves) with cues, common mistakes, a regression and a progression for each, per-exercise band levels, and form-video links from multiple sources (Squat University, BackFitPro/McGill, E3 Rehab, Low Back Ability, Christina Nicci, Bob & Brad). One verified embed: Squat University's McGill Big 3 walkthrough. The canonical directory (`backend/data/exercises.json`, browsable in `docs/EXERCISE-DIRECTORY.md`) now holds 48 exercises, and the backend engine serves all 48.
-7. **Progress** — pain trend on a fixed 0–10 scale, sessions/week, assessment history, and a rolling 14-day progression gate (avg pain ≤ 3 **and** 8+ sessions) that unlocks band-level promotions. Since v3.0 the gate also reads synced recovery data — see below.
-8. **In-app daily reminder** — set a time under *More → Daily reminder*; replaces the chat check-in from deploy day.
+`app/voice/af_heart/` holds one AAC clip per sentence the coach can say, plus `manifest.json` (text → file and length). They are rendered on a computer with Kokoro-82M (Apache-2.0) via `kokoro-onnx`; see the header of `tools/render_voice.py`. Rebuild after changing voice lines, exercise names or cues: `node tools/voice_corpus.mjs > /tmp/corpus.json`, then run `render_voice.py`. It only renders new sentences. A line without a recording falls back to the device voice for safety and brief lines, and to captions only for small talk.
 
 ## Roadmap
 

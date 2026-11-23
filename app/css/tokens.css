@@ -18,6 +18,7 @@
     --c-ink: oklch(0.97 0.005 250); --c-ink-2: oklch(0.80 0.015 250); --c-ink-3: oklch(0.68 0.015 250);
     --c-accent: oklch(0.90 0.19 124); --c-on-accent: oklch(0.20 0.05 124);
     --c-attention: oklch(0.72 0.18 35); --c-info: oklch(0.80 0.12 230); --c-calm: oklch(0.78 0.11 295); --c-reward: oklch(0.86 0.15 82);
+    --c-mint: oklch(0.86 0.11 158); --c-logo-tile: oklch(0.21 0.03 262);
     --c-good: oklch(0.80 0.17 152); --c-warn: oklch(0.84 0.15 80); --c-bad: oklch(0.68 0.20 25);
     --c-phase-warm: oklch(0.82 0.13 70); --c-phase-main: var(--c-accent); --c-phase-rest: oklch(0.80 0.10 230); --c-phase-cool: var(--c-calm);
     /* glass */

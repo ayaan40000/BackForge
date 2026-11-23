@@ -5,14 +5,29 @@ import { dayStr, addDays, daysBetween, parseDay } from './engine/dates.js';
 import { state } from './store.js';
 
 export const BASE = new URL('../../', import.meta.url).href; // repo root (works on GitHub Pages sub-path)
-let LIB = null, LINES = null, MTESTS = null, PTESTS = null;
+let LIB = null, LINES = null, MTESTS = null, PTESTS = null, MEDIA = {}, DESK = null;
 export async function loadData() {
   const get = p => fetch(BASE + p).then(r => { if (!r.ok) throw new Error(p + ' ' + r.status); return r.json(); });
-  const [ex, desk, coaching, lines, mt, pt] = await Promise.all([get('backend/data/exercises.json'), get('data/exercises-desk.json'), get('data/coaching.json'), get('data/voice-lines.json'), get('data/assessments/movement-tests.json'), get('data/assessments/posture-tests.json')]);
-  LIB = new Library([...ex, ...desk], coaching.exercises); LINES = lines; MTESTS = mt; PTESTS = pt;
+  const opt = p => get(p).catch(() => null);
+  const [ex, desk, extra, coaching, lines, mt, pt, media, deskDoc] = await Promise.all([get('backend/data/exercises.json'), get('data/exercises-desk.json'), opt('data/exercises-extra.json'), get('data/coaching.json'), get('data/voice-lines.json'), get('data/assessments/movement-tests.json'), get('data/assessments/posture-tests.json'), opt('data/media.json'), opt('data/desk.json')]);
+  LIB = new Library([...ex, ...desk, ...(extra || [])], coaching.exercises);
+  MEDIA = media?.photos || {}; DESK = deskDoc;
+  // extras carry their own spoken cues + YouTube queries
+  for (const e of LIB.all) { if (e.setupCue && !e.coach.setupCue) e.coach = { ...e.coach, setupCue: e.setupCue }; if (e.focusCue && !e.coach.focusCue) e.coach = { ...e.coach, focusCue: e.focusCue }; } LINES = lines; MTESTS = mt; PTESTS = pt;
 }
 export const lib = () => LIB;
 export const voiceLines = () => LINES;
+export const deskDoc = () => DESK;
+/** Photo pair (stop-motion) for an exercise, or null. */
+export const photosFor = id => (MEDIA[id] ? { frames: [`${BASE}app/media/${id}-0.webp`, `${BASE}app/media/${id}-1.webp`], similar: MEDIA[id].similar || null, source: `https://github.com/yuhonas/free-exercise-db/tree/main/exercises/${MEDIA[id].freeDb}` } : null);
+const YT = q => 'https://www.youtube.com/results?search_query=' + encodeURIComponent(q);
+/** Every exercise gets video links: verified/curated ones first, then labelled searches. */
+export function videosFor(ex) {
+  const out = [...(ex.coach?.videos || []).map(v => ({ label: v.type === 'direct' ? v.channel : `${v.channel} (search)`, url: v.url, direct: v.type === 'direct' }))];
+  for (const q of ex.youtube || []) out.push({ label: `YouTube: ${q}`, url: YT(q), direct: false });
+  if (out.length < 2) out.push({ label: `YouTube: ${ex.name} physiotherapy`, url: YT(`${ex.name} physiotherapy exercise`), direct: false });
+  return out;
+}
 export const movementTests = () => MTESTS.tests;
 export const postureDoc = () => PTESTS;
 export const postureTests = () => PTESTS.tests;

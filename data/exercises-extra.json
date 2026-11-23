@@ -1,0 +1,2976 @@
+[
+ {
+  "id": "band-row-anchored",
+  "name": "Door-Anchored Band Row (chest height)",
+  "category": "strength",
+  "targets": [
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "3 × 12",
+  "level": 2,
+  "cues": [
+   "Anchor at chest height, step back until the band is taut",
+   "Ribs down, squeeze the shoulder blades back and down before the elbows bend",
+   "Elbows brush the ribs; pause one second at the back"
+  ],
+  "mistakes": [
+   "Leaning back to finish the pull",
+   "Shrugging the shoulders toward the ears"
+  ],
+  "regression": "Lighter band or step closer to the door; seated on a chair",
+  "progression": "Heavier band, 3-sec return, or single-arm anti-rotation row",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "door-anchor",
+   "shoulder",
+   "thoracic"
+  ],
+  "setupCue": "Anchor at chest height, band taut",
+  "focusCue": "Blades back, then elbows",
+  "youtube": [
+   "E3 Rehab banded row door anchor",
+   "The Prehab Guys resistance band row"
+  ],
+  "freeDbId": null,
+  "source": "Horizontal pulling for scapular retractors; anchored band gives a fixed line of pull (clinical S&C consensus; Andersen et al. 2010 elastic vs dumbbell EMG similar)."
+ },
+ {
+  "id": "band-facepull-high",
+  "name": "High-Anchor Face Pull with External Rotation",
+  "category": "strength",
+  "targets": [
+   "upper-crossed",
+   "forward-head",
+   "posture"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "3 × 15",
+  "level": 2,
+  "cues": [
+   "Anchor above head height, palms facing down",
+   "Pull toward your eyes and spread the band, thumbs finish pointing back",
+   "Chin tucked, ribs stacked over the pelvis"
+  ],
+  "mistakes": [
+   "Arching the low back to finish the pull",
+   "Elbows dropping below the hands"
+  ],
+  "regression": "Lighter band, or the plain band face pull without the anchor",
+  "progression": "Half-kneeling or 2-sec hold at the back",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "door-anchor",
+   "shoulder",
+   "neck"
+  ],
+  "setupCue": "Anchor high, palms down",
+  "focusCue": "Thumbs back, ribs down",
+  "youtube": [
+   "Eric Cressey face pull technique",
+   "E3 Rehab banded face pull"
+  ],
+  "freeDbId": "Face_Pull",
+  "source": "Same pattern as the cable face pull; trains lower trapezius and external rotators for upper-crossed posture (Cools et al. 2007 scapular exercise selection)."
+ },
+ {
+  "id": "pallof-half-kneeling",
+  "name": "Half-Kneeling Pallof Press",
+  "category": "core",
+  "targets": [
+   "core-stability",
+   "core-endurance",
+   "glute-max"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "3 × 8 / side · 5-sec holds",
+  "level": 2,
+  "cues": [
+   "Kneel side-on to the anchor, inside knee down, cushion under the knee",
+   "Squeeze the down-side glute so the hip is long, ribs down",
+   "Press straight out, hold, resist the turn"
+  ],
+  "mistakes": [
+   "Hips sagging back toward the heel",
+   "Letting the trunk rotate toward the anchor"
+  ],
+  "regression": "Standing Pallof (existing) with a lighter band",
+  "progression": "Tall-kneeling Pallof, then Pallof with overhead press",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "door-anchor",
+   "anti-rotation",
+   "advanced"
+  ],
+  "setupCue": "Side on, inside knee down",
+  "focusCue": "Squeeze glute, resist the turn",
+  "youtube": [
+   "E3 Rehab half kneeling pallof press",
+   "The Prehab Guys pallof press progression"
+  ],
+  "freeDbId": null,
+  "source": "Anti-rotation core endurance with no spinal motion (McGill 2015, Back Mechanic); half-kneeling removes leg drive and adds hip-flexor length on the down side."
+ },
+ {
+  "id": "pallof-tall-kneeling",
+  "name": "Tall-Kneeling Pallof Press",
+  "category": "core",
+  "targets": [
+   "core-stability",
+   "core-endurance",
+   "glute-max"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "3 × 8 / side · 5-sec holds",
+  "level": 2,
+  "cues": [
+   "Both knees down, hips fully open, glutes squeezed",
+   "Ribs stacked over the pelvis, press straight out",
+   "Breathe out as you press and hold"
+  ],
+  "mistakes": [
+   "Sitting back toward the heels",
+   "Arching the low back to stay upright"
+  ],
+  "regression": "Half-kneeling Pallof",
+  "progression": "Pallof with overhead press, or slower 10-sec holds",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "door-anchor",
+   "anti-rotation",
+   "anti-extension",
+   "advanced"
+  ],
+  "setupCue": "Kneel tall, glutes on",
+  "focusCue": "Stack ribs, press, resist",
+  "youtube": [
+   "Squat University tall kneeling pallof press",
+   "E3 Rehab pallof press"
+  ],
+  "freeDbId": null,
+  "source": "Narrower base than half-kneeling, so higher demand on anti-rotation and hip extensors (clinical S&C progression consensus)."
+ },
+ {
+  "id": "pallof-overhead-press",
+  "name": "Pallof Press with Overhead Reach",
+  "category": "core",
+  "targets": [
+   "core-stability",
+   "core-endurance"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "3 × 6 / side · 3-sec holds",
+  "level": 3,
+  "cues": [
+   "Press out first, then reach the hands up only as far as the ribs stay down",
+   "Exhale on the reach, glutes squeezed",
+   "Bring the hands back to the chest along the same path"
+  ],
+  "mistakes": [
+   "Ribs flaring and low back arching as the arms go up",
+   "Turning toward the anchor"
+  ],
+  "regression": "Half-kneeling Pallof press without the overhead reach",
+  "progression": "Split stance standing, heavier band",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "door-anchor",
+   "anti-rotation",
+   "anti-extension",
+   "advanced"
+  ],
+  "setupCue": "Side on, press out first",
+  "focusCue": "Reach up, ribs stay down",
+  "youtube": [
+   "E3 Rehab pallof press overhead",
+   "The Prehab Guys pallof press with overhead reach"
+  ],
+  "freeDbId": null,
+  "source": "Adds an anti-extension challenge to anti-rotation; the reach stops where the ribs flare, so no lumbar arch (rule for extension-intolerant)."
+ },
+ {
+  "id": "band-lat-pulldown-kneeling",
+  "name": "Tall-Kneeling Band Lat Pulldown",
+  "category": "strength",
+  "targets": [
+   "upper-crossed",
+   "posture",
+   "core-stability"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "3 × 12",
+  "level": 2,
+  "cues": [
+   "Anchor at the top of the door, kneel facing it",
+   "Pull the elbows down to the ribs, chest stays proud but ribs stay down",
+   "Control the return for 2 seconds"
+  ],
+  "mistakes": [
+   "Leaning back and arching the low back",
+   "Shrugging as the arms go up"
+  ],
+  "regression": "Seated on a chair, lighter band",
+  "progression": "Single-arm pulldown or heavier band",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home"
+  ],
+  "tags": [
+   "door-anchor",
+   "shoulder",
+   "thoracic"
+  ],
+  "setupCue": "High anchor, kneel facing door",
+  "focusCue": "Elbows to ribs, no arch",
+  "youtube": [
+   "E3 Rehab banded lat pulldown",
+   "Jeff Cavaliere band lat pulldown door"
+  ],
+  "freeDbId": null,
+  "source": "Vertical pulling for lat and lower trap strength; tall-kneeling with glutes on keeps the pelvis neutral."
+ },
+ {
+  "id": "band-straight-arm-pulldown",
+  "name": "Band Straight-Arm Pulldown",
+  "category": "strength",
+  "targets": [
+   "upper-crossed",
+   "core-stability",
+   "posture"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "3 × 12",
+  "level": 2,
+  "cues": [
+   "High anchor, arms long, slight soft elbows",
+   "Sweep the hands down to the thighs, ribs pulled down",
+   "Exhale fully at the bottom"
+  ],
+  "mistakes": [
+   "Bending the elbows into a row",
+   "Arching the back as the arms go up"
+  ],
+  "regression": "Smaller range, lighter band",
+  "progression": "Tall-kneeling version, or 3-sec lowering",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "door-anchor",
+   "anti-extension",
+   "shoulder"
+  ],
+  "setupCue": "High anchor, arms long",
+  "focusCue": "Sweep down, ribs down",
+  "youtube": [
+   "Squat University straight arm pulldown",
+   "E3 Rehab band straight arm pulldown"
+  ],
+  "freeDbId": "Straight-Arm_Pulldown",
+  "source": "Same movement as the cable straight-arm pulldown; lats plus an anti-extension trunk (exhale-ribs-down pattern)."
+ },
+ {
+  "id": "deadbug-band-anchored",
+  "name": "Anchored-Band Dead Bug (anti-extension press)",
+  "category": "core",
+  "targets": [
+   "core-stability",
+   "core-endurance",
+   "apt"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "3 × 6 / side · 3-sec holds",
+  "level": 3,
+  "cues": [
+   "Lie with your head toward a low anchor, hold the band above your chest, arms straight",
+   "Pull the band toward your knees and keep it there, low back gently into the floor",
+   "Lower one leg slowly while the band tension stays"
+  ],
+  "mistakes": [
+   "Low back lifting off the floor as the leg lowers",
+   "Letting the arms drift back toward the anchor"
+  ],
+  "regression": "Existing dead bug, or keep the heel touching the floor",
+  "progression": "Heavier band or straighter leg",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home"
+  ],
+  "tags": [
+   "door-anchor",
+   "anti-extension",
+   "advanced"
+  ],
+  "setupCue": "Head to anchor, arms up",
+  "focusCue": "Band down, back stays down",
+  "youtube": [
+   "E3 Rehab dead bug progressions band",
+   "The Prehab Guys dead bug pullover band"
+  ],
+  "freeDbId": null,
+  "source": "Banded pullover adds lat co-contraction to the anti-extension dead bug (common physio progression; McGill-informed neutral spine)."
+ },
+ {
+  "id": "band-chest-press-doorway",
+  "name": "Door-Anchored Band Chest Press",
+  "category": "strength",
+  "targets": [
+   "upper-crossed",
+   "core-stability"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "3 × 12",
+  "level": 2,
+  "cues": [
+   "Back to the door, anchor at chest height, split stance",
+   "Press forward and slightly together, ribs down",
+   "Shoulder blades glide forward at the end"
+  ],
+  "mistakes": [
+   "Arching the back to push",
+   "Elbows flaring straight out to the sides"
+  ],
+  "regression": "Wall push-up",
+  "progression": "Single-arm press (adds anti-rotation)",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "door-anchor",
+   "shoulder"
+  ],
+  "setupCue": "Back to door, split stance",
+  "focusCue": "Press out, ribs down",
+  "youtube": [
+   "E3 Rehab band chest press",
+   "The Prehab Guys serratus punch band"
+  ],
+  "freeDbId": null,
+  "source": "Pressing balance for a pull-heavy corrective plan; serratus anterior protraction at the end of range (Ludewig 2004)."
+ },
+ {
+  "id": "band-er-90",
+  "name": "Banded External Rotation at 90 Degrees",
+  "category": "strength",
+  "targets": [
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "2 × 12 / side",
+  "level": 2,
+  "cues": [
+   "Anchor at chest height, elbow at shoulder height and bent to a right angle",
+   "Rotate the forearm up toward the ceiling, elbow stays still",
+   "Slow 3-sec lower"
+  ],
+  "mistakes": [
+   "Elbow drooping below shoulder height",
+   "Arching the low back to get range"
+  ],
+  "regression": "External rotation with the elbow at your side and a towel roll",
+  "progression": "Hold 3 sec at the top or heavier band",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "door-anchor",
+   "shoulder"
+  ],
+  "setupCue": "Elbow up, bent at right angle",
+  "focusCue": "Rotate up, elbow still",
+  "youtube": [
+   "E3 Rehab external rotation 90 degrees band",
+   "Mike Reinold external rotation at 90"
+  ],
+  "freeDbId": null,
+  "source": "Rotator cuff endurance in the overhead-ready position (Reinold et al. 2004 EMG)."
+ },
+ {
+  "id": "band-ytw",
+  "name": "Band Y-T-W Raises",
+  "category": "strength",
+  "targets": [
+   "upper-crossed",
+   "forward-head",
+   "posture"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "2 × 8 · each letter",
+  "level": 2,
+  "cues": [
+   "Anchor at chest height, stand tall, step back",
+   "Draw a Y, then a T, then a W with straight-ish arms, thumbs up",
+   "Blades slide down and back, chin tucked"
+  ],
+  "mistakes": [
+   "Shrugging the shoulders",
+   "Leaning back or arching the low back"
+  ],
+  "regression": "T only, lighter band",
+  "progression": "Hold each letter 3 sec",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "door-anchor",
+   "shoulder",
+   "thoracic"
+  ],
+  "setupCue": "Anchor at chest, step back",
+  "focusCue": "Blades down, thumbs up",
+  "youtube": [
+   "The Prehab Guys band Y T W",
+   "E3 Rehab YTW resistance band"
+  ],
+  "freeDbId": null,
+  "source": "Lower and middle trapezius emphasis; done standing so the low back never extends (prone YTW avoided for extension-intolerant)."
+ },
+ {
+  "id": "band-hip-hinge",
+  "name": "Band Hip Hinge (RDL pattern)",
+  "category": "strength",
+  "targets": [
+   "hinge",
+   "glute-max",
+   "hamstring-control"
+  ],
+  "equipment": [
+   "band"
+  ],
+  "dose": "3 × 10 slow",
+  "level": 2,
+  "cues": [
+   "Stand on the band, hold the ends at your hips, soft knees",
+   "Push the hips back with a long neutral spine, band tension rises",
+   "Stand up by squeezing the glutes, stop tall, no lean back"
+  ],
+  "mistakes": [
+   "Rounding the back to reach lower",
+   "Finishing with a low-back arch"
+  ],
+  "regression": "Dowel hip hinge (existing hiphinge) with no band",
+  "progression": "Heavier band, or single-leg supported hinge",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "advanced"
+  ],
+  "setupCue": "Stand on band, ends at hips",
+  "focusCue": "Hips back, glutes finish",
+  "youtube": [
+   "E3 Rehab banded RDL",
+   "Squat University hip hinge band"
+  ],
+  "freeDbId": null,
+  "source": "Hinge with a neutral spine loads hips not lumbar flexion; elastic gives most resistance at lockout where the glute is shortest. Finish tall, no hyperextension."
+ },
+ {
+  "id": "band-split-squat",
+  "name": "Band Split Squat",
+  "category": "strength",
+  "targets": [
+   "glute-max",
+   "glute-weak",
+   "apt"
+  ],
+  "equipment": [
+   "band"
+  ],
+  "dose": "3 × 8 / side",
+  "level": 2,
+  "cues": [
+   "Front foot on the band, ends at your shoulders, back heel up",
+   "Lower straight down, trunk tall, ribs over pelvis",
+   "Drive through the front heel and squeeze the back-leg glute"
+  ],
+  "mistakes": [
+   "Front knee collapsing inward",
+   "Leaning back and arching at the bottom"
+  ],
+  "regression": "Bodyweight split squat holding a chair",
+  "progression": "Heavier band, or 3-sec lowering",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "advanced"
+  ],
+  "setupCue": "Front foot on band, tall",
+  "focusCue": "Straight down, knee over toes",
+  "youtube": [
+   "E3 Rehab banded split squat",
+   "Squat University split squat"
+  ],
+  "freeDbId": null,
+  "source": "Unilateral leg strength with low spinal compression; back-leg glute squeeze lengthens the hip flexor (counter to APT)."
+ },
+ {
+  "id": "monster-walk",
+  "name": "Monster Walk (mini-band)",
+  "category": "glute",
+  "targets": [
+   "glute-med",
+   "glute-weak",
+   "hip-ir"
+  ],
+  "equipment": [
+   "mini-band"
+  ],
+  "dose": "2 × 10 / side",
+  "level": 2,
+  "cues": [
+   "Band above the knees, quarter squat, feet hip-width and pointing forward",
+   "Step diagonally forward, keep tension, knees out over toes",
+   "Pelvis level, no rocking"
+  ],
+  "mistakes": [
+   "Feet turning out",
+   "Swaying the trunk side to side"
+  ],
+  "regression": "Side steps (existing sidesteps)",
+  "progression": "Band around the ankles or forefoot",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel",
+   "gym"
+  ],
+  "tags": [
+   "duck-feet"
+  ],
+  "setupCue": "Band above knees, feet forward",
+  "focusCue": "Toes forward, pelvis level",
+  "youtube": [
+   "The Prehab Guys monster walk",
+   "E3 Rehab monster walks"
+  ],
+  "freeDbId": "Monster_Walk",
+  "source": "Gluteus medius activation in a functional stance (Cambridge et al. 2012); feet kept straight to train against toe-out."
+ },
+ {
+  "id": "band-lateral-lunge",
+  "name": "Banded Lateral Lunge",
+  "category": "glute",
+  "targets": [
+   "glute-med",
+   "glute-max",
+   "hip-ir"
+  ],
+  "equipment": [
+   "mini-band"
+  ],
+  "dose": "2 × 8 / side",
+  "level": 2,
+  "cues": [
+   "Band above the knees, step wide to one side, feet pointing forward",
+   "Sit the hips back over the stepping leg, other leg long",
+   "Push back to the middle and stand tall"
+  ],
+  "mistakes": [
+   "Rounding the back to go deeper",
+   "Toes turning out"
+  ],
+  "regression": "Smaller step, hands on a chair",
+  "progression": "Hold a light kettlebell at the chest",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "duck-feet",
+   "advanced"
+  ],
+  "setupCue": "Band above knees, step wide",
+  "focusCue": "Hips back, toes forward",
+  "youtube": [
+   "E3 Rehab lateral lunge",
+   "Squat University lateral lunge band"
+  ],
+  "freeDbId": null,
+  "source": "Frontal-plane hip strength and adductor length; feet straight works hip rotation control."
+ },
+ {
+  "id": "band-row-single-arm",
+  "name": "Single-Arm Band Row with Anti-Rotation",
+  "category": "strength",
+  "targets": [
+   "upper-crossed",
+   "core-stability"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "3 × 10 / side",
+  "level": 2,
+  "cues": [
+   "Split stance, anchor at chest height, opposite foot forward",
+   "Row one arm, hips and chest stay square to the door",
+   "Pause, then return slowly"
+  ],
+  "mistakes": [
+   "Twisting the trunk to finish the row",
+   "Shoulder rolling forward at the end"
+  ],
+  "regression": "Two-arm anchored row",
+  "progression": "Half-kneeling or heavier band",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "door-anchor",
+   "anti-rotation",
+   "shoulder"
+  ],
+  "setupCue": "Split stance, square to door",
+  "focusCue": "Row, stay square",
+  "youtube": [
+   "E3 Rehab single arm band row",
+   "Eric Cressey half kneeling single arm row"
+  ],
+  "freeDbId": null,
+  "source": "Unilateral pulling with an anti-rotation trunk demand; no trunk twist so it stays inside the no-loaded-rotation rule."
+ },
+ {
+  "id": "bridge-march-band",
+  "name": "Banded Glute Bridge March",
+  "category": "glute",
+  "targets": [
+   "glute-max",
+   "glute-med",
+   "core-stability"
+  ],
+  "equipment": [
+   "mini-band"
+  ],
+  "dose": "2 × 8 / side · 2-sec holds",
+  "level": 2,
+  "cues": [
+   "Band above the knees, bridge up, ribs down",
+   "Lift one foot a few centimetres, pelvis stays level",
+   "Swap feet slowly, knees pressed out"
+  ],
+  "mistakes": [
+   "Hips dropping on the lifted side",
+   "Pushing the hips so high the low back arches"
+  ],
+  "regression": "Bridge hold (existing glutebridge)",
+  "progression": "Hold each lift 5 sec or feet further away",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "anti-rotation"
+  ],
+  "setupCue": "Band above knees, bridge up",
+  "focusCue": "Level hips, ribs down",
+  "youtube": [
+   "E3 Rehab glute bridge march",
+   "The Prehab Guys bridge march band"
+  ],
+  "freeDbId": null,
+  "source": "Single-leg glute demand with anti-rotation; bridge height stops at a straight line from knee to shoulder (no lumbar extension)."
+ },
+ {
+  "id": "doorway-lat-stretch",
+  "name": "Doorway Lat Stretch",
+  "category": "stretch",
+  "targets": [
+   "upper-crossed",
+   "thoracic-mobility"
+  ],
+  "equipment": [
+   "doorway"
+  ],
+  "dose": "2 × 30 sec / side",
+  "level": 1,
+  "cues": [
+   "Hold the doorframe at head height with one hand",
+   "Step back and sit the hips away, arm long",
+   "Breathe into the side ribs, spine long"
+  ],
+  "mistakes": [
+   "Rounding the low back to sink deeper",
+   "Shrugging the shoulder"
+  ],
+  "regression": "Arm lower on the frame, smaller range",
+  "progression": "Hold 45 sec with a slow exhale",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel",
+   "desk"
+  ],
+  "tags": [
+   "doorway",
+   "stretch",
+   "shoulder"
+  ],
+  "setupCue": "Hold frame, step back",
+  "focusCue": "Breathe into side ribs",
+  "youtube": [
+   "The Prehab Guys lat stretch doorway",
+   "Physiotutors latissimus dorsi stretch"
+  ],
+  "freeDbId": null,
+  "source": "Tight lats pull the pelvis into tilt and limit overhead range (Janda upper-crossed model); static stretch 30 s per Bandy 1997."
+ },
+ {
+  "id": "strap-hamstring-supine",
+  "name": "Supine Strap Hamstring Stretch",
+  "category": "stretch",
+  "targets": [
+   "hamstring-control",
+   "sciatica-relief"
+  ],
+  "equipment": [
+   "strap"
+  ],
+  "dose": "2 × 30 sec / side",
+  "level": 1,
+  "cues": [
+   "Lie on your back, strap around the ball of one foot, other knee bent",
+   "Raise the leg until a gentle stretch in the back of the thigh",
+   "Low back stays relaxed on the floor"
+  ],
+  "mistakes": [
+   "Pulling so hard the hips lift",
+   "Pushing into a nerve tug behind the knee"
+  ],
+  "regression": "Bend the stretched knee slightly",
+  "progression": "Other leg straight on the floor",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "stretch"
+  ],
+  "setupCue": "On your back, strap on foot",
+  "focusCue": "Gentle stretch, back relaxed",
+  "youtube": [
+   "The Prehab Guys strap hamstring stretch",
+   "Physiotutors supine hamstring stretch"
+  ],
+  "freeDbId": "Lying_Hamstring",
+  "source": "Supine keeps the lumbar spine supported; never seated toe touches (loaded flexion). Stop before any nerve tug."
+ },
+ {
+  "id": "hipflexor-band-distraction",
+  "name": "Half-Kneeling Banded Hip Flexor Stretch",
+  "category": "stretch",
+  "targets": [
+   "hip-flexor",
+   "apt"
+  ],
+  "equipment": [
+   "band",
+   "door-anchor"
+  ],
+  "dose": "2 × 45 sec / side",
+  "level": 2,
+  "cues": [
+   "Band anchored low behind you, looped high around the front of the back-leg hip",
+   "Tuck the tail under and squeeze that glute first",
+   "Shift forward only until the front of the hip stretches"
+  ],
+  "mistakes": [
+   "Arching the low back to get further forward",
+   "Letting the band pull you into a lean"
+  ],
+  "regression": "Existing hip flexor stretch with no band",
+  "progression": "Reach the same-side arm up while ribs stay down",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home"
+  ],
+  "tags": [
+   "door-anchor",
+   "stretch"
+  ],
+  "setupCue": "Band at hip crease, kneel",
+  "focusCue": "Tuck, squeeze, small shift",
+  "youtube": [
+   "E3 Rehab banded hip flexor stretch",
+   "Kelly Starrett banded hip flexor distraction"
+  ],
+  "freeDbId": null,
+  "source": "The band pulls the femoral head forward while the pelvis is tucked; tuck-first cue keeps it inside the no-lumbar-arch rule."
+ },
+ {
+  "id": "figure4-wall",
+  "name": "Wall Figure-4 Stretch",
+  "category": "stretch",
+  "targets": [
+   "glute-weak",
+   "sciatica-relief"
+  ],
+  "equipment": [
+   "wall"
+  ],
+  "dose": "2 × 30 sec / side",
+  "level": 1,
+  "cues": [
+   "Lie on your back near a wall, one foot on the wall, knee bent",
+   "Cross the other ankle over that knee",
+   "Scoot closer to the wall to deepen, hands free"
+  ],
+  "mistakes": [
+   "Pulling the knee in with the hands",
+   "Lifting the low back off the floor"
+  ],
+  "regression": "Further from the wall",
+  "progression": "Gently press the crossed knee away",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "stretch"
+  ],
+  "setupCue": "Foot on wall, ankle across",
+  "focusCue": "Scoot closer, breathe slow",
+  "youtube": [
+   "The Prehab Guys figure 4 stretch",
+   "Bob and Brad piriformis stretch wall"
+  ],
+  "freeDbId": null,
+  "source": "Hands-free figure-4: no pulling into lumbar flexion; one knee only."
+ },
+ {
+  "id": "piriformis-cross-body",
+  "name": "Cross-Body Piriformis Stretch (single knee)",
+  "category": "stretch",
+  "targets": [
+   "glute-weak",
+   "sciatica-relief"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 30 sec / side",
+  "level": 1,
+  "cues": [
+   "On your back, one leg long, bend the other knee",
+   "Guide that knee toward the opposite shoulder with both hands",
+   "Stop at a stretch deep in the buttock"
+  ],
+  "mistakes": [
+   "Twisting the low back off the floor",
+   "Pulling into pain"
+  ],
+  "regression": "Smaller range, keep the foot on the floor",
+  "progression": "Hold 45 sec",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "stretch"
+  ],
+  "setupCue": "On back, one knee bent",
+  "focusCue": "Knee to opposite shoulder",
+  "youtube": [
+   "Physiotutors piriformis stretch",
+   "The Prehab Guys piriformis stretch"
+  ],
+  "freeDbId": "Knee_Across_The_Body",
+  "source": "Single-knee hip flexion with adduction; the pelvis stays on the floor so the lumbar spine does not twist."
+ },
+ {
+  "id": "adductor-rockback",
+  "name": "Adductor Rock-Back",
+  "category": "stretch",
+  "targets": [
+   "hip-ir",
+   "glute-weak"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 8 / side slow",
+  "level": 1,
+  "cues": [
+   "On hands and knees, one leg straight out to the side, foot flat",
+   "Rock the hips back slowly until the inner thigh stretches",
+   "Back stays long, stop before it rounds"
+  ],
+  "mistakes": [
+   "Rounding the low back at the end",
+   "Bouncing"
+  ],
+  "regression": "Smaller rock, knees on a cushion",
+  "progression": "Hold the end position 5 sec",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home"
+  ],
+  "tags": [
+   "stretch",
+   "duck-feet"
+  ],
+  "setupCue": "Hands and knees, leg out",
+  "focusCue": "Rock back, back long",
+  "youtube": [
+   "The Prehab Guys adductor rock back",
+   "E3 Rehab adductor rockback"
+  ],
+  "freeDbId": null,
+  "source": "Dynamic adductor mobility; range stops before lumbar flexion."
+ },
+ {
+  "id": "calf-stretch-wall",
+  "name": "Wall Calf Stretch (straight and bent knee)",
+  "category": "stretch",
+  "targets": [
+   "posture"
+  ],
+  "equipment": [
+   "wall"
+  ],
+  "dose": "2 × 30 sec / side",
+  "level": 1,
+  "cues": [
+   "Hands on the wall, one foot back, heel down, toes pointing straight ahead",
+   "Straight knee first, then bend the back knee for the lower calf",
+   "Hips forward, trunk tall"
+  ],
+  "mistakes": [
+   "Back foot turning out",
+   "Heel lifting"
+  ],
+  "regression": "Shorter step back",
+  "progression": "Hold 45 sec each version",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel",
+   "desk"
+  ],
+  "tags": [
+   "stretch",
+   "duck-feet"
+  ],
+  "setupCue": "Hands on wall, foot back",
+  "focusCue": "Heel down, toes forward",
+  "youtube": [
+   "Physiotutors calf stretch",
+   "The Prehab Guys gastrocnemius soleus stretch"
+  ],
+  "freeDbId": "Calf_Stretch_Hands_Against_Wall",
+  "source": "Limited dorsiflexion pushes people into a toe-out gait; toes-forward position stretches the calf in neutral."
+ },
+ {
+  "id": "ankle-dorsiflexion-wall",
+  "name": "Knee-to-Wall Ankle Mobility",
+  "category": "stretch",
+  "targets": [
+   "posture"
+  ],
+  "equipment": [
+   "wall"
+  ],
+  "dose": "2 × 10 / side",
+  "level": 1,
+  "cues": [
+   "Face the wall, foot a hand-width away, toes straight",
+   "Drive the knee over the second toe toward the wall",
+   "Heel stays down"
+  ],
+  "mistakes": [
+   "Knee caving in",
+   "Heel lifting"
+  ],
+  "regression": "Foot closer to the wall",
+  "progression": "Foot further away, or hold 3 sec",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel",
+   "desk"
+  ],
+  "tags": [
+   "stretch",
+   "duck-feet"
+  ],
+  "setupCue": "Toes straight, near wall",
+  "focusCue": "Knee over second toe",
+  "youtube": [
+   "E3 Rehab ankle dorsiflexion knee to wall",
+   "Squat University ankle mobility"
+  ],
+  "freeDbId": null,
+  "source": "Weight-bearing lunge test position; reliable dorsiflexion measure and drill (Bennell 1998)."
+ },
+ {
+  "id": "quad-stretch-strap",
+  "name": "Standing Strap Quad Stretch",
+  "category": "stretch",
+  "targets": [
+   "hip-flexor",
+   "apt"
+  ],
+  "equipment": [
+   "strap",
+   "wall"
+  ],
+  "dose": "2 × 30 sec / side",
+  "level": 1,
+  "cues": [
+   "One hand on the wall, strap around the ankle behind you",
+   "Tuck the tail under first, knees together",
+   "Pull the heel up gently with the strap"
+  ],
+  "mistakes": [
+   "Arching the low back",
+   "Knee drifting forward or out"
+  ],
+  "regression": "Side-lying with the strap",
+  "progression": "Step the standing foot onto a low step",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "stretch"
+  ],
+  "setupCue": "Hand on wall, strap on ankle",
+  "focusCue": "Tuck first, then pull",
+  "youtube": [
+   "The Prehab Guys quad stretch",
+   "Physiotutors rectus femoris stretch"
+  ],
+  "freeDbId": null,
+  "source": "Rectus femoris length with a posterior tilt so the lumbar spine does not arch (APT and extension-intolerant rule)."
+ },
+ {
+  "id": "upper-trap-stretch",
+  "name": "Upper Trapezius Stretch",
+  "category": "stretch",
+  "targets": [
+   "forward-head",
+   "upper-crossed"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 30 sec / side",
+  "level": 1,
+  "cues": [
+   "Sit tall, hold the chair seat with one hand",
+   "Tilt the ear toward the other shoulder",
+   "Let the held shoulder sink"
+  ],
+  "mistakes": [
+   "Turning the head instead of tilting",
+   "Pulling hard on the head"
+  ],
+  "regression": "No hand on the head",
+  "progression": "Light hand on the head for overpressure",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel",
+   "desk"
+  ],
+  "tags": [
+   "stretch",
+   "neck",
+   "desk"
+  ],
+  "setupCue": "Sit tall, hold the seat",
+  "focusCue": "Ear to shoulder, gently",
+  "youtube": [
+   "Physiotutors upper trapezius stretch",
+   "The Prehab Guys upper trap stretch"
+  ],
+  "freeDbId": "Side_Neck_Stretch",
+  "source": "Desk workers commonly report upper-trap tension; gentle static stretch, never forceful (Cagnie 2007 office workers)."
+ },
+ {
+  "id": "levator-stretch",
+  "name": "Levator Scapulae Stretch",
+  "category": "stretch",
+  "targets": [
+   "forward-head",
+   "upper-crossed"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 30 sec / side",
+  "level": 1,
+  "cues": [
+   "Sit tall, hold the chair seat with one hand",
+   "Turn the nose toward the other armpit and nod down",
+   "Let the held shoulder sink"
+  ],
+  "mistakes": [
+   "Rounding the whole upper back",
+   "Pulling into pain"
+  ],
+  "regression": "Smaller nod",
+  "progression": "Light hand on the back of the head",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel",
+   "desk"
+  ],
+  "tags": [
+   "stretch",
+   "neck",
+   "desk"
+  ],
+  "setupCue": "Sit tall, hold the seat",
+  "focusCue": "Nose to armpit, gently",
+  "youtube": [
+   "Physiotutors levator scapulae stretch",
+   "The Prehab Guys levator scapulae stretch"
+  ],
+  "freeDbId": null,
+  "source": "Neck flexion here is unloaded cervical, not lumbar; gentle only. Stop with arm symptoms or dizziness."
+ },
+ {
+  "id": "childs-pose-side-reach",
+  "name": "Child's Pose with Side Reach",
+  "category": "relief",
+  "targets": [
+   "sciatica-relief",
+   "thoracic-mobility"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 30 sec / side",
+  "level": 1,
+  "cues": [
+   "Kneel, sit back toward the heels, arms forward",
+   "Walk both hands to one side to stretch the opposite flank",
+   "Slow breaths into the stretched ribs"
+  ],
+  "mistakes": [
+   "Forcing the hips down to the heels",
+   "Holding the breath"
+  ],
+  "regression": "Pillow on the calves, smaller sit-back",
+  "progression": "Hold 45 sec",
+  "spinal_load": "flexion",
+  "contra": [
+   "flexion-intolerant"
+  ],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "stretch"
+  ],
+  "setupCue": "Kneel, sit back, arms forward",
+  "focusCue": "Hands to one side, breathe",
+  "youtube": [
+   "The Prehab Guys childs pose side bend",
+   "Physiotutors childs pose"
+  ],
+  "freeDbId": null,
+  "source": "Flexion-biased unloaded relief for an extension-intolerant back; contra flexion-intolerant. Unloaded, so allowed by the safety layer."
+ },
+ {
+  "id": "wrist-flexor-stretch",
+  "name": "Desk Wrist Flexor Stretch",
+  "category": "stretch",
+  "targets": [
+   "posture"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 20 sec / side",
+  "level": 1,
+  "cues": [
+   "Arm straight in front, palm up",
+   "Gently pull the fingers back with the other hand",
+   "Shoulder relaxed"
+  ],
+  "mistakes": [
+   "Locking the elbow hard",
+   "Pulling into tingling"
+  ],
+  "regression": "Bent elbow",
+  "progression": "Palm flat on the desk, fingers toward you",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "desk",
+   "travel",
+   "home"
+  ],
+  "tags": [
+   "stretch",
+   "desk"
+  ],
+  "setupCue": "Arm out, palm up",
+  "focusCue": "Fingers back, shoulder low",
+  "youtube": [
+   "Physiotutors wrist flexor stretch",
+   "The Prehab Guys forearm stretch"
+  ],
+  "freeDbId": null,
+  "source": "Forearm flexor length for keyboard and mouse use; stop with tingling (nerve, not muscle)."
+ },
+ {
+  "id": "wrist-extensor-stretch",
+  "name": "Desk Wrist Extensor Stretch",
+  "category": "stretch",
+  "targets": [
+   "posture"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 20 sec / side",
+  "level": 1,
+  "cues": [
+   "Arm straight in front, palm down",
+   "Bend the wrist down and gently press the back of the hand",
+   "Shoulder relaxed"
+  ],
+  "mistakes": [
+   "Shrugging",
+   "Pulling into pain at the elbow"
+  ],
+  "regression": "Bent elbow",
+  "progression": "Make a loose fist inside the stretch",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "desk",
+   "travel",
+   "home"
+  ],
+  "tags": [
+   "stretch",
+   "desk"
+  ],
+  "setupCue": "Arm out, palm down",
+  "focusCue": "Wrist down, shoulder low",
+  "youtube": [
+   "Physiotutors wrist extensor stretch",
+   "The Prehab Guys tennis elbow stretch"
+  ],
+  "freeDbId": null,
+  "source": "Extensor stretch for mouse-heavy work (lateral elbow load); gentle, pain-free."
+ },
+ {
+  "id": "hip-ir-iso-wall",
+  "name": "Seated Hip IR Isometric (wall or chair leg)",
+  "category": "hip",
+  "targets": [
+   "hip-ir"
+  ],
+  "equipment": [
+   "chair",
+   "wall"
+  ],
+  "dose": "3 × 5 / side · 10-sec holds",
+  "level": 1,
+  "cues": [
+   "Sit side-on to the wall, knees at a right angle",
+   "Outside of the near foot against the wall",
+   "Push the foot into the wall without moving, thigh still"
+  ],
+  "mistakes": [
+   "Leaning the trunk away",
+   "Pushing with the whole leg instead of turning the hip"
+  ],
+  "regression": "Lighter push, 5-sec holds",
+  "progression": "Push harder or hold in more rotation",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "desk"
+  ],
+  "tags": [
+   "hip-ir",
+   "duck-feet"
+  ],
+  "setupCue": "Side on, foot to wall",
+  "focusCue": "Push foot out, thigh still",
+  "youtube": [
+   "E3 Rehab hip internal rotation isometric",
+   "The Prehab Guys hip IR isometric"
+  ],
+  "freeDbId": null,
+  "source": "Isometrics build strength in end range with low irritability (Rio 2015 on isometric dosing); first rung of the IR ladder."
+ },
+ {
+  "id": "seated-hip-ir-band-slow",
+  "name": "Seated Banded Hip IR (slow lower)",
+  "category": "hip",
+  "targets": [
+   "hip-ir"
+  ],
+  "equipment": [
+   "band",
+   "chair"
+  ],
+  "dose": "3 × 8 / side slow",
+  "level": 2,
+  "cues": [
+   "Long band tied to a table leg, looped around the ankle from the inside",
+   "Thigh pinned, swing the shin outward",
+   "Take 3 seconds to return"
+  ],
+  "mistakes": [
+   "Trunk leaning to fake range",
+   "Thigh sliding across the chair"
+  ],
+  "regression": "Mini-band seated IR (existing seatedhipir)",
+  "progression": "Heavier band, hold 3 sec at end range",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home"
+  ],
+  "tags": [
+   "hip-ir",
+   "duck-feet"
+  ],
+  "setupCue": "Band at ankle, thigh pinned",
+  "focusCue": "Shin out, slow back",
+  "youtube": [
+   "E3 Rehab seated hip internal rotation band",
+   "Squat University hip internal rotation"
+  ],
+  "freeDbId": null,
+  "source": "Eccentric emphasis for the IR muscles; progression from the mini-band version."
+ },
+ {
+  "id": "sidelying-hip-ir-lift",
+  "name": "Side-Lying Hip IR Lift",
+  "category": "hip",
+  "targets": [
+   "hip-ir",
+   "glute-med"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 12 / side",
+  "level": 1,
+  "cues": [
+   "Lie on your side, knees bent and stacked, pillow between the knees",
+   "Keep the top knee down on the pillow",
+   "Lift the top foot toward the ceiling, then lower"
+  ],
+  "mistakes": [
+   "Rolling the pelvis back",
+   "Lifting the knee with the foot"
+  ],
+  "regression": "Smaller lift",
+  "progression": "Ankle weight or pause 3 sec at the top",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "hip-ir",
+   "duck-feet"
+  ],
+  "setupCue": "On side, pillow between knees",
+  "focusCue": "Foot up, knee stays",
+  "youtube": [
+   "The Prehab Guys side lying hip internal rotation",
+   "E3 Rehab side lying IR"
+  ],
+  "freeDbId": null,
+  "source": "Open-chain IR strength with gravity resistance; gluteus medius anterior fibres and adductors (Delp 1999 moment arms)."
+ },
+ {
+  "id": "quadruped-hip-ir-rock",
+  "name": "Quadruped Hip IR Rock",
+  "category": "hip",
+  "targets": [
+   "hip-ir"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 8 slow",
+  "level": 1,
+  "cues": [
+   "On hands and knees, knees together, feet wide apart",
+   "Rock the hips back slowly, feet staying wide",
+   "Stop before the low back rounds"
+  ],
+  "mistakes": [
+   "Rounding the back at the end",
+   "Letting the feet slide in"
+  ],
+  "regression": "Feet less wide, small rock",
+  "progression": "Hold the end 5 sec, one side at a time",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home"
+  ],
+  "tags": [
+   "hip-ir",
+   "duck-feet",
+   "stretch"
+  ],
+  "setupCue": "Knees together, feet wide",
+  "focusCue": "Rock back, back long",
+  "youtube": [
+   "E3 Rehab quadruped hip internal rotation",
+   "Tom Morrison hip internal rotation"
+  ],
+  "freeDbId": null,
+  "source": "Gentle loaded-position IR mobility; range limited before lumbar flexion."
+ },
+ {
+  "id": "hip-airplane-supported",
+  "name": "Supported Hip Airplane",
+  "category": "hip",
+  "targets": [
+   "hip-ir",
+   "glute-med",
+   "glute-max"
+  ],
+  "equipment": [
+   "chair"
+  ],
+  "dose": "2 × 5 / side slow",
+  "level": 3,
+  "cues": [
+   "Hold a chair, stand on one leg, hinge forward with a flat back",
+   "Turn the pelvis open toward the ceiling, then close it toward the floor",
+   "The standing knee stays pointing forward"
+  ],
+  "mistakes": [
+   "Twisting the shoulders instead of the pelvis",
+   "Rounding the back"
+  ],
+  "regression": "Smaller turn, both hands on the chair",
+  "progression": "One fingertip on the chair, then no support",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "hip-ir",
+   "duck-feet",
+   "advanced"
+  ],
+  "setupCue": "Hand on chair, one leg",
+  "focusCue": "Pelvis turns, spine still",
+  "youtube": [
+   "E3 Rehab hip airplane",
+   "The Prehab Guys hip airplane progression"
+  ],
+  "freeDbId": null,
+  "source": "Closed-chain IR and ER control on the stance hip; spine stays still, the pelvis rotates over the femur (no lumbar rotation)."
+ },
+ {
+  "id": "ir9090-pin-iso",
+  "name": "90/90 IR Isometric Press",
+  "category": "hip",
+  "targets": [
+   "hip-ir"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 5 / side · 10-sec holds",
+  "level": 1,
+  "cues": [
+   "Sit in 90/90, hands behind you for support",
+   "Press the back shin and ankle down into the floor",
+   "Breathe, trunk tall, no lean"
+  ],
+  "mistakes": [
+   "Leaning away from the back leg",
+   "Holding the breath"
+  ],
+  "regression": "Prop the hips on a cushion",
+  "progression": "90/90 lift-offs (existing ir9090liftoff)",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "hip-ir",
+   "duck-feet"
+  ],
+  "setupCue": "Sit in ninety ninety",
+  "focusCue": "Press back shin down",
+  "youtube": [
+   "Squat University 90 90 hip",
+   "E3 Rehab 90 90 internal rotation lift off"
+  ],
+  "freeDbId": null,
+  "source": "Regression to the lift-off: isometric drive at the same end range (allowed while the lift-off is gated off at Priority)."
+ },
+ {
+  "id": "bridge-toe-in",
+  "name": "Toe-Forward Glute Bridge",
+  "category": "glute",
+  "targets": [
+   "glute-max",
+   "hip-ir",
+   "apt"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 12 · 3-sec holds",
+  "level": 1,
+  "cues": [
+   "Feet hip-width, toes pointing straight or slightly in",
+   "Press through the big toe and heel, knees over the second toe",
+   "Lift to a straight line, ribs down"
+  ],
+  "mistakes": [
+   "Feet turning out",
+   "Knees drifting apart",
+   "Arching at the top"
+  ],
+  "regression": "Smaller lift",
+  "progression": "Single-leg bridge or block squeeze",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "hip-ir",
+   "duck-feet"
+  ],
+  "setupCue": "Feet straight, toes forward",
+  "focusCue": "Big toe down, ribs down",
+  "youtube": [
+   "The Prehab Guys glute bridge foot position",
+   "E3 Rehab glute bridge"
+  ],
+  "freeDbId": "Butt_Lift_Bridge",
+  "source": "Foot position biases hip rotation; toes forward stops turned-out feet driving the bridge with external rotators only."
+ },
+ {
+  "id": "short-foot-tripod",
+  "name": "Short Foot (foot tripod)",
+  "category": "hip",
+  "targets": [
+   "posture"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "3 × 6 · 5-sec holds",
+  "level": 1,
+  "cues": [
+   "Stand or sit, weight on heel, big-toe ball and little-toe ball",
+   "Draw the ball of the foot toward the heel without curling the toes",
+   "The arch lifts, toes stay long"
+  ],
+  "mistakes": [
+   "Curling the toes",
+   "Rolling onto the outside of the foot"
+  ],
+  "regression": "Seated, one foot",
+  "progression": "Single-leg balance holding the tripod",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "desk",
+   "travel"
+  ],
+  "tags": [
+   "duck-feet",
+   "desk"
+  ],
+  "setupCue": "Weight on three foot points",
+  "focusCue": "Arch up, toes long",
+  "youtube": [
+   "The Prehab Guys short foot exercise",
+   "Squat University foot tripod"
+  ],
+  "freeDbId": null,
+  "source": "Intrinsic foot strength improves arch control (McKeon 2015 foot core); a stable tripod helps the hip hold neutral rotation."
+ },
+ {
+  "id": "gait-line-drill",
+  "name": "Straight-Foot Walking Drill",
+  "category": "hip",
+  "targets": [
+   "posture",
+   "hip-ir"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 60 sec",
+  "level": 1,
+  "cues": [
+   "Walk along a floor line, feet landing either side pointing forward",
+   "Push off through the big toe",
+   "Squeeze the back-leg glute as it passes behind"
+  ],
+  "mistakes": [
+   "Forcing the feet in",
+   "Over-striding"
+  ],
+  "regression": "Slow, short steps",
+  "progression": "Add a light carry once it feels natural",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "duck-feet",
+   "hip-ir"
+  ],
+  "setupCue": "Walk along a floor line",
+  "focusCue": "Toes forward, big toe push",
+  "youtube": [
+   "The Prehab Guys gait retraining",
+   "E3 Rehab walking mechanics"
+  ],
+  "freeDbId": null,
+  "source": "A practice cue, not a correction of structure: normal foot progression angle is roughly 5 to 13 degrees out (Seber 1981); only nudge toward the low end."
+ },
+ {
+  "id": "desk-hipflexor-chair",
+  "name": "Chair-Edge Hip Flexor Stretch",
+  "category": "stretch",
+  "targets": [
+   "hip-flexor",
+   "apt"
+  ],
+  "equipment": [
+   "chair"
+  ],
+  "dose": "2 × 30 sec / side",
+  "level": 1,
+  "cues": [
+   "Sit sideways on the chair edge, one leg back, knee toward the floor",
+   "Tuck the tail under, squeeze that glute",
+   "Sit tall, feel the front of the hip"
+  ],
+  "mistakes": [
+   "Arching the back to get more stretch",
+   "Leaning on the chair back"
+  ],
+  "regression": "Smaller step back",
+  "progression": "Reach the same-side arm up, ribs down",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "desk",
+   "travel"
+  ],
+  "tags": [
+   "desk",
+   "stretch"
+  ],
+  "setupCue": "Sideways on chair edge",
+  "focusCue": "Tuck, squeeze, sit tall",
+  "youtube": [
+   "The Prehab Guys seated hip flexor stretch",
+   "Physiotutors hip flexor stretch chair"
+  ],
+  "freeDbId": null,
+  "source": "Hip flexor length without getting on the floor; tuck-first keeps it free of lumbar extension."
+ },
+ {
+  "id": "desk-seated-figure4",
+  "name": "Seated Figure-4 Glute Stretch",
+  "category": "stretch",
+  "targets": [
+   "glute-weak",
+   "sciatica-relief"
+  ],
+  "equipment": [
+   "chair"
+  ],
+  "dose": "2 × 30 sec / side",
+  "level": 1,
+  "cues": [
+   "Sit tall, ankle on the opposite knee",
+   "Hinge forward from the hips with a long back",
+   "Stop at a stretch in the buttock"
+  ],
+  "mistakes": [
+   "Rounding the back to go lower",
+   "Forcing the knee down"
+  ],
+  "regression": "Ankle lower on the shin",
+  "progression": "Gentle hand press on the knee",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "desk",
+   "travel"
+  ],
+  "tags": [
+   "desk",
+   "stretch"
+  ],
+  "setupCue": "Ankle on opposite knee",
+  "focusCue": "Long back, small hinge",
+  "youtube": [
+   "Physiotutors seated piriformis stretch",
+   "Bob and Brad seated piriformis stretch"
+  ],
+  "freeDbId": "Ankle_On_The_Knee",
+  "source": "Seated piriformis stretch; hinge from the hips with a neutral spine (no slump)."
+ },
+ {
+  "id": "desk-pushaway-thoracic",
+  "name": "Desk Push-Away Thoracic Stretch",
+  "category": "mobility",
+  "targets": [
+   "thoracic-mobility",
+   "upper-crossed"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 6 slow",
+  "level": 1,
+  "cues": [
+   "Hands on the desk edge, walk the feet back",
+   "Hinge at the hips, let the chest sink between the arms",
+   "Ribs stay tucked, breathe out"
+  ],
+  "mistakes": [
+   "Letting the low back sag",
+   "Locking the knees"
+  ],
+  "regression": "Hands higher, on a wall",
+  "progression": "Hold 5 sec at the bottom",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "desk",
+   "travel",
+   "home"
+  ],
+  "tags": [
+   "desk",
+   "thoracic",
+   "stretch"
+  ],
+  "setupCue": "Hands on desk, walk back",
+  "focusCue": "Chest sinks, ribs tucked",
+  "youtube": [
+   "The Prehab Guys thoracic extension stretch",
+   "Physiotutors thoracic mobility desk"
+  ],
+  "freeDbId": null,
+  "source": "Thoracic extension and shoulder flexion with ribs tucked so the movement stays in the upper back, not the lumbar spine."
+ },
+ {
+  "id": "chintuck-lean-back",
+  "name": "Chin Tuck with Lean-Back",
+  "category": "strength",
+  "targets": [
+   "forward-head",
+   "posture"
+  ],
+  "equipment": [
+   "chair"
+  ],
+  "dose": "2 × 8 · 5-sec holds",
+  "level": 2,
+  "cues": [
+   "Sit tall away from the chair back, chin tucked",
+   "Lean the trunk back a little, hips as the hinge",
+   "Keep the tuck as the head gets heavier"
+  ],
+  "mistakes": [
+   "Chin poking forward",
+   "Slumping the low back"
+  ],
+  "regression": "Plain chin tuck",
+  "progression": "Lean back further or hold 10 sec",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "desk",
+   "travel"
+  ],
+  "tags": [
+   "desk",
+   "neck"
+  ],
+  "setupCue": "Sit tall, chin tucked",
+  "focusCue": "Lean back, keep the tuck",
+  "youtube": [
+   "The Prehab Guys chin tuck progression",
+   "Physiotutors deep neck flexor training"
+  ],
+  "freeDbId": null,
+  "source": "Progresses the deep neck flexor load by changing head angle to gravity (Jull 2008 craniocervical flexion training)."
+ },
+ {
+  "id": "seated-goalpost-slide",
+  "name": "Seated Goalpost Slide",
+  "category": "mobility",
+  "targets": [
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "chair"
+  ],
+  "dose": "2 × 10",
+  "level": 1,
+  "cues": [
+   "Sit back against the chair, arms in a goalpost",
+   "Slide the arms up a little and draw them down into the back pockets",
+   "Ribs down, chin tucked"
+  ],
+  "mistakes": [
+   "Shrugging up",
+   "Arching off the chair"
+  ],
+  "regression": "One arm at a time",
+  "progression": "Hold 3 sec at the bottom",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "desk",
+   "travel"
+  ],
+  "tags": [
+   "desk",
+   "shoulder",
+   "thoracic"
+  ],
+  "setupCue": "Back to chair, goalpost arms",
+  "focusCue": "Slide down, blades back",
+  "youtube": [
+   "The Prehab Guys seated wall slide",
+   "Physiotutors scapular retraction"
+  ],
+  "freeDbId": null,
+  "source": "Desk version of the wall slide; lower-trap emphasis with the chair back as feedback."
+ },
+ {
+  "id": "standing-hip-ext-squeeze",
+  "name": "Standing Hip Extension Squeeze",
+  "category": "glute",
+  "targets": [
+   "glute-max",
+   "glute-weak",
+   "apt"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 10 / side · 2-sec holds",
+  "level": 1,
+  "cues": [
+   "Stand holding the desk, slight tuck",
+   "Take one straight leg a little behind you by squeezing the glute",
+   "Stop before the low back moves"
+  ],
+  "mistakes": [
+   "Swinging the leg high and arching",
+   "Leaning forward onto the desk"
+  ],
+  "regression": "Glute squeeze only, both feet down",
+  "progression": "Mini-band around the ankles",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "desk",
+   "travel",
+   "home"
+  ],
+  "tags": [
+   "desk"
+  ],
+  "setupCue": "Hold desk, slight tuck",
+  "focusCue": "Squeeze, small range",
+  "youtube": [
+   "The Prehab Guys standing hip extension",
+   "Physiotutors glute activation standing"
+  ],
+  "freeDbId": null,
+  "source": "Wakes up the glute after sitting; small range so the lumbar spine never extends."
+ },
+ {
+  "id": "desk-calf-raise",
+  "name": "Desk Calf Raise",
+  "category": "strength",
+  "targets": [
+   "posture"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 15",
+  "level": 1,
+  "cues": [
+   "Stand tall, fingertips on the desk",
+   "Rise onto the big-toe side of the foot, pause, lower slowly",
+   "Ankles stay straight, not rolling out"
+  ],
+  "mistakes": [
+   "Rolling onto the little toes",
+   "Bouncing"
+  ],
+  "regression": "Seated heel raises",
+  "progression": "Single-leg, or 3-sec lowering",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "desk",
+   "travel",
+   "home"
+  ],
+  "tags": [
+   "desk",
+   "duck-feet"
+  ],
+  "setupCue": "Fingertips on desk, stand tall",
+  "focusCue": "Up on big toes",
+  "youtube": [
+   "The Prehab Guys calf raise",
+   "E3 Rehab calf raise progression"
+  ],
+  "freeDbId": null,
+  "source": "The calf muscle pump helps return blood after sitting; big-toe bias trains the foot tripod."
+ },
+ {
+  "id": "median-nerve-glide",
+  "name": "Median Nerve Slider (gentle)",
+  "category": "relief",
+  "targets": [
+   "nerve-mobility"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "2 × 8 / side, gentle",
+  "level": 1,
+  "cues": [
+   "Arm out to the side, palm up, elbow slightly bent",
+   "Bend the wrist back as you tilt the head toward that arm",
+   "Then wrist up as the head tilts away"
+  ],
+  "mistakes": [
+   "Holding at the stretch",
+   "Pushing into tingling"
+  ],
+  "regression": "Smaller range, wrist only",
+  "progression": "Straighter elbow",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "desk",
+   "travel",
+   "home"
+  ],
+  "tags": [
+   "desk",
+   "neck"
+  ],
+  "setupCue": "Arm out, palm up",
+  "focusCue": "Gentle, never into tingling",
+  "youtube": [
+   "Physiotutors median nerve glide",
+   "The Prehab Guys median nerve slider"
+  ],
+  "freeDbId": null,
+  "source": "Sliders move the nerve without tensioning it (Coppieters 2008). Stop and see a clinician with lasting arm symptoms."
+ },
+ {
+  "id": "eye-neck-microbreak",
+  "name": "Eye and Neck Micro-Break",
+  "category": "relief",
+  "targets": [
+   "forward-head",
+   "posture"
+  ],
+  "equipment": [
+   "none"
+  ],
+  "dose": "1 × 60 sec",
+  "level": 1,
+  "cues": [
+   "Look at something far away for 20 seconds",
+   "Slow chin tuck, then turn the head gently each way",
+   "Three slow breaths, shoulders down"
+  ],
+  "mistakes": [
+   "Rushing the turns",
+   "Cranking into end range"
+  ],
+  "regression": "Distance gaze only",
+  "progression": "Add a doorway chest stretch",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "desk",
+   "travel"
+  ],
+  "tags": [
+   "desk",
+   "neck"
+  ],
+  "setupCue": "Look far away",
+  "focusCue": "Slow turns, slow breaths",
+  "youtube": [
+   "Physiotutors neck exercises desk workers",
+   "The Prehab Guys neck mobility"
+  ],
+  "freeDbId": null,
+  "source": "The 20-20-20 habit and frequent movement breaks reduce visual and neck discomfort in screen workers (consensus; low-certainty evidence)."
+ },
+ {
+  "id": "foam-roller-thoracic",
+  "name": "Foam Roller Thoracic Extension",
+  "category": "mobility",
+  "targets": [
+   "thoracic-mobility",
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "foam-roller"
+  ],
+  "dose": "2 × 8 slow",
+  "level": 1,
+  "cues": [
+   "Roller across the mid back, below the shoulder blades, hips on the floor",
+   "Hands support the head, ribs pulled down",
+   "Extend over the roller, then move it up one notch"
+  ],
+  "mistakes": [
+   "Rolling down onto the low back",
+   "Lifting the hips and arching"
+  ],
+  "regression": "Smaller range, roller at one level only",
+  "progression": "Arms crossed overhead holding a towel",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "thoracic"
+  ],
+  "setupCue": "Roller under mid back",
+  "focusCue": "Hips down, ribs down",
+  "youtube": [
+   "The Prehab Guys foam roller thoracic extension",
+   "E3 Rehab thoracic extension foam roller"
+  ],
+  "freeDbId": null,
+  "source": "Thoracic-only extension: hips stay down and the roller never goes below the ribcage, so the lumbar spine stays neutral (load counted as none for the lumbar spine)."
+ },
+ {
+  "id": "foam-roller-quads",
+  "name": "Foam Roller Quads",
+  "category": "mobility",
+  "targets": [
+   "hip-flexor",
+   "apt"
+  ],
+  "equipment": [
+   "foam-roller"
+  ],
+  "dose": "2 × 45 sec / side",
+  "level": 2,
+  "cues": [
+   "Forearm plank, roller under one thigh",
+   "Squeeze the glutes and keep the ribs down",
+   "Roll slowly from above the knee to below the hip"
+  ],
+  "mistakes": [
+   "Low back sagging into an arch",
+   "Rolling fast"
+  ],
+  "regression": "Seated: roll the thigh with your hands",
+  "progression": "Bend the knee while on a tender spot",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase"
+  ],
+  "setupCue": "Forearm plank, roller on thigh",
+  "focusCue": "Glutes on, no sag",
+  "youtube": [
+   "The Prehab Guys quad foam roll",
+   "Squat University foam rolling quads"
+  ],
+  "freeDbId": "Quadriceps-SMR",
+  "source": "Short-term range gain after rolling (Wiewelhove 2019 meta-analysis). Face-down, so plank position must hold; sag is the extension risk."
+ },
+ {
+  "id": "foam-roller-lats",
+  "name": "Foam Roller Lats",
+  "category": "mobility",
+  "targets": [
+   "upper-crossed",
+   "thoracic-mobility"
+  ],
+  "equipment": [
+   "foam-roller"
+  ],
+  "dose": "2 × 45 sec / side",
+  "level": 1,
+  "cues": [
+   "Lie on your side, roller under the armpit, thumb up",
+   "Roll slowly down the side of the ribs",
+   "Pause on tender spots and breathe"
+  ],
+  "mistakes": [
+   "Rolling onto the shoulder joint",
+   "Holding the breath"
+  ],
+  "regression": "Smaller range",
+  "progression": "Reach the arm further overhead",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "shoulder"
+  ],
+  "setupCue": "On side, roller under armpit",
+  "focusCue": "Slow roll, breathe out",
+  "youtube": [
+   "The Prehab Guys lat foam roll",
+   "E3 Rehab lat foam rolling"
+  ],
+  "freeDbId": "Latissimus_Dorsi-SMR",
+  "source": "Self-massage for range before overhead or pulling work; short-term effect only."
+ },
+ {
+  "id": "foam-roller-chest-opener",
+  "name": "Foam Roller Chest Opener",
+  "category": "stretch",
+  "targets": [
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "foam-roller"
+  ],
+  "dose": "2 × 60 sec",
+  "level": 1,
+  "cues": [
+   "Lie along the roller, head and tailbone supported, knees bent",
+   "Arms out wide, palms up",
+   "Let the chest open, low back relaxed"
+  ],
+  "mistakes": [
+   "Arching the low back",
+   "Forcing the arms down"
+  ],
+  "regression": "Arms lower, by the sides",
+  "progression": "Slow snow angels on the roller",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "stretch",
+   "shoulder"
+  ],
+  "setupCue": "Lie along the roller",
+  "focusCue": "Arms wide, back relaxed",
+  "youtube": [
+   "The Prehab Guys foam roller chest stretch",
+   "Physiotutors pec stretch foam roller"
+  ],
+  "freeDbId": null,
+  "source": "Passive pec stretch in supine; knees bent keep the lumbar spine flat."
+ },
+ {
+  "id": "massage-ball-glute",
+  "name": "Massage Ball Glute Release (wall)",
+  "category": "mobility",
+  "targets": [
+   "glute-weak",
+   "sciatica-relief"
+  ],
+  "equipment": [
+   "massage-ball",
+   "wall"
+  ],
+  "dose": "2 × 45 sec / side",
+  "level": 1,
+  "cues": [
+   "Stand with the ball between the buttock and a wall",
+   "Lean in and make small circles",
+   "Pause on a tender spot and breathe"
+  ],
+  "mistakes": [
+   "Pressing on a spot that sends pain down the leg",
+   "Rolling on the bony hip"
+  ],
+  "regression": "Softer ball",
+  "progression": "Floor version, or cross the ankle over the knee",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel",
+   "desk"
+  ],
+  "tags": [
+   "equipment-showcase"
+  ],
+  "setupCue": "Ball on buttock, lean on wall",
+  "focusCue": "Small circles, breathe",
+  "youtube": [
+   "The Prehab Guys glute lacrosse ball",
+   "Bob and Brad piriformis massage ball"
+  ],
+  "freeDbId": null,
+  "source": "Standing at a wall keeps it upright and easy to back off; stop if it refers into the leg."
+ },
+ {
+  "id": "massage-ball-pec",
+  "name": "Massage Ball Pec Release",
+  "category": "mobility",
+  "targets": [
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "massage-ball",
+   "wall"
+  ],
+  "dose": "2 × 45 sec / side",
+  "level": 1,
+  "cues": [
+   "Ball just below the collarbone, toward the shoulder",
+   "Lean into a wall or doorframe",
+   "Slowly move the arm in small circles"
+  ],
+  "mistakes": [
+   "Pressing into the armpit or on the collarbone",
+   "Holding the breath"
+  ],
+  "regression": "Lighter lean",
+  "progression": "Add arm sweeps overhead",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel",
+   "desk"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "shoulder"
+  ],
+  "setupCue": "Ball below collarbone, lean in",
+  "focusCue": "Small arm circles",
+  "youtube": [
+   "The Prehab Guys pec minor lacrosse ball",
+   "E3 Rehab pec minor release"
+  ],
+  "freeDbId": null,
+  "source": "Pec minor soft-tissue work before pull-aparts; avoid the armpit (nerves and vessels)."
+ },
+ {
+  "id": "massage-ball-foot",
+  "name": "Massage Ball Foot Roll",
+  "category": "mobility",
+  "targets": [
+   "posture"
+  ],
+  "equipment": [
+   "massage-ball"
+  ],
+  "dose": "1 × 60 sec / side",
+  "level": 1,
+  "cues": [
+   "Sit or stand, ball under the arch",
+   "Roll slowly from heel to the ball of the foot",
+   "Light to moderate pressure"
+  ],
+  "mistakes": [
+   "Pressing so hard it hurts",
+   "Rolling fast"
+  ],
+  "regression": "Seated, softer ball",
+  "progression": "Standing with more weight",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "desk",
+   "travel"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "duck-feet",
+   "desk"
+  ],
+  "setupCue": "Ball under arch",
+  "focusCue": "Slow roll, light pressure",
+  "youtube": [
+   "The Prehab Guys plantar fascia massage ball",
+   "Physiotutors plantar fascia self massage"
+  ],
+  "freeDbId": "Foot-SMR",
+  "source": "Plantar soft-tissue prep before short-foot work; short-term comfort effect."
+ },
+ {
+  "id": "kb-deadlift-blocks",
+  "name": "Kettlebell Deadlift from Blocks",
+  "category": "strength",
+  "targets": [
+   "hinge",
+   "glute-max",
+   "hamstring-control"
+  ],
+  "equipment": [
+   "kettlebell",
+   "yoga-block"
+  ],
+  "dose": "3 × 8",
+  "level": 2,
+  "cues": [
+   "Kettlebell on blocks between the feet, handle at shin height",
+   "Hips back, long flat back, brace, then grip",
+   "Stand by pushing the floor away and squeezing the glutes, stop tall"
+  ],
+  "mistakes": [
+   "Rounding the back to reach the bell",
+   "Leaning back at the top"
+  ],
+  "regression": "Higher blocks or band hip hinge",
+  "progression": "Lower blocks, then heavier bell",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase"
+  ],
+  "setupCue": "Bell on blocks, between feet",
+  "focusCue": "Push floor, glutes finish",
+  "youtube": [
+   "StrongFirst kettlebell deadlift",
+   "E3 Rehab kettlebell deadlift progression"
+  ],
+  "freeDbId": null,
+  "source": "Raised start keeps the spine neutral for a disc history (McGill hip-hinge rationale). Only at Strengthen or Integrate, pain under 3/10 and no flare."
+ },
+ {
+  "id": "goblet-box-squat",
+  "name": "Goblet Box Squat",
+  "category": "strength",
+  "targets": [
+   "glute-max",
+   "hinge"
+  ],
+  "equipment": [
+   "kettlebell",
+   "chair"
+  ],
+  "dose": "3 × 8",
+  "level": 2,
+  "cues": [
+   "Hold the bell at your chest, chair behind you",
+   "Sit back and down to touch the chair, trunk long",
+   "Stand up through the whole foot, knees over toes"
+  ],
+  "mistakes": [
+   "Plopping onto the chair",
+   "Rounding at the bottom"
+  ],
+  "regression": "Bodyweight chair sit-to-stand",
+  "progression": "Lower box or 3-sec lowering",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase"
+  ],
+  "setupCue": "Bell at chest, chair behind",
+  "focusCue": "Touch the chair, stand tall",
+  "youtube": [
+   "Dan John goblet squat",
+   "Squat University goblet squat"
+  ],
+  "freeDbId": "Goblet_Squat",
+  "source": "Front-loaded squat keeps the trunk upright; the box sets a depth before the pelvis tucks under."
+ },
+ {
+  "id": "farmer-carry",
+  "name": "Farmer Carry",
+  "category": "strength",
+  "targets": [
+   "core-stability",
+   "core-endurance",
+   "posture"
+  ],
+  "equipment": [
+   "kettlebell"
+  ],
+  "dose": "3 × 30 sec",
+  "level": 2,
+  "cues": [
+   "A bell in each hand, stand tall, shoulders down",
+   "Walk with short steps, toes pointing forward",
+   "Ribs over pelvis, breathe"
+  ],
+  "mistakes": [
+   "Leaning back",
+   "Shrugging"
+  ],
+  "regression": "One bell (suitcase carry, existing)",
+  "progression": "Heavier bells or longer walks",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "duck-feet"
+  ],
+  "setupCue": "Bells in hands, stand tall",
+  "focusCue": "Tall, short steps, breathe",
+  "youtube": [
+   "StrongFirst farmer carry",
+   "Dan John loaded carries"
+  ],
+  "freeDbId": "Farmers_Walk",
+  "source": "Loaded carries train trunk stiffness in upright posture (McGill 2009 carry EMG). Strengthen or Integrate only, no flare."
+ },
+ {
+  "id": "db-chest-supported-row",
+  "name": "Chest-Supported Dumbbell Row",
+  "category": "strength",
+  "targets": [
+   "upper-crossed",
+   "posture"
+  ],
+  "equipment": [
+   "dumbbell",
+   "bench"
+  ],
+  "dose": "3 × 10",
+  "level": 2,
+  "cues": [
+   "Lie face down on an incline bench, chest supported",
+   "Row both dumbbells, blades back and down",
+   "Lower with control"
+  ],
+  "mistakes": [
+   "Lifting the chest off the bench",
+   "Shrugging"
+  ],
+  "regression": "Band row",
+  "progression": "Heavier, or hold 2 sec at the top",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "shoulder"
+  ],
+  "setupCue": "Chest on incline bench",
+  "focusCue": "Blades back, chest down",
+  "youtube": [
+   "Jeff Nippard chest supported row",
+   "Eric Cressey chest supported row"
+  ],
+  "freeDbId": "Dumbbell_Incline_Row",
+  "source": "Bench support removes the bent-over spinal load of free rows (preferred for a disc history)."
+ },
+ {
+  "id": "db-split-squat",
+  "name": "Dumbbell Split Squat",
+  "category": "strength",
+  "targets": [
+   "glute-max",
+   "glute-weak"
+  ],
+  "equipment": [
+   "dumbbell"
+  ],
+  "dose": "3 × 8 / side",
+  "level": 2,
+  "cues": [
+   "A dumbbell in each hand, long split stance",
+   "Lower straight down, trunk tall",
+   "Drive through the front heel"
+  ],
+  "mistakes": [
+   "Front knee caving in",
+   "Leaning forward over the knee"
+  ],
+  "regression": "Band split squat",
+  "progression": "Heavier, or rear foot on a low step",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase"
+  ],
+  "setupCue": "Dumbbells at sides, split stance",
+  "focusCue": "Straight down, stay tall",
+  "youtube": [
+   "Squat University split squat",
+   "Jeff Nippard split squat"
+  ],
+  "freeDbId": "Split_Squat_with_Dumbbells",
+  "source": "Unilateral strength with arm-hung load (low spinal moment)."
+ },
+ {
+  "id": "ball-deadbug",
+  "name": "Stability Ball Dead Bug",
+  "category": "core",
+  "targets": [
+   "core-stability",
+   "core-endurance",
+   "apt"
+  ],
+  "equipment": [
+   "stability-ball"
+  ],
+  "dose": "3 × 6 / side · 3-sec holds",
+  "level": 2,
+  "cues": [
+   "On your back, ball squeezed between hands and knees",
+   "Keep squeezing as one arm and the opposite leg reach long",
+   "Low back gently into the floor"
+  ],
+  "mistakes": [
+   "Low back arching",
+   "Ball rolling away"
+  ],
+  "regression": "Squeeze the ball with no limb movement",
+  "progression": "Same-side arm and leg, or slower",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "anti-extension"
+  ],
+  "setupCue": "Ball between hands and knees",
+  "focusCue": "Squeeze, reach, back down",
+  "youtube": [
+   "The Prehab Guys stability ball dead bug",
+   "E3 Rehab dead bug ball"
+  ],
+  "freeDbId": null,
+  "source": "Ball squeeze adds anterior-core co-contraction to the dead bug (anti-extension)."
+ },
+ {
+  "id": "ball-hamstring-curl",
+  "name": "Stability Ball Hamstring Curl",
+  "category": "strength",
+  "targets": [
+   "hamstring-control",
+   "glute-max"
+  ],
+  "equipment": [
+   "stability-ball"
+  ],
+  "dose": "3 × 8",
+  "level": 2,
+  "cues": [
+   "On your back, heels on the ball, lift into a bridge",
+   "Curl the ball in with the heels, hips stay up",
+   "Roll it out slowly"
+  ],
+  "mistakes": [
+   "Hips dropping as the ball rolls out",
+   "Arching the low back to stay up"
+  ],
+  "regression": "Bridge hold with heels on the ball",
+  "progression": "Single-leg curl",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase"
+  ],
+  "setupCue": "Heels on ball, bridge up",
+  "focusCue": "Curl in, hips stay up",
+  "youtube": [
+   "Squat University stability ball hamstring curl",
+   "E3 Rehab hamstring curl ball"
+  ],
+  "freeDbId": "Ball_Leg_Curl",
+  "source": "Knee-flexion hamstring strength with a neutral bridge (hips to a straight line, never higher)."
+ },
+ {
+  "id": "ab-wheel-kneeling-short",
+  "name": "Kneeling Ab Wheel Rollout (short range)",
+  "category": "core",
+  "targets": [
+   "core-stability",
+   "core-endurance"
+  ],
+  "equipment": [
+   "ab-wheel"
+  ],
+  "dose": "3 × 6 slow",
+  "level": 3,
+  "cues": [
+   "Kneel, wheel under the shoulders, ribs down, glutes squeezed",
+   "Roll out only a short way, to a wall stop",
+   "Pull back with the arms, no hip pike"
+  ],
+  "mistakes": [
+   "Low back sagging into an arch at the far end",
+   "Hips piking first on the way back"
+  ],
+  "regression": "Stability ball rollout on the forearms",
+  "progression": "Longer range toward the wall stop",
+  "spinal_load": "none",
+  "contra": [
+   "extension-intolerant"
+  ],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "anti-extension",
+   "advanced"
+  ],
+  "setupCue": "Kneel, wheel under shoulders",
+  "focusCue": "Short roll, ribs down",
+  "youtube": [
+   "Squat University ab wheel rollout",
+   "Jeff Nippard ab wheel"
+  ],
+  "freeDbId": "Ab_Roller",
+  "source": "Contra extension-intolerant on purpose: very high anterior-core demand, and as soon as it fails the lumbar spine sags into loaded extension (Escamilla 2006 rollout EMG). Excluded for this profile."
+ },
+ {
+  "id": "step-down-eccentric",
+  "name": "Eccentric Step-Down",
+  "category": "strength",
+  "targets": [
+   "glute-med",
+   "glute-weak",
+   "hip-ir"
+  ],
+  "equipment": [
+   "step"
+  ],
+  "dose": "2 × 8 / side slow",
+  "level": 2,
+  "cues": [
+   "Stand on a step, other foot hanging off the front",
+   "Take 3 seconds to lower the heel toward the floor",
+   "Knee tracks over the second toe, pelvis level"
+  ],
+  "mistakes": [
+   "Knee diving inward",
+   "Hip dropping on the free side"
+  ],
+  "regression": "Lower step, hand on the wall",
+  "progression": "Higher step or a light dumbbell",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "duck-feet"
+  ],
+  "setupCue": "Stand on step, foot off",
+  "focusCue": "Slow lower, knee over toe",
+  "youtube": [
+   "E3 Rehab eccentric step down",
+   "The Prehab Guys lateral step down"
+  ],
+  "freeDbId": null,
+  "source": "Frontal-plane knee and hip control (gluteus medius); the eccentric phase drives strength."
+ },
+ {
+  "id": "slider-hamstring-curl",
+  "name": "Slider Hamstring Curl",
+  "category": "strength",
+  "targets": [
+   "hamstring-control",
+   "glute-max"
+  ],
+  "equipment": [
+   "slider"
+  ],
+  "dose": "2 × 8 slow",
+  "level": 3,
+  "cues": [
+   "On your back, heels on sliders, bridge up",
+   "Slide the heels out slowly, hips stay up",
+   "Pull them back in"
+  ],
+  "mistakes": [
+   "Hips dropping",
+   "Arching to stay up"
+  ],
+  "regression": "Eccentric only: slide out, lower the hips, reset",
+  "progression": "Single-leg",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "advanced"
+  ],
+  "setupCue": "Heels on sliders, bridge up",
+  "focusCue": "Slow out, hips high",
+  "youtube": [
+   "E3 Rehab slider hamstring curl",
+   "Squat University slider leg curl"
+  ],
+  "freeDbId": null,
+  "source": "Eccentric hamstring loading; bridge stays at a straight line to protect the lumbar spine."
+ },
+ {
+  "id": "dead-hang-supported",
+  "name": "Supported Dead Hang",
+  "category": "relief",
+  "targets": [
+   "thoracic-mobility",
+   "upper-crossed"
+  ],
+  "equipment": [
+   "pullup-bar"
+  ],
+  "dose": "3 × 20 sec",
+  "level": 2,
+  "cues": [
+   "Grip the bar, feet on a step or the floor taking some weight",
+   "Let the shoulders rise toward the ears, breathe slowly",
+   "Step down slowly, never drop"
+  ],
+  "mistakes": [
+   "Dropping off the bar onto the heels",
+   "Swinging or kicking"
+  ],
+  "regression": "More weight on the feet, 10 sec",
+  "progression": "Less foot support, up to 30 sec",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "gym"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "shoulder"
+  ],
+  "setupCue": "Feet supported, hands on bar",
+  "focusCue": "Breathe slow, step down",
+  "youtube": [
+   "E3 Rehab dead hang",
+   "Squat University dead hang"
+  ],
+  "freeDbId": null,
+  "source": "Gentle traction for shoulders and spine; feet supported so the load is graded and the exit is controlled. Stop with arm symptoms."
+ },
+ {
+  "id": "bridge-block-squeeze",
+  "name": "Glute Bridge with Block Squeeze",
+  "category": "glute",
+  "targets": [
+   "glute-max",
+   "hip-ir",
+   "core-stability"
+  ],
+  "equipment": [
+   "yoga-block"
+  ],
+  "dose": "2 × 12 · 3-sec holds",
+  "level": 1,
+  "cues": [
+   "Block between the knees, feet hip-width, toes forward",
+   "Squeeze the block, then bridge to a straight line",
+   "Ribs down at the top"
+  ],
+  "mistakes": [
+   "Letting the block drop",
+   "Arching at the top"
+  ],
+  "regression": "Squeeze the block without bridging",
+  "progression": "Single-leg bridge keeping the squeeze",
+  "spinal_load": "none",
+  "contra": [],
+  "contexts": [
+   "home",
+   "travel"
+  ],
+  "tags": [
+   "equipment-showcase",
+   "hip-ir",
+   "duck-feet"
+  ],
+  "setupCue": "Block between knees, toes forward",
+  "focusCue": "Squeeze, lift, ribs down",
+  "youtube": [
+   "The Prehab Guys glute bridge adductor squeeze",
+   "E3 Rehab bridge with ball squeeze"
+  ],
+  "freeDbId": null,
+  "source": "Adductor squeeze biases the hip toward internal rotation and reduces lumbar extension at the top of the bridge."
+ }
+]

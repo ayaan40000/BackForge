@@ -76,3 +76,9 @@
   .finish-check { width: 120px; height: 120px; border-radius: 50%; display: grid; place-items: center; background: var(--c-accent); color: var(--c-on-accent); box-shadow: 0 0 0 12px color-mix(in oklch, var(--c-accent) 20%, transparent), 0 0 80px color-mix(in oklch, var(--c-reward) 60%, transparent); animation: bloom var(--d-celebrate) var(--e-spring); }
   @keyframes bloom { from { scale: .4; opacity: 0; } }
 }
+@layer screens {
+  .player-demo { width: min(100%, 360px); }
+  .player-demo .flip figcaption { display: none; }
+  .player-demo.small { width: auto; }
+  @container player (height < 760px) and (aspect-ratio <= 1.2) { .player-demo:not(.small) { width: min(100%, 240px); } }
+}

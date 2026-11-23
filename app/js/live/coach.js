@@ -11,7 +11,8 @@
 export const WPS = 2.3;
 const QUIET_END = 3.2, QUIET_GO = 1.5;
 const words = t => t.trim().split(/\s+/).filter(Boolean).length;
-export const speakSec = t => words(t) / WPS + 0.3;
+let ORACLE = null; // real clip lengths from the voice pack, when one is active
+export const speakSec = t => (ORACLE && ORACLE(t)) || words(t) / WPS + 0.3;
 
 // priorities (higher wins): safety 6 · brief/switch 5 · form/preview/milestone 4 · praise/position 3 · encourage 2 · breath/count 1
 const P = { safety: 6, brief: 5, switch: 5, form: 4, preview: 4, milestone: 4, praise: 3, position: 3, enc: 2, breath: 1, count: 1, close: 5 };
@@ -36,15 +37,17 @@ export function fill(tpl, vars) {
 
 /** Shuffle-bag picker: draws without replacement, never one of the last 3 in a category,
  *  never the same rendered sentence within 10 minutes when an alternative exists. */
-export function makePicker(lines, seed = 1) {
+export function makePicker(lines, seed = 1, covers = null) {
   let s = seed >>> 0 || 1;
   const rnd = () => ((s = (s * 1664525 + 1013904223) >>> 0) / 2 ** 32);
   const bags = {}, recent = {}, said = new Map();
   return (key, vars = {}, at = 0) => {
     const pool = lines[key];
     if (!Array.isArray(pool) || !pool.length) return '';
-    const rendered = pool.map((t, i) => ({ i, text: fill(t, vars) })).filter(x => x.text);
+    let rendered = pool.map((t, i) => ({ i, text: fill(t, vars) })).filter(x => x.text);
     if (!rendered.length) return '';
+    // with a recorded voice pack, prefer lines that are fully recorded
+    if (covers) { const rec = rendered.filter(x => covers(x.text)); if (rec.length) rendered = rec; }
     if (!bags[key] || !bags[key].length) bags[key] = pool.map((_, i) => i).sort(() => rnd() - 0.5);
     const last = recent[key] || [];
     const ok = x => !last.includes(x.i) && !(said.has(x.text) && at - said.get(x.text) < 600);
@@ -76,7 +79,11 @@ export function doseText(s) {
  * @param {{name?:string, mins:number, readiness?:string, pain?:number, sleep?:string, weakSide?:string, chattiness?:'quiet'|'standard'|'full', seed?:number}} ctx
  */
 export function scriptSession(timeline, lines, ctx) {
-  const pick = makePicker(lines, ctx.seed ?? 7);
+  ORACLE = ctx.durationOf || null;
+  try { return scriptInner(timeline, lines, ctx); } finally { ORACLE = null; }
+}
+function scriptInner(timeline, lines, ctx) {
+  const pick = makePicker(lines, ctx.seed ?? 7, ctx.covers || null);
   const segs = timeline.segments;
   const chat = ctx.chattiness || 'standard';
   const exCount = segs.find(s => s.exCount)?.exCount || 0;

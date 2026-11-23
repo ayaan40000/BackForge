@@ -16,10 +16,10 @@ const MT = json('data/assessments/movement-tests.json').tests;
 const PD = json('data/assessments/posture-tests.json'), PT = PD.tests;
 const TODAY = '2026-11-23';
 
-test('assessment data: 13 movement tests, 13 posture tests (8 band + 5 bodyweight), every test has a grader', () => {
+test('assessment data: 13 movement tests, 15 posture tests (9 band + 6 bodyweight), every test has a grader', () => {
   assert.equal(MT.length, 13);
-  assert.equal(PT.filter(t => t.kind === 'band').length, 8);
-  assert.equal(PT.filter(t => t.kind === 'bodyweight').length, 5);
+  assert.equal(PT.filter(t => t.kind === 'band').length, 9);
+  assert.equal(PT.filter(t => t.kind === 'bodyweight').length, 6);
   for (const t of PT) { assert.ok(GRADERS[t.id], t.id); assert.ok(PD.patterns[t.pattern], t.id); assert.ok(['hips', 'apt', 'head', 'back', 'shoulders'].includes(t.pattern)); for (const g of ['Clear', 'Mild', 'Moderate', 'Priority']) assert.ok(t.planChange[g], `${t.id} planChange.${g}`); }
   for (const p of Object.keys(PD.patterns)) assert.ok(PT.some(t => t.pattern === p), 'pattern without tests: ' + p);
 });
@@ -209,3 +209,51 @@ test('menus: every id exists and is safe for an extension-intolerant profile; re
   const all = Object.values(MENU).flatMap(m => ['reset', 'control', 'strengthen', 'integrate'].flatMap(p => m[p]));
   for (const id of ['new-seated-thoracic-opener', 'wallangel', 'new-standing-chest-opener', 'kickback']) assert.ok(!all.includes(id), id + ' was removed by the physio review');
 });
+
+// ---------------- v4.8: duck feet / hip IR, equipment, library ----------------
+import { kitOf, available, fitToKit, useWhatYouHave, DEFAULT_KIT } from '../app/js/engine/kit.js';
+test('duck feet: foot angle is a screen (never Priority); IR strength by side difference; duck menu + deficit side', () => {
+  assert.equal(GRADERS['foot-angle']({ R: '2', L: '0', straight: 'easy' }), 'Moderate');
+  assert.equal(GRADERS['foot-angle']({ R: '2', L: '2', straight: 'no' }), 'Mild', 'won’t go straight = maybe bony build: never pushed');
+  assert.equal(GRADERS['foot-angle']({ R: 'in', L: '0', straight: 'easy' }), 'Clear');
+  assert.equal(GRADERS['hip-ir-strength']({ R: '0', L: '3', quality: 'still' }), 'Priority');
+  assert.equal(GRADERS['hip-ir-strength']({ R: '2', L: '3', quality: 'still' }), 'Mild');
+  const ch = finishCheck({ inputs: { 'foot-angle': { R: '2', L: '1', straight: 'easy', pain: 'none' }, 'hip-ir-strength': { R: '1', L: '3', quality: 'still', pain: 'none' } }, tests: PT, date: TODAY });
+  assert.ok(ch.summary.hips);
+  const F = postureFindings(ch, PT).map(f => f.t).join(' | ');
+  assert.ok(F.includes('Feet turn out with limited hip internal rotation')); assert.ok(F.includes('Right hip internal rotation weakness'));
+  const S = { results: [], checkins: [], log: [], exLog: [], posture: { bandChecks: [ch], findings: [], formLog: [] } };
+  const hips = buildCorrectivePlan(lib, makeCtx(S, TODAY), S).patterns.find(p => p.key === 'hips');
+  assert.equal(hips.label, 'Hip rotation & duck feet');
+  assert.ok(hips.moves.every(m => MENU.hipsDuck[hips.phase].includes(m.id)), hips.moves.map(m => m.id).join());
+  assert.ok(hips.moves.some(m => /Right side first/.test(m.note || '')), 'weaker side (right) first');
+  assert.ok(!hips.moves.some(m => m.id === 'ir9090liftoff'), 'lift-off gated while IR strength is Priority');
+});
+test('library: 124 moves, every one usable by the safety layer or deliberately excluded, all have cues/regressions', () => {
+  assert.ok(lib.all.length >= 120);
+  const flags = new Set(['extension-intolerant']);
+  const blocked = lib.all.filter(e => exclusionReason(e, flags)).map(e => e.id).sort();
+  assert.deepEqual(blocked, ['ab-wheel-kneeling-short', 'pressup', 'proneext', 'sphinx']);
+  for (const e of lib.all) { assert.ok(e.regression && e.progression, e.id + ' needs regression + progression'); assert.ok((e.mistakes || []).length, e.id); }
+  assert.ok(lib.all.filter(e => e.category === 'stretch').length >= 12);
+});
+test('equipment: only what you own, swaps by target, and uses special kit on good days', () => {
+  const S = { results: AYAAN, checkins: [], log: [], exLog: [], kit: { items: ['mat', 'wall', 'chair', 'doorway', 'towel'] } };
+  const ctx = makeCtx(S, TODAY);
+  for (const mins of [10, 20, 35]) for (const s of buildLive(lib, ctx, { mins }).sections) for (const i of s.items) assert.ok(available(lib.get(i.id), ctx.kit), `${i.id} needs ${lib.get(i.id).equipment}`);
+  const rich = { ...S, kit: { items: [...DEFAULT_KIT, 'kettlebell', 'foam-roller', 'door-anchor'] } };
+  const w = buildLive(lib, makeCtx(rich, TODAY), { mins: 35, energy: 'great' });
+  const used = w.sections.flatMap(s => s.items.map(i => lib.get(i.id).equipment)).flat();
+  assert.ok(used.includes('kettlebell') || used.includes('foam-roller') || used.includes('door-anchor'), 'special kit gets used');
+  const tired = buildLive(lib, makeCtx(rich, TODAY), { mins: 35, energy: 'low' }).sections.flatMap(s => s.items.map(i => lib.get(i.id).equipment)).flat();
+  assert.ok(!tired.includes('kettlebell'), 'no loaded carries/hinges on a low day');
+  assert.deepEqual([...kitOf({})].sort(), [...DEFAULT_KIT].sort());
+});
+test('stretching: warm-up has no long static holds; cool-down is stretches; flare stays relief', () => {
+  const ctx = makeCtx({ results: AYAAN, checkins: [], log: [], exLog: [] }, TODAY);
+  const w = buildLive(lib, ctx, { mins: 35 });
+  const warm = w.sections.find(s => s.tag === 'warm').items, cool = w.sections.find(s => s.tag === 'cool').items;
+  for (const i of warm) { const p = prescribeX(lib.get(i.id).dose); assert.ok(!(p.holdSec > 30), `${i.id} long static hold in warm-up`); }
+  assert.ok(cool.length >= 1);
+});
+import { prescribe as prescribeX } from '../app/js/engine/dose.js';

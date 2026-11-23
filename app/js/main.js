@@ -1,6 +1,7 @@
 // Boot: load data → apply prefs → PIN gate (if set in the classic app) → shell + router.
 import { html, render, useState, useEffect } from '../vendor/htm-preact.mjs';
-import { loadData } from './data.js';
+import { loadData, BASE } from './data.js';
+import { loadPack, loadPronunciation } from './live/voice.js';
 import { load, subscribe, uiPrefs, state, update, isDemo, enterDemo, setUi } from './store.js';
 import { route, onRoute, go } from './router.js';
 import { Icon, Logo } from './ui/icons.js';
@@ -10,8 +11,12 @@ import { Moves } from './screens/moves.js';
 import { Progress } from './screens/progress.js';
 import { You } from './screens/you.js';
 import { Checkups } from './screens/checkups.js';
+import { Desk, DeskBreakCard } from './screens/desk.js';
+import { Learn, FirstRun } from './screens/learn.js';
+import { startDeskTimer } from './desk.js';
 import * as live from './live/session.js';
 import { fmtTime } from './ui/kit.js';
+import { pinCheck, pinLockMs as lockMs } from './engine/vault.js';
 
 const NAV = [['today', 'Today', 'today'], ['live', 'Live', 'live'], ['moves', 'Moves', 'moves'], ['progress', 'Progress', 'progress'], ['you', 'You', 'you']];
 
@@ -40,13 +45,15 @@ function Shell() {
   const r = route(), top = r.top;
   const playing = r.parts[0] === 'live' && r.parts[1] === 'play';
   const snap = !playing && live.snapshot();
-  const Screen = playing ? LivePlayer : { today: Today, live: LiveSetup, moves: Moves, progress: Progress, you: You, checkup: Checkups }[top] || Today;
+  const Screen = playing ? LivePlayer : { today: Today, live: LiveSetup, moves: Moves, progress: Progress, you: You, checkup: Checkups, desk: Desk, learn: Learn }[top] || Today;
   return html`
     <nav class="sidenav glass" aria-label="Main">
       <div class="brand"><${Logo} s=${34} /><b>BackForge</b></div>
       <a class="start" href="#/live" aria-label="Start a Live session"><${Icon} n="play" fill /><span>Start a session</span></a>
       ${NAV.map(([k, l, ic]) => html`<a class="nav" href=${'#/' + k} aria-current=${top === k ? 'page' : undefined}><${Icon} n=${ic} /><span>${l}</span></a>`)}
       <a class="nav" href="#/checkup" aria-current=${top === 'checkup' ? 'page' : undefined}><${Icon} n="check" /><span>Check-ups</span></a>
+      <a class="nav" href="#/desk" aria-current=${top === 'desk' ? 'page' : undefined}><${Icon} n="desk" /><span>Desk</span></a>
+      <a class="nav" href="#/learn" aria-current=${top === 'learn' ? 'page' : undefined}><${Icon} n="info" /><span>Learn</span></a>
       <div class="grow"></div>
       ${isDemo() && html`<span class="tag" style="justify-content:center;color:var(--c-reward)">Demo</span>`}
     </nav>
@@ -55,18 +62,13 @@ function Shell() {
       <span class="glyph" style="color:var(--c-accent)"><${Icon} n=${snap.running ? 'live' : 'pause'} s=${22} /></span>
       <span class="grow"><span class="t">${snap.seg.name || 'Live session'}</span><br/><span class="caption">${fmtTime(snap.left)} left</span></span>
       <button class="icon-btn" aria-label=${snap.running ? 'Pause' : 'Play'} onClick=${e => { e.preventDefault(); live.toggle(); }}><${Icon} n=${snap.running ? 'pause' : 'play'} fill=${!snap.running} /></button></a>`}
+    ${!playing && html`<${DeskBreakCard} />`}
+    ${!playing && html`<${FirstRun} />`}
     <nav class="tabbar glass" aria-label="Main">${NAV.map(([k, l, ic]) => html`<a href=${'#/' + k} aria-current=${top === k ? 'page' : undefined}><${Icon} n=${ic} fill=${top === k && k === 'live'} /><span>${l}</span></a>`)}</nav>`;
 }
 
-// ---- PIN gate: same PBKDF2 record the classic app writes (S.profile.pinRecord). A privacy screen, not encryption. ----
-const b64d = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-const b64e = buf => btoa(String.fromCharCode(...new Uint8Array(buf)));
-async function pinOk(pin, r) {
-  const km = await crypto.subtle.importKey('raw', new TextEncoder().encode('bf-pin:' + pin), 'PBKDF2', false, ['deriveBits']);
-  const bits = await crypto.subtle.deriveBits({ name: 'PBKDF2', salt: b64d(r.saltB64), iterations: r.iterations, hash: 'SHA-256' }, km, 256);
-  const a = b64e(bits), b = r.hashB64; let d = a.length ^ b.length; for (let i = 0; i < Math.max(a.length, b.length); i++) d |= (a.charCodeAt(i) || 0) ^ (b.charCodeAt(i) || 0); return d === 0;
-}
-const lockMs = f => (f >= 8 ? Math.min(7.2e6, 1.8e6 + (f - 8) * 1.8e6) : f >= 5 ? 3e5 : f >= 3 ? 3e4 : 0);
+// ---- PIN gate: PBKDF2 record in S.profile.pinRecord (engine/vault.js). A privacy screen, not encryption. ----
+const pinOk = (pin, r) => pinCheck(pin, r);
 function PinGate({ onOpen }) {
   const [buf, setBuf] = useState(''), [msg, setMsg] = useState('');
   const S = state(), lock = S.profile.lock || { fails: 0, lockedUntil: 0 };
@@ -96,9 +98,11 @@ function App() {
     const q = new URLSearchParams(location.search);
     if (q.has('demo') && !isDemo()) await enterDemo();
     load(); applyPrefs();
+    loadPronunciation(BASE); loadPack(uiPrefs().voicePack ?? 'af_heart', BASE);
     matchMedia('(prefers-color-scheme: light)').addEventListener('change', applyPrefs);
     document.addEventListener('visibilitychange', () => document.documentElement.toggleAttribute('data-hidden', document.hidden));
     render(html`<${App} />`, document.getElementById('app'));
+    startDeskTimer();
     if ('serviceWorker' in navigator && location.protocol === 'https:') navigator.serviceWorker.register('./sw.js').catch(() => {});
   } catch (e) {
     document.getElementById('app').innerHTML = `<div class="empty"><h1 class="title2">BackForge couldn't start</h1><p class="callout">${String(e.message || e)}</p><p><a href="classic/index.html">Open the classic app</a></p></div>`;

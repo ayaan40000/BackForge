@@ -1,5 +1,6 @@
 // Progress: Overview · Health · Body · Posture.
 import { html, useState } from '../../vendor/htm-preact.mjs';
+import { HelpFor } from './learn.js';
 import { Icon } from '../ui/icons.js';
 import { Seg, LineChart, Bars, fmtNum } from '../ui/kit.js';
 import { state, importHealth } from '../store.js';
@@ -10,7 +11,7 @@ import { route, go } from '../router.js';
 
 export function Progress() {
   const seg = route().parts[1] || 'overview';
-  return html`<header class="screen-head"><div><div class="sub">Pain, consistency, health</div><h1>Progress</h1></div></header>
+  return html`<header class="screen-head"><div><div class="sub">Pain, consistency, health</div><h1>Progress</h1></div><${HelpFor} screen="progress" /></header>
   <div style="position:sticky;top:8px;z-index:4;margin-bottom:16px"><${Seg} label="Progress sections" value=${seg} onChange=${v => go('/progress/' + v, { replace: true })} options=${[['overview', 'Overview'], ['health', 'Health'], ['body', 'Body'], ['posture', 'Posture']]} /></div>
   ${seg === 'overview' ? html`<${Overview} />` : seg === 'health' ? html`<${Health} />` : seg === 'body' ? html`<${Body} />` : html`<${Posture} />`}`;
 }

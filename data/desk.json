@@ -1,0 +1,97 @@
+{
+ "_about": "Desk and sitting problems: why they happen, what you may notice, and short moves to break them up. Screens and trains only; never a diagnosis. Exercise ids come from backend/data/exercises.json, data/exercises-desk.json and data/exercises-extra.json.",
+ "problems": [
+  {
+   "id": "hip-flexors-tilt",
+   "title": "Tight hip flexors and a forward-tipped pelvis",
+   "why": "Hours of sitting keep the front of the hip short, and the muscles can feel stiff when you stand. That stiffness can tip the pelvis forward and push the low back into more arch.",
+   "signs": ["The front of the hips feels tight when you first stand up", "Standing tall makes your low back feel arched or tired", "You lean forward for the first few steps"],
+   "moves": ["desk-hipflexor-chair", "new-seated-pelvic-tilt", "standing-hip-ext-squeeze", "new-standing-glute-tilt"],
+   "everyMinutes": 45,
+   "seconds": 90
+  },
+  {
+   "id": "glute-switch-off",
+   "title": "Sleepy glutes from sitting on them",
+   "why": "Sitting compresses the glutes and they get little work all day. When they are slow to switch on, the low back and hamstrings tend to take over in standing and walking.",
+   "signs": ["Your buttocks feel numb or flat after a long sit", "Standing up you push off the desk or your thighs", "One side feels weaker on stairs"],
+   "moves": ["standing-hip-ext-squeeze", "new-chair-sit-stand", "new-standing-glute-tilt", "short-foot-tripod"],
+   "everyMinutes": 60,
+   "seconds": 90
+  },
+  {
+   "id": "forward-head",
+   "title": "Forward head and neck strain",
+   "why": "Looking at a screen pulls the head forward of the shoulders, and the neck muscles hold it there for hours. The deep front neck muscles tire and the back of the neck and upper shoulders take the strain.",
+   "signs": ["Ache at the base of the skull or top of the shoulders by mid afternoon", "Your chin pokes toward the screen", "Headaches after long screen days"],
+   "moves": ["chintuck", "chintuck-lean-back", "upper-trap-stretch", "eye-neck-microbreak"],
+   "everyMinutes": 30,
+   "seconds": 60
+  },
+  {
+   "id": "rounded-upper-back",
+   "title": "Rounded upper back and shoulders",
+   "why": "Reaching for the keyboard rounds the shoulders forward and the upper back follows. The chest muscles shorten and the muscles between the shoulder blades lose endurance.",
+   "signs": ["Shoulders sit forward when you look side-on", "Upper back feels stiff when you sit tall", "Reaching overhead feels blocked"],
+   "moves": ["desk-pushaway-thoracic", "new-seated-thoracic-opener", "seated-goalpost-slide", "new-standing-chest-opener"],
+   "everyMinutes": 45,
+   "seconds": 90
+  },
+  {
+   "id": "low-back-stiffness",
+   "title": "Low-back stiffness and pressure after long sitting",
+   "why": "Staying in one position for a long time leaves the low back stiff, and slumped sitting loads the discs in a bent position. Changing position often matters more than finding one perfect posture.",
+   "signs": ["Stiff and slow for the first minutes after standing", "An ache that eases once you walk around", "You keep shifting in the chair"],
+   "moves": ["new-standing-wall-reset", "new-seated-pelvic-tilt", "new-chair-sit-stand", "desk-calf-raise"],
+   "everyMinutes": 30,
+   "seconds": 60
+  },
+  {
+   "id": "hamstrings-sciatic",
+   "title": "Tight hamstrings and sciatic irritation from slumping",
+   "why": "Slumping with the legs out puts the nerve at the back of the leg under gentle tension for long periods. The hamstrings can feel tight when it is actually the nerve that is sensitive.",
+   "signs": ["Tightness behind the thigh or knee after sitting", "A pull down the leg when you straighten it while slumped", "Tingling that eases when you stand"],
+   "moves": ["nerveglide", "desk-seated-figure4", "new-standing-wall-reset", "desk-calf-raise"],
+   "everyMinutes": 45,
+   "seconds": 90
+  },
+  {
+   "id": "wrist-forearm",
+   "title": "Wrist and forearm strain from typing and the mouse",
+   "why": "Typing and mouse work hold the wrists bent with small repeated movements for hours. The forearm muscles get tired and tight, and the nerves at the wrist can get irritable.",
+   "signs": ["Ache in the forearm or outside of the elbow", "Stiff wrists in the morning or after long typing", "Tingling in the fingers that comes and goes"],
+   "moves": ["wrist-flexor-stretch", "wrist-extensor-stretch", "median-nerve-glide"],
+   "everyMinutes": 60,
+   "seconds": 60
+  },
+  {
+   "id": "circulation",
+   "title": "Sluggish circulation from not moving",
+   "why": "Without calf movement, blood pools in the lower legs during long sits. Short movement breaks keep the calf muscle pump working and break up long sitting time.",
+   "signs": ["Heavy or swollen ankles late in the day", "Feeling flat or foggy after a long sit", "Cold feet at the desk"],
+   "moves": ["desk-calf-raise", "new-chair-sit-stand", "short-foot-tripod", "gait-line-drill"],
+   "everyMinutes": 30,
+   "seconds": 60
+  }
+ ],
+ "ergonomics": [
+  "Screen top at eye level, about an arm's length away",
+  "Feet flat on the floor or a footrest",
+  "Knees about level with or slightly below the hips",
+  "Sit back so the chair supports your low back curve",
+  "Elbows close to your sides, about a right angle",
+  "Wrists straight and floating, not bent on the desk edge",
+  "Mouse close to the keyboard, not out to the side",
+  "Laptop on a stand with a separate keyboard",
+  "Phone at eye height, or use a headset for calls",
+  "Change position at least every 30 to 45 minutes"
+ ],
+ "microBreaks": [
+  {"id": "stand-reset", "title": "Stand-up reset", "ids": ["new-chair-sit-stand", "standing-hip-ext-squeeze", "new-standing-wall-reset"], "when": "Every 30 to 45 minutes of sitting"},
+  {"id": "neck-shoulders", "title": "Neck and shoulders", "ids": ["chintuck", "upper-trap-stretch", "seated-goalpost-slide"], "when": "When your neck or upper shoulders start to ache"},
+  {"id": "upper-back-opener", "title": "Upper-back opener", "ids": ["desk-pushaway-thoracic", "new-standing-chest-opener", "new-seated-scap-pinch"], "when": "After a long typing block"},
+  {"id": "hips-unlock", "title": "Hips unlock", "ids": ["desk-hipflexor-chair", "desk-seated-figure4", "new-seated-desk-hip-ir"], "when": "Mid-morning and mid-afternoon"},
+  {"id": "hands-wrists", "title": "Hands and wrists", "ids": ["wrist-flexor-stretch", "wrist-extensor-stretch", "median-nerve-glide"], "when": "After heavy mouse or keyboard work"},
+  {"id": "legs-feet", "title": "Legs and feet", "ids": ["desk-calf-raise", "short-foot-tripod", "eye-neck-microbreak"], "when": "When you feel flat or your legs feel heavy"}
+ ]
+}

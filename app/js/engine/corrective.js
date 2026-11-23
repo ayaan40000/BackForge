@@ -9,6 +9,7 @@
 // sessions regress a move that keeps feeling hard and flag one that's ready to progress.
 import { capSets } from './dose.js';
 import { GSEV, combineGrades } from './posture.js';
+import { available } from './kit.js';
 import { daysBetween } from './dates.js';
 
 export const PHASES = {
@@ -35,6 +36,14 @@ export const MENU = {
     control: ['seatedhipir', 'clamshell', 'glutebridge', 'sidelieabduction'],
     strengthen: ['singlebridge', 'sidesteps', 'ir9090liftoff', 'standinghipir'],
     integrate: ['stepup', 'standinghipir', 'pullthrough'],
+  },
+  // duck feet (feet turned out + weak hip IR): physio syllabus §2.3 — used instead of `hips` when indicated
+  hipsDuck: {
+    label: 'Hip rotation & glutes', area: 'Hips & glutes',
+    reset: ['hip-ir-iso-wall', 'new-seated-desk-hip-ir', 'quadruped-hip-ir-rock', 'short-foot-tripod', 'hipir9090', 'clamshell'],
+    control: ['seatedhipir', 'ir9090-pin-iso', 'bridge-toe-in', 'sidelying-hip-ir-lift', 'clamshell', 'glutebridge'],
+    strengthen: ['seated-hip-ir-band-slow', 'ir9090liftoff', 'monster-walk', 'sidelying-hip-ir-lift', 'singlebridge', 'standinghipir'],
+    integrate: ['hip-airplane-supported', 'gait-line-drill', 'step-down-eccentric', 'standinghipir', 'stepup'],
   },
   head: {
     label: 'Forward head', area: 'Head & neck',
@@ -64,14 +73,14 @@ export function patternGrades(S) {
   const checks = S.posture?.bandChecks || [];
   const last = checks[checks.length - 1];
   const out = {}, source = {};
-  if (last?.summary) for (const p of Object.keys(MENU)) if (last.summary[p]) { out[p] = last.summary[p]; source[p] = 'check'; }
+  if (last?.summary) for (const p of Object.keys(MENU).filter(k => k !== 'hipsDuck')) if (last.summary[p]) { out[p] = last.summary[p]; source[p] = 'check'; }
   // checks from before v4.7 graded hip IR + glute med under 'apt': rebuild the hips grade from those two tests
-  if (last?.grades && !out.hips) { const g = combineGrades([last.grades['hip-ir-band'], last.grades['glutemed-wall']]); if (g) { out.hips = g; source.hips = 'check'; } }
+  if (last?.grades && !out.hips) { const g = combineGrades([last.grades['hip-ir-band'], last.grades['glutemed-wall'], last.grades['hip-ir-strength'], last.grades['foot-angle']]); if (g) { out.hips = g; source.hips = 'check'; } }
   // classic (v4.0) checks have only apt/upper: map upper onto head + shoulders
   if (last?.summary && !last.v) { if (!out.head && last.summary.upper) { out.head = last.summary.upper; source.head = 'check'; } if (!out.shoulders && last.summary.upper) { out.shoulders = last.summary.upper; source.shoulders = 'check'; } }
   const t = (S.results || []).map(f => f.t).join(' | ');
   const derive = (p, re) => { if (!out[p] && re.test(t)) { out[p] = 'Moderate'; source[p] = 'assessment'; } };
-  derive('apt', /Anterior pelvic tilt/i); derive('head', /Forward-head/i); derive('shoulders', /rounded shoulders/i); derive('hips', /Glute inhibition|internal rotation deficit/i);
+  derive('apt', /Anterior pelvic tilt/i); derive('head', /Forward-head/i); derive('shoulders', /rounded shoulders/i); derive('hips', /Glute inhibition|internal rotation (deficit|weakness)|Feet turn out/i);
   return { grades: out, source, last, phases: last?.phases || {} };
 }
 
@@ -116,15 +125,18 @@ export function buildCorrectivePlan(lib, ctx, S) {
   // deficit side from the banded IR test, else from the movement-assessment finding
   const irIn = last?.inputs?.['hip-ir-band'];
   const side = irIn && irIn.rR != null && irIn.rL != null && +irIn.rR !== +irIn.rL ? (+irIn.rR < +irIn.rL ? 'Right' : 'Left')
-    : ctx.has('Right hip internal') ? 'Right' : ctx.has('Left hip internal') ? 'Left' : null;
-  const irPriority = last?.grades?.['hip-ir-band'] === 'Priority';
+    : (() => { const q = last?.inputs?.['hip-ir-strength']; return q && q.R != null && q.L != null && +q.R !== +q.L ? (+q.R < +q.L ? 'Right' : 'Left') : null; })()
+    || (ctx.has('Right hip internal') ? 'Right' : ctx.has('Left hip internal') ? 'Left' : null);
+  const irPriority = last?.grades?.['hip-ir-band'] === 'Priority' || last?.grades?.['hip-ir-strength'] === 'Priority';
+  const fa = last?.grades?.['foot-angle'], straightEasy = last?.inputs?.['foot-angle']?.straight === 'easy';
+  const duck = GSEV[fa] >= 1 || GSEV[last?.grades?.['hip-ir-strength']] >= 2 || ctx.has('Feet turn out');
   const extInt = ctx.flags.has('extension-intolerant');
   const patterns = Object.entries(grades)
     .map(([key, grade]) => {
       const phase = phases[key] && source[key] === 'check' ? phases[key] : PHASE_OF[grade];
-      const menu = MENU[key];
-      const ids = menu[phase].filter(id => !(id === 'ir9090liftoff' && irPriority));
-      const moves = ids.map(id => lib.safeGet(id, ctx.flags)).filter(Boolean).slice(0, phase === 'integrate' ? 2 : 3).map(ex => {
+      const menu = key === 'hips' && duck ? { ...MENU.hipsDuck, label: 'Hip rotation & duck feet' } : MENU[key];
+      const ids = menu[phase].filter(id => !(id === 'ir9090liftoff' && irPriority)).map(id => (!straightEasy && duck && id === 'bridge-toe-in' ? 'bridge-block-squeeze' : id)).filter(id => !(duck && !straightEasy && fa && id === 'gait-line-drill'));
+      const moves = ids.map(id => lib.safeGet(id, ctx.flags)).filter(ex => ex && (!ctx.kit || available(ex, ctx.kit))).slice(0, phase === 'integrate' ? 2 : 3).map(ex => {
         let dose = capSets(ex.dose, PHASES[phase].maxSets);
         const fs = formMode(ex.id, { formLog, state: formState, checkins: ctx.checkins, log: ctx.log, priority: grade === 'Priority', today: ctx.today });
         const notes = [];

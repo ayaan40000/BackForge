@@ -1,0 +1,134 @@
+{
+ "_about": "Exercise media. photos: start/end photo pair from free-exercise-db (github.com/yuhonas/free-exercise-db, Unlicense / public domain), shown as a two-frame stop-motion loop. similar=true means the photo shows a close variant (e.g. cable instead of band) and the app says so. Videos are YouTube links in data/coaching.json (direct = verified id; search = labelled search). Add a mapping, then run: node tools/fetch_media.mjs",
+ "photos": {
+  "sideplank": {
+   "freeDb": "Side_Bridge"
+  },
+  "pullapart": {
+   "freeDb": "Band_Pull_Apart"
+  },
+  "facepull": {
+   "freeDb": "Face_Pull",
+   "similar": "cable version shown — same movement with a band"
+  },
+  "glutebridge": {
+   "freeDb": "Butt_Lift_Bridge"
+  },
+  "deadbug": {
+   "freeDb": "Dead_Bug"
+  },
+  "hipflexorstretch": {
+   "freeDb": "Kneeling_Hip_Flexor"
+  },
+  "row": {
+   "freeDb": "Seated_Cable_Rows",
+   "similar": "cable version shown — same pull with a band"
+  },
+  "pullthrough": {
+   "freeDb": "Pull_Through",
+   "similar": "cable version shown — same hinge with a band"
+  },
+  "singlebridge": {
+   "freeDb": "Single_Leg_Glute_Bridge"
+  },
+  "figure4": {
+   "freeDb": "Ankle_On_The_Knee"
+  },
+  "catcamel": {
+   "freeDb": "Cat_Stretch"
+  },
+  "hamstring9090": {
+   "freeDb": "90_90_Hamstring"
+  },
+  "rectusstretch": {
+   "freeDb": "Quad_Stretch",
+   "similar": "side-lying strap version shown"
+  },
+  "stepup": {
+   "freeDb": "Dumbbell_Step_Ups",
+   "similar": "dumbbell version shown"
+  },
+  "band-facepull-high": {
+   "freeDb": "Face_Pull"
+  },
+  "band-straight-arm-pulldown": {
+   "freeDb": "Straight-Arm_Pulldown"
+  },
+  "monster-walk": {
+   "freeDb": "Monster_Walk"
+  },
+  "strap-hamstring-supine": {
+   "freeDb": "Lying_Hamstring"
+  },
+  "piriformis-cross-body": {
+   "freeDb": "Knee_Across_The_Body"
+  },
+  "calf-stretch-wall": {
+   "freeDb": "Calf_Stretch_Hands_Against_Wall"
+  },
+  "upper-trap-stretch": {
+   "freeDb": "Side_Neck_Stretch"
+  },
+  "bridge-toe-in": {
+   "freeDb": "Butt_Lift_Bridge"
+  },
+  "desk-seated-figure4": {
+   "freeDb": "Ankle_On_The_Knee"
+  },
+  "foam-roller-quads": {
+   "freeDb": "Quadriceps-SMR"
+  },
+  "foam-roller-lats": {
+   "freeDb": "Latissimus_Dorsi-SMR"
+  },
+  "massage-ball-foot": {
+   "freeDb": "Foot-SMR"
+  },
+  "goblet-box-squat": {
+   "freeDb": "Goblet_Squat"
+  },
+  "farmer-carry": {
+   "freeDb": "Farmers_Walk"
+  },
+  "db-chest-supported-row": {
+   "freeDb": "Dumbbell_Incline_Row"
+  },
+  "db-split-squat": {
+   "freeDb": "Split_Squat_with_Dumbbells"
+  },
+  "ball-hamstring-curl": {
+   "freeDb": "Ball_Leg_Curl"
+  },
+  "ab-wheel-kneeling-short": {
+   "freeDb": "Ab_Roller"
+  },
+  "band-er-90": {
+   "freeDb": "External_Rotation_with_Band",
+   "similar": "elbow-at-side version shown — same rotation"
+  },
+  "band-chest-press-doorway": {
+   "freeDb": "Cable_Chest_Press",
+   "similar": "cable version shown — same press with an anchored band"
+  },
+  "childs-pose-side-reach": {
+   "freeDb": "Childs_Pose",
+   "similar": "plain child’s pose shown — add the side reach"
+  },
+  "band-split-squat": {
+   "freeDb": "Split_Squats",
+   "similar": "bodyweight version shown — add the band under the front foot"
+  },
+  "band-row-anchored": {
+   "freeDb": "Seated_Cable_Rows",
+   "similar": "cable version shown — same pull with an anchored band"
+  },
+  "band-row-single-arm": {
+   "freeDb": "Seated_One-arm_Cable_Pulley_Rows",
+   "similar": "cable version shown — same one-arm pull"
+  },
+  "quad-stretch-strap": {
+   "freeDb": "Quad_Stretch",
+   "similar": "side-lying strap version shown"
+  }
+ }
+}

@@ -815,6 +815,164 @@
     "Priority": "Thoracic rotation mobility twice daily, stiffer side first; the lumbar spine must not make up the difference."
    },
    "evidence": "Seated rotation with the pelvis fixed is a reliable thoracic measure (Johnson et al. 2012). Unloaded and slow — never a loaded twist."
+  },
+  {
+   "id": "foot-angle",
+   "name": "Foot Angle (toe-out) Check",
+   "pattern": "hips",
+   "kind": "bodyweight",
+   "equipment": "A straight floor line or a strip of tape · phone (protractor or level app)",
+   "setup": "Barefoot. Walk ten normal steps along the line and stop without looking down or correcting your feet. Take a photo straight down from above (or ask someone). On the photo, draw a line from the middle of the heel to the second toe and read its angle against the floor line. This is a screen: a few degrees either way does not matter.",
+   "inputs": [
+    {
+     "key": "R",
+     "label": "RIGHT foot",
+     "options": [
+      [
+       "in",
+       "Points in"
+      ],
+      [
+       "0",
+       "Straight to 15° out (typical)"
+      ],
+      [
+       "1",
+       "16–25° out"
+      ],
+      [
+       "2",
+       "More than 25° out"
+      ]
+     ]
+    },
+    {
+     "key": "L",
+     "label": "LEFT foot",
+     "options": [
+      [
+       "in",
+       "Points in"
+      ],
+      [
+       "0",
+       "Straight to 15° out (typical)"
+      ],
+      [
+       "1",
+       "16–25° out"
+      ],
+      [
+       "2",
+       "More than 25° out"
+      ]
+     ]
+    },
+    {
+     "key": "straight",
+     "label": "Stand with both feet pointing straight ahead for 30 seconds",
+     "options": [
+      [
+       "easy",
+       "Easy, feels normal"
+      ],
+      [
+       "effort",
+       "I can, but my knees or feet feel twisted"
+      ],
+      [
+       "no",
+       "I can't get them straight"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "No change.",
+    "Mild": "Foot tripod and calf work join the warm-up. If your feet won't go straight comfortably, that can be how your bones are built: the plan trains the hip, it never forces the feet.",
+    "Moderate": "The duck-feet hip block joins the corrective plan (hip IR isometrics, toe-forward bridges, straight-foot walking drill), worse side first.",
+    "Priority": "Not given by this test (it is a screen). The hip IR tests decide the priority."
+   },
+   "evidence": "Typical adult foot progression angle about 5–15° out (Seber 1981; Lösel 1996). Out-toeing can be bony (femoral or tibial torsion), so it is graded with how easily the feet go straight, and never above Moderate."
+  },
+  {
+   "id": "hip-ir-strength",
+   "name": "Hip Internal Rotation Strength (banded reps)",
+   "pattern": "hips",
+   "kind": "band",
+   "equipment": "Loop (mini) band around both ankles · firm chair",
+   "setup": "Sit tall on a firm chair, knees at a right angle and together, mini-band around both ankles. Keep the thighs still and the knees touching. Swing one shin outward (the hip turns in) against the band, two seconds out, two seconds back. Count clean reps until the shin can't reach the same point, the thigh moves, or you hit 20. Rest a minute, then the other side. Use the same band each time you retest.",
+   "inputs": [
+    {
+     "key": "R",
+     "label": "RIGHT side clean reps",
+     "options": [
+      [
+       "3",
+       "15 or more"
+      ],
+      [
+       "2",
+       "10–14"
+      ],
+      [
+       "1",
+       "5–9"
+      ],
+      [
+       "0",
+       "Fewer than 5"
+      ]
+     ]
+    },
+    {
+     "key": "L",
+     "label": "LEFT side clean reps",
+     "options": [
+      [
+       "3",
+       "15 or more"
+      ],
+      [
+       "2",
+       "10–14"
+      ],
+      [
+       "1",
+       "5–9"
+      ],
+      [
+       "0",
+       "Fewer than 5"
+      ]
+     ]
+    },
+    {
+     "key": "quality",
+     "label": "What happened",
+     "options": [
+      [
+       "still",
+       "Thighs stayed still, trunk tall"
+      ],
+      [
+       "lean",
+       "Trunk leaned to help"
+      ],
+      [
+       "knees",
+       "Knees came apart or the thigh moved"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "IR strength work stays in the maintenance rotation.",
+    "Mild": "Banded IR joins the Strengthen days, weaker side first.",
+    "Moderate": "Daily IR isometrics, then banded IR on alternate days, weaker side first with an extra set.",
+    "Priority": "Daily IR isometrics only (wall press, 90/90 press); banded reps and 90/90 lift-offs wait for the retest. Show the side difference to your physio if it has not changed in 6 weeks."
+   },
+   "evidence": "Hip rotator weakness is common with hip and back pain and side differences matter more than absolute numbers (clinical consensus; Cibulka et al. 2010 on hip rotation asymmetry in LBP). Reps at a fixed tempo against the same band are a practical home endurance measure."
   }
  ]
 }

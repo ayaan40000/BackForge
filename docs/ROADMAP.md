@@ -22,7 +22,7 @@
 - **The old roadmap ran out of road.** v4.5 "Circles" and v5.0 "Platform" were still a phone app with extras, and nothing in it addressed the two biggest gaps: the UX, and a Live mode that wasn't actually live.
 - **Several "shipped" items were only partly delivered.** The v3.5 camera features (rep counting, form flags, camera-guided retest) were never built. The original v4.0 scope moved forward and was never done: clinician share, templates, multi-profile, audit trail and WCAG. Both are folded into the jumps below rather than kept as leftover lines.
 - **The UX debt was structural, not cosmetic.** Ten tabs had become five but stayed text walls. Live needed a tap per step. There were two players with two states. Nothing fit on a phone. v4.5 fixes this by rebuilding the shell on a design protocol (`docs/DESIGN-PROTOCOL.md`) instead of patching it.
-- **The path-to-8/10 debts from the v4.0 review are still open:** a vault end-to-end test, per-view photo checklists, video liveness checks, and real-device PIN and vault timing. They belong to the work that replaces those screens (v4.7), not to a separate cleanup release.
+- **The path-to-8/10 debts from the v4.0 review are still open:** a vault end-to-end test, per-view photo checklists, video liveness checks, and real-device PIN and vault timing. Since v4.8 the vault has its end-to-end test and the photo check has per-view stance checklists; video-link liveness and real-device PIN/vault timing remain.
 
 ---
 
@@ -44,7 +44,11 @@
 
 **The jump: from a coach that runs a plan to one that measures what's weak, corrects it in phases, and checks the result.** The movement assessment, the posture check (8 band + 5 new bodyweight tests across four areas: pelvic tilt, forward head, hunched upper back, rounded shoulders), a phased corrective plan (Reset → Control → Strengthen → Integrate) run by the voice coach, in-session form ratings that regress or progress moves, and a photo check where Muse confirms the tests and tracks change. Details: `CHANGELOG.md`. This pulls the "check-ups rebuilt natively" item forward from v4.7. The encrypted vault and PIN setup still live in the classic app.
 
-## v4.7 — THE COACH SEES AND HEARS *(target: Mar 2027)*
+## v4.8 — ONE APP, NATURAL VOICE, EVERYTHING YOU OWN *(shipped 23 Nov 2026)*
+
+The classic app retired, a natural neural voice for the coach, equipment-aware plans, a 124-exercise physio-syllabus library (incl. duck feet / hip IR, stretching, desk), the Desk section with reminders, the Learn tutorial, demos and video links for every move, and a new icon. Details: `CHANGELOG.md`. This delivers the "classic app retires" item that was planned for the next release.
+
+## v4.9 — THE COACH SEES AND HEARS *(target: Mar 2027)*
 
 **The jump: the coach stops being a script and starts *responding*. It watches your form, hears you and reads your heart, all on the device.**
 
@@ -54,7 +58,7 @@
    - Camera-guided check-ups, which replace the classic assessment, band check and photo check. Holds are timed, sides are measured symmetrically, and every value the camera proposes is confirmed by you.
 2. **Two-way voice.** Speech recognition for "pause", "easier", "skip", "that's sharp" (opens the pain path) and "how long left". It also takes spoken morning check-ins ("pain three, slept badly"). Training becomes truly hands-free.
 3. **Live heart rate.** Web Bluetooth connects to any standard heart-rate strap or watch broadcast. Rests become effort-adaptive (the next set starts when your heart rate has recovered, within limits), and Zone 2 minutes are measured during sessions, not estimated.
-4. **The classic app retires.** The vault and PIN setup are rebuilt natively (the check-ups already moved in v4.6). The vault gets its end-to-end restore test, video links get a liveness checker, and exercise doses become structured data (`sets/reps/hold/tempo`) instead of strings.
+4. ~~The classic app retires~~ — done in v4.8. The vault gets its end-to-end restore test, video links get a liveness checker, and exercise doses become structured data (`sets/reps/hold/tempo`) instead of strings.
 5. **Illustrated moves.** One pose drawing per exercise, consistent and animated in Moves and the player, replacing the category icons.
 6. **WCAG 2.2 AA, audited.** Screen-reader player flows, voice control of timers, large text and high contrast.
 
@@ -93,5 +97,6 @@
 |---|---|---|
 | v4.5 | Live Studio | Press play: a real-time, voice-coached session fitted to your minutes, in a UI that works everywhere |
 | v4.6 | Assess & correct | Band + bodyweight posture check → phased corrective plan → form ratings → Muse photo confirmation |
-| v4.7 | The coach sees and hears | On-device form tracking, hands-free voice, live heart rate; classic retired |
+| v4.8 | One app, natural voice | Neural coach voice, equipment-aware plans, 124-move syllabus library, Desk, Learn |
+| v4.9 | The coach sees and hears | On-device form tracking, hands-free voice, live heart rate; classic retired |
 | v5.0 | The platform | Encrypted sync across devices, clinician mode, periodisation, open schema, published outcomes |

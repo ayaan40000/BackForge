@@ -1,0 +1,44 @@
+{
+ "_about": "The in-app tutorial (Learn). Plain language, second person, short steps. `screens` lists the routes a lesson explains (the '?' button on those screens opens it). `action` is an optional button: {label, href}. Muse may edit freely; keep ids stable (progress is stored per id).",
+ "lessons": [
+  { "id": "how", "title": "How BackForge works", "minutes": 2, "screens": ["today"], "steps": [
+    { "title": "Assess, then train what's weak", "body": "BackForge starts with check-ups: a movement assessment and a posture check. Their results decide your plan — not the calendar." },
+    { "title": "Every day: check in, press Start", "body": "One tap on the 0–10 pain scale each morning. Today shows how ready you are and one session sized to your time. Press Start and the coach runs it." },
+    { "title": "It adjusts to you", "body": "Pain and how your form feels decide when moves get harder. Flare days switch to gentle relief automatically — and still count for your streak." },
+    { "title": "Retest every 4 weeks", "body": "Retests move each area to its next phase when it has improved.", "action": { "label": "Open check-ups", "href": "#/checkup" } } ] },
+  { "id": "setup", "title": "Set up in 5 minutes", "minutes": 5, "screens": ["you"], "steps": [
+    { "title": "Tell the coach your name", "body": "You → Profile. The coach greets you by name.", "action": { "label": "Profile", "href": "#/you" } },
+    { "title": "Tick your equipment", "body": "Bands (and which strengths), foam roller, kettlebell, door anchor… Plans only use what you have, and work your special kit in.", "action": { "label": "Equipment on hand", "href": "#/you/kit" } },
+    { "title": "Pick the coach's voice", "body": "Natural voices are recorded with an open-source neural voice and play offline. Tap Preview to hear one.", "action": { "label": "Coach settings", "href": "#/you" } },
+    { "title": "Optional: a PIN", "body": "A 4-digit PIN hides the app on this device. It's a privacy screen, not encryption.", "action": { "label": "Privacy & data", "href": "#/you/privacy" } } ] },
+  { "id": "live", "title": "Your first Live session", "minutes": 3, "screens": ["live"], "steps": [
+    { "title": "Three choices, all pre-filled", "body": "How long, your energy, and any adjustments (standing hurts, a touchy side…). You can just press Start." },
+    { "title": "The player", "body": "The ring counts down the current step. Back, Play/Pause and Skip sit at the bottom. The timeline shows the whole session — tap it to jump." },
+    { "title": "Easier, +15 s, Pain", "body": "Easier swaps to the gentler version for the rest of that move. +15 s adds rest. Pain is always on screen: sharp or leg pain stops that move; numbness or weakness stops the session." },
+    { "title": "Rate your form", "body": "After a corrective move the coach asks how it felt. Clean, shaky or couldn't hold it — that's what moves you up or down." },
+    { "title": "Hands-free", "body": "Headphone buttons pause and skip. The screen stays on. Captions show every line, so it works muted too.", "action": { "label": "Try a 10-minute session", "href": "#/live" } } ] },
+  { "id": "checkups", "title": "Check-ups: test, photos, retest", "minutes": 4, "screens": ["checkup"], "steps": [
+    { "title": "Movement assessment (13 tests)", "body": "Direction tests, glute firing, hip rotation, core endurance. Skip anything painful — a skipped test is no data and never creates a finding." },
+    { "title": "Posture check (band + bodyweight)", "body": "Grades pelvis & core, hips (incl. duck feet), head & neck, upper back and shoulders. Honest grades beat heroic ones." },
+    { "title": "Photo check with Muse", "body": "Four standing photos. Send to Muse — it says whether the photos agree with your tests and what changed since last time." },
+    { "title": "When to retest", "body": "Every 4 weeks, every 2 while anything is Priority. Never on a flare day.", "action": { "label": "Open check-ups", "href": "#/checkup" } } ] },
+  { "id": "plan", "title": "Your posture plan", "minutes": 2, "screens": ["checkup"], "steps": [
+    { "title": "Phases", "body": "Reset (gentle range and breathing) → Control (own the position) → Strengthen (band strength) → Integrate (daily life). The weaker an area, the earlier its phase." },
+    { "title": "One step at a time", "body": "An area moves up at most one phase per retest. It can always move back." },
+    { "title": "Stretching is built in", "body": "Warm-ups move you through range; cool-downs hold the stretches for what you just trained." } ] },
+  { "id": "desk", "title": "Desk days", "minutes": 2, "screens": ["desk"], "steps": [
+    { "title": "Reminders during work hours", "body": "Turn on Desk reminders and pick your hours. Every 30–90 minutes you get a 1–2 minute break the coach runs." },
+    { "title": "Add them to your calendar", "body": "Web pages can't remind you when they're closed. Add to calendar puts the breaks on your phone.", "action": { "label": "Open Desk", "href": "#/desk" } } ] },
+  { "id": "progress", "title": "Progress and health data", "minutes": 2, "screens": ["progress"], "steps": [
+    { "title": "What to look at", "body": "Pain trend (fixed 0–10 scale), consistency, and the progression gate: pain ≤ 3 on average and 8+ sessions in 14 days earns the next band level." },
+    { "title": "Google Fit / Samsung Health", "body": "Muse reads Health Connect and gives you one sync file. Import it under Progress → Health. It never changes your plan by itself.", "action": { "label": "Health", "href": "#/progress/health" } } ] },
+  { "id": "safety", "title": "Safety rules", "minutes": 1, "screens": ["checkup", "live"], "steps": [
+    { "title": "Stop rules", "body": "Sharp, electric, leg or arm pain, or dizziness: stop that move. New numbness in the saddle area, leg weakness, or bladder/bowel changes: urgent care now." },
+    { "title": "Flare days", "body": "Pain 7 or more → relief work only. It's the plan working, not a day off." },
+    { "title": "BackForge doesn't diagnose", "body": "It screens patterns and trains. Show your findings to a physio." } ] },
+  { "id": "privacy", "title": "Your data stays yours", "minutes": 1, "screens": ["you"], "steps": [
+    { "title": "On this device", "body": "Everything lives in this browser. Nothing is uploaded. Export a backup weekly." },
+    { "title": "Encrypted photo vault", "body": "Turn a photo set into encrypted files only your passphrase opens.", "action": { "label": "Privacy & data", "href": "#/you/privacy" } },
+    { "title": "Demo mode", "body": "Want to see the app full of data? Preview with demo data — it's kept separate from yours." } ] }
+ ]
+}

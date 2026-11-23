@@ -1,0 +1,7 @@
+{
+ "_about": "How the coach should SAY tricky text. Applied before speech (neural voice pack and the device voice). Keys are matched literally, longest first.",
+ "map": {
+  "90/90": "ninety-ninety", "360°": "three-sixty", "°": " degrees", " & ": " and ", "×": "by", "Hip IR": "hip internal rotation", " IR ": " internal rotation ",
+  "McGill": "Mc-Gill", "QL": "Q.L.", "TFL": "T.F.L.", "Pallof": "Pal-off", "e.g.": "for example", "/ side": "per side", "Y/T/W": "Y, T, W", "1–3": "one to three"
+ }
+}

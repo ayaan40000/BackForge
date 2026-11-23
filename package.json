@@ -6,7 +6,6 @@
   "scripts": {
     "test": "node --test tests/*.test.mjs",
     "test:browser": "node tests/smoke.browser.mjs",
-    "test:classic": "node dev/harness-v4.mjs && node dev/harness-v3.mjs",
     "demo-data": "node tools/make_demo_data.mjs",
     "serve": "python3 -m http.server 8765"
   }
