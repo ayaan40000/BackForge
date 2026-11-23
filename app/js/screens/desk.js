@@ -3,7 +3,7 @@
 import { html, useState, useEffect } from '../../vendor/htm-preact.mjs';
 import { HelpFor } from './learn.js';
 import { Icon, glyphFor } from '../ui/icons.js';
-import { Flip } from '../ui/kit.js';
+import { Demo, hasDemo } from '../ui/demo.js';
 import { state, update } from '../store.js';
 import { lib, deskDoc, photosFor, ctx } from '../data.js';
 import { deskPrefs, inWorkHours, nextDueAt, nextBreak, icsFor, onDesk, fire, doneBreak, snooze, dueBreak } from '../desk.js';
@@ -49,7 +49,7 @@ export function Desk() {
       <div class="kicker">Every ${pr.everyMinutes} min · ${pr.seconds} s</div><div class="headline mt-1">${pr.title}</div>
       <p class="callout mt-2">${pr.why}</p>
       <details class="more mt-2"><summary>Signs it's you</summary><ul class="callout" style="padding-left:18px">${pr.signs.map(s => html`<li>${s}</li>`)}</ul></details>
-      <div class="row wrap mt-3" style="gap:8px">${ids.map(id => html`<a class="chip sm" href=${`#/moves/${id}`}>${photosFor(id) ? html`<${Flip} media=${photosFor(id)} size="sm" />` : html`<${Icon} n=${glyphFor(lib().get(id))} s=${16} />`}${lib().get(id).name}</a>`)}</div>
+      <div class="row wrap mt-3" style="gap:8px">${ids.map(id => html`<a class="chip sm" href=${`#/moves/${id}`}>${hasDemo(id) ? html`<${Demo} id=${id} size="sm" />` : html`<${Icon} n=${glyphFor(lib().get(id))} s=${16} />`}${lib().get(id).name}</a>`)}</div>
       <button class="btn primary mt-3" disabled=${!ids.length} onClick=${() => startBreak(ids.slice(0, 3), pr.title)}><${Icon} n="play" fill s=${18} /> Do it now · ${Math.round(pr.seconds / 60 * 10) / 10 || 1} min</button></section>`; })}
   </div></div>`;
 }

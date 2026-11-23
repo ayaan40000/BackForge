@@ -329,3 +329,9 @@
   .lesson-n { flex: none; width: 36px; height: 36px; border-radius: 50%; display: grid; place-items: center; font-weight: 750; background: var(--c-accent); color: var(--c-on-accent); }
   .mt-1 { margin-top: var(--sp-1); }
 }
+@layer components {
+  .figure { margin: 0; border-radius: var(--r-md); background: color-mix(in oklab, var(--c-surface-2) 85%, transparent); padding: 6px; box-shadow: var(--g-border); }
+  .figure-sm { width: 64px; flex: none; border-radius: 12px; padding: 3px; }
+  .chip .figure-sm { width: 30px; padding: 1px; border-radius: 6px; }
+  .player .figure { background: oklch(1 0 0 / .05); }
+}

@@ -32,7 +32,8 @@ export function normalise(ex) {
 export class Library {
   /** @param {object[]} exercises backend schema  @param {Record<string,object>} coaching data/coaching.json .exercises */
   constructor(exercises, coaching = {}) {
-    this.all = exercises.map(e => ({ ...normalise(e), coach: coaching[e.id] || {} }));
+    // spoken cues may live on the entry (data/exercises-extra.json) or in data/coaching.json; coaching wins
+    this.all = exercises.map(e => ({ ...normalise(e), coach: { ...(e.setupCue ? { setupCue: e.setupCue } : {}), ...(e.focusCue ? { focusCue: e.focusCue } : {}), ...(coaching[e.id] || {}) } }));
     this.byId = Object.fromEntries(this.all.map(e => [e.id, e]));
   }
   get(id) { return this.byId[id] || null; }

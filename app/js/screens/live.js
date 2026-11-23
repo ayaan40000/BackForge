@@ -2,7 +2,8 @@
 import { html, useState, useEffect, useMemo, useRef } from '../../vendor/htm-preact.mjs';
 import { HelpFor } from './learn.js';
 import { Icon, glyphFor } from '../ui/icons.js';
-import { Seg, Sheet, PainScale, fmtTime, Flip } from '../ui/kit.js';
+import { Seg, Sheet, PainScale, fmtTime } from '../ui/kit.js';
+import { Demo, hasDemo } from '../ui/demo.js';
 import { state, uiPrefs, setUi } from '../store.js';
 import { ctx, lib, photosFor } from '../data.js';
 import { readiness, energyFor, streak } from '../engine/progress.js';
@@ -148,7 +149,7 @@ export function LivePlayer() {
         <h1 class="player-name" key=${seg.i + 'n'}>${title}</h1>
         <div class="player-line2">${line2}${snap.regressed ? html` · <span class="tag calm">Easier version</span>` : ''}</div>
         ${snap.regressed && seg.regression && html`<div class="callout">${seg.regression}</div>`}
-        ${seg.exId && photosFor(seg.exId) && (seg.type === 'prep' || seg.type === 'work') && html`<div class=${seg.type === 'prep' ? 'player-demo' : 'player-demo small'}><${Flip} media=${photosFor(seg.exId)} size=${seg.type === 'prep' ? 'md' : 'sm'} label=${seg.name} /></div>`}
+        ${seg.exId && hasDemo(seg.exId) && (seg.type === 'prep' || seg.type === 'work') && html`<div class=${seg.type === 'prep' ? 'player-demo' : 'player-demo small'} key=${seg.exId + seg.type}><${Demo} id=${seg.exId} size=${seg.type === 'prep' ? 'md' : 'sm'} label=${seg.name} /></div>`}
         <p class="player-caption" aria-live="polite" id="live-caption">${uiPrefs().captions !== false ? caption : ''}</p>
         ${(() => { const r = formTarget(tl, pos.index); if (!r) return null; const got = live.ratedFor(r.exId); return html`<div class="form-rate" role="group" aria-label=${'How was your form on ' + r.name}>
           <span class="caption" style="width:100%;text-align:center">${got ? 'Form noted — thanks.' : `Form on ${r.name}?`}</span>

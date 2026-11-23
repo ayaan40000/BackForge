@@ -59,5 +59,8 @@ for (const e of ex) {
 }
 for (const n of ['two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine', 'ten', 'eleven', 'twelve', 'thirteen', 'fourteen', 'fifteen', 'sixteen', 'seventeen', 'eighteen', 'nineteen', 'twenty']) add(n);
 add('Two more.'); add('Last one.');
+// plan / caveat notes spoken in the briefing (engine/corrective.js, engine/live.js)
+for (const n of ['Reset version: chin-tuck holds on the floor, no lift', 'Arch only back to a flat back, not past it', 'Leg to hip height only', 'Pillow between the knees, top knee pinned to the floor', 'Right side first, extra set on the right', 'Left side first, extra set on the left', 'Tuck first, no arch (front-thigh tightness on the hip-flexor test)', 'Easy on the right side today', 'Easy on the left side today']) add(sentence(n));
+for (const e of ex) { add(sentence(`Felt hard lately — easier version: ${e.regression || 'smaller range'}`)); add(sentence(`Clean on 3 ratings over 2+ days — ready for one change: add a set, then hold time, then band (${e.progression || 'next step'})`)); }
 const sentences = [...out].sort();
 process.stdout.write(JSON.stringify({ count: sentences.length, sentences }, null, 0));

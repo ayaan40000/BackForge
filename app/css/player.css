@@ -82,3 +82,22 @@
   .player-demo.small { width: auto; }
   @container player (height < 760px) and (aspect-ratio <= 1.2) { .player-demo:not(.small) { width: min(100%, 240px); } }
 }
+@layer screens {
+  /* a big demo photo during get-ready: smaller ring, no next chip (portrait) */
+  @container player (aspect-ratio <= 1.2) {
+    .player:has(.player-demo:not(.small)) .player-ring { width: min(56vw, 26vh, 320px); }
+    .player:has(.player-demo:not(.small)) .next { display: none; }
+    .player-demo:not(.small) { width: min(100%, 44vh); }
+    .player-body { gap: 10px; }
+  }
+}
+@layer screens {
+  .player-body { min-height: 0; overflow: hidden; }
+  @container player (height < 720px) and (aspect-ratio <= 1.2) {
+    .player:has(.player-demo:not(.small)) .player-ring { width: min(44vw, 20vh); }
+    .player:has(.player-demo:not(.small)) .player-ring .mid b { font-size: clamp(48px, 10vh, 84px); }
+    .player-demo:not(.small) { width: min(100%, 30vh); }
+    .player:has(.player-demo:not(.small)) .player-line2 { display: none; }
+    .player-caption { min-height: 0; font-size: 14px; line-height: 19px; }
+  }
+}

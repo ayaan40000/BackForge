@@ -11,9 +11,7 @@ export async function loadData() {
   const opt = p => get(p).catch(() => null);
   const [ex, desk, extra, coaching, lines, mt, pt, media, deskDoc] = await Promise.all([get('backend/data/exercises.json'), get('data/exercises-desk.json'), opt('data/exercises-extra.json'), get('data/coaching.json'), get('data/voice-lines.json'), get('data/assessments/movement-tests.json'), get('data/assessments/posture-tests.json'), opt('data/media.json'), opt('data/desk.json')]);
   LIB = new Library([...ex, ...desk, ...(extra || [])], coaching.exercises);
-  MEDIA = media?.photos || {}; DESK = deskDoc;
-  // extras carry their own spoken cues + YouTube queries
-  for (const e of LIB.all) { if (e.setupCue && !e.coach.setupCue) e.coach = { ...e.coach, setupCue: e.setupCue }; if (e.focusCue && !e.coach.focusCue) e.coach = { ...e.coach, focusCue: e.focusCue }; } LINES = lines; MTESTS = mt; PTESTS = pt;
+  MEDIA = media?.photos || {}; DESK = deskDoc; LINES = lines; MTESTS = mt; PTESTS = pt;
 }
 export const lib = () => LIB;
 export const voiceLines = () => LINES;

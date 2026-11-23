@@ -125,7 +125,7 @@ function scriptInner(timeline, lines, ctx) {
       if (s.section === 'cool' && !coolDone) { coolDone = true; chain(pick('cooldown', v, abs(0)), 'milestone', 0.3); }
       if (s.exIndex === lastMain && s.section === 'main' && lastMain > 0) chain(pick('lastmove', v, abs(cursor)), 'milestone', 0.3);
       chain(`${pick(s.exIndex === 0 ? 'announce_first' : 'announce', v, abs(cursor))} ${doseText(s)}`, 'brief', 0.3);
-      if (s.note) chain(sentence(s.note), 'brief');
+      if (s.note) for (const n of s.note.split(' · ')) chain(sentence(n), 'brief');
       const heard = (segs[s.i - 1]?.lines || []).some(l => l.kind === 'preview' && ex.setupCue && l.text.includes(ex.setupCue.replace(/\.$/, '')));
       if (ex.setupCue && !heard) chain(sentence(ex.setupCue), 'brief', 0.5);
       if (ex.focusCue && ex.focusCue !== ex.setupCue) chain(pick('focus', v, abs(cursor)), 'form', 0.5);
