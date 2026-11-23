@@ -27,10 +27,10 @@ All notable changes to BackForge. Versions follow the roadmap in `docs/ROADMAP.m
   - Desk days and progress & health data
   - safety, and privacy
   Every screen has a "?" that opens its lesson. New users get a two-step welcome: tick your equipment, then start a check-up or just train.
-- **Exercise demos and videos.** 39 moves show a looping two-frame stop-motion of the start and end position, using public-domain photos from free-exercise-db with credit; when a photo shows a close variant, it says so. The rest get drawn animated figures (see below). Every exercise has video links: curated ones first, then labelled YouTube searches pointed at reputable physio channels. Demos also play in the Live player during the get-ready countdown.
+- **Exercise demos and videos.** 39 moves show a looping two-frame stop-motion of the start and end position, using public-domain photos from free-exercise-db with credit; when a photo shows a close variant, it says so. 79 more have drawn, animated stick-figure demos built from joint-angle data (`data/figures.json`). They loop like stop-motion, pause off-screen, and show start and end side by side when you prefer reduced motion. Six moves where a drawing wouldn't read clearly (open book, prone hip IR rocks, standing hip IR, overhead Pallof, hip airplane, short foot) stay text plus video. Every exercise has video links: curated ones first, then labelled YouTube searches pointed at reputable physio channels. Demos also play in the Live player during the get-ready countdown.
 - **New icon:** three vertebrae stacked as one upward arrow, in volt, mint and sky, with the liquid-glass treatment. It reads clearly at 16 px and on light and dark home screens.
 - Safety layer: kettlebells, cables, ab wheels, tube bands, stability balls and sliders now count as load, so the no-loaded-flexion/rotation rule covers them.
-- Tests: 47 node tests (new: vault and PIN round-trips, duck feet, equipment, the stretching rules, a full-library safety check) and 74 browser checks, including the first-run welcome. The classic harnesses retired with the classic app.
+- Tests: 47 node tests (new: vault and PIN round-trips, duck feet, equipment, the stretching rules, a full-library safety check, and checks that every coach line has a recording) and 74 browser checks, including the first-run welcome. The classic harnesses retired with the classic app.
 
 ## v4.6.1 — Physio-reviewed scoring (2026-11-23)
 
