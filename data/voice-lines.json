@@ -254,7 +254,6 @@
   "Nice. No rushing.",
   "That was patient work.",
   "Good. That's the standard.",
-  "Nice breathing through that.",
   "Well controlled. Take your rest.",
   "Good job on the {weakSide} side.",
   "Good. Steady from start to finish.",
@@ -436,7 +435,6 @@
   "Done. You stayed in control the whole way.",
   "Good session, {name}. That's another one banked.",
   "All done. Smart choices on the hard moves.",
-  "Session complete. Breathing was great today.",
   "That's it. You showed up and did the work.",
   "Done, {name}. Consistent sets throughout.",
   "Finished. Every set counted.",
@@ -506,5 +504,11 @@
   "Set {set} of {sets} coming up.",
   "Next set: {set} of {sets}.",
   "Same move, set {set} of {sets}."
+ ],
+ "rate_form": [
+  "Tap how your form felt on that one.",
+  "Quick one: rate your form on screen.",
+  "How was your form? One tap on screen.",
+  "Rate that move — it tunes your posture plan."
  ]
 }

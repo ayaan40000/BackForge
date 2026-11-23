@@ -1,0 +1,330 @@
+{
+ "_about": "The 13-test movement assessment (from classic v4.0). Text and options only — scoring is app/js/engine/assessment.js. Option values are stored in the user's answers: never rename a value.",
+ "tests": [
+  {
+   "id": "dirbend",
+   "name": "Direction screen A — repeated forward bends",
+   "domain": "Direction preference",
+   "how": "Stand and slowly bend forward as if touching your toes, return to standing. 10 slow reps. How do your symptoms behave across the reps?",
+   "why": "From your initiation assessment: direction preference decides which positions your plan emphasizes — and which it bans.",
+   "kind": "opts",
+   "options": [
+    [
+     "better",
+     "Better — flexion relieves"
+    ],
+    [
+     "same",
+     "No change"
+    ],
+    [
+     "worse",
+     "Worse — flexion provokes"
+    ],
+    [
+     "skip",
+     "Skipped — painful"
+    ]
+   ]
+  },
+  {
+   "id": "dirext",
+   "name": "Direction screen B — standing extension",
+   "domain": "Direction preference",
+   "how": "Stand, hands on the small of your back, gently arch backward. 5 slow reps, small range only. How do your symptoms respond?",
+   "why": "Extension worsening symptoms = extension-intolerant pattern: press-ups and prone lying come OUT of the plan. This reversed your own program once — it matters.",
+   "kind": "opts",
+   "options": [
+    [
+     "better",
+     "Better — extension relieves"
+    ],
+    [
+     "same",
+     "No change"
+    ],
+    [
+     "worse",
+     "Worse — extension provokes"
+    ],
+    [
+     "skip",
+     "Skipped — painful"
+    ]
+   ]
+  },
+  {
+   "id": "firing",
+   "name": "Prone hip extension — firing order",
+   "domain": "Glute function",
+   "how": "Face down, forehead on hands. Put one hand on the glute and one on the hamstring of the working leg. Slowly lift the straight leg ~6 inches. Which muscle fires FIRST? Repeat per side.",
+   "why": "Glute-first is the healthy order. Hamstring or low back firing first = glute inhibition — the back does the glutes’ job and complains about it.",
+   "kind": "sides",
+   "options": [
+    [
+     "glute",
+     "Glute first"
+    ],
+    [
+     "ham",
+     "Hamstring first"
+    ],
+    [
+     "back",
+     "Low back first"
+    ],
+    [
+     "skip",
+     "Skipped"
+    ]
+   ]
+  },
+  {
+   "id": "slbridge",
+   "name": "Single-leg glute bridge hold",
+   "domain": "Glute function",
+   "how": "On your back, one foot flat, other leg straight. Lift the hips to a straight line and hold 10 seconds, 3 reps per side. How does each side hold up?",
+   "why": "Hamstring cramping or a dropping pelvis = the glute is not carrying its load on that side.",
+   "kind": "sides",
+   "options": [
+    [
+     "clean",
+     "Clean hold, pelvis level"
+    ],
+    [
+     "cramp",
+     "Hamstring cramps"
+    ],
+    [
+     "drop",
+     "Pelvis drops / rotates"
+    ],
+    [
+     "skip",
+     "Skipped"
+    ]
+   ]
+  },
+  {
+   "id": "clamfeel",
+   "name": "Clamshell — where do you feel it?",
+   "domain": "Glute function",
+   "how": "Side-lying, knees bent, feet together. Open the top knee 10 slow reps without the pelvis rolling back. Where is the work?",
+   "why": "Deep in the buttock = glute med. Front/side of the hip = TFL compensating — a classic imbalance signature.",
+   "kind": "sides",
+   "options": [
+    [
+     "glute",
+     "Deep in the buttock"
+    ],
+    [
+     "tfl",
+     "Front / side of hip"
+    ],
+    [
+     "skip",
+     "Skipped"
+    ]
+   ]
+  },
+  {
+   "id": "thomas",
+   "name": "Thomas test — hip flexor length",
+   "domain": "Hip flexors & tilt",
+   "how": "Sit on the edge of a sturdy table or bed. Hug one knee to your chest and lie back, letting the other leg hang. What does the hanging leg do? Repeat per side.",
+   "why": "A thigh that cannot rest flat = tight hip flexors (iliopsoas) — the front anchor of anterior pelvic tilt.",
+   "kind": "sides",
+   "options": [
+    [
+     "flat",
+     "Thigh rests flat, knee bent"
+    ],
+    [
+     "lifted",
+     "Thigh lifts off the surface"
+    ],
+    [
+     "lifted-ext",
+     "Thigh lifts AND knee straightens"
+    ],
+    [
+     "skip",
+     "Skipped"
+    ]
+   ]
+  },
+  {
+   "id": "pelvis",
+   "name": "Pelvic tilt — mirror check",
+   "domain": "Hip flexors & tilt",
+   "how": "Stand side-on to a mirror in your normal stance, wearing something with a waistband. Where does the waistband point, and how deep is your low-back arch?",
+   "why": "Anterior pelvic tilt (lower-crossed pattern): tight hip flexors + tight low back in front, weak glutes + weak deep core behind. The plan attacks all four corners.",
+   "kind": "opts",
+   "options": [
+    [
+     "neutral",
+     "Waistband level, gentle arch"
+    ],
+    [
+     "apt",
+     "Waistband tips down in front, deep arch, belly out"
+    ],
+    [
+     "posterior",
+     "Tucked under, flat low back"
+    ],
+    [
+     "unsure",
+     "Can’t tell"
+    ]
+   ]
+  },
+  {
+   "id": "slr",
+   "name": "Straight-leg raise — active vs passive",
+   "domain": "Hamstring: control vs length",
+   "how": "On your back: (1) actively lift one straight leg as high as you can. (2) Then use a towel around the foot and gently pull it higher. Compare the two heights — and note what you feel.",
+   "why": "Passive much higher than active = a control deficit, not short hamstrings. The fix is strength, not aggressive stretching — protective hamstrings should not be yanked on.",
+   "kind": "opts",
+   "options": [
+    [
+     "gap",
+     "Passive goes much higher (control gap)"
+    ],
+    [
+     "equal",
+     "Both equally limited, firm stretch"
+    ],
+    [
+     "nerve",
+     "Sharp / electric tug behind the knee"
+    ],
+    [
+     "skip",
+     "Skipped — painful"
+    ]
+   ]
+  },
+  {
+   "id": "hipir",
+   "name": "Prone hip internal rotation",
+   "domain": "Hip rotation",
+   "how": "Face down, one knee bent 90° with the shin vertical. Let the foot drop OUTWARD slowly — that measures internal rotation. Estimate each side honestly.",
+   "why": "A common finding in one-sided back pain: one hip rotates far less than the other, often on the symptomatic side. A stiff hip makes the lumbar spine rotate instead.",
+   "kind": "sides",
+   "options": [
+    [
+     "full",
+     "Foot drops a lot (~45°+)"
+    ],
+    [
+     "mid",
+     "Moderate drop (~25–40°)"
+    ],
+    [
+     "low",
+     "Barely drops (<25°)"
+    ],
+    [
+     "skip",
+     "Skipped"
+    ]
+   ]
+  },
+  {
+   "id": "switch9090",
+   "name": "90/90 hip switch",
+   "domain": "Hip rotation",
+   "how": "Sit with both knees bent at 90°, feet wide. Slowly rotate both knees side to side like windshield wipers, 8 switches. How does it move?",
+   "why": "Catches rotation limits the prone test misses, and shows which side guards.",
+   "kind": "opts",
+   "options": [
+    [
+     "smooth",
+     "Smooth both ways"
+    ],
+    [
+     "r-stuck",
+     "Stiff turning right-in"
+    ],
+    [
+     "l-stuck",
+     "Stiff turning left-in"
+    ],
+    [
+     "both",
+     "Stiff both ways"
+    ],
+    [
+     "skip",
+     "Skipped"
+    ]
+   ]
+  },
+  {
+   "id": "sideplanksec",
+   "name": "Side plank endurance (from knees)",
+   "domain": "Core endurance",
+   "how": "Side plank from the knees, elbow under shoulder. Time each side until form breaks (hips drop or roll). Enter seconds.",
+   "why": "McGill’s endurance ratios: left and right side-bridge times should sit within ~10% of each other. A gap is a lateral stability deficit — and QL territory.",
+   "kind": "nums",
+   "options": null
+  },
+  {
+   "id": "posturewall",
+   "name": "Wall posture test",
+   "domain": "Posture — upper crossed",
+   "how": "Stand with your back to a wall, heels a few inches out. What touches without forcing: tailbone, mid-back, and the back of your head?",
+   "why": "Head not touching = forward-head posture; shoulders rolling forward off the wall = rounded shoulders. Together: upper-crossed syndrome — chin tucks, rows and face pulls are its direct counter.",
+   "kind": "opts",
+   "options": [
+    [
+     "all",
+     "All three touch, easy"
+    ],
+    [
+     "nohead",
+     "Head won’t touch without strain"
+    ],
+    [
+     "shoulders",
+     "Shoulders roll forward off the wall"
+    ],
+    [
+     "both",
+     "Head won’t touch AND shoulders roll"
+    ],
+    [
+     "skip",
+     "Skipped"
+    ]
+   ]
+  },
+  {
+   "id": "guard",
+   "name": "Weight-shift guarding check",
+   "domain": "Movement habits",
+   "how": "Bend forward slowly and do a shallow knee bend, like you normally would. Notice honestly: do you shift your weight to one side to avoid loading the other?",
+   "why": "Many people with one-sided pain unconsciously shift away from the sore side when bending. Guarding protects short-term and overloads the other side long-term — the plan adds extra work to the avoided side.",
+   "kind": "opts",
+   "options": [
+    [
+     "none",
+     "No — weight feels even"
+    ],
+    [
+     "left",
+     "I shift LEFT (avoiding the right)"
+    ],
+    [
+     "right",
+     "I shift RIGHT (avoiding the left)"
+    ],
+    [
+     "unsure",
+     "Can’t tell"
+    ]
+   ]
+  }
+ ]
+}

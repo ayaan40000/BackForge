@@ -9,6 +9,9 @@ import { sessionExercises, flareActive, weekPlan } from '../engine/plan.js';
 import { prepare, resumable } from '../live/session.js';
 import { dayStr, addDays, weekday } from '../engine/dates.js';
 import { go } from '../router.js';
+import { PlanCard } from './checkups.js';
+import { buildCorrectivePlan } from '../engine/corrective.js';
+import { retestDue } from '../engine/posture.js';
 
 const STATE = { full: ['Ready', 'var(--c-good)'], trimmed: ['Steady', 'var(--c-info)'], micro: ['Easy', 'var(--c-warn)'], relief: ['Relief', 'var(--c-calm)'] };
 const CUES = [
@@ -64,6 +67,7 @@ export function Today() {
         <div class="row between mt-2"><a class="btn text" href="#/live">Change time or adjust</a><button class="btn text" onClick=${() => setDetail(!detail)} aria-expanded=${detail}>${detail ? 'Hide' : 'See'} moves</button></div>
         ${detail && html`<div class="list mt-2">${moves.map(u => html`<a href=${`#/moves/${u.id}`}><span class="glyph"><${Icon} n=${glyphFor(lib().get(u.id))} s=${20} /></span><span class="grow"><span class="t">${u.name}</span><br/><span class="d">${u.dose} · ${u.sets} set${u.sets > 1 ? 's' : ''}</span></span><span class="tag">${u.section}</span></a>`)}</div>`}
       </section>
+      <${PlanCard} plan=${buildCorrectivePlan(lib(), c, S)} compact />
       <${Cues} />
     </div>
 
@@ -131,7 +135,9 @@ function Nudge({ r }) {
   const S = state(), c = ctx();
   let n = null;
   if (r?.level === 'relief') n = ['calm', 'Flare rules are on', 'Relief work only today — it still protects your streak.', null];
-  else if (!S.results?.length) n = ['info', 'Take the movement check-up', '13 quick tests make every session yours.', ['Start check-up', '#/you/checkups']];
+  else if (!S.results?.length) n = ['info', 'Take the movement assessment', '13 quick tests make every session yours.', ['Start', '#/checkup/movement']];
+  else if (!S.posture?.bandChecks?.length) n = ['info', 'Take the posture check', 'Band + bodyweight tests grade forward head, upper back, shoulders and pelvic tilt — and build your posture plan.', ['Start', '#/checkup/posture']];
+  else if (retestDue(S.posture.bandChecks.at(-1)) <= dayStr()) n = ['info', 'Posture retest is due', 'Retesting moves each area to its next phase when it has improved.', ['Retest', '#/checkup/posture']];
   else if (S.backup?.lastExportAt && (Date.now() - new Date(S.backup.lastExportAt)) / 864e5 > 7) n = ['info', 'Weekly backup is due', 'One tap exports your data to where you keep backups.', ['Back up', '#/you']];
   else if (!c.todaysCheckin()) n = ['info', 'No check-in yet today', 'A pain score keeps the plan honest.', null];
   if (!n) return null;

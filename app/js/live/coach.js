@@ -163,6 +163,7 @@ export function scriptSession(timeline, lines, ctx) {
       const pv = { ...v, side: prevWork?.side || '', sec: prevWork?.holdSec || '', weakSide: prevWork?.side && prevWork.side === base.weakSide ? base.weakSide : '', set: s.sets > 1 ? s.set : '', sets: s.sets > 1 ? s.sets : '' };
       chain(`${pick('praise', pv, abs(0))} ${pick('rest_len', { rest: Math.round(s.sec) }, abs(0))}`, 'praise', 0.5);
       if (!halfwayDone && s.start + s.sec >= halfAt) { halfwayDone = true; beep(cursor + 0.3, 'half'); chain(pick('halfway', v, abs(cursor)), 'milestone', 0.9); }
+      if (s.between && s.section === 'main' && s.sec >= 14) chain(pick('rate_form', v, abs(cursor)), 'praise', 0.6);
       if (s.section === 'main' && s.set === 1 && !painChecked.has(s.exId)) { painChecked.add(s.exId); chain(pick('paincheck', v, abs(cursor)), 'form', 0.6); }
       else if (s.sec >= 25) chain(pick('recover', v, abs(cursor)), 'breath', 0.8);
       const n = segs[s.i + 1];

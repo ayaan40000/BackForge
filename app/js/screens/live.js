@@ -19,7 +19,7 @@ export function LiveSetup() {
   const [mins, setMins] = useState(S.livePrefs?.mins || 20);
   const [energy, setEnergy] = useState(energyFor(r) === 'flare' ? 'low' : energyFor(r));
   const [cav, setCav] = useState(S.livePrefs?.caveats || []);
-  const [variant, setVariant] = useState('standard');
+  const [variant, setVariant] = useState(route().query.variant || 'standard');
   const [open, setOpen] = useState(false);
   const [relief, setRelief] = useState(flare);
   const opts = { mins, energy: relief ? 'flare' : energy, caveats: cav, variant };
@@ -36,7 +36,10 @@ export function LiveSetup() {
         <div class="kicker" style="color:var(--c-calm)">Relief day</div><div class="title2 mt-2">Gentle relief session</div>
         <p class="callout mt-2">${flare ? 'Pain is 7 or higher today, so Live runs the relief protocol only: slow, unloaded moves. It still counts for your streak.' : 'Relief protocol only: slow, unloaded moves.'}</p>
         ${!flare && html`<button class="btn text" style="padding:0" onClick=${() => setRelief(false)}>Back to a normal session</button>`}</section>`
-      : html`<section class="card glass" aria-label="How long">
+      : html`<section class="card glass" aria-label="Session type"><div class="kicker mb-3">Session</div>
+        <${Seg} label="Session type" value=${variant} onChange=${setVariant} options=${[['standard', "Today's plan"], ['posture', 'Posture plan'], ['desk', 'Desk reset']]} />
+        ${variant === 'posture' && html`<p class="caption mt-2">Built from your posture check: the weakest areas first, at their current phase.${!(S.posture?.bandChecks?.length) ? ' Take the posture check for a fully personal plan.' : ''}</p>`}</section>
+      <section class="card glass" aria-label="How long">
         <div class="kicker mb-3">1 · How long have you got?</div>
         <div class="chips" role="radiogroup" aria-label="Duration">${DURS.map(d => html`<button class="chip" role="radio" aria-checked=${mins === d} onClick=${() => setMins(d)}>${d} min</button>`)}</div>
         <label class="row mt-4" style="gap:14px"><span class="caption" style="width:56px">Custom</span><input type="range" min="5" max="60" step="5" value=${mins} onInput=${e => setMins(+e.target.value)} aria-label="Custom duration in minutes" /><b class="no-wrap" style="min-width:64px;text-align:right">${mins} min</b></label>
@@ -77,6 +80,13 @@ export function TimelineBar({ tl, elapsed = null, onSeek }) {
   return html`<div class="tlbar" ref=${ref} onClick=${seek} role=${onSeek ? 'slider' : 'img'} aria-label="Session timeline" aria-valuemin="0" aria-valuemax=${Math.round(tl.totalSec)} aria-valuenow=${elapsed != null ? Math.round(elapsed) : undefined}>
     ${tl.segments.map(s => html`<i style=${`flex:${s.sec};background:${PHASE[phaseOf(s)]};opacity:${s.type === 'work' ? 1 : s.type === 'rest' || s.type === 'switch' ? .45 : .25}`} data-done=${elapsed != null && s.start + s.sec <= elapsed}></i>`)}
     ${elapsed != null && html`<b class="playhead" style=${`left:${(elapsed / tl.totalSec) * 100}%`}></b>`}</div>`;
+}
+
+/** During the rest right after an exercise's final set, ask how the form felt. */
+function formTarget(tl, i) {
+  const s = tl.segments[i]; if (!s || s.type !== 'rest' || !s.between) return null;
+  const w = [...tl.segments.slice(0, i)].reverse().find(x => x.type === 'work');
+  return w && w.section !== 'cool' ? { exId: w.exId, name: w.name } : null;
 }
 
 export function LivePlayer() {
@@ -138,6 +148,9 @@ export function LivePlayer() {
         <div class="player-line2">${line2}${snap.regressed ? html` · <span class="tag calm">Easier version</span>` : ''}</div>
         ${snap.regressed && seg.regression && html`<div class="callout">${seg.regression}</div>`}
         <p class="player-caption" aria-live="polite" id="live-caption">${uiPrefs().captions !== false ? caption : ''}</p>
+        ${(() => { const r = formTarget(tl, pos.index); if (!r) return null; const got = live.ratedFor(r.exId); return html`<div class="form-rate" role="group" aria-label=${'How was your form on ' + r.name}>
+          <span class="caption" style="width:100%;text-align:center">${got ? 'Form noted — thanks.' : `Form on ${r.name}?`}</span>
+          ${[['clean', 'Clean'], ['shaky', 'Shaky'], ['hard', 'Couldn’t hold it']].map(([k, l]) => html`<button class="chip sm glass-thin" aria-pressed=${got === k} onClick=${() => live.rateForm(r.exId, k)}>${l}</button>`)}</div>`; })()}
         ${next && html`<div class="next glass">
           <span class="glyph"><${Icon} n=${glyphFor(lib().get(next.exId))} s=${20} /></span>
           <span class="grow"><span class="caption">Next${next.exId === seg.exId ? '' : ''}</span><br/><b>${next.name}${next.side ? ` · ${next.side[0].toUpperCase()}` : ''}${next.exId === seg.exId && next.set ? ` · set ${next.set}` : ''}</b></span>

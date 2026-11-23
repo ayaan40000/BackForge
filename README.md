@@ -2,7 +2,9 @@
 
 **Live:** https://ayaan40000.github.io/BackForge/ · **Demo with 120 days of data:** https://ayaan40000.github.io/BackForge/?demo=1 · **Classic v4.0 app:** `/classic/`
 
-**Latest (v4.5 "Live Studio", 2026-11-23):** a rebuilt app with a liquid-glass UI that works on phone, tablet and desktop, and a **real-time, voice-coached Live mode**. Pick a length (5–60 min) and press Start. BackForge builds the session second by second (warm-up, main work, cool-down, sets, sides, rests) and a voice coach runs it the way a personal trainer would. Demo mode shows the app full of data, including Google Fit and Samsung Health. See `CHANGELOG.md`; the plan to v5.0 is in `docs/ROADMAP.md`.
+**Latest (v4.6 "Assess & Correct", 2026-11-23):** the movement assessment, a posture check (8 band + 5 bodyweight tests) and a photo check read by Muse are now part of the new app. Their grades build a phased posture plan for forward head, a hunched upper back, rounded shoulders and anterior pelvic tilt, and the voice coach runs it as a Live session. Each corrective move ends with a quick form rating.
+
+**v4.5 "Live Studio":** a rebuilt app with a liquid-glass UI that works on phone, tablet and desktop, and a **real-time, voice-coached Live mode**. Pick a length (5–60 min) and press Start. BackForge builds the session second by second (warm-up, main work, cool-down, sets, sides, rests) and a voice coach runs it the way a personal trainer would. Demo mode shows the app full of data, including Google Fit and Samsung Health. See `CHANGELOG.md`; the plan to v5.0 is in `docs/ROADMAP.md`.
 
 An assessment-led, resistance-band-first back-strength trainer. No account, no server, no build step: everything lives on your device.
 
@@ -14,7 +16,8 @@ An assessment-led, resistance-band-first back-strength trainer. No account, no s
 | **Live** | Three pre-filled choices (length, energy, adjustments) → a preview of the timeline → **Start** → the full-screen player |
 | **Moves** | 56 exercises, search and filters, a detail sheet with the exact setup and focus cues the coach speaks, easier/harder versions, videos, "Preview voice" |
 | **Progress** | Overview (pain trend, 17-week consistency map, sessions per week, progression gate, insights, what the coach learned) · Health · Body · Posture |
-| **You** | Name, check-ups (classic tools for now), coach voice and chattiness, theme, reduce motion, solid surfaces, demo data, backup |
+| **Check-ups** (`#/checkup`) | Movement assessment (13 tests) · posture check (8 band + 5 bodyweight tests, graded per area) · your posture plan (phase per weak area, Start posture session) · photo check with Muse (consistency with your tests, then vs now) |
+| **You** | Name, coach voice and chattiness, theme, reduce motion, solid surfaces, demo data, backup |
 
 ### Live mode — how a session runs
 1. `app/js/engine/live.js` picks the moves (from your findings, today's check-in, caveats and response history), with the same rules as before. It is re-checked by the safety layer on every build.
@@ -36,8 +39,9 @@ An assessment-led, resistance-band-first back-strength trainer. No account, no s
 ## Tests
 
 ```bash
-npm test               # 19 tests: safety for every Live build, duration fit, coach timing and wording rules, data files, health import (no installs)
-npm run test:browser   # 42 real-browser checks at phone / tablet / desktop (needs Playwright; serve the repo on :8765 first)
+npm test               # 31 tests: safety for every Live build, duration fit, coach timing and wording rules, data files, health import (no installs)
+node dev/parity-assessment.mjs   # 27,000 cases: new scoring == classic scoring
+npm run test:browser   # 56 real-browser checks at phone / tablet / desktop (needs Playwright; serve the repo on :8765 first)
 npm run test:classic   # classic app harnesses (113 + 50)
 cd backend && python3 -m pytest -q   # 81 backend tests
 ```
@@ -75,7 +79,7 @@ Honest limits, by design:
 
 ## Classic app (v4.0) — still available at `/classic/`
 
-The check-ups live here until v4.7 rebuilds them: the 13-test movement assessment, the band posture check, the photo check with its encrypted vault, and PIN setup. The new app links to them under **You → Check-ups**, and the classic app has a "← New BackForge" link back. What the classic app does:
+Since v4.6 the assessments, posture check and photo check live in the new app. The classic app still hosts the encrypted photo vault and PIN setup, and both apps share the same data. The new app links to them under **You → Check-ups**, and the classic app has a "← New BackForge" link back. What the classic app does:
 
 1. **13-test movement assessment** — direction tolerance (flexion vs extension), glute firing order, single-leg bridge control, clamshell compensation, Thomas test (hip flexor length), pelvic tilt check, hamstring control-vs-length, prone hip internal rotation per side, 90/90 switch, timed side-plank endurance (McGill ratio), wall posture test, weight-shift guarding check.
 2. **Findings engine** — turns answers into plain-language findings with severity (Priority / Watch / Clear). Skipped tests count as *no data* and can never generate a finding.

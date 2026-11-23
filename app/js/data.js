@@ -5,14 +5,17 @@ import { dayStr, addDays, daysBetween, parseDay } from './engine/dates.js';
 import { state } from './store.js';
 
 export const BASE = new URL('../../', import.meta.url).href; // repo root (works on GitHub Pages sub-path)
-let LIB = null, LINES = null;
+let LIB = null, LINES = null, MTESTS = null, PTESTS = null;
 export async function loadData() {
   const get = p => fetch(BASE + p).then(r => { if (!r.ok) throw new Error(p + ' ' + r.status); return r.json(); });
-  const [ex, desk, coaching, lines] = await Promise.all([get('backend/data/exercises.json'), get('data/exercises-desk.json'), get('data/coaching.json'), get('data/voice-lines.json')]);
-  LIB = new Library([...ex, ...desk], coaching.exercises); LINES = lines;
+  const [ex, desk, coaching, lines, mt, pt] = await Promise.all([get('backend/data/exercises.json'), get('data/exercises-desk.json'), get('data/coaching.json'), get('data/voice-lines.json'), get('data/assessments/movement-tests.json'), get('data/assessments/posture-tests.json')]);
+  LIB = new Library([...ex, ...desk], coaching.exercises); LINES = lines; MTESTS = mt; PTESTS = pt;
 }
 export const lib = () => LIB;
 export const voiceLines = () => LINES;
+export const movementTests = () => MTESTS.tests;
+export const postureDoc = () => PTESTS;
+export const postureTests = () => PTESTS.tests;
 export const ctx = () => makeCtx(state(), dayStr());
 
 // ---------- health ----------

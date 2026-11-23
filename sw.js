@@ -1,6 +1,6 @@
 // Offline: network-first for app files (so updates land on next open), cache fallback.
 // Bump VERSION when shipping; old caches are dropped on activate.
-const VERSION = 'bf-4.5.0';
+const VERSION = 'bf-4.6.0';
 self.addEventListener('install', e => self.skipWaiting());
 self.addEventListener('activate', e => e.waitUntil(caches.keys().then(ks => Promise.all(ks.filter(k => k !== VERSION).map(k => caches.delete(k)))).then(() => self.clients.claim())));
 self.addEventListener('fetch', e => {

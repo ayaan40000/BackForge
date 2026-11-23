@@ -1,0 +1,808 @@
+{
+ "_about": "Posture check: 8 band tests (classic v4.0) + 5 bodyweight tests (v4.6). Text and options only — grading is app/js/engine/posture.js (keyed by id). pattern: apt (pelvis & core / anterior pelvic tilt), head (forward head), back (hunched upper back / thoracic kyphosis), shoulders (rounded shoulders). Never rename an id or an option value: they are stored in the user's history.",
+ "patterns": {
+  "apt": {
+   "label": "Pelvis & core",
+   "problem": "Anterior pelvic tilt"
+  },
+  "head": {
+   "label": "Head & neck",
+   "problem": "Forward head posture"
+  },
+  "back": {
+   "label": "Upper back",
+   "problem": "Hunched upper back (kyphosis)"
+  },
+  "shoulders": {
+   "label": "Shoulders",
+   "problem": "Rounded shoulders"
+  }
+ },
+ "painOptions": [
+  [
+   "none",
+   "No new pain"
+  ],
+  [
+   "back",
+   "Back-only ache"
+  ],
+  [
+   "leg",
+   "Pain into the leg"
+  ],
+  [
+   "sharp",
+   "Sharp or electric pain"
+  ]
+ ],
+ "tests": [
+  {
+   "id": "tilt-control",
+   "name": "Tilt Control Test",
+   "pattern": "apt",
+   "kind": "band",
+   "equipment": "Long band anchored behind your head",
+   "setup": "On your back, knees bent, feet flat. Light long band anchored behind your head, one end in each hand, arms straight up. Exhale and gently tip the pelvis so the low back gets heavy on the floor — small range only, do not flatten forcefully. Hold the tilt while breathing normally.",
+   "inputs": [
+    {
+     "key": "hold",
+     "label": "Longest clean hold",
+     "options": [
+      [
+       "0",
+       "0–4 sec"
+      ],
+      [
+       "1",
+       "5–9 sec"
+      ],
+      [
+       "2",
+       "10–19 sec"
+      ],
+      [
+       "3",
+       "20+ sec"
+      ]
+     ]
+    },
+    {
+     "key": "quality",
+     "label": "What happened",
+     "options": [
+      [
+       "flat",
+       "Back stayed gently pressed, breathing normally"
+      ],
+      [
+       "breath",
+       "Could hold, but had to hold my breath"
+      ],
+      [
+       "arches",
+       "Back arched off the floor — could not keep the tilt"
+      ],
+      [
+       "shakes",
+       "Shaking hard in the first seconds"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "No change — tilt work stays at maintenance in the morning block.",
+    "Mild": "No dose change at Mild — retest in 4 weeks; the tilt drill joins the morning block daily at Moderate.",
+    "Moderate": "Supine pelvic tilt drill joins the morning Tilt block daily, before the dead bug.",
+    "Priority": "Daily tilt drill + dead bug regressed to toe-taps; band promotion for pull-through is held until retest; flag for your physio."
+   }
+  },
+  {
+   "id": "deadbug-band",
+   "name": "Dead Bug Control Test",
+   "pattern": "apt",
+   "kind": "band",
+   "equipment": "Long band anchored overhead",
+   "setup": "On your back, arms up holding the band anchored behind your head, hips and knees at 90°. Lower one leg slowly toward the floor and return. Count clean reps per side — use the worse side.",
+   "inputs": [
+    {
+     "key": "reps",
+     "label": "Clean reps (worse side)",
+     "options": [
+      [
+       "0",
+       "0–2"
+      ],
+      [
+       "1",
+       "3–5"
+      ],
+      [
+       "2",
+       "6–8"
+      ]
+     ]
+    },
+    {
+     "key": "quality",
+     "label": "What happened",
+     "options": [
+      [
+       "heavy",
+       "Low back stayed heavy on the floor"
+      ],
+      [
+       "flare",
+       "Ribs flared up"
+      ],
+      [
+       "arches",
+       "Low back arched off the floor"
+      ],
+      [
+       "breath",
+       "Had to hold my breath"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "Dead bug stays as programmed.",
+    "Mild": "No dose change at Mild — retest in 4 weeks.",
+    "Moderate": "The morning Tilt block regresses the dead bug (toe-tap regression note) until retest.",
+    "Priority": "The morning Tilt block replaces the dead bug with toe-taps only until the retest."
+   }
+  },
+  {
+   "id": "hip-ir-band",
+   "name": "Hip Internal Rotation Test (banded)",
+   "pattern": "apt",
+   "kind": "band",
+   "equipment": "Loop band around the ankles · chair",
+   "setup": "Sit tall on a firm chair, knees at 90°, loop band around the ankles. Thigh pinned still, rotate the shin OUTWARD (the hip turns inward). Judge each side against its own heel: full ≈ the foot travels its whole arc.",
+   "inputs": [
+    {
+     "key": "rR",
+     "label": "RIGHT side range",
+     "options": [
+      [
+       "3",
+       "Full range"
+      ],
+      [
+       "2",
+       "About ¾"
+      ],
+      [
+       "1",
+       "About ½"
+      ],
+      [
+       "0",
+       "Barely moves"
+      ]
+     ]
+    },
+    {
+     "key": "rL",
+     "label": "LEFT side range",
+     "options": [
+      [
+       "3",
+       "Full range"
+      ],
+      [
+       "2",
+       "About ¾"
+      ],
+      [
+       "1",
+       "About ½"
+      ],
+      [
+       "0",
+       "Barely moves"
+      ]
+     ]
+    },
+    {
+     "key": "quality",
+     "label": "What happened",
+     "options": [
+      [
+       "still",
+       "Thigh stayed still, trunk tall"
+      ],
+      [
+       "lean",
+       "Trunk leaned away to fake it"
+      ],
+      [
+       "rolls",
+       "Pelvis rolled with the leg"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "IR work stays in the maintenance rotation.",
+    "Mild": "No plan change at Mild — retest in 4 weeks; the daily IR block starts at Moderate.",
+    "Moderate": "The daily Hip IR block joins the morning plan, deficit side first, and IR work enters the corrective pool.",
+    "Priority": "Daily IR block, deficit side first; 90/90 work is switches only — the lift-off progression is gated off until retest; flag the capsule question for your physio."
+   }
+  },
+  {
+   "id": "pallof-hold",
+   "name": "Pallof Hold Test",
+   "pattern": "apt",
+   "kind": "band",
+   "equipment": "Long band anchored at chest height",
+   "setup": "Stand side-on to the anchor, band at the sternum, feet hip-width. Press straight out and hold. Test both sides — grade by the worse one.",
+   "inputs": [
+    {
+     "key": "hold",
+     "label": "Longest clean hold (worse side)",
+     "options": [
+      [
+       "0",
+       "0–4 sec"
+      ],
+      [
+       "1",
+       "5–9 sec"
+      ],
+      [
+       "2",
+       "10–19 sec"
+      ],
+      [
+       "3",
+       "20+ sec"
+      ]
+     ]
+    },
+    {
+     "key": "quality",
+     "label": "What happened",
+     "options": [
+      [
+       "clean",
+       "Stayed square, ribs down"
+      ],
+      [
+       "lean",
+       "Leaned away from the anchor"
+      ],
+      [
+       "turn",
+       "Trunk kept turning toward the anchor"
+      ],
+      [
+       "arch",
+       "Low back arched"
+      ]
+     ]
+    },
+    {
+     "key": "sides",
+     "label": "Sides compared",
+     "options": [
+      [
+       "similar",
+       "Both sides similar"
+      ],
+      [
+       "worse",
+       "One side much worse"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "Pallof press stays as programmed.",
+    "Mild": "No plan change at Mild — retest in 4 weeks.",
+    "Moderate": "No slot change at Moderate — treat as a warning: one more step down and Pallof goes half-kneeling with an extra bird-dog set.",
+    "Priority": "Pallof goes half-kneeling only, and the daily Big 3 block adds a second bird-dog set."
+   }
+  },
+  {
+   "id": "glutemed-wall",
+   "name": "Glute Med Wall Test",
+   "pattern": "apt",
+   "kind": "band",
+   "equipment": "Loop band above the knees · wall",
+   "setup": "Loop band above the knees. Stand side-on to a wall, inside leg is the stance leg; press the outside knee into the wall against the band, pelvis level, and hold. Test both sides — grade by the worse one.",
+   "inputs": [
+    {
+     "key": "hold",
+     "label": "Longest clean hold (worse side)",
+     "options": [
+      [
+       "0",
+       "0–4 sec"
+      ],
+      [
+       "1",
+       "5–9 sec"
+      ],
+      [
+       "2",
+       "10–19 sec"
+      ],
+      [
+       "3",
+       "20+ sec"
+      ]
+     ]
+    },
+    {
+     "key": "quality",
+     "label": "What happened",
+     "options": [
+      [
+       "clean",
+       "Pelvis stayed level"
+      ],
+      [
+       "lean",
+       "Trunk leaned over the standing leg"
+      ],
+      [
+       "turn",
+       "Pelvis dropped on the free side"
+      ],
+      [
+       "foh",
+       "Felt it in the front of the hip, not the buttock"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "Glute med work stays as programmed.",
+    "Mild": "No plan change at Mild — retest in 4 weeks.",
+    "Moderate": "The glute inhibition finding drives the plan: clamshell runs weaker-side-twice and glute med work enters the corrective pool.",
+    "Priority": "Clamshell goes supported-only with the worse side doubled, a guarding finding is added, and single-leg work stays supported until retest."
+   }
+  },
+  {
+   "id": "pullapart-endurance",
+   "name": "Pull-Apart Endurance Test",
+   "pattern": "shoulders",
+   "kind": "band",
+   "equipment": "Lightest long band",
+   "setup": "Stand tall, arms straight ahead at shoulder height holding the lightest long band. Pull apart to the chest and return slowly. Count clean reps — stop at form loss, not exhaustion.",
+   "inputs": [
+    {
+     "key": "reps",
+     "label": "Clean reps",
+     "options": [
+      [
+       "0",
+       "0–5"
+      ],
+      [
+       "1",
+       "6–10"
+      ],
+      [
+       "2",
+       "11–15"
+      ],
+      [
+       "3",
+       "16–20"
+      ]
+     ]
+    },
+    {
+     "key": "quality",
+     "label": "What happened",
+     "options": [
+      [
+       "clean",
+       "Blades pinched cleanly, ribs down"
+      ],
+      [
+       "shrug",
+       "Shoulders shrugged to the ears"
+      ],
+      [
+       "arch",
+       "Low back arched to finish reps"
+      ],
+      [
+       "bounce",
+       "Had to bounce/rush the reps"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "Pull-aparts stay as programmed.",
+    "Mild": "Pull-aparts stay in the daily activation block.",
+    "Moderate": "The rounded-shoulders finding drives the corrective pool (pull-aparts, face pulls, rows).",
+    "Priority": "Upper-back work is a plan priority, and band promotion for pull-apart and face pull is blocked until retest."
+   }
+  },
+  {
+   "id": "wallslide-band",
+   "name": "Wall Slide Test (banded)",
+   "pattern": "shoulders",
+   "kind": "band",
+   "equipment": "Mini-band around the wrists · wall",
+   "setup": "Back on the wall — head, upper back, tailbone touching — mini-band around the wrists, forearms on the wall. Slide up into a narrow V and back down. Count clean reps.",
+   "inputs": [
+    {
+     "key": "reps",
+     "label": "Clean reps",
+     "options": [
+      [
+       "0",
+       "0–3"
+      ],
+      [
+       "1",
+       "4–6"
+      ],
+      [
+       "2",
+       "7–9"
+      ],
+      [
+       "3",
+       "10"
+      ]
+     ]
+    },
+    {
+     "key": "quality",
+     "label": "What happened",
+     "options": [
+      [
+       "holds",
+       "All three contact points held"
+      ],
+      [
+       "leaves",
+       "Low back kept leaving the wall"
+      ],
+      [
+       "shrug",
+       "Shrugged to the ears"
+      ],
+      [
+       "poke",
+       "Head poked forward off the wall"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "No change.",
+    "Mild": "Scapular wall slides join the morning Posture block, 1 × 10.",
+    "Moderate": "Scapular wall slides join the morning Posture block daily.",
+    "Priority": "Wall slides join the Posture block daily — no band until the retest."
+   }
+  },
+  {
+   "id": "chintuck-band",
+   "name": "Chin Tuck Test (banded)",
+   "pattern": "head",
+   "kind": "band",
+   "equipment": "Lightest long band behind the head",
+   "setup": "Sit tall, lightest long band behind the head held in both hands. Glide the head straight back into the band — a double-chin glide, NOT a nod down. Count clean reps.",
+   "inputs": [
+    {
+     "key": "reps",
+     "label": "Clean reps",
+     "options": [
+      [
+       "0",
+       "0–3"
+      ],
+      [
+       "1",
+       "4–6"
+      ],
+      [
+       "2",
+       "7–9"
+      ],
+      [
+       "3",
+       "10"
+      ]
+     ]
+    },
+    {
+     "key": "quality",
+     "label": "What happened",
+     "options": [
+      [
+       "glide",
+       "Clean straight-back glide, eyes level"
+      ],
+      [
+       "breath",
+       "Clean glide but breath-holding"
+      ],
+      [
+       "front",
+       "Front of the neck took over / head jutted"
+      ],
+      [
+       "tilt",
+       "Head tilted down instead of gliding"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "Chin tucks stay in the desk rotation.",
+    "Mild": "Chin tucks stay daily in the Posture block.",
+    "Moderate": "Deep neck flexor holds join the morning Posture block, and the forward-head finding drives the corrective pool.",
+    "Priority": "Deep neck flexor holds join the Posture block daily; chin tucks stay unbanded in the test until retest."
+   }
+  },
+  {
+   "id": "occiput-wall",
+   "name": "Occiput-to-Wall Test",
+   "pattern": "back",
+   "kind": "bodyweight",
+   "equipment": "A wall",
+   "setup": "Stand with heels, buttocks and upper back against a wall. Look straight ahead with your chin level — eyes on the horizon, do not tip your chin up. Feel (or have someone check) the gap between the back of your head and the wall.",
+   "inputs": [
+    {
+     "key": "gap",
+     "label": "Back of the head",
+     "options": [
+      [
+       "0",
+       "Touches the wall easily, chin level"
+      ],
+      [
+       "1",
+       "Touches only if I tip my chin up"
+      ],
+      [
+       "2",
+       "Gap of about 2 fingers"
+      ],
+      [
+       "3",
+       "Gap wider than 3 fingers"
+      ]
+     ]
+    },
+    {
+     "key": "blades",
+     "label": "Upper back",
+     "options": [
+      [
+       "both",
+       "Both shoulder blades rest on the wall"
+      ],
+      [
+       "one",
+       "Only one side touches"
+      ],
+      [
+       "none",
+       "Neither touches without straining"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "Upper-back work stays at maintenance.",
+    "Mild": "Wall posture resets join the desk routine.",
+    "Moderate": "The hunched-upper-back block (open book, wall slides, rows) joins the daily plan.",
+    "Priority": "The upper-back block is daily and starts at Reset: thoracic mobility before any loaded rows; retest in 2 weeks."
+   },
+   "evidence": "Occiput-to-wall distance is a standard clinical screen for thoracic kyphosis and forward head carriage."
+  },
+  {
+   "id": "dnf-endurance",
+   "name": "Deep Neck Flexor Endurance",
+   "pattern": "head",
+   "kind": "bodyweight",
+   "equipment": "Floor · a timer",
+   "setup": "Lie on your back, knees bent. Tuck your chin gently (a small double chin), then lift your head about 2–3 cm off the floor and hold. Stop the timer when the chin pokes forward, the head drops, or the tuck is lost.",
+   "inputs": [
+    {
+     "key": "hold",
+     "label": "Clean hold",
+     "options": [
+      [
+       "0",
+       "Under 10 sec"
+      ],
+      [
+       "1",
+       "10–19 sec"
+      ],
+      [
+       "2",
+       "20–29 sec"
+      ],
+      [
+       "3",
+       "30 sec or more"
+      ]
+     ]
+    },
+    {
+     "key": "quality",
+     "label": "What ended it",
+     "options": [
+      [
+       "tuck",
+       "Fatigue — the tuck held until I stopped"
+      ],
+      [
+       "poke",
+       "My chin poked up / forward"
+      ],
+      [
+       "shake",
+       "Strong shaking early"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "Chin tucks stay in the desk rotation.",
+    "Mild": "Chin tucks stay daily.",
+    "Moderate": "Deep neck flexor holds join the daily plan and the forward-head block drives part of every session.",
+    "Priority": "Deep neck flexor work starts at Reset (supported, short holds) every day; retest in 2 weeks."
+   },
+   "evidence": "Craniocervical flexion endurance (Jull/Harris style). Healthy adults commonly hold roughly 30–40 s; shorter holds are associated with forward head posture and neck pain."
+  },
+  {
+   "id": "pec-minor",
+   "name": "Supine Shoulder Height (pec minor)",
+   "pattern": "shoulders",
+   "kind": "bodyweight",
+   "equipment": "Floor",
+   "setup": "Lie on your back, arms relaxed by your sides, palms up. Let the shoulders sink. Feel whether the BACK of each shoulder rests on the floor or hovers above it (a partner or a phone photo from the side helps).",
+   "inputs": [
+    {
+     "key": "R",
+     "label": "RIGHT shoulder",
+     "options": [
+      [
+       "0",
+       "Rests flat on the floor"
+      ],
+      [
+       "1",
+       "Hovers about one finger-width"
+      ],
+      [
+       "2",
+       "Hovers two finger-widths or more"
+      ]
+     ]
+    },
+    {
+     "key": "L",
+     "label": "LEFT shoulder",
+     "options": [
+      [
+       "0",
+       "Rests flat on the floor"
+      ],
+      [
+       "1",
+       "Hovers about one finger-width"
+      ],
+      [
+       "2",
+       "Hovers two finger-widths or more"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "No chest-opening work needed beyond warm-ups.",
+    "Mild": "Doorway chest stretch joins the daily posture block.",
+    "Moderate": "Chest opening (doorway, standing opener) daily plus band pull-aparts and face pulls 3× a week.",
+    "Priority": "Chest opening twice daily and rows/face pulls every session; retest in 2 weeks."
+   },
+   "evidence": "A shoulder resting well above the table in supine is a common clinical sign of a short pectoralis minor, part of the rounded-shoulder (upper-crossed) pattern."
+  },
+  {
+   "id": "overhead-reach",
+   "name": "Overhead Reach Test",
+   "pattern": "back",
+   "kind": "bodyweight",
+   "equipment": "Floor",
+   "setup": "Lie on your back, knees bent, low back gently heavy on the floor (ribs down). Keep your arms straight, thumbs up, and raise them overhead toward the floor behind you. Do not let the ribs flare or the back arch to get there.",
+   "inputs": [
+    {
+     "key": "reach",
+     "label": "Where your hands land",
+     "options": [
+      [
+       "floor",
+       "Both touch the floor with ribs down"
+      ],
+      [
+       "gap",
+       "A few centimetres short of the floor"
+      ],
+      [
+       "arch",
+       "I only reach by arching / flaring my ribs"
+      ],
+      [
+       "far",
+       "Well short — more than a hand's width"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "No change.",
+    "Mild": "Wall slides join the posture block.",
+    "Moderate": "Open books and wall slides daily; overhead work stays ribs-down only.",
+    "Priority": "Thoracic mobility (open book, cat-camel, seated opener) every day before any overhead pressing or pulling."
+   },
+   "evidence": "Supine shoulder-flexion range with the lumbar spine controlled reflects thoracic extension and lat length — limited range is typical of a hunched upper back."
+  },
+  {
+   "id": "thoracic-rotation",
+   "name": "Seated Thoracic Rotation",
+   "pattern": "back",
+   "kind": "bodyweight",
+   "equipment": "Chair",
+   "setup": "Sit tall on a chair, knees together, arms crossed on your chest. Keeping the hips still, gently turn the upper body to each side as far as is comfortable. Unloaded and slow — stop if anything is painful.",
+   "inputs": [
+    {
+     "key": "R",
+     "label": "Turning RIGHT",
+     "options": [
+      [
+       "2",
+       "Easy — shoulders turn well past the knees (about 45°+)"
+      ],
+      [
+       "1",
+       "Moderate — about 30°"
+      ],
+      [
+       "0",
+       "Stiff — barely turns"
+      ]
+     ]
+    },
+    {
+     "key": "L",
+     "label": "Turning LEFT",
+     "options": [
+      [
+       "2",
+       "Easy — shoulders turn well past the knees (about 45°+)"
+      ],
+      [
+       "1",
+       "Moderate — about 30°"
+      ],
+      [
+       "0",
+       "Stiff — barely turns"
+      ]
+     ]
+    }
+   ],
+   "planChange": {
+    "Clear": "No change.",
+    "Mild": "Open books join the warm-up.",
+    "Moderate": "Open books daily, stiffer side first.",
+    "Priority": "Thoracic rotation mobility twice daily, stiffer side first; the lumbar spine must not make up the difference."
+   },
+   "evidence": "Upper-back rotation is commonly reduced with kyphotic posture; when it is limited the lower back tends to rotate instead."
+  }
+ ]
+}

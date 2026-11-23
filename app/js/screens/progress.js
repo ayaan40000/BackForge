@@ -105,12 +105,19 @@ function Body() {
 }
 
 function Posture() {
-  const S = state(), hist = S.assessHistory || [];
+  const S = state(), hist = S.assessHistory || [], checks = S.posture?.bandChecks || [], photos = S.posture?.assessments || [];
+  const pats = [['apt', 'Pelvic tilt'], ['head', 'Forward head'], ['back', 'Hunched upper back'], ['shoulders', 'Rounded shoulders']];
+  const gOf = (c, k) => c.summary?.[k] || ((k === 'head' || k === 'shoulders') && !c.v ? c.summary?.upper : null);
+  const SEV = { Clear: 0, Mild: 1, Moderate: 2, Priority: 3 };
   return html`<div class="grid-2"><div class="col">
-    <section class="card glass"><div class="kicker">Current findings</div>${S.results?.length ? html`<div class="list mt-3">${S.results.map(f => html`<div><span class=${`tag ${f.sev === 'high' ? 'att' : f.sev === 'mod' ? 'warn' : 'good'}`}>${f.sev === 'high' ? 'Priority' : f.sev === 'mod' ? 'Watch' : 'Clear'}</span><span class="grow"><span class="t">${f.t}</span>${f.fix && html`<br/><span class="d">In your plan: ${f.fix}</span>`}</span></div>`)}</div>` : html`<p class="callout mt-2">No assessment yet.</p>`}
-      <a class="btn primary mt-4" href="#/you/checkups">Retake a check-up</a></section>
+    <section class="card glass"><div class="row between"><div class="kicker">Posture grades over time</div><a class="caption" href="#/checkup/posture">Retest</a></div>
+      ${checks.length ? html`<div style="overflow-x:auto"><table class="grade-table mt-3"><thead><tr><th></th>${checks.slice(-6).map(c => html`<th>${new Date(c.date).toLocaleDateString(undefined, { day: 'numeric', month: 'short' })}</th>`)}</tr></thead>
+        <tbody>${pats.map(([k, l]) => html`<tr><th>${l}</th>${checks.slice(-6).map(c => { const g = gOf(c, k); return html`<td>${g ? html`<span class=${`tag ${{ Clear: 'good', Mild: 'calm', Moderate: 'warn', Priority: 'att' }[g]}`}>${g}</span>` : '—'}</td>`; })}</tr>`)}</tbody></table></div>
+        <p class="caption mt-2">Lower is better: Clear · Mild · Moderate · Priority.</p>` : html`<p class="callout mt-2">No posture check yet.</p><a class="btn primary mt-3" href="#/checkup/posture">Take the posture check</a>`}</section>
+    <section class="card glass"><div class="kicker">Current findings</div>${[...(S.results || []), ...(S.posture?.findings || [])].length ? html`<div class="list mt-3">${[...(S.results || []), ...(S.posture?.findings || [])].map(f => html`<div><span class=${`tag ${f.sev === 'high' ? 'att' : f.sev === 'mod' ? 'warn' : 'good'}`}>${f.sev === 'high' ? 'Priority' : f.sev === 'mod' ? 'Watch' : 'Clear'}</span><span class="grow"><span class="t">${f.t}</span>${f.fix && html`<br/><span class="d">In your plan: ${f.fix}</span>`}</span></div>`)}</div>` : html`<p class="callout mt-2">No assessment yet.</p>`}
+      <a class="btn ghost mt-4" href="#/checkup">All check-ups</a></section>
   </div><div class="col">
-    <section class="card glass"><div class="kicker">Assessment history</div>${hist.length ? html`<div class="list mt-3">${[...hist].reverse().map(h => html`<div><span class="grow"><span class="t">${new Date(h.date).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })}</span><br/><span class="d">${h.flags.length} finding${h.flags.length === 1 ? '' : 's'}: ${h.flags.slice(0, 3).join(', ')}${h.flags.length > 3 ? '…' : ''}</span></span></div>`)}</div>` : html`<p class="callout mt-2">Nothing yet.</p>`}
-      <p class="caption mt-3">Band posture grades and photo checks live in the classic tools until they're rebuilt (see the roadmap).</p></section>
+    <section class="card glass"><div class="row between"><div class="kicker">Photo checks (Muse)</div><a class="caption" href="#/checkup/photos">Open</a></div>${photos.length ? html`<div class="list mt-3">${[...photos].reverse().slice(0, 5).map(a => html`<div><span class="grow"><span class="t">${new Date(a.date).toLocaleDateString(undefined, { day: 'numeric', month: 'long' })}</span><br/><span class="d">${a.summary || Object.entries(a.patterns).slice(0, 3).map(([k, p]) => k + ': ' + p.grade).join(' · ')}</span></span></div>`)}</div>` : html`<p class="callout mt-2">No photo checks yet. Photos confirm the tests and show change over time.</p>`}</section>
+    <section class="card glass"><div class="kicker">Movement assessment history</div>${hist.length ? html`<div class="list mt-3">${[...hist].reverse().map(h => html`<div><span class="grow"><span class="t">${new Date(h.date).toLocaleDateString(undefined, { day: 'numeric', month: 'long', year: 'numeric' })}</span><br/><span class="d">${h.flags.length} finding${h.flags.length === 1 ? '' : 's'}: ${h.flags.slice(0, 3).join(', ')}${h.flags.length > 3 ? '…' : ''}</span></span></div>`)}</div>` : html`<p class="callout mt-2">Nothing yet.</p>`}</section>
   </div></div>`;
 }

@@ -9,7 +9,7 @@ import { route } from '../router.js';
 import { dayStr } from '../engine/dates.js';
 
 const CLASSIC = BASE + 'classic/index.html';
-export const VERSION = '4.5.0';
+export const VERSION = '4.6.0';
 
 export function You() {
   const S = state(), p = uiPrefs(), sub = route().parts[1];
@@ -20,13 +20,7 @@ export function You() {
   const last = d => (d ? new Date(d).toLocaleDateString(undefined, { day: 'numeric', month: 'short' }) : 'never');
   const exportJson = () => { const blob = new Blob([JSON.stringify({ ...S, profile: S.profile ? { ...S.profile, pinRecord: undefined, lock: undefined } : undefined }, null, 1)], { type: 'application/json' }); const a = document.createElement('a'); a.href = URL.createObjectURL(blob); a.download = `backforge-backup-${dayStr()}.json`; a.click(); update(x => { x.backup = { ...(x.backup || {}), lastExportAt: new Date().toISOString() }; }); };
 
-  if (sub === 'checkups') return html`<header class="screen-head"><div><div class="sub"><a href="#/you">You</a></div><h1>Check-ups</h1></div></header>
-    <section class="card glass"><p class="callout">These run in the classic tools while they're being rebuilt. Same data — anything you record there shows up here.</p>
-    <div class="list mt-4">
-      ${[['Movement assessment', '13 tests · findings that shape every plan', 'assess', last(S.assessHistory?.at(-1)?.date)], ['Band posture check', '8 band tests, graded', 'posture', last(S.posture?.history?.at?.(-1)?.date)], ['Photo check', '4 views, read by Muse', 'posture', '—'], ['Photo vault & PIN', 'Encrypted backup, privacy screen', 'more', S.profile?.pinRecord ? 'PIN on' : 'PIN off']].map(([t, d, v, l]) => html`
-        <a href=${`${CLASSIC}#${v}`}><span class="glyph"><${Icon} n="info" s=${20} /></span><span class="grow"><span class="t">${t}</span><br/><span class="d">${d}</span></span><span class="caption">${l}</span><${Icon} n="chevron" s=${16} /></a>`)}
-    </div></section>
-    <section class="card glass-thin mt-4"><p class="caption">Red-flag rules lead every check-up: new numbness in the saddle area, leg weakness, or bladder/bowel changes mean urgent care, not an app.</p></section>`;
+  if (sub === 'checkups') { location.replace('#/checkup'); return null; }
 
   return html`
   <header class="screen-head"><div><div class="sub">Profile & settings</div><h1>You</h1></div><span class="avatar" style="width:56px;height:56px;font-size:22px">${(name || 'B')[0]}</span></header>
@@ -34,7 +28,7 @@ export function You() {
     <section class="card glass"><div class="kicker mb-3">Profile</div>
       <label class="caption">First name</label><input type="text" value=${name} onChange=${e => update(x => { x.profile = { ...(x.profile || {}), displayName: e.target.value.slice(0, 40) }; })} placeholder="What should the coach call you?" />
     </section>
-    <section class="card glass"><div class="kicker mb-3">Check-ups</div><a class="row between" href="#/you/checkups"><span><span class="headline">Assessments & posture</span><br/><span class="caption">Last movement check: ${last(S.assessHistory?.at(-1)?.date)}</span></span><${Icon} n="chevron" /></a></section>
+    <section class="card glass"><div class="kicker mb-3">Check-ups</div><a class="row between" href="#/checkup"><span><span class="headline">Assessments, posture & photos</span><br/><span class="caption">Last movement check: ${last(S.assessHistory?.at(-1)?.date)}</span></span><${Icon} n="chevron" /></a></section>
     <section class="card glass"><div class="kicker mb-3">Coach</div>
       <div class="list">
         <label><span class="grow t">Voice coach</span><input type="checkbox" class="toggle" checked=${p.voice !== false} onChange=${e => setUi({ voice: e.target.checked })} /></label>

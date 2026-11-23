@@ -17,6 +17,9 @@ export function normalise(raw) {
   if (!S.health || typeof S.health !== 'object') S.health = DEFAULTS().health;
   if (!S.health.days || typeof S.health.days !== 'object') S.health.days = {};
   if (S.results != null && !Array.isArray(S.results)) S.results = null;
+  if (!S.posture || typeof S.posture !== 'object') S.posture = {};
+  for (const k of ['bandChecks', 'findings', 'captures', 'assessments', 'formLog']) if (!Array.isArray(S.posture[k])) S.posture[k] = [];
+  if (!S.posture.cues || typeof S.posture.cues !== 'object') S.posture.cues = {};
   return S;
 }
 

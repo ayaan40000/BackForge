@@ -23,7 +23,7 @@ function weakSide(c) { const t = c.findings.map(f => f.t).join(' '); return /Rig
 /** Pure preview: build + compile + script. Used by Live setup (recompiles on every change). */
 export function prepare(opts) {
   const c = ctx(); const S = state();
-  const workout = buildLive(lib(), c, opts);
+  const workout = buildLive(lib(), c, { ...opts, S });
   const ws = weakSide(c);
   const r = readiness(c), ck = c.todaysCheckin();
   const script = target => scriptSession(compile(lib(), workout, { targetMin: target, firstSide: ws || undefined }), voiceLines(), { name: (S.profile?.displayName || S.profile?.name || '').split(' ')[0], mins: opts.mins, readiness: r?.level, pain: ck?.pain, sleep: ck?.sleep, weakSide: ws, chattiness: uiPrefs().chattiness || 'standard', seed: hash(dayStr() + opts.mins) });
@@ -93,6 +93,14 @@ export function easier() {
   if (s.exId) { say('regress_ack', { regression: (s.regression || 'the smaller range').replace(/\.$/, '').toLowerCase() }, 3); persist(); }
   emit();
 }
+/** Rate form for an exercise just done (shown in the rest after its last set). r: clean | shaky | hard */
+export function rateForm(exId, r) {
+  if (!run || !exId) return;
+  run.rated = run.rated || {}; run.rated[exId] = r;
+  update(S => { S.posture = S.posture || {}; S.posture.formLog = [...(S.posture.formLog || []), { date: dayStr(), id: exId, r }].slice(-400); });
+  emit();
+}
+export const ratedFor = exId => run?.rated?.[exId] || null;
 /** kind: 'sharp' | 'achy' | 'redflag' */
 export function painReport(kind) {
   if (!run) return;
@@ -111,8 +119,8 @@ export function finish({ pain = null, leg = null } = {}) {
   if (!run) return null;
   const ids = run.player.completedIds();
   const mins = Math.max(1, Math.round(run.player.elapsed / 60));
-  const kind = run.workout.kind === 'flare' ? 'flare' : 'live';
-  logSession({ kind, title: run.workout.kind === 'flare' ? 'Relief session' : `Live workout · ${run.opts.mins} min`, pain, mins, exerciseIds: ids });
+  const kind = run.workout.kind === 'flare' ? 'flare' : run.workout.kind === 'posture' ? 'posture' : 'live';
+  logSession({ kind, title: run.workout.kind === 'flare' ? 'Relief session' : run.workout.kind === 'posture' ? `Posture session · ${run.opts.mins} min` : `Live workout · ${run.opts.mins} min`, pain, mins, exerciseIds: ids });
   update(S => { S.livePrefs = { ...(S.livePrefs || {}), mins: run.opts.mins, energy: run.opts.energy, caveats: run.opts.caveats }; if (leg != null) S.log[S.log.length - 1].leg = leg; if (run.pain.length) S.log[S.log.length - 1].painEvents = run.pain; S.liveRun = null; });
   const summary = { mins, moves: ids.length, regressions: run.player.regressed.size, ids };
   end(false);

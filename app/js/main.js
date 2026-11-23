@@ -9,6 +9,7 @@ import { LiveSetup, LivePlayer } from './screens/live.js';
 import { Moves } from './screens/moves.js';
 import { Progress } from './screens/progress.js';
 import { You } from './screens/you.js';
+import { Checkups } from './screens/checkups.js';
 import * as live from './live/session.js';
 import { fmtTime } from './ui/kit.js';
 
@@ -39,12 +40,13 @@ function Shell() {
   const r = route(), top = r.top;
   const playing = r.parts[0] === 'live' && r.parts[1] === 'play';
   const snap = !playing && live.snapshot();
-  const Screen = playing ? LivePlayer : { today: Today, live: LiveSetup, moves: Moves, progress: Progress, you: You }[top] || Today;
+  const Screen = playing ? LivePlayer : { today: Today, live: LiveSetup, moves: Moves, progress: Progress, you: You, checkup: Checkups }[top] || Today;
   return html`
     <nav class="sidenav glass" aria-label="Main">
       <div class="brand"><${Logo} s=${34} /><b>BackForge</b></div>
       <a class="start" href="#/live" aria-label="Start a Live session"><${Icon} n="play" fill /><span>Start a session</span></a>
       ${NAV.map(([k, l, ic]) => html`<a class="nav" href=${'#/' + k} aria-current=${top === k ? 'page' : undefined}><${Icon} n=${ic} /><span>${l}</span></a>`)}
+      <a class="nav" href="#/checkup" aria-current=${top === 'checkup' ? 'page' : undefined}><${Icon} n="check" /><span>Check-ups</span></a>
       <div class="grow"></div>
       ${isDemo() && html`<span class="tag" style="justify-content:center;color:var(--c-reward)">Demo</span>`}
     </nav>

@@ -5,6 +5,7 @@ import { hasBand } from './library.js';
 import { sessionExercises, flareActive, recoveryTune, STRENGTH, FLARE_ITEMS } from './plan.js';
 import { streak, exerciseResponse } from './progress.js';
 import { daysBetween, weekday } from './dates.js';
+import { buildPostureWorkout } from './corrective.js';
 
 export const LIVE_WARM = ['catcamel', 'breathing360', 'kneechest', 'figure4', 'chintuck', 'hipflexorstretch'];
 export const LIVE_COOL = ['hipflexorstretch', 'figure4', 'kneechest', 'constructiverest', 'chintuck'];
@@ -21,6 +22,7 @@ export function correctivePool(ctx) {
   if (ctx.has('Glute inhibition')) push(['clamshell', 'sidesteps']);
   if (ctx.has('Lateral endurance gap')) push(['sideplank']);
   if (ctx.has('Forward-head') || ctx.has('Rounded shoulders')) push(['facepull', 'pullapart', 'wallangel', 'chintuck']);
+  if (ctx.has('Hunched upper back')) push(['openbook', 'wallslide', 'row']);
   if (ctx.has('Guarding')) push(['singlebridge']);
   if (!out.length) push(['clamshell', 'hipir9090']);
   return out;
@@ -55,12 +57,17 @@ const named = (lib, ctx, items) => items.map(i => { const ex = lib.safeGet(i.id,
 /**
  * @param {{mins:number, energy:'great'|'ok'|'low'|'flare', caveats:string[], variant?:'standard'|'desk'}} opts
  */
-export function buildLive(lib, ctx, { mins, energy = 'ok', caveats = [], variant = 'standard' }) {
+export function buildLive(lib, ctx, { mins, energy = 'ok', caveats = [], variant = 'standard', S = null }) {
   if (flareActive(ctx) || energy === 'flare') {
     return {
       title: 'Relief session', kind: 'flare', mins, reasons: ['Pain is at flare level, so today is the relief protocol only. This is the plan working — and it still protects the streak.'],
       sections: [{ name: 'Relief', tag: 'cool', items: named(lib, ctx, FLARE_ITEMS.map(([id, dose]) => ({ id, dose }))) }],
     };
+  }
+  if (variant === 'posture' && S) {
+    const w = buildPostureWorkout(lib, ctx, S, { mins, caveats });
+    if (energy === 'low') w.sections = w.sections.map(s => ({ ...s, items: s.items.map(i => ({ ...i, dose: capSets(i.dose, 2) })) }));
+    return w;
   }
   if (variant === 'desk') {
     const items = applyCaveats(lib, ctx, DESK_BLOCK.map(id => ({ id, dose: lib.get(id)?.dose || '1 × 10' })), caveats, energy).items;

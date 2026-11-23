@@ -14,7 +14,8 @@
 | v2.0–v2.5 | Getting started is easy: Live Mode, a coach that remembers, readiness, streak repair, deload | Shipped |
 | v3.0 | Health Connect data arrives through Muse; plans react to recovery | Shipped |
 | v4.0 "Clinic Edition" | Posture grading, photo check with an encrypted vault, PIN, body plan | Shipped. Adversarial review scored it 6.4/10; the UX scored 5.5 |
-| **v4.5 "Live Studio"** | **A new app: liquid-glass UI, works on phone, tablet and desktop, and Live runs in real time with a voice coach** | **Shipping now** |
+| v4.5 "Live Studio" | A new app: liquid-glass UI, works on phone, tablet and desktop, and Live runs in real time with a voice coach | Shipped 23 Nov 2026 |
+| **v4.6 "Assess & Correct"** | **Assessments, a band + bodyweight posture check and a Muse photo check in the new app, building a phased plan that corrects what's weak** | **Shipped 23 Nov 2026** |
 
 **What the review of the old plan found:**
 
@@ -39,6 +40,10 @@
 
 ---
 
+## v4.6 — ASSESS & CORRECT *(shipped 23 Nov 2026)*
+
+**The jump: from a coach that runs a plan to one that measures what's weak, corrects it in phases, and checks the result.** The movement assessment, the posture check (8 band + 5 new bodyweight tests across four areas: pelvic tilt, forward head, hunched upper back, rounded shoulders), a phased corrective plan (Reset → Control → Strengthen → Integrate) run by the voice coach, in-session form ratings that regress or progress moves, and a photo check where Muse confirms the tests and tracks change. Details: `CHANGELOG.md`. This pulls the "check-ups rebuilt natively" item forward from v4.7. The encrypted vault and PIN setup still live in the classic app.
+
 ## v4.7 — THE COACH SEES AND HEARS *(target: Mar 2027)*
 
 **The jump: the coach stops being a script and starts *responding*. It watches your form, hears you and reads your heart, all on the device.**
@@ -49,7 +54,7 @@
    - Camera-guided check-ups, which replace the classic assessment, band check and photo check. Holds are timed, sides are measured symmetrically, and every value the camera proposes is confirmed by you.
 2. **Two-way voice.** Speech recognition for "pause", "easier", "skip", "that's sharp" (opens the pain path) and "how long left". It also takes spoken morning check-ins ("pain three, slept badly"). Training becomes truly hands-free.
 3. **Live heart rate.** Web Bluetooth connects to any standard heart-rate strap or watch broadcast. Rests become effort-adaptive (the next set starts when your heart rate has recovered, within limits), and Zone 2 minutes are measured during sessions, not estimated.
-4. **The classic app retires.** Check-ups, the vault and PIN setup are rebuilt natively. The vault gets its end-to-end restore test, video links get a liveness checker, and exercise doses become structured data (`sets/reps/hold/tempo`) instead of strings.
+4. **The classic app retires.** The vault and PIN setup are rebuilt natively (the check-ups already moved in v4.6). The vault gets its end-to-end restore test, video links get a liveness checker, and exercise doses become structured data (`sets/reps/hold/tempo`) instead of strings.
 5. **Illustrated moves.** One pose drawing per exercise, consistent and animated in Moves and the player, replacing the category icons.
 6. **WCAG 2.2 AA, audited.** Screen-reader player flows, voice control of timers, large text and high contrast.
 
@@ -87,5 +92,6 @@
 | Version | Theme | Headline proof |
 |---|---|---|
 | v4.5 | Live Studio | Press play: a real-time, voice-coached session fitted to your minutes, in a UI that works everywhere |
+| v4.6 | Assess & correct | Band + bodyweight posture check → phased corrective plan → form ratings → Muse photo confirmation |
 | v4.7 | The coach sees and hears | On-device form tracking, hands-free voice, live heart rate; classic retired |
 | v5.0 | The platform | Encrypted sync across devices, clinician mode, periodisation, open schema, published outcomes |

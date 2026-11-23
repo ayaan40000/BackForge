@@ -1,7 +1,8 @@
 // Build the engine context from the app state (the classic `backforge_v1` object).
 import { dayStr } from './dates.js';
 export function makeCtx(S, today = dayStr()) {
-  const findings = Array.isArray(S.results) ? S.results : [];
+  // movement-assessment findings + posture-check findings (classic flagSet() does the same)
+  const findings = [...(Array.isArray(S.results) ? S.results : []), ...(Array.isArray(S.posture?.findings) ? S.posture.findings : [])];
   const flags = new Set();
   for (const f of findings) {
     if ((f.t || '').includes('Extension-intolerant')) flags.add('extension-intolerant');

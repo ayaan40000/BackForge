@@ -2,6 +2,20 @@
 
 All notable changes to BackForge. Versions follow the roadmap in `docs/ROADMAP.md`.
 
+## v4.6 — Assess & Correct (2026-11-23)
+
+The check-ups now live in the new app, and they build a posture plan that corrects what they find.
+
+- **Movement assessment (13 tests), rebuilt.** One test per screen, with stop rules first. Answers save as you go, and every finding says what it changes in your plan. Scoring is the same as the classic app, checked by running 27,000 answer combinations through both and getting identical results (`dev/parity-assessment.mjs`).
+- **Posture check: 8 band tests plus 5 new bodyweight tests.** The new tests are occiput-to-wall (hunched upper back), deep neck flexor endurance (forward head), shoulder height lying down (rounded shoulders), overhead reach (upper-back stiffness) and seated upper-back rotation. They grade four areas, each Clear, Mild, Moderate or Priority: pelvis & core (anterior pelvic tilt), head & neck, upper back, and shoulders. Pain during a test stops that test. No testing on flare days, and no retest for 7 days after a test stopped for pain. Tests you don't retake keep their last grade. You can run all 13, the band set, or the no-band set.
+- **Your posture plan.** Each weak area gets a phase that matches its grade: Reset (mobility and breathing), Control (activation), Strengthen (band strength) or Integrate (maintenance). Each phase has its own band and bodyweight moves. The worst area comes first, and every move passes the same safety rules. When a retest improves a grade, that area moves to the next phase. The plan shows on Today and in Check-ups, and "Start posture session" runs it with the voice coach. Live setup now has a session type: Today's plan, Posture plan or Desk reset.
+- **Form checks inside workouts.** After each corrective move, the coach asks how your form felt (Clean / Shaky / Couldn't hold it). Two "couldn't hold it" ratings drop that move to its easier version; three clean ones in a row mark it ready to progress.
+- **Photo check, read by Muse.** Four views, each with a short stance checklist before the shutter and a faint copy of last time's photo to line up with. "Send to Muse" shares the photos, your previous set and a request that includes your test grades. Muse grades the photos, says whether they agree with your tests and what changed since last time. You record the reply, and BackForge also compares photo and test grades itself. Then vs now: a slider over your first and latest photo of each view. Photos are re-encoded on the device, which removes location and camera data. They use the same storage as the classic encrypted vault.
+- **Progress → Posture** shows your grades over time per area, current findings, Muse's reviews and assessment history.
+- **The everyday Live builder** now also reacts to a hunched-upper-back finding (open book, wall slides, rows). Posture-check findings feed every session, not just the posture plan.
+- **Demo data** now includes three posture checks that improve over time, two Muse photo reviews and form ratings.
+- Tests: 31 node tests (12 new for assessments, posture grading, the plan, the photo contract and its validation), the parity harness, and 56 real-browser checks, including a click-through of the whole posture check. Classic 113 + 50 and backend 81 still pass.
+
 ## v4.5 — Live Studio (2026-11-23)
 
 A new app. The v4.0 single file moved to `/classic` (still used for the check-ups); the root is now a rebuilt, design-led app sharing the same data.

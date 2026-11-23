@@ -40,7 +40,7 @@ test('coach: safety line in the opening, specific exercise named in every prep, 
   const tl = session(20); const tx = transcript(tl);
   assert.ok(tl.segments[0].lines.some(l => l.kind === 'safety'));
   for (const s of tl.segments.filter(s => s.type === 'prep')) assert.ok(s.lines.some(l => l.text.includes(s.name)), s.name);
-  assert.ok(tx.some(l => /pain/i.test(l.text) && l.kind === 'close'));
+  assert.ok(tx.some(l => lines.logpain.includes(l.text)), 'the close asks for a pain score');
   for (const l of tx) assert.ok(!/\{\w+\}/.test(l.text), 'unfilled placeholder: ' + l.text);
   for (const l of tx) assert.ok(!/\b(cure|heal|diagnos|treat|fix your)\b/i.test(l.text) && !/no pain,? no gain/i.test(l.text), 'banned phrasing: ' + l.text);
 });
