@@ -26,6 +26,8 @@ Read this first. It is short on purpose. The design authority is `docs/DESIGN-PR
 | `data/desk.json` | Desk problems, ergonomics checklist, micro-breaks | **Muse: data** |
 | `data/tutorial.json` | The Learn lessons (in-app tutorial) | **Muse: data** |
 | `data/voice-pronounce.json` | How the coach says tricky words (90/90, Pallof…) | Muse: data |
+| `app/voice/index.json` | Voice pack registry (which packs exist, which is default). **Task brief for a new voice: `docs/VOICE-PACK-FOR-MUSE.md`** | Muse: data |
+| `data/voice-corpus.json` / `.csv` | Every sentence the coach can say, with id + delivery style (`node tools/voice_corpus.mjs --write`) | generated |
 | `app/voice/<voice>/` | Pre-recorded natural coach voice (Kokoro-82M, Apache-2.0): `manifest.json` + one `.m4a` per sentence. Rebuild: `tools/voice_corpus.mjs` → `tools/render_voice.py` (see its header) | builders (rebuild after changing voice lines, exercises or cues) |
 | `backend/` | Optional FastAPI port of the engine (81 tests) | builders |
 | `tools/health_sync.py` | Muse's Health Connect → sync-file generator | Muse |
@@ -67,7 +69,7 @@ Clinical thresholds and exercise menus follow `docs/reviews/PHYSIO-REVIEW-2026-1
 5. `npm test`. The dose reader must understand the dose string (the test fails if not).
 
 ### Add or change coach lines
-Edit `data/voice-lines.json`. Keep the category. Rules (also in `docs/DESIGN-PROTOCOL.md` §8): second person, ≤ 12 words a sentence, no hype words (crush, smash, beast, burn, kill it), no medical claims, specific praise only for things the app actually knows (set count, side, hold length) — it cannot see the body, so never "your pelvis stayed level". Placeholders: `{name} {ex} {side} {otherSide} {set} {sets} {reps} {sec} {setupCue} {focusCue} {cue} {next} {nextSetup} {minutes} {minsLeft} {moves} {pain} {sleepPhrase} {loadPhrase} {regression} {weakSide} {longest} {rest}`. A line whose placeholders can't be filled is skipped automatically.
+Edit `data/voice-lines.json`, then `node tools/voice_corpus.mjs --write` and record the new sentence ids into the active voice pack (`node tools/voice_pack.mjs app/voice/<id>` lists what's missing). Keep the category. Rules (also in `docs/DESIGN-PROTOCOL.md` §8): second person, ≤ 12 words a sentence, no hype words (crush, smash, beast, burn, kill it), no medical claims, specific praise only for things the app actually knows (set count, side, hold length) — it cannot see the body, so never "your pelvis stayed level". Placeholders: `{name} {ex} {side} {otherSide} {set} {sets} {reps} {sec} {setupCue} {focusCue} {cue} {next} {nextSetup} {minutes} {minsLeft} {moves} {pain} {sleepPhrase} {loadPhrase} {regression} {weakSide} {longest} {rest}`. A line whose placeholders can't be filled is skipped automatically.
 
 ### Import health data (Health Connect via Muse)
 Muse runs `tools/health_sync.py` and gives the owner one JSON file; the owner imports it under **Progress → Health → Import sync file**. Accepted per-day fields (all optional, range-checked, never zero-filled): `steps, distanceKm, activeKcal, caloriesIn, caloriesOut, zone2Min, sleepMin, sleepDeepMin, sleepRemMin, sleepLightMin, sleepAwakeMin, sleepScore, restingHr, hrvMs, spo2, weightKg, bodyFatPct, vo2max, workouts[{type, min, avgHr}]`. Shape: `{ "kind": "backforge-health-sync", "version": 3, "source": "...", "days": [{ "date": "YYYY-MM-DD", ... }] }`. Validator: `parseHealthPayload()` in `app/js/store.js`; test in `tests/data.test.mjs`.

@@ -9,7 +9,12 @@
 import { duck, decode, playChain, ensureAudio, audioReady } from './audio.js';
 import { splitSentences } from './sentences.js';
 
-export const PACKS = [{ id: 'af_heart', label: 'Natural — Heart (warm, clear)' }]; // add more with tools/render_voice.py --voice <id>
+// Voice packs are data: app/voice/index.json lists them (Muse adds new ones there).
+export let PACKS = [{ id: 'af_heart', label: 'Heart — Kokoro neural voice' }];
+export let DEFAULT_PACK = 'af_heart';
+export async function loadPackIndex(base) {
+  try { const r = await fetch(`${base}app/voice/index.json`, { cache: 'no-cache' }); if (!r.ok) return; const d = await r.json(); if (Array.isArray(d.packs) && d.packs.length) PACKS = d.packs; if (d.default) DEFAULT_PACK = d.default; } catch {}
+}
 const PREFERRED = [/natural/i, /neural/i, /premium/i, /enhanced/i, /Google UK English Female/i, /Google US English/i, /Samantha/i, /Daniel/i, /Serena/i, /Karen/i, /Moira/i, /Aria/i, /Jenny/i, /Guy/i];
 let voice = null, enabled = true, rate = 1.04, volume = 1, listeners = new Set();
 let pack = null, packBase = '', buffers = new Map(), current = null, pron = null;
@@ -80,6 +85,12 @@ function speakDevice(text, pri) {
 export async function speak(text, { pri = 2 } = {}) {
   listeners.forEach(f => f(text));
   if (!enabled || !text) return;
+  // audio may still be starting (iPhone takes a moment after the tap): wait briefly
+  // rather than falling back to the robotic device voice
+  if (pack && covers(text) && !audioReady()) {
+    const c = ensureAudio();
+    if (c) { try { await Promise.race([c.resume(), new Promise(r => setTimeout(r, 1500))]); } catch {} }
+  }
   if (pack && audioReady()) {
     if (covers(text)) {
       if (pri >= 3 || current) { current?.stop(); synth()?.cancel(); }

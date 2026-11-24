@@ -2,6 +2,13 @@
 
 All notable changes to BackForge. Versions follow the roadmap in `docs/ROADMAP.md`.
 
+## v4.8.2 — Voice packs are drop-in files (2026-11-24)
+
+- **Fixed: Sound check and the first coach lines used the robotic device voice.** The app waited only 0.2 s for phone audio to start before giving up on the recorded voice. iPhones take longer, so the device voice spoke instead. The coach now waits up to 1.5 s for audio to start.
+- **New voices need no code.** `app/voice/index.json` lists the available voice packs and the default; the app reads it at start-up. Brief for producing a new voice: `docs/VOICE-PACK-FOR-MUSE.md`. It describes "Nova", the energetic female trainer voice, with delivery per line type, the audio spec, pronunciations and the checks to run.
+- **The full script, ready to record.** `data/voice-corpus.json` and `.csv` hold every sentence the coach can say (5,303), each with an id (= file name), category and delivery style (energetic / coaching / calm / safety).
+- **`tools/voice_pack.mjs`** builds a pack's manifest from a folder of audio files, measures each clip, and reports coverage, listing anything missing in `missing.csv`. A test fails if the script file falls out of date.
+
 ## v4.8.1 — The coach's voice works on phones (2026-11-23)
 
 - **Fixed: no voice (and no beeps) on iPhone.** iPhone Safari only lets a page make sound if the audio starts inside a tap. BackForge was switching audio on a moment *after* you tapped Start, when the player screen opened, so the phone kept it muted for the whole session. Now every tap switches sound on, and tapping Start is enough.

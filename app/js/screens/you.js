@@ -5,14 +5,15 @@ import { Icon } from '../ui/icons.js';
 import { Seg } from '../ui/kit.js';
 import { state, update, uiPrefs, setUi, isDemo, enterDemo, exitDemo, KEY } from '../store.js';
 import { BASE } from '../data.js';
-import { voices, speak, configureVoice, PACKS, loadPack, voiceState, packSize, stats } from '../live/voice.js';
+import { voices, speak, configureVoice, loadPack, voiceState, packSize, stats } from '../live/voice.js';
+import * as voiceMod from '../live/voice.js';
 import { unlockAudio, audioReady, cue } from '../live/audio.js';
 import { route } from '../router.js';
 import { Privacy } from './privacy.js';
 import { KitScreen } from './kit.js';
 import { dayStr } from '../engine/dates.js';
 
-export const VERSION = '4.8.1';
+export const VERSION = '4.8.2';
 
 export function You() {
   const S = state(), p = uiPrefs(), sub = route().parts[1];
@@ -44,9 +45,9 @@ export function You() {
       </div>
       <div class="mt-4"><div class="caption mb-2">How much the coach talks</div><${Seg} label="Chattiness" value=${p.chattiness || 'standard'} onChange=${v => setUi({ chattiness: v })} options=${[['quiet', 'Quiet'], ['standard', 'Standard'], ['full', 'Full']]} /></div>
       <div class="mt-4"><div class="caption mb-2">Speed</div><${Seg} label="Voice speed" value=${p.rate || 1.04} onChange=${v => setUi({ rate: v })} options=${[[0.92, 'Slower'], [1.04, 'Normal'], [1.14, 'Faster']]} /></div>
-      <div class="mt-4"><div class="caption mb-2">Coach voice</div><select value=${p.voicePack ?? 'af_heart'} onChange=${async e => { setUi({ voicePack: e.target.value }); const ok = await loadPack(e.target.value, BASE); if (!ok && e.target.value !== 'device') alert('That natural voice isn’t available yet — using the device voice.'); }}>
-        ${PACKS.map(v => html`<option value=${v.id}>${v.label}</option>`)}<option value="device">Device voice (built into your phone/computer)</option></select>
-        <p class="caption mt-2">Natural voices are recorded with an open-source neural voice (Kokoro) and play offline once loaded.</p></div>
+      <div class="mt-4"><div class="caption mb-2">Coach voice</div><select value=${p.voicePack ?? voiceMod.DEFAULT_PACK} onChange=${async e => { setUi({ voicePack: e.target.value }); const ok = await loadPack(e.target.value, BASE); if (!ok && e.target.value !== 'device') alert('That natural voice isn’t available yet — using the device voice.'); }}>
+        ${voiceMod.PACKS.map(v => html`<option value=${v.id}>${v.label}</option>`)}<option value="device">Device voice (built into your phone/computer)</option></select>
+        <p class="caption mt-2">Recorded voices play offline once loaded. New voices are added as files (app/voice/index.json).</p></div>
       ${(p.voicePack === 'device') && vs.length > 0 && html`<div class="mt-4"><div class="caption mb-2">Device voice (${vs.length} on this device)</div><select value=${p.voiceName || ''} onChange=${e => setUi({ voiceName: e.target.value || null })}><option value="">Best available</option>${vs.map(v => html`<option value=${v.name}>${v.name}${v.localService ? '' : ' (online)'}</option>`)}</select></div>`}
       <button class="btn ghost mt-3" onClick=${() => { configureVoice({ enabled: true, rate: p.rate || 1.04, name: p.voiceName || undefined }); unlockAudio(); setTimeout(() => { cue('go'); speak('First up: Bird-Dog. Hands under shoulders, knees under hips. Focus: reach long, not high.', { pri: 3 }); setTimeout(() => force?.(x => x + 1), 1500); }, 200); }}><${Icon} n="voice" s=${18} /> Sound check</button>
       <p class="caption mt-2">Sound: ${audioReady() ? 'on' : 'not started yet — tap Sound check'} · Voice: ${voiceState().pack ? `natural (${packSize()} recorded lines)` : 'device voice'}${stats.failed ? ` · ${stats.failed} clips failed to load` : ''}. On iPhone, also check the volume buttons.</p>
