@@ -2,6 +2,10 @@
 
 All notable changes to BackForge. Versions follow the roadmap in `docs/ROADMAP.md`.
 
+## Voice pack: Nova (2026-11-23)
+
+- **New default coach voice: Nova — energetic coach.** `app/voice/coach_nova/` holds all 5,303 coach sentences as individual MP3 clips (mono, 64 kbps, loudness-matched at −16 LUFS), recorded with a neural text-to-speech voice (energetic female personal-trainer delivery, per-style pacing: energetic / coaching / calm / safety). Registered in `app/voice/index.json` as the default; the Heart pack remains available as a fallback.
+
 ## v4.8.2 — Voice packs are drop-in files (2026-11-24)
 
 - **Fixed: Sound check and the first coach lines used the robotic device voice.** The app waited only 0.2 s for phone audio to start before giving up on the recorded voice. iPhones take longer, so the device voice spoke instead. The coach now waits up to 1.5 s for audio to start.
