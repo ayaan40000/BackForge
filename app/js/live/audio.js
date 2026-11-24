@@ -41,7 +41,7 @@ export function ensureAudio() {
   master = ctx.createGain(); master.gain.value = 0.9;
   cueBus = ctx.createGain(); cueBus.gain.value = 0.8;
   bedBus = ctx.createGain(); bedBus.gain.value = 0;
-  voiceBus = ctx.createGain(); voiceBus.gain.value = 1;
+  voiceBus = ctx.createGain(); voiceBus.gain.value = 0.85; // a little headroom: some clips peak at 0 dBFS
   cueBus.connect(master); bedBus.connect(master); voiceBus.connect(master);
   master.connect(ctx.destination);
   try {

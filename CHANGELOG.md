@@ -2,7 +2,13 @@
 
 All notable changes to BackForge. Versions follow the roadmap in `docs/ROADMAP.md`.
 
-## Voice pack: Nova (2026-11-23)
+## v4.8.3 — Nova is the coach (2026-11-24)
+
+- **Everyone hears Nova now.** If you had picked another voice while testing, the app switches you to Nova once, because it's the new default. You can switch back in You → Coach. Sound check now names the voice it's using.
+- Nova plays slightly below full volume so the loudest syllables never distort.
+- Checked before release: all 5,303 lines are present; loudness is −16.4 to −14.8 LUFS across a 40-clip sample; there is no clipping (only isolated peaks from MP3 encoding); and in a full browser session, Sound check and Live play Nova's recorded clips with no device-voice fallback.
+
+### From Muse: voice pack Nova
 
 - **New default coach voice: Nova — energetic coach.** `app/voice/coach_nova/` holds all 5,303 coach sentences as individual MP3 clips (mono, 64 kbps, loudness-matched at −16 LUFS), recorded with a neural text-to-speech voice (energetic female personal-trainer delivery, per-style pacing: energetic / coaching / calm / safety). Registered in `app/voice/index.json` as the default; the Heart pack remains available as a fallback.
 

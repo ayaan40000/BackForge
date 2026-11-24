@@ -101,7 +101,12 @@ function App() {
     if (q.has('demo') && !isDemo()) await enterDemo();
     load(); applyPrefs();
     loadPronunciation(BASE);
-    loadPackIndex(BASE).then(() => { const want = uiPrefs().voicePack; loadPack(want && (want === 'device' || voiceMod.PACKS.some(p => p.id === want)) ? want : voiceMod.DEFAULT_PACK, BASE); });
+    loadPackIndex(BASE).then(() => {
+      // a new default voice (app/voice/index.json) moves everyone to it once; they can switch back in You → Coach
+      if (uiPrefs().voiceDefaultSeen !== voiceMod.DEFAULT_PACK) setUi({ voicePack: voiceMod.DEFAULT_PACK, voiceDefaultSeen: voiceMod.DEFAULT_PACK });
+      const want = uiPrefs().voicePack;
+      loadPack(want && (want === 'device' || voiceMod.PACKS.some(p => p.id === want)) ? want : voiceMod.DEFAULT_PACK, BASE);
+    });
     matchMedia('(prefers-color-scheme: light)').addEventListener('change', applyPrefs);
     document.addEventListener('visibilitychange', () => document.documentElement.toggleAttribute('data-hidden', document.hidden));
     render(html`<${App} />`, document.getElementById('app'));
