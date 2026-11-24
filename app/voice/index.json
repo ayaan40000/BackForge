@@ -1,7 +1,14 @@
 {
  "_about": "Coach voice packs. The app offers every pack listed here and uses `default` unless the user picked another. Add a pack: put its files in app/voice/<id>/, run `node tools/voice_pack.mjs app/voice/<id>`, then add it below and set it as default. Brief: docs/VOICE-PACK-FOR-MUSE.md",
- "default": "af_heart",
+ "default": "coach_nova",
  "packs": [
-  { "id": "af_heart", "label": "Heart — Kokoro neural voice (warm, clear)" }
+  {
+   "id": "af_heart",
+   "label": "Heart \u2014 Kokoro neural voice (warm, clear)"
+  },
+  {
+   "id": "coach_nova",
+   "label": "Nova \u2014 energetic coach"
+  }
  ]
 }

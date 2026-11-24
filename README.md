@@ -83,7 +83,7 @@ Honest limits, by design:
 
 ## Voice pack (natural coach voice)
 
-`app/voice/af_heart/` holds one AAC clip per sentence the coach can say, plus `manifest.json` (text → file and length). They are rendered on a computer with Kokoro-82M (Apache-2.0) via `kokoro-onnx`; see the header of `tools/render_voice.py`. Rebuild after changing voice lines, exercise names or cues: `node tools/voice_corpus.mjs > /tmp/corpus.json`, then run `render_voice.py`. It only renders new sentences. A line without a recording falls back to the device voice for safety and brief lines, and to captions only for small talk.
+`app/voice/` holds one clip per sentence the coach can say, plus `manifest.json` (text → file and length), in switchable packs listed in `app/voice/index.json`. The default is `coach_nova/` ("Nova", an energetic female trainer voice; MP3 clips rendered with a neural text-to-speech engine to the spec in `docs/VOICE-PACK-FOR-MUSE.md`, loudness-matched at −16 LUFS). The original pack, `af_heart/`, holds AAC clips rendered on a computer with Kokoro-82M (Apache-2.0) via `kokoro-onnx`; see the header of `tools/render_voice.py`. Rebuild the Kokoro pack after changing voice lines, exercise names or cues: `node tools/voice_corpus.mjs > /tmp/corpus.json`, then run `render_voice.py`. It only renders new sentences. A line without a recording falls back to the device voice for safety and brief lines, and to captions only for small talk.
 
 ## Roadmap
 
