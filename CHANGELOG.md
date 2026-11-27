@@ -2,6 +2,12 @@
 
 All notable changes to BackForge. Versions follow the roadmap in `docs/ROADMAP.md`.
 
+## v4.8.4 — New logo (2026-11-27)
+
+- **New BackForge logo: the "Vertebra B".** The letter B is cut into vertebrae that get bigger toward the base, so the initial reads as a spine. It's lime on the navy tile and replaces the three-arch mark.
+- Updated everywhere the logo appears: the header, the browser tab icon, the home-screen icon (iPhone and Android, including the maskable version) and the files in `app/`. Below 48 px the app uses a simpler cut with two gaps instead of three, so the gaps stay open on a phone tab.
+- Logo masters and usage notes are in `docs/brand/`. No behaviour or data changes.
+
 ## v4.8.3 — Nova is the coach (2026-11-24)
 
 - **Everyone hears Nova now.** If you had picked another voice while testing, the app switches you to Nova once, because it's the new default. You can switch back in You → Coach. Sound check now names the voice it's using.

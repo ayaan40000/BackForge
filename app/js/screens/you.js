@@ -13,7 +13,7 @@ import { Privacy } from './privacy.js';
 import { KitScreen } from './kit.js';
 import { dayStr } from '../engine/dates.js';
 
-export const VERSION = '4.8.3';
+export const VERSION = '4.8.4';
 
 export function You() {
   const S = state(), p = uiPrefs(), sub = route().parts[1];
